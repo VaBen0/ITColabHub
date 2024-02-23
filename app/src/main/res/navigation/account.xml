@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/account"
+    app:startDestination="@id/empty">
+
+    <fragment
+        android:id="@+id/rating"
+        android:name="ru.dvteam.itcollabhub.Rating"
+        android:label="Rating" >
+        <action
+            android:id="@+id/action_rating_to_projects"
+            app:destination="@id/projects" />
+        <action
+            android:id="@+id/action_rating_to_friends"
+            app:destination="@id/friends" />
+    </fragment>
+    <fragment
+        android:id="@+id/friends"
+        android:name="ru.dvteam.itcollabhub.Friends"
+        android:label="Friends" >
+        <action
+            android:id="@+id/action_friends_to_rating"
+            app:destination="@id/rating" />
+        <action
+            android:id="@+id/action_friends_to_projects"
+            app:destination="@id/projects" />
+    </fragment>
+    <fragment
+        android:id="@+id/projects"
+        android:name="ru.dvteam.itcollabhub.Projects"
+        android:label="Projects" >
+        <action
+            android:id="@+id/action_projects_to_friends"
+            app:destination="@id/friends" />
+        <action
+            android:id="@+id/action_projects_to_rating"
+            app:destination="@id/rating" />
+    </fragment>
+    <fragment
+        android:id="@+id/empty"
+        android:name="ru.dvteam.itcollabhub.Empty"
+        android:label="fragment_empty"
+        tools:layout="@layout/fragment_empty" >
+        <action
+            android:id="@+id/action_empty_to_rating"
+            app:destination="@id/rating" />
+    </fragment>
+</navigation>

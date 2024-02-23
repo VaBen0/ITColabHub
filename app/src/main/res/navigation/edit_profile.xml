@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/edit_profile"
+    app:startDestination="@id/accountLinks">
+
+    <fragment
+        android:id="@+id/aboutApp"
+        android:name="ru.dvteam.itcollabhub.AboutApp"
+        android:label="fragment_about_app"
+        tools:layout="@layout/fragment_about_app" >
+        <action
+            android:id="@+id/action_aboutApp_to_accountLinks"
+            app:destination="@id/accountLinks" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountLinks"
+        android:name="ru.dvteam.itcollabhub.AccountLinks"
+        android:label="AccountLinks" >
+        <action
+            android:id="@+id/action_accountLinks_to_aboutApp"
+            app:destination="@id/aboutApp" />
+    </fragment>
+</navigation>

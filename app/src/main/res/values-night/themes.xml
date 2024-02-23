@@ -1,0 +1,31 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.ITCollabHub" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/darkColorPrimary</item> -->
+        <item name="colorPrimary">@color/dark_theme</item>
+        <item name="colorPrimaryVariant">@color/green</item>
+        <item name="colorOnPrimary">@color/light_gray</item>
+        <item name="android:windowBackground">@color/dark_theme</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="background_progress">@color/gray</item>
+        <item name="background_panel">@color/dark_panel</item>
+        <item name="background_panel_tasks1">@color/dark_theme</item>
+        <item name="background_panel2">@color/dark_panel</item>
+        <item name="transperent_text_color">@color/gray1</item>
+        <item name="purpose_icon">@drawable/dart_board</item>
+        <item name="problems_icon">@drawable/problems</item>
+        <item name="tasks_icon">@drawable/tasks</item>
+        <item name="files_icon">@drawable/files</item>
+        <item name="advertisments_icon">@drawable/megaphone</item>
+        <item name="edit_project_icon">@drawable/redaktirovat</item>
+        <item name="chat_icon">@drawable/chat</item>
+        <item name="logo_type">@drawable/app_logo</item>
+        <item name="time_icon">@drawable/time_white</item>
+    </style>
+
+    <style name="Theme.ITCollabHub" parent="Base.Theme.ITCollabHub">
+        <item name="colorPrimary">@color/dark_theme</item>
+    </style>
+</resources>

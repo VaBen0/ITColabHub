@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Forgot">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="409dp"
+        android:layout_height="58dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/it"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IT"
+            android:textSize="50sp" />
+
+        <TextView
+            android:id="@+id/collaborotory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Collab"
+            android:textColor="@color/main_green"
+            android:textSize="50sp" />
+
+        <TextView
+            android:id="@+id/hub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hub"
+            android:textSize="50sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Восстановление пароля"
+        android:textSize="29sp"
+        android:layout_marginTop="38dp"
+        android:layout_marginStart="21dp"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <TextView
+        android:id="@+id/main_text"
+        android:layout_width="365dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="9dp"
+        android:text="Мы отправили вам на почту код для её подтверждения. Введите его в поле ниже для продолжения."
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/confirm"
+        tools:ignore="TextSizeCheck" />
+
+    <EditText
+        android:id="@+id/mailu"
+        android:layout_width="344dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/rounded"
+        android:hint="Адрес электронной почты"
+        android:paddingStart="25dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_text"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/enter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="16dp"
+        android:text="Или"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/confirmBut"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:ignore="TextSizeCheck" />
+
+    <TextView
+        android:id="@+id/enterBut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:text="Войти"
+        android:textColor="#1f57db"
+        app:layout_constraintBottom_toTopOf="@id/confirmBut"
+        app:layout_constraintLeft_toRightOf="@+id/enter"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/confirmBut"
+        android:layout_width="285dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="300dp"
+        android:text="Отправить код"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/main_green"
+        app:layout_constraintTop_toBottomOf="@+id/mailu"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/ver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="1.0.0"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/confirmBut"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

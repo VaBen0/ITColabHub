@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/project"
+    app:startDestination="@id/differentActivity">
+    <fragment
+        android:id="@+id/differentActivity"
+        android:name="ru.dvteam.itcollabhub.DifferentActivity"
+        android:label="fragment_different_activity"
+        tools:layout="@layout/fragment_different_activity" >
+        <action
+            android:id="@+id/action_differentActivity_to_participant"
+            app:destination="@id/participant" />
+    </fragment>
+    <fragment
+        android:id="@+id/participant"
+        android:name="ru.dvteam.itcollabhub.Participant"
+        android:label="Participant" >
+        <action
+            android:id="@+id/action_participant_to_differentActivity"
+            app:destination="@id/differentActivity" />
+    </fragment>
+</navigation>

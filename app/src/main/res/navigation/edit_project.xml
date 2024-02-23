@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/edit_project"
+    app:startDestination="@id/empty2">
+
+    <fragment
+        android:id="@+id/editProjectFragment"
+        android:name="ru.dvteam.itcollabhub.EditProjectFragment"
+        android:label="fragment_edit_project"
+        tools:layout="@layout/fragment_edit_project" >
+        <action
+            android:id="@+id/action_editProjectFragment_to_participantEditProject"
+            app:destination="@id/participantEditProject" />
+    </fragment>
+    <fragment
+        android:id="@+id/participantEditProject"
+        android:name="ru.dvteam.itcollabhub.ParticipantEditProject"
+        android:label="ParticipantEditProject" >
+        <action
+            android:id="@+id/action_participantEditProject_to_editProjectFragment"
+            app:destination="@id/editProjectFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/empty2"
+        android:name="ru.dvteam.itcollabhub.Empty"
+        android:label="fragment_empty"
+        tools:layout="@layout/fragment_empty" >
+        <action
+            android:id="@+id/action_empty2_to_editProjectFragment"
+            app:destination="@id/editProjectFragment" />
+    </fragment>
+</navigation>

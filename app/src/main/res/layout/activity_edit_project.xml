@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateProject">
+
+    <ImageView
+        android:id="@+id/pr_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_second_type" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="-10dp"
+        android:layout_marginBottom="-20dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/pr_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/projectName"
+        app:srcCompat="@drawable/bacground_for_photo" />
+
+    <EditText
+        android:id="@+id/projectName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="3dp"
+        android:hint="Имя проекта"
+        android:backgroundTint="@color/transparent"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="30sp"
+        android:textStyle="italic|bold"
+        app:layout_constraintBottom_toBottomOf="@+id/pr_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="Выбрать изображение проекта"
+        android:textColor="@color/white_transparent"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toBottomOf="@+id/pr_logo"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pr_logo">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/edit_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Редактирование"
+                android:textSize="16sp"
+                android:textStyle="italic|bold"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <View
+                android:id="@+id/linear_edit"
+                android:layout_width="150dp"
+                android:layout_height="3dp"
+                android:layout_gravity="center"
+                android:background="@drawable/blue_line" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/participiant_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Участники"
+                android:textSize="16sp"
+                android:textStyle="italic|bold"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <View
+                android:id="@+id/linear_participiant"
+                android:layout_width="150dp"
+                android:layout_height="3dp"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/fragmentContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        app:defaultNavHost="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:navGraph="@navigation/edit_project" />
+
+    <View
+        android:id="@+id/tint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_transperent2"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/panel"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:src="@color/white3"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/CornerCut" />
+
+    <TextView
+        android:id="@+id/confirmationText"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:visibility="gone"
+        android:gravity="center_horizontal"
+        android:text="Вы уверены, что хотите завершить проект?"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/panel" />
+
+    <Button
+        android:id="@+id/yesBut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="@color/green"
+        android:visibility="gone"
+        android:text="Да"
+        android:textColor="@color/white"
+        app:cornerRadius="10dp"
+        app:layout_constraintStart_toStartOf="@+id/panel"
+        app:layout_constraintTop_toBottomOf="@+id/confirmationText" />
+
+    <Button
+        android:id="@+id/noBut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="50dp"
+        android:backgroundTint="@color/red"
+        android:visibility="gone"
+        android:text="Нет"
+        android:textColor="@color/white"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/panel"
+        app:layout_constraintTop_toBottomOf="@+id/confirmationText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

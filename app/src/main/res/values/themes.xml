@@ -1,0 +1,99 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.ITCollabHub" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:textColorHint">@color/black</item>
+        <item name="background_progress">@color/gray1</item>
+        <item name="background_panel">@color/background_panel_day</item>
+        <item name="background_panel_tasks1">@color/background_panel_day</item>
+        <item name="background_panel2">@color/background_panel_day1</item>
+        <item name="transperent_text_color">@color/light_black</item>
+        <item name="purpose_icon">@drawable/day_purp</item>
+        <item name="problems_icon">@drawable/day_problem</item>
+        <item name="tasks_icon">@drawable/day_task</item>
+        <item name="files_icon">@drawable/day_property</item>
+        <item name="advertisments_icon">@drawable/day_megaphone</item>
+        <item name="edit_project_icon">@drawable/day_edit</item>
+        <item name="chat_icon">@drawable/day_chat</item>
+        <item name="logo_type">@drawable/day_app_logo</item>
+        <item name="time_icon">@drawable/time</item>
+    </style>
+
+    <style name="Theme.ITCollabHub.New" parent="Base.Theme.ITCollabHub">
+        <item name="background">@color/gray1</item>
+    </style>
+
+    <style name="Theme.ITCollabHub" parent="Base.Theme.ITCollabHub">
+        <item name="colorPrimary">@color/white1</item>
+    </style>
+
+    <style name="Theme.ITCollabHub.Blue" parent="Base.Theme.ITCollabHub">
+        <item name="colorPrimary">@color/blue</item>
+    </style>
+    <style name="Theme.ITCollabHub.Green" parent="Base.Theme.ITCollabHub">
+        <item name="colorPrimary">@color/green</item>
+    </style>
+    <style name="Theme.ITCollabHub.Brown" parent="Base.Theme.ITCollabHub">
+        <item name="colorPrimary">@color/brown</item>
+    </style>
+    <style name="Theme.ITCollabHub.Gray" parent="Base.Theme.ITCollabHub">
+        <item name="colorPrimary">@color/light_gray</item>
+    </style>
+    <style name="Theme.ITCollabHub.Ohra" parent="Base.Theme.ITCollabHub">
+        <item name="colorPrimary">@color/ohra</item>
+    </style>
+    <style name="Theme.ITCollabHub.Red" parent="Base.Theme.ITCollabHub">
+        <item name="colorPrimary">@color/red</item>
+    </style>
+    <style name="Theme.ITCollabHub.Orange" parent="Base.Theme.ITCollabHub">
+        <item name="colorPrimary">@color/orange</item>
+    </style>
+    <style name="Theme.ITCollabHub.Violete" parent="Base.Theme.ITCollabHub">
+        <item name="colorPrimary">@color/violete</item>
+    </style>
+    <style name="Theme.ITCollabHub.Green1" parent="Base.Theme.ITCollabHub">
+        <item name="colorPrimary">@color/main_green</item>
+    </style>
+    <style name="CornerCut" parent="">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeTopLeft">20dp</item>
+        <item name="cornerSizeTopRight">20dp</item>
+        <item name="cornerSizeBottomLeft">20dp</item>
+        <item name="cornerSizeBottomRight">20dp</item>
+    </style>
+
+    <style name="CornerCut2" parent="">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeTopLeft">15dp</item>
+        <item name="cornerSizeTopRight">15dp</item>
+        <item name="cornerSizeBottomLeft">15dp</item>
+        <item name="cornerSizeBottomRight">15dp</item>
+    </style>
+
+    <style name="CornerCut3" parent="">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeTopLeft">70dp</item>
+        <item name="cornerSizeTopRight">70dp</item>
+        <item name="cornerSizeBottomLeft">70dp</item>
+        <item name="cornerSizeBottomRight">70dp</item>
+    </style>
+
+    <style name="CornerCutForMini" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="CornerCutALittle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20%</item>
+    </style>
+
+</resources>

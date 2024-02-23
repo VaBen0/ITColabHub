@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activities"
+    app:startDestination="@id/clop1">
+
+    <fragment
+        android:id="@+id/clop1"
+        android:name="ru.dvteam.itcollabhub.Purposes"
+        android:label="Purposes" >
+        <action
+            android:id="@+id/action_purposes_to_tasks"
+            app:destination="@id/clop3" />
+        <action
+            android:id="@+id/action_purposes_to_deadline"
+            app:destination="@id/clop2" />
+    </fragment>
+    <fragment
+        android:id="@+id/clop2"
+        android:name="ru.dvteam.itcollabhub.Deadline"
+        android:label="fragment_deadline"
+        tools:layout="@layout/fragment_deadline" >
+        <action
+            android:id="@+id/action_deadline_to_purposes"
+            app:destination="@id/clop1" />
+        <action
+            android:id="@+id/action_deadline_to_tasks"
+            app:destination="@id/clop3" />
+    </fragment>
+    <fragment
+        android:id="@+id/clop3"
+        android:name="ru.dvteam.itcollabhub.Tasks"
+        android:label="Tasks" >
+        <action
+            android:id="@+id/action_tasks_to_purposes"
+            app:destination="@id/clop1" />
+        <action
+            android:id="@+id/action_tasks_to_deadline"
+            app:destination="@id/clop2" />
+    </fragment>
+</navigation>

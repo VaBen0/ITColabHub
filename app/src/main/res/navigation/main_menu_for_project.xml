@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_menu_for_project"
+    app:startDestination="@id/exerciseMain">
+
+    <fragment
+        android:id="@+id/exerciseMain"
+        android:name="ru.dvteam.itcollabhub.ExerciseMain"
+        android:label="ExerciseMain" >
+        <action
+            android:id="@+id/action_exerciseMain_to_deadlineMain"
+            app:destination="@id/deadlineMain" />
+        <action
+            android:id="@+id/action_exerciseMain_to_tasks_main"
+            app:destination="@id/tasks_main" />
+        <action
+            android:id="@+id/action_exerciseMain_to_purpose_main"
+            app:destination="@id/purpose_main" />
+    </fragment>
+    <fragment
+        android:id="@+id/purpose_main"
+        android:name="ru.dvteam.itcollabhub.Purpose_main"
+        android:label="Purpose_main" >
+        <action
+            android:id="@+id/action_purpose_main_to_exerciseMain"
+            app:destination="@id/exerciseMain" />
+        <action
+            android:id="@+id/action_purpose_main_to_deadlineMain"
+            app:destination="@id/deadlineMain" />
+        <action
+            android:id="@+id/action_purpose_main_to_tasks_main"
+            app:destination="@id/tasks_main" />
+    </fragment>
+    <fragment
+        android:id="@+id/tasks_main"
+        android:name="ru.dvteam.itcollabhub.tasks_main"
+        android:label="tasks_main" >
+        <action
+            android:id="@+id/action_tasks_main_to_exerciseMain"
+            app:destination="@id/exerciseMain" />
+        <action
+            android:id="@+id/action_tasks_main_to_deadlineMain"
+            app:destination="@id/deadlineMain" />
+        <action
+            android:id="@+id/action_tasks_main_to_purpose_main"
+            app:destination="@id/purpose_main" />
+    </fragment>
+    <fragment
+        android:id="@+id/deadlineMain"
+        android:name="ru.dvteam.itcollabhub.DeadlineMain"
+        android:label="DeadlineMain" >
+        <action
+            android:id="@+id/action_deadlineMain_to_exerciseMain"
+            app:destination="@id/exerciseMain" />
+        <action
+            android:id="@+id/action_deadlineMain_to_purpose_main"
+            app:destination="@id/purpose_main" />
+        <action
+            android:id="@+id/action_deadlineMain_to_tasks_main"
+            app:destination="@id/tasks_main" />
+    </fragment>
+</navigation>
