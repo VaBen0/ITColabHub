@@ -292,113 +292,117 @@ public class CreateTask extends AppCompatActivity {
         binding.uploadTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stringBlock = new ArrayList<String>();
-                linkBlock = new ArrayList<String>();;
-                youtubeBlock = new ArrayList<String>();
-                imageBlock = new ArrayList<String>();
-                enter = true;
-                int count = binding.main.getChildCount();
-                int imgCount = 0;
-                if(count > 0){
-                    for(int i = 0; i < count; i++){
-                        View custom = binding.main.getChildAt(i);
-                        if(type.get(i).equals("1")){
-                            EditText text = custom.findViewById(R.id.text);
-                            if(text.getText().toString().isEmpty()){
-                                Toast.makeText(CreateTask.this, "Нет текств", Toast.LENGTH_SHORT).show();
-                                enter = false;
-                                break;
+                if(binding.taskName.getText().toString().isEmpty()){
+                    Toast.makeText(CreateTask.this, "Дайте название заданию", Toast.LENGTH_SHORT).show();
+                }else{
+                    stringBlock = new ArrayList<String>();
+                    linkBlock = new ArrayList<String>();;
+                    youtubeBlock = new ArrayList<String>();
+                    imageBlock = new ArrayList<String>();
+                    enter = true;
+                    int count = binding.main.getChildCount();
+                    int imgCount = 0;
+                    if(count > 0) {
+                        for (int i = 0; i < count; i++) {
+                            View custom = binding.main.getChildAt(i);
+                            if (type.get(i).equals("1")) {
+                                EditText text = custom.findViewById(R.id.text);
+                                if (text.getText().toString().isEmpty()) {
+                                    Toast.makeText(CreateTask.this, "Нет текств", Toast.LENGTH_SHORT).show();
+                                    enter = false;
+                                    break;
+                                }
+                                stringBlock.add(text.getText().toString());
                             }
-                            stringBlock.add(text.getText().toString());
+                            if (type.get(i).equals("2")) {
+                                EditText linkTitle = custom.findViewById(R.id.name_link);
+                                if (linkTitle.getText().toString().isEmpty()) {
+                                    Toast.makeText(CreateTask.this, "Нет названия ссылки", Toast.LENGTH_SHORT).show();
+                                    enter = false;
+                                    break;
+                                }
+                                EditText link = custom.findViewById(R.id.link_main);
+                                if (link.getText().toString().isEmpty()) {
+                                    Toast.makeText(CreateTask.this, "Нет ссылки", Toast.LENGTH_SHORT).show();
+                                    enter = false;
+                                    break;
+                                }
+                                String s = linkTitle.getText().toString() + "\uD83D\uDD70" + link.getText().toString();
+                                linkBlock.add(s);
+                            }
+                            if (type.get(i).equals("4")) {
+                                EditText linkTitle = custom.findViewById(R.id.linkTitle);
+                                if (linkTitle.getText().toString().isEmpty()) {
+                                    Toast.makeText(CreateTask.this, "Нет названия ссылки на Ютуб", Toast.LENGTH_SHORT).show();
+                                    enter = false;
+                                    break;
+                                }
+                                EditText link = custom.findViewById(R.id.link);
+                                if (link.getText().toString().isEmpty()) {
+                                    Toast.makeText(CreateTask.this, "Нет ссылки на Ютуб", Toast.LENGTH_SHORT).show();
+                                    enter = false;
+                                    break;
+                                }
+                                String s = linkTitle.getText().toString() + "\uD83D\uDD70" + link.getText().toString();
+                                youtubeBlock.add(s);
+                            }
+                            if (type.get(i).equals("3")) {
+                                EditText imgTitle = custom.findViewById(R.id.title);
+                                if (imgTitle.getText().toString().isEmpty()) {
+                                    Toast.makeText(CreateTask.this, "Нет названия изображения", Toast.LENGTH_SHORT).show();
+                                    enter = false;
+                                    break;
+                                }
+                                if (mediaPaths.size() <= imgCount) {
+                                    Toast.makeText(CreateTask.this, "Нет изображения", Toast.LENGTH_SHORT).show();
+                                    enter = false;
+                                    break;
+                                }
+                                String s = mediaPaths.get(imgCount) + "\uD83D\uDD70" + imgTitle.getText().toString();
+                                imageBlock.add(s);
+                                imgCount++;
+                            }
                         }
-                        if(type.get(i).equals("2")){
-                            EditText linkTitle = custom.findViewById(R.id.name_link);
-                            if(linkTitle.getText().toString().isEmpty()){
-                                Toast.makeText(CreateTask.this, "Нет названия ссылки", Toast.LENGTH_SHORT).show();
-                                enter = false;
-                                break;
-                            }
-                            EditText link = custom.findViewById(R.id.link_main);
-                            if(link.getText().toString().isEmpty()){
-                                Toast.makeText(CreateTask.this, "Нет ссылки", Toast.LENGTH_SHORT).show();
-                                enter = false;
-                                break;
-                            }
-                            String s = linkTitle.getText().toString() + "\uD83D\uDD70" + link.getText().toString();
-                            linkBlock.add(s);
-                        }
-                        if(type.get(i).equals("4")){
-                            EditText linkTitle = custom.findViewById(R.id.linkTitle);
-                            if(linkTitle.getText().toString().isEmpty()){
-                                Toast.makeText(CreateTask.this, "Нет названия ссылки на Ютуб", Toast.LENGTH_SHORT).show();
-                                enter = false;
-                                break;
-                            }
-                            EditText link = custom.findViewById(R.id.link);
-                            if(link.getText().toString().isEmpty()){
-                                Toast.makeText(CreateTask.this, "Нет ссылки на Ютуб", Toast.LENGTH_SHORT).show();
-                                enter = false;
-                                break;
-                            }
-                            String s = linkTitle.getText().toString() + "\uD83D\uDD70" + link.getText().toString();
-                            youtubeBlock.add(s);
-                        }
-                        if(type.get(i).equals("3")){
-                            EditText imgTitle = custom.findViewById(R.id.title);
-                            if(imgTitle.getText().toString().isEmpty()){
-                                Toast.makeText(CreateTask.this, "Нет названия изображения", Toast.LENGTH_SHORT).show();
-                                enter = false;
-                                break;
-                            }
-                            if(mediaPaths.size() <= imgCount){
-                                Toast.makeText(CreateTask.this, "Нет изображения", Toast.LENGTH_SHORT).show();
-                                enter = false;
-                                break;
-                            }
-                            String s = mediaPaths.get(imgCount) + "\uD83D\uDD70" + imgTitle.getText().toString();
-                            imageBlock.add(s);
-                            imgCount++;
-                        }
-                    }
 
-                    String stringBlockStr;
-                    String linkBlockStr;
-                    String youtubeBlockStr;
-                    String imageBlockStr;
+                        String stringBlockStr;
+                        String linkBlockStr;
+                        String youtubeBlockStr;
+                        String imageBlockStr;
 
-                    if(stringBlock.size() == 0){
-                        stringBlockStr = "Empty";
-                    }else{
-                        Toast.makeText(CreateTask.this, stringBlock.size() + "", Toast.LENGTH_SHORT).show();
-                        stringBlockStr = String.join("_/-", stringBlock);
-                    }
-                    if(linkBlock.size() == 0){
-                        linkBlockStr = "Empty";
-                    }else{
-                        linkBlockStr = String.join("_/-", linkBlock);
-                    }
-                    if(youtubeBlock.size() == 0){
-                        youtubeBlockStr = "Empty";
-                    }else{
-                        youtubeBlockStr = String.join("_/-", youtubeBlock);
-                    }
-                    if(imageBlock.size() == 0){
-                        imageBlockStr = "Empty";
-                    }else{
-                        imageBlockStr = String.join("_/-", imageBlock);
-                    }
-                    if(enter) {
-                        Intent intent = new Intent(CreateTask.this, PartisipantTasks.class);
-                        intent.putExtra("projectId", id);
-                        intent.putExtra("projectTitle", title);
-                        intent.putExtra("projectUrlPhoto", prPhoto);
-                        intent.putExtra("TaskName", binding.taskName.getText().toString());
-                        intent.putExtra("Queue", String.join(",", type));
-                        intent.putExtra("StringBlock", stringBlockStr);
-                        intent.putExtra("LinkBlock", linkBlockStr);
-                        intent.putExtra("YouTubeBlock", youtubeBlockStr);
-                        intent.putExtra("ImageBlock", imageBlockStr);
-                        startActivity(intent);
+                        if (stringBlock.size() == 0) {
+                            stringBlockStr = "Empty";
+                        } else {
+                            Toast.makeText(CreateTask.this, stringBlock.size() + "", Toast.LENGTH_SHORT).show();
+                            stringBlockStr = String.join("_/-", stringBlock);
+                        }
+                        if (linkBlock.size() == 0) {
+                            linkBlockStr = "Empty";
+                        } else {
+                            linkBlockStr = String.join("_/-", linkBlock);
+                        }
+                        if (youtubeBlock.size() == 0) {
+                            youtubeBlockStr = "Empty";
+                        } else {
+                            youtubeBlockStr = String.join("_/-", youtubeBlock);
+                        }
+                        if (imageBlock.size() == 0) {
+                            imageBlockStr = "Empty";
+                        } else {
+                            imageBlockStr = String.join("_/-", imageBlock);
+                        }
+                        if (enter) {
+                            Intent intent = new Intent(CreateTask.this, PartisipantTasks.class);
+                            intent.putExtra("projectId", id);
+                            intent.putExtra("projectTitle", title);
+                            intent.putExtra("projectUrlPhoto", prPhoto);
+                            intent.putExtra("TaskName", binding.taskName.getText().toString());
+                            intent.putExtra("Queue", String.join(",", type));
+                            intent.putExtra("StringBlock", stringBlockStr);
+                            intent.putExtra("LinkBlock", linkBlockStr);
+                            intent.putExtra("YouTubeBlock", youtubeBlockStr);
+                            intent.putExtra("ImageBlock", imageBlockStr);
+                            startActivity(intent);
+                        }
                     }
                 }
             }

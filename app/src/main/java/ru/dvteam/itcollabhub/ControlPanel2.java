@@ -347,6 +347,17 @@ public class ControlPanel2 extends AppCompatActivity {
             }
         });
 
+        binding.progressOfTasks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ControlPanel2.this, TasksActivityMain.class);
+                intent.putExtra("projectTitle", title);
+                intent.putExtra("projectUrlPhoto", urlPhoto);
+                intent.putExtra("projectId", id);
+                startActivity(intent);
+            }
+        });
+
         /*for (int i = 0; i < 5; i++) {
             View custom = getLayoutInflater().inflate(R.layout.reminder, null);
 

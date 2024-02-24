@@ -303,4 +303,20 @@ public interface Methods {
     @FormUrlEncoded
     @POST("/")
     Call<Model> getProjectTasks(@Field("Request")String req, @Field("ProjectID")String id, @Field("UserMail") String mail);
+
+    @FormUrlEncoded
+    @POST("/")
+    Call<Model> checkCountofReadyWorks(@Field("Request")String req, @Field("ProjectID")String id, @Field("UserMail") String mail,
+                                       @Field("TaskID") String taskID);
+
+    @FormUrlEncoded
+    @POST("/")
+    Call<Model> getMoreInfoTask(@Field("Request")String req, @Field("ProjectID")String id, @Field("UserMail") String mail,
+                                       @Field("TaskID") String taskID);
+
+    @FormUrlEncoded
+    @POST("/")
+    Call<Model> createWork(@Field("Request") String req, @Field("ProjectID") String id, @Field("UserMail") String mail,
+                           @Field("TaskID") String taskName, @Field("TextBlocks") String textBlocks,
+                           @Field("LinkBlocks") String linkBlocks, @Field("ImageBlocks") String imageBlocks);
 }

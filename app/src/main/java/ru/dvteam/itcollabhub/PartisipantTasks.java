@@ -24,7 +24,7 @@ import ru.dvteam.itcollabhub.databinding.ActivityPartisipantTasksBinding;
 public class PartisipantTasks extends AppCompatActivity {
 
     ActivityPartisipantTasksBinding binding;
-    private String mail, id, title, prPhoto, taskName, queue;
+    private String mail, id, title, prPhoto, taskName, queue, idsArrStr;
     private ArrayList<String> idsArr, idsTextBlocks, idsLinkBlocks, idsYouTubeBlocks, idsImageBlocks;
     String[] textBlockArr, linkBlockArr, youtubeBlockArr, imageBlockArr;
 
@@ -138,10 +138,12 @@ public class PartisipantTasks extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!idsArr.isEmpty()) {
+                    idsArrStr = String.join(",", idsArr);
                     createAllTextBlocks();
                 }
                 else{
-                    Toast.makeText(PartisipantTasks.this, "Добавьте людей", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(PartisipantTasks.this, "Добавьте людей", Toast.LENGTH_SHORT).show();
+                    idsArrStr = "";
                 }
             }
         });
@@ -258,7 +260,7 @@ public class PartisipantTasks extends AppCompatActivity {
 
         PostDatas post = new PostDatas();
         post.postDataCreateTask("CreateTask", id, mail, taskName, queue, idsTextBlocksStr,
-                idsLinkBlocksStr, String.join(",", idsArr), idsImageBlocksArr,
+                idsLinkBlocksStr, idsArrStr, idsImageBlocksArr,
                 idsYouTubeBlocksArr, new CallBackInt() {
                     @Override
                     public void invoke(String res) {

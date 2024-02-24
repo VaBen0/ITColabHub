@@ -63,28 +63,61 @@ public class TasksActivityMain extends AppCompatActivity {
         post.postDataGetProjectTasks("GetTasksFromProject", id, mail, new CallBackInt5() {
             @Override
             public void invoke(String s1, String s2, String s3) {
-                String[] idsArr = s1.split("\uD83D\uDD70");
-                String[] namesArr = s2.split("\uD83D\uDD70");
-                String[] textsArr = s3.split("\uD83D\uDD70");
-                Toast.makeText(TasksActivityMain.this, s1 + " " + s2 + " " + s3, Toast.LENGTH_SHORT).show();
+                if(!s1.equals("Ошибка")){
+                    String[] idsArr = s1.split("\uD83D\uDD70");
+                    String[] namesArr = s2.split("\uD83D\uDD70");
+                    String[] textsArr = s3.split("\uD83D\uDD70");
 
-                for (int i = 0; i < namesArr.length; i++) {
-                    View custom = getLayoutInflater().inflate(R.layout.tasks_panel, null);
-                    TextView nameu = (TextView) custom.findViewById(R.id.taskTitle);
-                    TextView text = (TextView) custom.findViewById(R.id.taskText);
-                    ImageView prImg = (ImageView) custom.findViewById(R.id.loadImg);
+                    for (int i = 0; i < namesArr.length; i++) {
+                        int finalI = i;
+                        int finalI1 = i;
+                        post.postDataGetCompletedWorks("CheckCountOfReadyWorksFromTask", id, mail, idsArr[i], new CallBackInt() {
+                            @Override
+                            public void invoke(String res) {
+                                Toast.makeText(TasksActivityMain.this, res, Toast.LENGTH_SHORT).show();
+                                View custom = getLayoutInflater().inflate(R.layout.tasks_panel, null);
+                                TextView nameu = (TextView) custom.findViewById(R.id.taskTitle);
+                                TextView text = (TextView) custom.findViewById(R.id.taskText);
+                                ImageView prImg = (ImageView) custom.findViewById(R.id.loadImg);
+                                View circleStatus = custom.findViewById(R.id.circle);
 
-                    Glide
-                            .with(TasksActivityMain.this)
-                            .load(prPhoto)
-                            .into(prImg);
+                                Glide
+                                        .with(TasksActivityMain.this)
+                                        .load(prPhoto)
+                                        .into(prImg);
 
-                    nameu.setText(namesArr[i]);
-                    //text.setText(textsArr[i]);
+                                nameu.setText(namesArr[finalI]);
+                                if (!textsArr[finalI].isEmpty() && textsArr.length > finalI1) {
+                                    text.setText(textsArr[finalI]);
+                                } else {
+                                    text.setText("");
+                                }
 
-                    int finalI = i;
+                                if (Integer.parseInt(res) == 0) {
+                                    circleStatus.setBackgroundResource(R.drawable.red_line);
+                                } else {
+                                    circleStatus.setBackgroundResource(R.drawable.green_line);
+                                }
 
-                    binding.tasksPlace.addView(custom);
+                                int finalI1 = finalI;
+                                custom.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent intent = new Intent(TasksActivityMain.this, TaskMenuActivity.class);
+                                        intent.putExtra("projectId", id);
+                                        intent.putExtra("projectTitle", title);
+                                        intent.putExtra("projectUrlPhoto", prPhoto);
+                                        intent.putExtra("taskTitle", namesArr[finalI1]);
+                                        intent.putExtra("taskId", idsArr[finalI1]);
+                                        startActivity(intent);
+                                    }
+                                });
+
+                                binding.tasksPlace.addView(custom);
+                            }
+                        });
+                }
+
                 }
             }
         });

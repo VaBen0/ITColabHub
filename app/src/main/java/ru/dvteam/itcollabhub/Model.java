@@ -27,13 +27,22 @@ public class Model {
     private String names;
     private String photos;
     private String texts;
+    private String queue_blocks;
+    private String text_blocks;
+    private String link_blocks_names;
+    private String link_blocks_links;
+    private String image_blocks_names;
+    private String image_blocks_links;
+    private String youtube_blocks_names;
+    private String youtube_blocks_links;
 
     private int activityProjects, archiveProjects;
 
     public Model(String name, String urlImg, String ret, String topStatus, int topScore, String rFr, String description, String tgLink,
                  String vkLink, String webLink, double isend, String purposes, String problems, String peoples, String time, String time1,
                  String purposesids, String problemsids, String isl, int activityProjects, int archiveProjects, String names, String photos,
-                 String ids, String texts) {
+                 String ids, String texts, String queue_blocks, String text_blocks, String link_blocks_names, String link_blocks_links,
+                 String image_blocks_names, String image_blocks_links, String youtube_blocks_names, String youtube_blocks_links) {
         this.name = name;
         this.ret = ret;
         this.urlImg = urlImg;
@@ -53,6 +62,14 @@ public class Model {
         this.photos = photos;
         this.ids = ids;
         this.texts = texts;
+        this.queue_blocks = queue_blocks;
+        this.text_blocks = text_blocks;
+        this.link_blocks_names = link_blocks_names;
+        this.link_blocks_links = link_blocks_links;
+        this.image_blocks_names = image_blocks_names;
+        this.image_blocks_links = image_blocks_links;
+        this.youtube_blocks_names = youtube_blocks_names;
+        this.youtube_blocks_links = youtube_blocks_links;
     }
 
     public String getName() {
@@ -107,4 +124,21 @@ public class Model {
     public String getTexts(){
         return texts;
     }
+
+    public String getImage_blocks_links() {return image_blocks_links;}
+
+    public String getImage_blocks_names() {return image_blocks_names;}
+
+    public String getLink_blocks_links() {return link_blocks_links;}
+
+    public String getLink_blocks_names() {return link_blocks_names;}
+
+    public String getQueue_blocks() {return queue_blocks;}
+
+    public String getText_blocks() {return text_blocks;}
+
+    public String getYoutube_blocks_links() {return youtube_blocks_links;}
+
+    public String getYoutube_blocks_names() {return youtube_blocks_names;}
+
 }

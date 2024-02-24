@@ -1251,4 +1251,62 @@ public class PostDatas {
             }
         });
     }
+
+    public void postDataGetCompletedWorks(String req, String projectId, String mail, String taskId, CallBackInt result){
+        Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
+        Call<Model> call = methods.checkCountofReadyWorks(req, projectId, mail, taskId);
+
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, retrofit2.Response<Model> response) {
+                assert response.body() != null;
+                result.invoke(response.body().getReturn());
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+                //result.invoke("lol");
+            }
+        });
+    }
+
+    public void postDataGetMoreInfoTask(String req, String projectId, String mail, String taskId, CallBackTaskInfo result){
+        Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
+        Call<Model> call = methods.getMoreInfoTask(req, projectId, mail, taskId);
+
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, retrofit2.Response<Model> response) {
+                assert response.body() != null;
+                result.invoke(response.body().getQueue_blocks(), response.body().getText_blocks(), response.body().getYoutube_blocks_names(),
+                        response.body().getYoutube_blocks_links(), response.body().getLink_blocks_names(), response.body().getLink_blocks_links(),
+                        response.body().getImage_blocks_names(), response.body().getImage_blocks_links());
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+                //result.invoke("lol");
+            }
+        });
+    }
+
+    public void postDataCreateWork(String req, String id, String mail, String taskId, String textBlocks,
+                                   String linkBlocks, String imageBlocks, CallBackInt result){
+        Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
+        Call<Model> call = methods.createWork(req, id, mail, taskId, textBlocks, linkBlocks,
+                imageBlocks);
+
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, retrofit2.Response<Model> response) {
+                assert response.body() != null;
+                result.invoke(response.body().getReturn());
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+                //result.invoke("lol");
+            }
+        });
+    }
 }
