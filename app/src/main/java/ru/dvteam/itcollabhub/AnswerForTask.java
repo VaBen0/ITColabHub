@@ -66,8 +66,6 @@ public class AnswerForTask extends AppCompatActivity {
         linkName = new ArrayList<>();
         imageNames = new ArrayList<>();
         linkLink = new ArrayList<>();
-        idsImageBlocks = new ArrayList<>();
-        idsLinkBlocks = new ArrayList<>();
 
         Bundle arguments = getIntent().getExtras();
         assert arguments != null;
@@ -121,10 +119,31 @@ public class AnswerForTask extends AppCompatActivity {
                     View custom = getLayoutInflater().inflate(R.layout.photo_panel, null);
                     linkName.add(binding.linkTitle.getText().toString());
                     linkLink.add(binding.link.getText().toString());
+                    //Toast.makeText(AnswerForTask.this, "", Toast.LENGTH_SHORT).show();
+                    final int iko = cntLinks;
+                    custom.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            binding.main2.removeView(custom);
+                            linkName.remove(iko);
+                            linkLink.remove(iko);
+                            for(int i = 0; i < binding.main2.getChildCount(); i++){
+                                View lol = binding.main2.getChildAt(i);
+                                TextView text = lol.findViewById(R.id.taskTitle);
+                                String s = "Ссылка " + (i + 1);
+                                text.setText(s);
+                            }
+                            cntLinks--;
+                        }
+                    });
+
+                    cntLinks++;
+                    String s = "Ссылка " + cntLinks;
+                    TextView name = custom.findViewById(R.id.taskTitle);
+                    name.setText(s);
                     binding.main2.addView(custom);
                     binding.linkTitle.setText("");
                     binding.link.setText("");
-                    cntLinks++;
                 }
             }
         });
@@ -132,6 +151,9 @@ public class AnswerForTask extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(AnswerForTask.this, mediaPaths.size()+" ", Toast.LENGTH_SHORT).show();
+                idsImageBlocks = new ArrayList<>();
+                idsLinkBlocks = new ArrayList<>();
+                //createAllImageBlocks();
                 createTextBlock();
             }
         });
@@ -158,13 +180,13 @@ public class AnswerForTask extends AppCompatActivity {
         for(int i = 0; i < mediaPaths.size(); i++){
             File file = new File(mediaPaths.get(i));
             RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
-            int finalI = i;
+            int finalI2 = i;
             post.postDataCreateImageBlock("CreateImageBlock", imageNames.get(i), requestBody, id, mail, new CallBackInt() {
                 @Override
                 public void invoke(String res) {
                     idsImageBlocks.add(res);
-                    if(finalI == mediaPaths.size() - 1){
-                        Toast.makeText(AnswerForTask.this, idsImageBlocks.toString(), Toast.LENGTH_SHORT).show();
+                    if(finalI2 == mediaPaths.size() - 1){
+                        Toast.makeText(AnswerForTask.this, idsImageBlocks.toString() + " " + finalI2 + " " + (mediaPaths.size() - 1), Toast.LENGTH_SHORT).show();
                         createWork();
                     }
                 }
@@ -234,7 +256,6 @@ public class AnswerForTask extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGES_CODE){
-
             if (resultCode == Activity.RESULT_OK){
                 Uri imageUri = data.getData();
 
@@ -247,11 +268,33 @@ public class AnswerForTask extends AppCompatActivity {
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                 String mediaPath = cursor.getString(columnIndex);
 
-                mediaPaths.add(mediaPath);
-                imageNames.add("Фото" + cntImg);
                 cntImg++;
 
+                mediaPaths.add(mediaPath);
+                imageNames.add("Фото " + cntImg);
+
                 View custom = getLayoutInflater().inflate(R.layout.photo_panel, null);
+
+                final int iko = cntImg - 1;
+                custom.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        binding.main1.removeView(custom);
+                        imageNames.remove(iko);
+                        mediaPaths.remove(iko);
+                        for(int i = 0; i < binding.main1.getChildCount(); i++){
+                            View lol = binding.main1.getChildAt(i);
+                            TextView text = lol.findViewById(R.id.taskTitle);
+                            String s = "Фото " + (i + 1);
+                            text.setText(s);
+                        }
+                        cntImg--;
+                    }
+                });
+
+                String s = "Фото " + cntImg;
+                TextView name = custom.findViewById(R.id.taskTitle);
+                name.setText(s);
 
                 binding.main1.addView(custom);
 
@@ -279,11 +322,33 @@ public class AnswerForTask extends AppCompatActivity {
                             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                             String mediaPath = cursor.getString(columnIndex);
 
-                            mediaPaths.add(mediaPath);
-                            imageNames.add("Фото" + cntImg);
                             cntImg++;
 
+                            mediaPaths.add(mediaPath);
+                            imageNames.add("Фото " + cntImg);
+
                             View custom = getLayoutInflater().inflate(R.layout.photo_panel, null);
+
+                            final int iko = cntImg - 1;
+                            custom.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    binding.main1.removeView(custom);
+                                    imageNames.remove(iko);
+                                    mediaPaths.remove(iko);
+                                    for(int i = 0; i < binding.main1.getChildCount(); i++){
+                                        View lol = binding.main1.getChildAt(i);
+                                        TextView text = lol.findViewById(R.id.taskTitle);
+                                        String s = "Фото " + (i + 1);
+                                        text.setText(s);
+                                    }
+                                    cntImg--;
+                                }
+                            });
+
+                            String s = "Фото " + cntImg;
+                            TextView name = custom.findViewById(R.id.taskTitle);
+                            name.setText(s);
 
                             binding.main1.addView(custom);
 
