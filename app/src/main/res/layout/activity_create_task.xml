@@ -127,6 +127,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -185,7 +186,7 @@
             android:id="@+id/view10"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/view_black"
+            android:background="?viewBackColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -196,7 +197,7 @@
             android:layout_width="100dp"
             android:layout_height="5dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/white_line"
+            android:background="?line"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -207,7 +208,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Добавить блок"
-            android:textColor="@color/white"
             android:textSize="23sp"
             android:textStyle="bold|italic"
             app:layout_constraintEnd_toEndOf="parent"
@@ -239,28 +239,28 @@
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_weight="1"
-                    android:src="@drawable/text_icon" />
+                    android:src="?text_icon" />
 
                 <ImageView
                     android:id="@+id/link_but"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_weight="1"
-                    android:src="@drawable/link_icon" />
+                    android:src="?link_icon" />
 
                 <ImageView
                     android:id="@+id/image_but"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_weight="1"
-                    android:src="@drawable/image_icon" />
+                    android:src="?image_icon" />
 
                 <ImageView
                     android:id="@+id/youtube_icon"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_weight="1"
-                    android:src="@drawable/youtube_icon" />
+                    android:src="?youtube_icon" />
             </LinearLayout>
 
             <LinearLayout

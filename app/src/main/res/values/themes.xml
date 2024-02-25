@@ -14,6 +14,13 @@
         <item name="advertisments_icon">@drawable/day_megaphone</item>
         <item name="edit_project_icon">@drawable/day_edit</item>
         <item name="chat_icon">@drawable/day_chat</item>
+        <item name="text_icon">@drawable/text_black</item>
+        <item name="image_icon">@drawable/image_black</item>
+        <item name="youtube_icon">@drawable/youtube_black</item>
+        <item name="link_icon">@drawable/link_black</item>
+        <item name="upload_icon">@drawable/upload_button_black</item>
+        <item name="line">@drawable/black_line</item>
+        <item name="viewBackColor">@drawable/view_white</item>
         <item name="logo_type">@drawable/day_app_logo</item>
         <item name="time_icon">@drawable/time</item>
     </style>

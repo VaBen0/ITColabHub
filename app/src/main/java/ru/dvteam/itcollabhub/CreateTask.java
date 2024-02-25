@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.ViewParent;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -32,7 +33,6 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 import ru.dvteam.itcollabhub.databinding.ActivityCreateTaskBinding;
-import ru.dvteam.itcollabhub.databinding.ActivityTasksMainBinding;
 
 public class CreateTask extends AppCompatActivity {
 
@@ -45,8 +45,10 @@ public class CreateTask extends AppCompatActivity {
     private Boolean acces = false;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     ActivityResultLauncher<Intent> resultLauncher;
+    private int imgCnt = 0, p, checlMedia = 0;
     private ArrayList<String> type;
-
+    private ArrayList<Integer> del;
+    public static Activity fa;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,11 +56,15 @@ public class CreateTask extends AppCompatActivity {
         binding = ActivityCreateTaskBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
+        fa = this;
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         registerResult();
 
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         mail = sPref.getString("UserMail", "");
+
+        View empty = getLayoutInflater().inflate(R.layout.emty_obj, null);
+        binding.main.addView(empty);
 
         Bundle arguments = getIntent().getExtras();
         assert arguments != null;
@@ -80,6 +86,7 @@ public class CreateTask extends AppCompatActivity {
 
         mediaPaths = new ArrayList<String>();
         type = new ArrayList<String>();
+        del = new ArrayList<>();
 
         binding.addBlock.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +116,7 @@ public class CreateTask extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (binding.blockMenu.getVisibility() == View.VISIBLE) {
+                    binding.main.removeView(empty);
                     binding.blockMenu.setVisibility(View.GONE);
                     binding.viewHideBut.setVisibility(View.GONE);
                     final Animation hide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_delete);
@@ -121,7 +129,7 @@ public class CreateTask extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             binding.main.removeView(custom);
-                            type.remove(cnt);
+                            type.set(cnt, "");
                             if(binding.main.getChildCount() == 0){
                                 binding.addBlock.setVisibility(View.VISIBLE);
                                 binding.texttexttext.setVisibility(View.VISIBLE);
@@ -129,6 +137,7 @@ public class CreateTask extends AppCompatActivity {
                         }
                     });
                     binding.main.addView(custom);
+                    binding.main.addView(empty);
                     if(binding.addBlock.getVisibility() == View.VISIBLE){
                         binding.addBlock.setVisibility(View.GONE);
                         binding.texttexttext.setVisibility(View.GONE);
@@ -143,6 +152,7 @@ public class CreateTask extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (binding.blockMenu.getVisibility() == View.VISIBLE) {
+                    binding.main.removeView(empty);
                     binding.blockMenu.setVisibility(View.GONE);
                     binding.viewHideBut.setVisibility(View.GONE);
                     final Animation hide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_delete);
@@ -151,11 +161,12 @@ public class CreateTask extends AppCompatActivity {
 
                     View custom = getLayoutInflater().inflate(R.layout.gblock_link, null);
                     ImageView del = custom.findViewById(R.id.deleteBut);
+                    custom.setId(cnt);
                     del.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             binding.main.removeView(custom);
-                            type.remove(cnt);
+                            type.set(cnt, "");
                             if(binding.main.getChildCount() == 0){
                                 binding.addBlock.setVisibility(View.VISIBLE);
                                 binding.texttexttext.setVisibility(View.VISIBLE);
@@ -163,6 +174,7 @@ public class CreateTask extends AppCompatActivity {
                         }
                     });
                     binding.main.addView(custom);
+                    binding.main.addView(empty);
                     if(binding.addBlock.getVisibility() == View.VISIBLE){
                         binding.addBlock.setVisibility(View.GONE);
                         binding.texttexttext.setVisibility(View.GONE);
@@ -177,27 +189,45 @@ public class CreateTask extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (binding.blockMenu.getVisibility() == View.VISIBLE) {
+                    binding.main.removeView(empty);
                     binding.blockMenu.setVisibility(View.GONE);
                     binding.viewHideBut.setVisibility(View.GONE);
                     final Animation hide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_delete);
                     binding.blockMenu.startAnimation(hide);
                     final int cnt = type.size();
+                    final int importInt = imgCnt;
 
                     View custom = getLayoutInflater().inflate(R.layout.gblock_image, null);
+                    mediaPaths.add("");
+                    del.add(1);
 
-                    ImageView del = custom.findViewById(R.id.deleteBut);
+                    ImageView deli = custom.findViewById(R.id.deleteBut);
                     ImageView addImg = custom.findViewById(R.id.addImg);
-                    Img = custom.findViewById(R.id.chosen_img);
+                    final ImageView chosenImg = custom.findViewById(R.id.chosen_img);
                     TextView clear = custom.findViewById(R.id.textAdd);
                     ImageView arr = custom.findViewById(R.id.arrow);
+                    custom.setId(importInt);
 
                     if(android.os.Build.VERSION.SDK_INT >= 33) {
-                        addImg.setOnClickListener(view -> pickImage(clear, arr, Img));
+                        addImg.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Img = chosenImg;
+                                p = importInt;
+                                clear.setVisibility(View.GONE);
+                                arr.setVisibility(View.GONE);
+                                Img.setVisibility(View.VISIBLE);
+                                Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
+                                resultLauncher.launch(intent);
+                            }
+                        });
                     }
                     else{
                         addImg.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                Img = chosenImg;
+                                p = importInt;
                                 clear.setVisibility(View.GONE);
                                 arr.setVisibility(View.GONE);
                                 Img.setVisibility(View.VISIBLE);
@@ -216,23 +246,30 @@ public class CreateTask extends AppCompatActivity {
                         });
                     }
 
-                    del.setOnClickListener(new View.OnClickListener() {
+                    deli.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             binding.main.removeView(custom);
-                            type.remove(cnt);
+                            //type.set(cnt, "");
+                            mediaPaths.set(importInt, "");
+                            del.set(importInt, 0);
+
                             if(binding.main.getChildCount() == 0){
                                 binding.addBlock.setVisibility(View.VISIBLE);
                                 binding.texttexttext.setVisibility(View.VISIBLE);
                             }
+
                         }
                     });
                     binding.main.addView(custom);
+                    binding.main.addView(empty);
 
                     if(binding.addBlock.getVisibility() == View.VISIBLE){
                         binding.addBlock.setVisibility(View.GONE);
                         binding.texttexttext.setVisibility(View.GONE);
                     }
+
+                    imgCnt++;
 
                     type.add("3");
                 }
@@ -243,6 +280,7 @@ public class CreateTask extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (binding.blockMenu.getVisibility() == View.VISIBLE) {
+                    binding.main.removeView(empty);
                     binding.blockMenu.setVisibility(View.GONE);
                     binding.viewHideBut.setVisibility(View.GONE);
                     final Animation hide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_delete);
@@ -257,8 +295,8 @@ public class CreateTask extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             binding.main.removeView(custom);
-                            type.remove(cnt);
-                            Toast.makeText(CreateTask.this, type.toString(), Toast.LENGTH_SHORT).show();
+                            type.set(cnt, "");
+                            //Toast.makeText(CreateTask.this, type.toString(), Toast.LENGTH_SHORT).show();
                             if(binding.main.getChildCount() == 0){
                                 binding.addBlock.setVisibility(View.VISIBLE);
                                 binding.texttexttext.setVisibility(View.VISIBLE);
@@ -266,12 +304,12 @@ public class CreateTask extends AppCompatActivity {
                         }
                     });
                     binding.main.addView(custom);
+                    binding.main.addView(empty);
 
                     if(binding.addBlock.getVisibility() == View.VISIBLE){
                         binding.addBlock.setVisibility(View.GONE);
                         binding.texttexttext.setVisibility(View.GONE);
                     }
-
                     type.add("1");
                 }
             }
@@ -302,9 +340,11 @@ public class CreateTask extends AppCompatActivity {
                     enter = true;
                     int count = binding.main.getChildCount();
                     int imgCount = 0;
+                    StringBuilder typeStr = new StringBuilder();
+                    int a = 0;
                     if(count > 0) {
-                        for (int i = 0; i < count; i++) {
-                            View custom = binding.main.getChildAt(i);
+                        for (int i = 0; i < type.size(); i++) {
+                            View custom = binding.main.getChildAt(a);
                             if (type.get(i).equals("1")) {
                                 EditText text = custom.findViewById(R.id.text);
                                 if (text.getText().toString().isEmpty()) {
@@ -313,6 +353,9 @@ public class CreateTask extends AppCompatActivity {
                                     break;
                                 }
                                 stringBlock.add(text.getText().toString());
+                                String l = type.get(i) + ",";
+                                typeStr.append(l);
+                                a++;
                             }
                             if (type.get(i).equals("2")) {
                                 EditText linkTitle = custom.findViewById(R.id.name_link);
@@ -329,6 +372,9 @@ public class CreateTask extends AppCompatActivity {
                                 }
                                 String s = linkTitle.getText().toString() + "\uD83D\uDD70" + link.getText().toString();
                                 linkBlock.add(s);
+                                String l = type.get(i) + ",";
+                                typeStr.append(l);
+                                a++;
                             }
                             if (type.get(i).equals("4")) {
                                 EditText linkTitle = custom.findViewById(R.id.linkTitle);
@@ -345,21 +391,29 @@ public class CreateTask extends AppCompatActivity {
                                 }
                                 String s = linkTitle.getText().toString() + "\uD83D\uDD70" + link.getText().toString();
                                 youtubeBlock.add(s);
+                                String l = type.get(i) + ",";
+                                typeStr.append(l);
+                                a++;
                             }
                             if (type.get(i).equals("3")) {
-                                EditText imgTitle = custom.findViewById(R.id.title);
-                                if (imgTitle.getText().toString().isEmpty()) {
-                                    Toast.makeText(CreateTask.this, "Нет названия изображения", Toast.LENGTH_SHORT).show();
-                                    enter = false;
-                                    break;
+                                if(del.get(imgCount) == 1) {
+                                    EditText imgTitle = custom.findViewById(R.id.title);
+                                    if (imgTitle.getText().toString().isEmpty()) {
+                                        Toast.makeText(CreateTask.this, "Нет названия изображения", Toast.LENGTH_SHORT).show();
+                                        enter = false;
+                                        break;
+                                    }
+                                    if (mediaPaths.get(imgCount).equals("")) {
+                                        Toast.makeText(CreateTask.this, "Нет изображения", Toast.LENGTH_SHORT).show();
+                                        enter = false;
+                                        break;
+                                    }
+                                    String s = mediaPaths.get(imgCount) + "\uD83D\uDD70" + imgTitle.getText().toString();
+                                    imageBlock.add(s);
+                                    String l = type.get(i) + ",";
+                                    typeStr.append(l);
+                                    a++;
                                 }
-                                if (mediaPaths.size() <= imgCount) {
-                                    Toast.makeText(CreateTask.this, "Нет изображения", Toast.LENGTH_SHORT).show();
-                                    enter = false;
-                                    break;
-                                }
-                                String s = mediaPaths.get(imgCount) + "\uD83D\uDD70" + imgTitle.getText().toString();
-                                imageBlock.add(s);
                                 imgCount++;
                             }
                         }
@@ -372,7 +426,6 @@ public class CreateTask extends AppCompatActivity {
                         if (stringBlock.size() == 0) {
                             stringBlockStr = "Empty";
                         } else {
-                            Toast.makeText(CreateTask.this, stringBlock.size() + "", Toast.LENGTH_SHORT).show();
                             stringBlockStr = String.join("_/-", stringBlock);
                         }
                         if (linkBlock.size() == 0) {
@@ -396,7 +449,7 @@ public class CreateTask extends AppCompatActivity {
                             intent.putExtra("projectTitle", title);
                             intent.putExtra("projectUrlPhoto", prPhoto);
                             intent.putExtra("TaskName", binding.taskName.getText().toString());
-                            intent.putExtra("Queue", String.join(",", type));
+                            intent.putExtra("Queue", typeStr.toString());
                             intent.putExtra("StringBlock", stringBlockStr);
                             intent.putExtra("LinkBlock", linkBlockStr);
                             intent.putExtra("YouTubeBlock", youtubeBlockStr);
@@ -407,14 +460,6 @@ public class CreateTask extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private void pickImage(TextView hiden1, ImageView hiden2, ImageView shown){
-        hiden1.setVisibility(View.GONE);
-        hiden2.setVisibility(View.GONE);
-        shown.setVisibility(View.VISIBLE);
-        Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
-        resultLauncher.launch(intent);
     }
 
     @Override
@@ -451,7 +496,8 @@ public class CreateTask extends AppCompatActivity {
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                 String mediaPath = cursor.getString(columnIndex);
 
-                mediaPaths.add(mediaPath);
+                mediaPaths.set(p, mediaPath);
+                checlMedia++;
 
                 Img.setImageURI(imageUri);
 
@@ -479,7 +525,8 @@ public class CreateTask extends AppCompatActivity {
                             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                             String mediaPath = cursor.getString(columnIndex);
 
-                            mediaPaths.add(mediaPath);
+                            mediaPaths.set(p, mediaPath);
+                            checlMedia++;
 
                             Img.setImageURI(imageUri);
 

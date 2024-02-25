@@ -8,16 +8,17 @@
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"
-        android:layout_height="45dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="@color/transparent"
-        android:text="Введите название изображения"
         android:gravity="center"
+        android:text="Введите название изображения"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chosen_img" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/chosen_img"
@@ -27,9 +28,9 @@
         android:layout_marginEnd="5dp"
         android:scaleType="centerCrop"
         android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearance="@style/CornerCut"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 

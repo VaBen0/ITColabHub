@@ -48,6 +48,7 @@ public class AnswerForTask extends AppCompatActivity {
     private String text;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     ActivityResultLauncher<Intent> resultLauncher;
+    private Boolean click = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,11 +151,14 @@ public class AnswerForTask extends AppCompatActivity {
         binding.uploadTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(AnswerForTask.this, mediaPaths.size()+" ", Toast.LENGTH_SHORT).show();
-                idsImageBlocks = new ArrayList<>();
-                idsLinkBlocks = new ArrayList<>();
-                //createAllImageBlocks();
-                createTextBlock();
+                if(click){
+                    binding.load.setVisibility(View.VISIBLE);
+                    binding.back.setVisibility(View.VISIBLE);
+                    idsImageBlocks = new ArrayList<>();
+                    idsLinkBlocks = new ArrayList<>();
+                    click = false;
+                    createTextBlock();
+                }
             }
         });
     }
@@ -175,9 +179,12 @@ public class AnswerForTask extends AppCompatActivity {
         }
     }
 
-    public void createAllImageBlocks(){
+    public void createAllImageBlocks(int i){
         PostDatas post = new PostDatas();
-        for(int i = 0; i < mediaPaths.size(); i++){
+
+        if(linkName.size() == 0){
+            createWork();
+        }else {
             File file = new File(mediaPaths.get(i));
             RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
             int finalI2 = i;
@@ -185,15 +192,14 @@ public class AnswerForTask extends AppCompatActivity {
                 @Override
                 public void invoke(String res) {
                     idsImageBlocks.add(res);
-                    if(finalI2 == mediaPaths.size() - 1){
+                    if (finalI2 == mediaPaths.size() - 1) {
                         Toast.makeText(AnswerForTask.this, idsImageBlocks.toString() + " " + finalI2 + " " + (mediaPaths.size() - 1), Toast.LENGTH_SHORT).show();
                         createWork();
+                    } else {
+                        createAllImageBlocks(finalI2 + 1);
                     }
                 }
             });
-        }
-        if(linkName.size() == 0){
-            createWork();
         }
     }
 
@@ -207,13 +213,13 @@ public class AnswerForTask extends AppCompatActivity {
                     idsLinkBlocks.add(res);
                     if(finalI == linkName.size() - 1){
                         Toast.makeText(AnswerForTask.this, idsLinkBlocks.toString(), Toast.LENGTH_SHORT).show();
-                        createAllImageBlocks();
+                        createAllImageBlocks(0);
                     }
                 }
             });
         }
         if(linkName.size() == 0){
-            createAllImageBlocks();
+            createAllImageBlocks(0);
         }
     }
 
@@ -223,7 +229,8 @@ public class AnswerForTask extends AppCompatActivity {
                 String.join(",", idsImageBlocks), new CallBackInt() {
             @Override
             public void invoke(String res) {
-                Toast.makeText(AnswerForTask.this, res, Toast.LENGTH_SHORT).show();
+                PartisipantTasks.fa.finish();
+                finish();
             }
         });
     }

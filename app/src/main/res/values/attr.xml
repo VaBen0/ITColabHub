@@ -14,4 +14,11 @@
     <attr name="chat_icon" format="reference"/>
     <attr name="logo_type" format="reference"/>
     <attr name="time_icon" format="reference"/>
+    <attr name="text_icon" format="reference"/>
+    <attr name="link_icon" format="reference"/>
+    <attr name="image_icon" format="reference"/>
+    <attr name="youtube_icon" format="reference"/>
+    <attr name="viewBackColor" format="reference"/>
+    <attr name="line" format="reference"/>
+    <attr name="upload_icon" format="reference"/>
 </resources>

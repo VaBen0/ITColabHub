@@ -2,6 +2,7 @@ package ru.dvteam.itcollabhub;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -27,6 +28,8 @@ public class PartisipantTasks extends AppCompatActivity {
     private String mail, id, title, prPhoto, taskName, queue, idsArrStr;
     private ArrayList<String> idsArr, idsTextBlocks, idsLinkBlocks, idsYouTubeBlocks, idsImageBlocks;
     String[] textBlockArr, linkBlockArr, youtubeBlockArr, imageBlockArr;
+    private Boolean click = true;
+    public static Activity fa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,8 @@ public class PartisipantTasks extends AppCompatActivity {
         binding = ActivityPartisipantTasksBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
+
+        fa = this;
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         mail = sPref.getString("UserMail", "");
@@ -137,13 +142,18 @@ public class PartisipantTasks extends AppCompatActivity {
         binding.uploadTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!idsArr.isEmpty()) {
-                    idsArrStr = String.join(",", idsArr);
-                    createAllTextBlocks();
-                }
-                else{
-                    //Toast.makeText(PartisipantTasks.this, "Добавьте людей", Toast.LENGTH_SHORT).show();
-                    idsArrStr = "";
+                if(click) {
+                    binding.load.setVisibility(View.VISIBLE);
+                    binding.back.setVisibility(View.VISIBLE);
+                    click = false;
+                    if (!idsArr.isEmpty()) {
+                        idsArrStr = String.join(",", idsArr);
+                        createAllTextBlocks();
+                    } else {
+                        //Toast.makeText(PartisipantTasks.this, "Добавьте людей", Toast.LENGTH_SHORT).show();
+                        idsArrStr = "";
+                        createAllTextBlocks();
+                    }
                 }
             }
         });
@@ -199,20 +209,22 @@ public class PartisipantTasks extends AppCompatActivity {
                 public void invoke(String res) {
                     idsYouTubeBlocks.add(res);
                     if(finalI == youtubeBlockArr.length - 1){
-                        createAllImageBlocks();
+                        createAllImageBlocks(0);
                     }
                 }
             });
         }
         if(youtubeBlockArr.length == 0){
-            createAllImageBlocks();
+            createAllImageBlocks(0);
         }
     }
 
-    public void createAllImageBlocks(){
+    public void createAllImageBlocks(int i){
         PostDatas post = new PostDatas();
-        for(int i = 0; i < imageBlockArr.length; i++){
-            String[] s = imageBlockArr[0].split("\uD83D\uDD70");
+        if(imageBlockArr.length == 0){
+            createTask();
+        }else{
+            String[] s = imageBlockArr[i].split("\uD83D\uDD70");
             File file = new File(s[0]);
             RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
             int finalI = i;
@@ -222,12 +234,11 @@ public class PartisipantTasks extends AppCompatActivity {
                     idsImageBlocks.add(res);
                     if(finalI == imageBlockArr.length - 1){
                         createTask();
+                    }else{
+                        createAllImageBlocks(finalI + 1);
                     }
                 }
             });
-        }
-        if(imageBlockArr.length == 0){
-            createTask();
         }
     }
 
@@ -264,11 +275,13 @@ public class PartisipantTasks extends AppCompatActivity {
                 idsYouTubeBlocksArr, new CallBackInt() {
                     @Override
                     public void invoke(String res) {
-                        Intent intent = new Intent(PartisipantTasks.this, TasksActivityMain.class);
+                        /*Intent intent = new Intent(PartisipantTasks.this, TasksActivityMain.class);
                         intent.putExtra("projectId", id);
                         intent.putExtra("projectTitle", title);
                         intent.putExtra("projectUrlPhoto", prPhoto);
                         startActivity(intent);
+                        finish();*/
+                        CreateTask.fa.finish();
                         finish();
                     }
                 });

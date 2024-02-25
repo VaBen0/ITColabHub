@@ -1,17 +1,25 @@
 package ru.dvteam.itcollabhub;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import ru.dvteam.itcollabhub.databinding.ActivityTaskMenuBinding;
 
@@ -80,18 +88,25 @@ public class TaskMenuActivity extends AppCompatActivity {
                             TextView text = customText.findViewById(R.id.text);
                             text.setText(textBlockArr[textCnt]);
                             binding.main.addView(customText);
+                            textCnt++;
                             break;
                         case(2):
                             View customLink = getLayoutInflater().inflate(R.layout.gblock_link2, null);
                             TextView textLink = customLink.findViewById(R.id.name_link);
-                            textLink.setText(linkBlockNameArr[linkCnt]);
+
+                            SpannableString content = new SpannableString(linkBlockNameArr[linkCnt]);
+                            content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+                            textLink.setText(content);
+
+                            int finalLinkCnt = linkCnt;
                             textLink.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    goToLink(linkBlockLinkArr[linkCnt]);
+                                    goToLink(linkBlockLinkArr[finalLinkCnt]);
                                 }
                             });
                             binding.main.addView(customLink);
+                            linkCnt++;
                             break;
                         case(3):
                             View customImage = getLayoutInflater().inflate(R.layout.gblock_image2, null);
@@ -103,21 +118,30 @@ public class TaskMenuActivity extends AppCompatActivity {
                                     .load(imageBlockLinkArr[imageCnt])
                                     .into(img);
                             binding.main.addView(customImage);
+                            imageCnt++;
                             break;
                         case(4):
                             View customLinkYoutube = getLayoutInflater().inflate(R.layout.gblock_youtube_link2, null);
                             TextView textLink2 = customLinkYoutube.findViewById(R.id.name_link);
-                            textLink2.setText(youtubeBlockNameArr[youtubeCnt]);
+
+                            SpannableString content2 = new SpannableString(youtubeBlockNameArr[youtubeCnt]);
+                            content2.setSpan(new UnderlineSpan(), 0, content2.length(), 0);
+                            textLink2.setText(content2);
+
+                            int finalYoutubeCnt = youtubeCnt;
                             textLink2.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    goToLink(youtubeBlockLinkArr[youtubeCnt]);
+                                    goToLink(youtubeBlockLinkArr[finalYoutubeCnt]);
                                 }
                             });
+                            youtubeCnt++;
                             binding.main.addView(customLinkYoutube);
                             break;
                     }
                 }
+                View custom = getLayoutInflater().inflate(R.layout.emty_obj, null);
+                binding.main.addView(custom);
             }
         });
 

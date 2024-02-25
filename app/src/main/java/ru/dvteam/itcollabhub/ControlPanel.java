@@ -396,7 +396,7 @@ public class ControlPanel extends AppCompatActivity {
                 intent.putExtra("projectTitle", title);
                 intent.putExtra("projectUrlPhoto", urlPhoto);
                 intent.putExtra("projectId", id);
-                intent.putExtra("projectDescription", description);
+                intent.putExtra("status", 1);
                 startActivity(intent);
             }
         });

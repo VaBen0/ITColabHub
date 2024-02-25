@@ -8,7 +8,7 @@
     <EditText
         android:id="@+id/text"
         android:layout_width="0dp"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:textSize="16sp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
@@ -25,7 +25,7 @@
         android:id="@+id/deleteBut"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/editText2"
+        app:layout_constraintBottom_toBottomOf="@+id/text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/delete_icon" />

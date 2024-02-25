@@ -21,6 +21,7 @@ public class TasksActivityMain extends AppCompatActivity {
 
     ActivityTasksMainBinding binding;
     String mail, id, title, prPhoto, description;
+    int status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,12 @@ public class TasksActivityMain extends AppCompatActivity {
         id = arguments.getString("projectId");
         title = arguments.getString("projectTitle");
         prPhoto = arguments.getString("projectUrlPhoto");
+        status = arguments.getInt("status", 0);
+
+        if(status == 0){
+            binding.add1.setVisibility(View.GONE);
+            binding.add2.setVisibility(View.GONE);
+        }
 
         binding.nameProject.setText(title);
 
@@ -59,6 +66,11 @@ public class TasksActivityMain extends AppCompatActivity {
             }
         });
 
+        setTasks();
+
+    }
+
+    private void setTasks(){
         PostDatas post = new PostDatas();
         post.postDataGetProjectTasks("GetTasksFromProject", id, mail, new CallBackInt5() {
             @Override
@@ -74,7 +86,6 @@ public class TasksActivityMain extends AppCompatActivity {
                         post.postDataGetCompletedWorks("CheckCountOfReadyWorksFromTask", id, mail, idsArr[i], new CallBackInt() {
                             @Override
                             public void invoke(String res) {
-                                Toast.makeText(TasksActivityMain.this, res, Toast.LENGTH_SHORT).show();
                                 View custom = getLayoutInflater().inflate(R.layout.tasks_panel, null);
                                 TextView nameu = (TextView) custom.findViewById(R.id.taskTitle);
                                 TextView text = (TextView) custom.findViewById(R.id.taskText);
@@ -103,7 +114,12 @@ public class TasksActivityMain extends AppCompatActivity {
                                 custom.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        Intent intent = new Intent(TasksActivityMain.this, TaskMenuActivity.class);
+                                        Intent intent;
+                                        if(status == 1){
+                                            intent = new Intent(TasksActivityMain.this, ActivityTaskMenuForLeader.class);
+                                        }else{
+                                            intent = new Intent(TasksActivityMain.this, TaskMenuActivity.class);
+                                        }
                                         intent.putExtra("projectId", id);
                                         intent.putExtra("projectTitle", title);
                                         intent.putExtra("projectUrlPhoto", prPhoto);
@@ -116,7 +132,7 @@ public class TasksActivityMain extends AppCompatActivity {
                                 binding.tasksPlace.addView(custom);
                             }
                         });
-                }
+                    }
 
                 }
             }
@@ -178,5 +194,12 @@ public class TasksActivityMain extends AppCompatActivity {
             binding.add1.setBackgroundTintList(ContextCompat.getColorStateList(TasksActivityMain.this, R.color.main_green));
             binding.add2.setBackgroundTintList(ContextCompat.getColorStateList(TasksActivityMain.this, R.color.main_green));
         }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        binding.tasksPlace.removeAllViews();
+        setTasks();
     }
 }

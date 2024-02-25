@@ -12,7 +12,7 @@
         android:backgroundTint="@color/transparent"
         android:text="Название ссылки"
         android:textStyle="bold|italic"
-        android:textColor="@color/blue"
+        android:textColor="@color/blue2"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

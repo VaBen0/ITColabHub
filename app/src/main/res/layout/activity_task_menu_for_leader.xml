@@ -37,7 +37,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         app:cardCornerRadius="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -75,14 +75,14 @@
         android:layout_marginStart="13dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="10dp"
-        android:autoSizeMaxTextSize="25sp"
+        android:autoSizeMaxTextSize="28sp"
         android:autoSizeMinTextSize="20sp"
         android:autoSizeTextType="uniform"
         android:backgroundTint="@color/transparent"
         android:text="Название задания"
         android:textColor="@color/white"
         android:textSize="25sp"
-        android:textStyle="italic"
+        android:textStyle="italic|bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameProject" />
@@ -90,7 +90,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/blockMenu"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         app:layout_constraintBottom_toBottomOf="@+id/advertPhoto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -99,7 +99,7 @@
             android:id="@+id/view10"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/view_black"
+            android:background="?viewBackColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -110,7 +110,7 @@
             android:layout_width="100dp"
             android:layout_height="5dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/white_line"
+            android:background="?line"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -121,7 +121,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Выполнил задание?"
-            android:textColor="@color/white"
             android:textSize="23sp"
             android:textStyle="bold|italic"
             app:layout_constraintEnd_toEndOf="parent"
@@ -129,22 +128,21 @@
             app:layout_constraintTop_toBottomOf="@+id/view11" />
 
         <ImageView
-            android:id="@+id/imageView15"
+            android:id="@+id/nextMenuBut"
             android:layout_width="80dp"
             android:layout_height="80dp"
             app:layout_constraintBottom_toTopOf="@+id/textView55"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView52"
-            app:srcCompat="@drawable/upload_button" />
+            app:srcCompat="?upload_icon" />
 
         <TextView
             android:id="@+id/textView55"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="50dp"
             android:text="Добавить файлы"
-            android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -156,12 +154,16 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toTopOf="@+id/blockMenu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/taskName">
 
         <LinearLayout
+            android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />

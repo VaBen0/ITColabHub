@@ -1309,4 +1309,22 @@ public class PostDatas {
             }
         });
     }
+
+    public void postDataGetPeoplesComplitedWork(String req, String projectId, String mail, String taskId, CallBackInt result){
+        Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
+        Call<Model> call = methods.getPeoplesCompletedWork(req, projectId, mail, taskId);
+
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, retrofit2.Response<Model> response) {
+                assert response.body() != null;
+                result.invoke(response.body().getReturn());
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+                //result.invoke("lol");
+            }
+        });
+    }
 }

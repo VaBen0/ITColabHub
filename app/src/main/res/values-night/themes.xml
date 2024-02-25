@@ -19,6 +19,13 @@
         <item name="tasks_icon">@drawable/tasks</item>
         <item name="files_icon">@drawable/files</item>
         <item name="advertisments_icon">@drawable/megaphone</item>
+        <item name="viewBackColor">@drawable/view_black</item>
+        <item name="text_icon">@drawable/text_icon</item>
+        <item name="image_icon">@drawable/image_icon</item>
+        <item name="youtube_icon">@drawable/youtube_icon</item>
+        <item name="link_icon">@drawable/link_icon</item>
+        <item name="line">@drawable/white_line</item>
+        <item name="upload_icon">@drawable/upload_button</item>
         <item name="edit_project_icon">@drawable/redaktirovat</item>
         <item name="chat_icon">@drawable/chat</item>
         <item name="logo_type">@drawable/app_logo</item>

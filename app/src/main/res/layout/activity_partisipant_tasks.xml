@@ -57,6 +57,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="20dp"
+        android:elevation="11dp"
         android:autoSizeMaxTextSize="25sp"
         android:autoSizeMinTextSize="19sp"
         android:autoSizeTextType="uniform"
@@ -268,5 +269,31 @@
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_transperent3"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/load"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/progress_circle_light_gray2"
+        android:elevation="11dp"
+        android:indeterminate="false"
+        android:progressDrawable="@drawable/circular_progress_bar_blue"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.466" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
