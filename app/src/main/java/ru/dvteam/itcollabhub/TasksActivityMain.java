@@ -105,9 +105,9 @@ public class TasksActivityMain extends AppCompatActivity {
                                 }
 
                                 if (Integer.parseInt(res) == 0) {
-                                    circleStatus.setBackgroundResource(R.drawable.red_line);
+                                    circleStatus.setBackgroundResource(R.drawable.black_line);
                                 } else {
-                                    circleStatus.setBackgroundResource(R.drawable.green_line);
+                                    circleStatus.setBackgroundResource(R.drawable.red_line);
                                 }
 
                                 int finalI1 = finalI;

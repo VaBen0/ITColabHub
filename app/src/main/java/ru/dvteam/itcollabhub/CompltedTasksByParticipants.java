@@ -53,7 +53,7 @@ public class CompltedTasksByParticipants extends AppCompatActivity {
                 .into(binding.advertPhoto);
 
         PostDatas post = new PostDatas();
-        post.postDataGetPeoplesComplitedWork("GetWorks", id, mail, taskId, new CallBackInt() {
+        /*post.postDataGetPeoplesComplitedWork("GetWorks", id, mail, taskId, new CallBackInt() {
             @Override
             public void invoke(String res) {
                 for(int i = 0; i < res.length(); i++){
@@ -68,11 +68,11 @@ public class CompltedTasksByParticipants extends AppCompatActivity {
                     project1.setVisibility(View.GONE);
                     messege.setImageResource(R.drawable.upload_button);
 
-                    /*Glide
+                    Glide
                             .with(CompltedTasksByParticipants.this)
                             .load(photos[i])
                             .into(loadImage);
-                    nameu.setText(names[i]);*/
+                    nameu.setText(names[i]);
 
                     int finalI = i;
 
@@ -88,6 +88,6 @@ public class CompltedTasksByParticipants extends AppCompatActivity {
                 View empty = getLayoutInflater().inflate(R.layout.emty_obj, null);
                 binding.main.addView(empty);
             }
-        });
+        });*/
     }
 }

@@ -145,7 +145,7 @@ public class ActivityTaskMenuForLeader extends AppCompatActivity {
             }
         });
 
-        /*binding.nextMenuBut.setOnClickListener(new View.OnClickListener() {
+        binding.nextMenuBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityTaskMenuForLeader.this, AnswerForTask.class);
@@ -156,7 +156,20 @@ public class ActivityTaskMenuForLeader extends AppCompatActivity {
                 intent.putExtra("taskId", taskId);
                 startActivity(intent);
             }
-        });*/
+        });
+
+        binding.notify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityTaskMenuForLeader.this, CompltedTasksByParticipants.class);
+                intent.putExtra("projectId", id);
+                intent.putExtra("projectTitle", title);
+                intent.putExtra("projectUrlPhoto", prPhoto);
+                intent.putExtra("taskTitle", taskTitle);
+                intent.putExtra("taskId", taskId);
+                startActivity(intent);
+            }
+        });
 
     }
 

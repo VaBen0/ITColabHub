@@ -417,11 +417,13 @@ public class CreateTask extends AppCompatActivity {
                                 imgCount++;
                             }
                         }
-
+                        String typeString = typeStr.substring(0, typeStr.length() - 1);
                         String stringBlockStr;
                         String linkBlockStr;
                         String youtubeBlockStr;
                         String imageBlockStr;
+
+                        Toast.makeText(CreateTask.this, typeString, Toast.LENGTH_SHORT).show();
 
                         if (stringBlock.size() == 0) {
                             stringBlockStr = "Empty";
@@ -449,7 +451,7 @@ public class CreateTask extends AppCompatActivity {
                             intent.putExtra("projectTitle", title);
                             intent.putExtra("projectUrlPhoto", prPhoto);
                             intent.putExtra("TaskName", binding.taskName.getText().toString());
-                            intent.putExtra("Queue", typeStr.toString());
+                            intent.putExtra("Queue", typeString);
                             intent.putExtra("StringBlock", stringBlockStr);
                             intent.putExtra("LinkBlock", linkBlockStr);
                             intent.putExtra("YouTubeBlock", youtubeBlockStr);
