@@ -108,7 +108,7 @@ public class Friends extends Fragment {
                                 startActivity(intent);
                             }
                         });
-                        nameu.setOnClickListener(new View.OnClickListener() {
+                        custom.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 Intent intent = new Intent(v.getContext(), FriendProfile.class);
@@ -117,6 +117,9 @@ public class Friends extends Fragment {
                                 intent.putExtra("score", score[finalI]);
                                 intent.putExtra("image_url", photo[finalI]);
                                 intent.putExtra("project", project[finalI]);
+
+
+
                                 startActivity(intent);
                             }
                         });

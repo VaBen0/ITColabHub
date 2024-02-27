@@ -12,11 +12,11 @@
         android:layout_height="0dp"
         android:background="@drawable/gradient_blue"
         android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/linlay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_default="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/linlay"
         app:layout_constraintWidth_default="spread" />
 
     <ImageView
@@ -42,35 +42,27 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/log"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="87dp"
-        app:cardCornerRadius="200dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/loadImg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-    </androidx.cardview.widget.CardView>
+        android:layout_width="143dp"
+        android:layout_height="143dp"
+        android:layout_marginTop="21dp"
+        android:elevation="2dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:shapeAppearance="@style/CornerCutForMini" />
 
     <ImageView
         android:id="@+id/userCircle"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="82dp"
+        android:layout_width="152dp"
+        android:layout_height="152dp"
         android:background="@drawable/circle_blue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/log"
+        app:layout_constraintEnd_toEndOf="@+id/log"
+        app:layout_constraintStart_toStartOf="@+id/log"
+        app:layout_constraintTop_toTopOf="@+id/log" />
 
     <TextView
         android:id="@+id/nameu"

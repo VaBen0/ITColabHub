@@ -150,13 +150,13 @@ public class MyProjects extends Fragment {
                         nameu.setText(names[i]);
 
                         int finalI = i;
-                        loadImage.setOnClickListener(new View.OnClickListener() {
+                        custom.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 activityProject.changeActivity(id[finalI]);
                             }
                         });
-                        nameu.setOnClickListener(new View.OnClickListener() {
+                        loadImage.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 activityProject.changeActivity(id[finalI]);

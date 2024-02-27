@@ -60,7 +60,7 @@
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="330dp"
         android:layout_marginTop="20dp"
         android:background="?background_panel"
         android:orientation="vertical"
@@ -106,9 +106,9 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="8dp"
+                android:src="?problems_icon"
                 app:layout_constraintStart_toEndOf="@+id/textView28"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="?problems_icon"/>
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ScrollView
@@ -120,7 +120,7 @@
                 android:id="@+id/reminder_place"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
             </LinearLayout>
 
@@ -130,15 +130,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/blockMenu"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
         <View
             android:id="@+id/view10"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
             android:background="?viewBackColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -149,12 +151,12 @@
             android:id="@+id/view11"
             android:layout_width="100dp"
             android:layout_height="5dp"
+            android:layout_marginBottom="1dp"
             android:background="?line"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <LinearLayout
             android:id="@+id/linearLayout8"
@@ -191,8 +193,8 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:gravity="center|left"
-                    android:textColor="@color/s_gray"
                     android:text="@string/description_problem"
+                    android:textColor="@color/s_gray"
                     android:textSize="11sp"
                     android:textStyle="bold|italic"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -206,7 +208,7 @@
                     android:layout_marginStart="5dp"
                     app:layout_constraintBottom_toBottomOf="@+id/textView30"
                     app:layout_constraintStart_toEndOf="@+id/textView30"
-                    app:srcCompat="?problems_icon"/>
+                    app:srcCompat="?problems_icon" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -227,7 +229,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:shapeAppearance="@style/CornerCut"/>
+                    app:shapeAppearance="@style/CornerCut" />
 
                 <View
                     android:id="@+id/view8"
@@ -267,8 +269,8 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="-5dp"
                     android:text="Описание задачи:"
-                    android:textSize="14sp"
                     android:textColor="@color/white"
+                    android:textSize="14sp"
                     android:textStyle="bold|italic"
                     app:layout_constraintStart_toStartOf="@+id/problemImage"
                     app:layout_constraintTop_toBottomOf="@+id/name" />
@@ -277,8 +279,8 @@
                     android:id="@+id/description1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_marginTop="-7dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginTop="-7dp"
                     android:backgroundTint="@color/transparent"
                     android:gravity="top"
                     android:hint="Добавьте описание задачи"
@@ -298,12 +300,12 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginBottom="5dp"
                     android:backgroundTint="@color/violete"
-                    android:textColor="@color/white"
                     android:paddingStart="-1dp"
+                    android:paddingTop="-1dp"
                     android:paddingEnd="-1dp"
                     android:paddingBottom="-1dp"
-                    android:paddingTop="-1dp"
                     android:text="Добавить фото"
+                    android:textColor="@color/white"
                     android:textSize="8sp"
                     app:layout_constraintBottom_toBottomOf="@+id/problemImage"
                     app:layout_constraintStart_toStartOf="@+id/problemImage" />
@@ -315,12 +317,12 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginBottom="5dp"
                     android:backgroundTint="@color/green2.0"
-                    android:textColor="@color/white"
                     android:paddingStart="-1dp"
+                    android:paddingTop="-1dp"
                     android:paddingEnd="-1dp"
                     android:paddingBottom="-1dp"
-                    android:paddingTop="-1dp"
                     android:text="Добавить задачу"
+                    android:textColor="@color/white"
                     android:textSize="8sp"
                     app:layout_constraintBottom_toBottomOf="@+id/problemImage"
                     app:layout_constraintStart_toEndOf="@+id/addPhoto" />
@@ -330,11 +332,11 @@
                 android:id="@+id/textView21"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/s_gray"
-                android:text="@string/description_problem1"
                 android:layout_marginStart="10dp"
+                android:text="@string/description_problem1"
+                android:textColor="@color/s_gray"
                 android:textSize="12sp"
-                android:textStyle="bold|italic"/>
+                android:textStyle="bold|italic" />
 
         </LinearLayout>
 

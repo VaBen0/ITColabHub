@@ -1,11 +1,15 @@
 package ru.dvteam.itcollabhub;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.transition.Fade;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -14,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
+import java.util.Objects;
 
 import ru.dvteam.itcollabhub.databinding.ActivityCompltedTasksByParticipantsBinding;
 
@@ -59,6 +65,7 @@ public class CompltedTasksByParticipants extends AppCompatActivity {
                 .load(prPhoto)
                 .into(binding.prLogo);
 
+
         PostDatas post = new PostDatas();
         post.postDataGetPeoplesComplitedWork("GetWorksFromTask", id, mail, taskId, new CallBackInt5() {
             @Override
@@ -88,7 +95,7 @@ public class CompltedTasksByParticipants extends AppCompatActivity {
                         nameu.setText(namesArr[i]);
 
                         int finalI1 = i;
-                        messege.setOnClickListener(new View.OnClickListener() {
+                        custom.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 Intent intent = new Intent(CompltedTasksByParticipants.this, ActivityWork.class);

@@ -69,7 +69,7 @@ public class FriendProfile extends AppCompatActivity {
 
             String s = "Очки пользователя: " + score;
             TextView nameu = findViewById(R.id.nameu);
-            ImageView loadedImage = findViewById(R.id.loadImg);
+            ImageView loadedImage = findViewById(R.id.log);
             ImageView userCircle = findViewById(R.id.userCircle);
             ImageView bguser = findViewById(R.id.bguser);
             TextView projects = findViewById(R.id.projects);
