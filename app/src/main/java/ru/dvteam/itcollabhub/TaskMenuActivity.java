@@ -12,6 +12,8 @@ import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,6 +40,12 @@ public class TaskMenuActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+        binding.blockMenu.setVisibility(View.GONE);
+
+        binding.blockMenu.setVisibility(View.VISIBLE);
+        final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add2);
+        binding.blockMenu.startAnimation(show);
 
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         mail = sPref.getString("UserMail", "");

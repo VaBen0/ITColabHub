@@ -59,7 +59,7 @@ public class ActivityProject extends AppCompatActivity {
             @Override
             public void invoke(String res) {
                 if(res.equals("1")){
-                    notif.setBackgroundResource(R.drawable.notification_true);
+                    notif.setBackgroundResource(R.drawable.red_notify);
                 }
                 else{
                     notif.setBackgroundResource(R.drawable.white_notification);

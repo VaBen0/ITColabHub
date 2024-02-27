@@ -4,8 +4,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -57,6 +59,7 @@ public class ActivityWork extends AppCompatActivity {
                 .load(userPhoto)
                 .into(binding.log);
         binding.nameProject.setText(title);
+        binding.taskName.setText(taskTitle);
 
         Glide
                 .with(this)
@@ -82,6 +85,8 @@ public class ActivityWork extends AppCompatActivity {
                     View linkBlock = getLayoutInflater().inflate(R.layout.gblock_link2, null);
                     TextView link = linkBlock.findViewById(R.id.name_link);
                     link.setText(linkBlockNameArr[i]);
+                    int finalI = i;
+                    linkBlock.setOnClickListener(view -> goToLink(linkBlockArr[finalI]));
                     binding.main.addView(linkBlock);
                 }
 
@@ -113,6 +118,12 @@ public class ActivityWork extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void goToLink(String url){
+        Uri uriUrl = Uri.parse(url);
+        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+        startActivity(launchBrowser);
     }
 
     private void setActivityFormat(int score){

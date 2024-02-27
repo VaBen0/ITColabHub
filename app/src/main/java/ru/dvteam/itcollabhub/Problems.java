@@ -20,6 +20,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -57,6 +59,12 @@ public class Problems extends AppCompatActivity {
 
         setContentView(binding.getRoot());
         registerResult();
+
+        binding.blockMenu.setVisibility(View.GONE);
+
+        binding.blockMenu.setVisibility(View.VISIBLE);
+        final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add2);
+        binding.blockMenu.startAnimation(show);
 
         if(score < 100){
             binding.bguser.setBackgroundResource(R.drawable.gradient_blue);

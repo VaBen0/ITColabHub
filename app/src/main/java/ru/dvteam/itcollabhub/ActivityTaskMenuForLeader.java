@@ -9,6 +9,8 @@ import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,6 +42,12 @@ public class ActivityTaskMenuForLeader extends AppCompatActivity {
 
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
+        binding.blockMenu.setVisibility(View.GONE);
+
+        binding.blockMenu.setVisibility(View.VISIBLE);
+        final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add2);
+        binding.blockMenu.startAnimation(show);
+
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         mail = sPref.getString("UserMail", "");
         int score = sPref.getInt("UserScore", 0);
@@ -53,12 +61,17 @@ public class ActivityTaskMenuForLeader extends AppCompatActivity {
         taskTitle = arguments.getString("taskTitle");
         taskId = arguments.getString("taskId");
         String completed = arguments.getString("isComplete");
+        int completedCountWorks = arguments.getInt("completedWorks");
 
         assert completed != null;
         if(completed.equals("1")){
             binding.view11.setBackgroundResource(R.drawable.green_line);
             binding.oneOfImportant.setVisibility(View.VISIBLE);
             binding.secondOfImportant.setVisibility(View.GONE);
+        }
+
+        if(completedCountWorks != 0){
+            binding.notify.setImageResource(R.drawable.red_notify);
         }
 
         binding.taskName.setText(taskTitle);
@@ -190,6 +203,19 @@ public class ActivityTaskMenuForLeader extends AppCompatActivity {
                 intent.putExtra("taskTitle", taskTitle);
                 intent.putExtra("taskId", taskId);
                 startActivity(intent);
+            }
+        });
+
+        binding.completedBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PostDatas post = new PostDatas();
+                post.postDataMakeTaskCompleted("SetTaskIsEnd", id, mail, taskId, new CallBackInt() {
+                    @Override
+                    public void invoke(String res) {
+                        finish();
+                    }
+                });
             }
         });
 

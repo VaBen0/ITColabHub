@@ -289,6 +289,7 @@ public class ControlPanel extends AppCompatActivity {
                 anim3.setAutoCancel(true);
                 anim3.setInterpolator(new DecelerateInterpolator());
                 anim3.start();
+                setTasks();
             }
         });
 
@@ -432,6 +433,56 @@ public class ControlPanel extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
+    }
+
+    private void setTasks(){
+        PostDatas post = new PostDatas();
+        post.postDataGetProjectTasks("GetTasksFromProject", id, mail, new CallBackTasksInfo()  {
+            @Override
+            public void invoke(String s1, String s2, String s3, String s4) {
+                if(!s1.equals("Ошибка")) {
+                    binding.textView15.setVisibility(View.GONE);
+                    String[] idsArr = s1.split("\uD83D\uDD70");
+                    String[] namesArr = s2.split("\uD83D\uDD70");
+                    String[] textsArr = s3.split("\uD83D\uDD70");
+                    String[] completeArr = s4.split("\uD83D\uDD70");
+                    for (int i = 0; i < namesArr.length; i++) {
+                        int finalI = i;
+                        int finalI1 = i;
+                        int finalI2 = i;
+                        if (completeArr[finalI2].equals("0")) {
+
+                            View custom = getLayoutInflater().inflate(R.layout.reminder, null);
+                            ImageView loadImg = custom.findViewById(R.id.loadImg);
+                            TextView name = custom.findViewById(R.id.textView33);
+                            TextView descr = custom.findViewById(R.id.textView32);
+
+                            Glide
+                                    .with(ControlPanel.this)
+                                    .load(urlPhoto)
+                                    .into(loadImg);
+
+                            name.setText(namesArr[finalI]);
+                            descr.setText("Задание");
+
+                            custom.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(ControlPanel.this, TaskActivityWatch.class);
+                                    intent.putExtra("projectTitle", title);
+                                    intent.putExtra("projectUrlPhoto", urlPhoto);
+                                    intent.putExtra("projectId1", id);
+                                    intent.putExtra("problemName", namesArr[finalI]);
+                                    intent.putExtra("problemDescription", textsArr[finalI]);
+                                    startActivity(intent);
+                                }
+                            });
+                            binding.reminderPlace.addView(custom);
+                        }
+                    }
+                }
+            }
+        });
     }
     public void getAdverts(String id1, String id2){
         if(!id1.isEmpty() || !id2.isEmpty()){
@@ -595,7 +646,7 @@ public class ControlPanel extends AppCompatActivity {
 
     }
 
-    public void getAdvertIds(){
+    private void getAdvertIds(){
         PostDatas post = new PostDatas();
         post.postDataGetProjectAdsIds("GetProjectAdsIds", id, new CallBackInt() {
             @Override

@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -61,48 +63,53 @@ public class CompltedTasksByParticipants extends AppCompatActivity {
         post.postDataGetPeoplesComplitedWork("GetWorksFromTask", id, mail, taskId, new CallBackInt5() {
             @Override
             public void invoke(String id, String name, String photo) {
+                System.out.println(photo);
                 String[] idsArr = id.split("\uD83D\uDD70");
                 String[] namesArr = name.split("\uD83D\uDD70");
                 String[] photosArr = photo.split("\uD83D\uDD70");
-                for(int i = 0; i < idsArr.length; i++){
-                    View custom = getLayoutInflater().inflate(R.layout.friend_window, null);
-                    TextView nameu = (TextView) custom.findViewById(R.id.textView3);
-                    ImageView loadImage = (ImageView) custom.findViewById(R.id.log);
-                    ImageView userCircle = (ImageView) custom.findViewById(R.id.user_circle);
-                    TextView project1 = (TextView) custom.findViewById(R.id.projects1);
-                    ImageView messege = (ImageView) custom.findViewById(R.id.notban);
+                if (!idsArr[0].equals("Ошибка")) {
+                    binding.noCompleted.setVisibility(View.GONE);
+                    for (int i = 0; i < idsArr.length; i++) {
+                        View custom = getLayoutInflater().inflate(R.layout.friend_window, null);
+                        TextView nameu = (TextView) custom.findViewById(R.id.textView3);
+                        ImageView loadImage = (ImageView) custom.findViewById(R.id.log);
+                        ImageView userCircle = (ImageView) custom.findViewById(R.id.user_circle);
+                        TextView project1 = (TextView) custom.findViewById(R.id.projects1);
+                        ImageView messege = (ImageView) custom.findViewById(R.id.notban);
 
-                    userCircle.setVisibility(View.GONE);
-                    project1.setVisibility(View.GONE);
-                    messege.setImageResource(R.drawable.upload_button_black);
+                        userCircle.setVisibility(View.GONE);
+                        project1.setVisibility(View.GONE);
+                        messege.setImageResource(R.drawable.upload_button_black);
 
-                    Glide
-                            .with(CompltedTasksByParticipants.this)
-                            .load(photosArr[i])
-                            .into(loadImage);
-                    nameu.setText(namesArr[i]);
+                        Glide
+                                .with(CompltedTasksByParticipants.this)
+                                .load(photosArr[i])
+                                .into(loadImage);
+                        nameu.setText(namesArr[i]);
 
-                    int finalI1 = i;
-                    messege.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(CompltedTasksByParticipants.this, ActivityWork.class);
-                            intent.putExtra("projectId", id);
-                            intent.putExtra("projectTitle", title);
-                            intent.putExtra("projectUrlPhoto", prPhoto);
-                            intent.putExtra("taskTitle", taskTitle);
-                            intent.putExtra("workId", idsArr[finalI1]);
-                            intent.putExtra("userName", namesArr[finalI1]);
-                            intent.putExtra("userPhoto", photosArr[finalI1]);
-                            startActivity(intent);
-                        }
-                    });
-                    binding.main.addView(custom);
+                        int finalI1 = i;
+                        messege.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(CompltedTasksByParticipants.this, ActivityWork.class);
+                                intent.putExtra("projectId", id);
+                                intent.putExtra("projectTitle", title);
+                                intent.putExtra("projectUrlPhoto", prPhoto);
+                                intent.putExtra("taskTitle", taskTitle);
+                                intent.putExtra("workId", idsArr[finalI1]);
+                                intent.putExtra("userName", namesArr[finalI1]);
+                                intent.putExtra("userPhoto", photosArr[finalI1]);
+                                startActivity(intent);
+                            }
+                        });
+                        binding.main.addView(custom);
+                    }
+                    View empty = getLayoutInflater().inflate(R.layout.emty_obj, null);
+                    binding.main.addView(empty);
                 }
-                View empty = getLayoutInflater().inflate(R.layout.emty_obj, null);
-                binding.main.addView(empty);
             }
         });
+
     }
 
     private void setActivityFormat(int score){

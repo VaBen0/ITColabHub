@@ -34,7 +34,7 @@ public class Friends extends Fragment {
         String mail = getArguments().getString("mail");
         boolean rFr = getArguments().getBoolean("rFr");
 
-        if(rFr){notifications.setBackgroundResource(R.drawable.notification_true);}
+        if(rFr){notifications.setBackgroundResource(R.drawable.red_notify);}
 
         PostDatas post = new PostDatas();
         post.postDataGetFriends("GetUserFriends", mail, new CallBackInt() {
