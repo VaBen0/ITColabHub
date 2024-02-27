@@ -7,27 +7,16 @@
     tools:context=".CreateTask">
 
     <ImageView
-        android:id="@+id/advertPhoto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/bguser"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:background="@drawable/gradient_blue"
+        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHeight_default="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/logo_second_type" />
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black_transperent3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintWidth_default="spread" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/logo"
@@ -89,7 +78,6 @@
         android:layout_marginEnd="60dp"
         android:gravity="center"
         android:text="Добавить задачу для участника проекта"
-        android:textColor="@color/white"
         android:textSize="23sp"
         android:textStyle="italic|bold"
         app:layout_constraintEnd_toEndOf="parent"

@@ -25,6 +25,9 @@
         <item name="youtube_icon">@drawable/youtube_icon</item>
         <item name="link_icon">@drawable/link_icon</item>
         <item name="line">@drawable/white_line</item>
+        <item name="trash_icon">@drawable/delete_icon</item>
+        <item name="arrow_icon">@drawable/arrow1</item>
+        <item name="check_icon">@drawable/check_box</item>
         <item name="upload_icon">@drawable/upload_button</item>
         <item name="edit_project_icon">@drawable/redaktirovat</item>
         <item name="chat_icon">@drawable/chat</item>

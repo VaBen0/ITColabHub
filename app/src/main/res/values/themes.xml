@@ -14,6 +14,9 @@
         <item name="advertisments_icon">@drawable/day_megaphone</item>
         <item name="edit_project_icon">@drawable/day_edit</item>
         <item name="chat_icon">@drawable/day_chat</item>
+        <item name="trash_icon">@drawable/delete_black</item>
+        <item name="arrow_icon">@drawable/arrow_black</item>
+        <item name="check_icon">@drawable/check_box_black</item>
         <item name="text_icon">@drawable/text_black</item>
         <item name="image_icon">@drawable/image_black</item>
         <item name="youtube_icon">@drawable/youtube_black</item>

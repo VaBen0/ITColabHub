@@ -21,4 +21,7 @@
     <attr name="viewBackColor" format="reference"/>
     <attr name="line" format="reference"/>
     <attr name="upload_icon" format="reference"/>
+    <attr name="trash_icon" format="reference"/>
+    <attr name="arrow_icon" format="reference"/>
+    <attr name="check_icon" format="reference"/>
 </resources>

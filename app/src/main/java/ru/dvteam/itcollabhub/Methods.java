@@ -324,4 +324,9 @@ public interface Methods {
     @POST("/")
     Call<Model> getPeoplesCompletedWork(@Field("Request")String req, @Field("ProjectID")String id, @Field("UserMail") String mail,
                                 @Field("TaskID") String taskID);
+
+    @FormUrlEncoded
+    @POST("/")
+    Call<Model> getWork(@Field("Request")String req, @Field("ProjectID")String id, @Field("UserMail") String mail,
+                                        @Field("WorkID") String taskID);
 }

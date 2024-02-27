@@ -39,7 +39,7 @@ public class AnswerForTask extends AppCompatActivity {
     ActivityAnswerForTaskBinding binding;
 
     private String mail, id, title, prPhoto, taskTitle, taskId;
-    private int cntImg = 0, cntLinks = 0;
+    private int cntImg = 0, cntImg1 = 0, cntLinks = 0, cntLinks1 = 0;
 
     private static final int PICK_IMAGES_CODE = 0;
     private Boolean enter = true;
@@ -62,6 +62,8 @@ public class AnswerForTask extends AppCompatActivity {
 
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         mail = sPref.getString("UserMail", "");
+        int score = sPref.getInt("UserScore", 0);
+        setActivityFormat(score);
 
         mediaPaths = new ArrayList<>();
         linkName = new ArrayList<>();
@@ -78,16 +80,12 @@ public class AnswerForTask extends AppCompatActivity {
 
         binding.taskName.setText(taskTitle);
         binding.nameProject.setText(title);
+        setButtonColor(score, binding.addImg);
 
         Glide
                 .with(this)
                 .load(prPhoto)
                 .into(binding.prLogo);
-
-        Glide
-                .with(this)
-                .load(prPhoto)
-                .into(binding.advertPhoto);
 
         if(android.os.Build.VERSION.SDK_INT >= 33) {
             binding.addImg.setOnClickListener(view -> pickImage());
@@ -96,7 +94,7 @@ public class AnswerForTask extends AppCompatActivity {
             binding.addImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(cntImg <= 7) {
+                    if(cntImg < 7) {
                         if (ContextCompat.checkSelfPermission(AnswerForTask.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
                                 != PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(AnswerForTask.this,
@@ -116,18 +114,18 @@ public class AnswerForTask extends AppCompatActivity {
         binding.addLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(cntLinks <= 7) {
+                if(cntLinks < 7 && !binding.linkTitle.getText().toString().isEmpty() && !binding.linkTitle.getText().toString().isEmpty()) {
                     View custom = getLayoutInflater().inflate(R.layout.photo_panel, null);
                     linkName.add(binding.linkTitle.getText().toString());
                     linkLink.add(binding.link.getText().toString());
                     //Toast.makeText(AnswerForTask.this, "", Toast.LENGTH_SHORT).show();
-                    final int iko = cntLinks;
+                    final int iko = cntLinks1;
                     custom.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             binding.main2.removeView(custom);
-                            linkName.remove(iko);
-                            linkLink.remove(iko);
+                            linkName.set(iko, "");
+                            linkLink.set(iko, "");
                             for(int i = 0; i < binding.main2.getChildCount(); i++){
                                 View lol = binding.main2.getChildAt(i);
                                 TextView text = lol.findViewById(R.id.taskTitle);
@@ -139,7 +137,8 @@ public class AnswerForTask extends AppCompatActivity {
                     });
 
                     cntLinks++;
-                    String s = "Ссылка " + cntLinks;
+                    cntLinks1++;
+                    String s = "Ссылка " + (binding.main2.getChildCount() + 1);
                     TextView name = custom.findViewById(R.id.taskTitle);
                     name.setText(s);
                     binding.main2.addView(custom);
@@ -166,6 +165,8 @@ public class AnswerForTask extends AppCompatActivity {
     private void createTextBlock(){
         if(binding.note.getText().toString().isEmpty()){
             Toast.makeText(this, "Нет заметки", Toast.LENGTH_SHORT).show();
+            binding.load.setVisibility(View.GONE);
+            binding.back.setVisibility(View.GONE);
         }else {
             PostDatas post = new PostDatas();
             post.postDataCreateStringBlock("CreateTextBlock", id, mail, binding.note.getText().toString(), new CallBackInt() {
@@ -181,25 +182,26 @@ public class AnswerForTask extends AppCompatActivity {
 
     public void createAllImageBlocks(int i){
         PostDatas post = new PostDatas();
-
-        if(linkName.size() == 0){
+        if (cntImg == 0) {
             createWork();
-        }else {
-            File file = new File(mediaPaths.get(i));
-            RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
-            int finalI2 = i;
-            post.postDataCreateImageBlock("CreateImageBlock", imageNames.get(i), requestBody, id, mail, new CallBackInt() {
-                @Override
-                public void invoke(String res) {
-                    idsImageBlocks.add(res);
-                    if (finalI2 == mediaPaths.size() - 1) {
-                        Toast.makeText(AnswerForTask.this, idsImageBlocks.toString() + " " + finalI2 + " " + (mediaPaths.size() - 1), Toast.LENGTH_SHORT).show();
-                        createWork();
-                    } else {
-                        createAllImageBlocks(finalI2 + 1);
+        }else{
+            if(!imageNames.get(i).equals("")) {
+                File file = new File(mediaPaths.get(i));
+                RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
+                int finalI2 = i;
+                post.postDataCreateImageBlock("CreateImageBlock", imageNames.get(i), requestBody, id, mail, new CallBackInt() {
+                    @Override
+                    public void invoke(String res) {
+                        idsImageBlocks.add(res);
+                        if (finalI2 == mediaPaths.size() - 1) {
+                            Toast.makeText(AnswerForTask.this, idsImageBlocks.toString() + " " + finalI2 + " " + (mediaPaths.size() - 1), Toast.LENGTH_SHORT).show();
+                            createWork();
+                        } else {
+                            createAllImageBlocks(finalI2 + 1);
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     }
 
@@ -207,36 +209,51 @@ public class AnswerForTask extends AppCompatActivity {
         PostDatas post = new PostDatas();
         for(int i = 0; i < linkName.size(); i++){
             int finalI = i;
-            post.postDataCreateLinkBlock("CreateLinkBlock", id, mail, linkName.get(i), linkLink.get(i), new CallBackInt() {
-                @Override
-                public void invoke(String res) {
-                    idsLinkBlocks.add(res);
-                    if(finalI == linkName.size() - 1){
-                        Toast.makeText(AnswerForTask.this, idsLinkBlocks.toString(), Toast.LENGTH_SHORT).show();
-                        createAllImageBlocks(0);
+            if(!linkName.get(i).equals("")) {
+                //System.out.println(linkName.get(i));
+                post.postDataCreateLinkBlock("CreateLinkBlock", id, mail, linkName.get(i), linkLink.get(i), new CallBackInt() {
+                    @Override
+                    public void invoke(String res) {
+                        idsLinkBlocks.add(res);
+                        if (finalI == linkName.size() - 1) {
+                            Toast.makeText(AnswerForTask.this, idsLinkBlocks.toString(), Toast.LENGTH_SHORT).show();
+                            createAllImageBlocks(0);
+                        }
                     }
-                }
-            });
+                });
+            }
         }
-        if(linkName.size() == 0){
+        if(cntLinks == 0){
             createAllImageBlocks(0);
         }
     }
 
     private void createWork(){
         PostDatas post = new PostDatas();
-        post.postDataCreateWork("CreateWork", id, mail, taskId, text, String.join(",", idsLinkBlocks),
-                String.join(",", idsImageBlocks), new CallBackInt() {
+        String idsLinkBlocksStr;
+        String idsImageBlocksStr;
+        if(idsLinkBlocks.isEmpty()){
+            idsLinkBlocksStr = "";
+        }else{
+            idsLinkBlocksStr = String.join(",", idsLinkBlocks);
+        }
+        if(idsImageBlocks.isEmpty()){
+            idsImageBlocksStr = "";
+        }else{
+            idsImageBlocksStr = String.join(",", idsImageBlocks);
+        }
+        post.postDataCreateWork("CreateWork", id, mail, taskId, text, idsLinkBlocksStr,
+                idsImageBlocksStr, new CallBackInt() {
             @Override
             public void invoke(String res) {
-                PartisipantTasks.fa.finish();
+                Toast.makeText(AnswerForTask.this, res, Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
     }
 
     private void pickImage(){
-        if(cntImg <= 7){
+        if(cntImg < 7){
             Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
             resultLauncher.launch(intent);
         }
@@ -276,19 +293,20 @@ public class AnswerForTask extends AppCompatActivity {
                 String mediaPath = cursor.getString(columnIndex);
 
                 cntImg++;
+                cntImg1++;
 
                 mediaPaths.add(mediaPath);
                 imageNames.add("Фото " + cntImg);
 
                 View custom = getLayoutInflater().inflate(R.layout.photo_panel, null);
 
-                final int iko = cntImg - 1;
+                final int iko = cntImg1 - 1;
                 custom.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         binding.main1.removeView(custom);
-                        imageNames.remove(iko);
-                        mediaPaths.remove(iko);
+                        imageNames.set(iko, "");
+                        mediaPaths.set(iko, "");
                         for(int i = 0; i < binding.main1.getChildCount(); i++){
                             View lol = binding.main1.getChildAt(i);
                             TextView text = lol.findViewById(R.id.taskTitle);
@@ -299,7 +317,7 @@ public class AnswerForTask extends AppCompatActivity {
                     }
                 });
 
-                String s = "Фото " + cntImg;
+                String s = "Фото " + (binding.main1.getChildCount() + 1);
                 TextView name = custom.findViewById(R.id.taskTitle);
                 name.setText(s);
 
@@ -330,19 +348,20 @@ public class AnswerForTask extends AppCompatActivity {
                             String mediaPath = cursor.getString(columnIndex);
 
                             cntImg++;
+                            cntImg1++;
 
                             mediaPaths.add(mediaPath);
                             imageNames.add("Фото " + cntImg);
 
                             View custom = getLayoutInflater().inflate(R.layout.photo_panel, null);
 
-                            final int iko = cntImg - 1;
+                            final int iko = cntImg1 - 1;
                             custom.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     binding.main1.removeView(custom);
-                                    imageNames.remove(iko);
-                                    mediaPaths.remove(iko);
+                                    imageNames.set(iko, "");
+                                    mediaPaths.set(iko, "");
                                     for(int i = 0; i < binding.main1.getChildCount(); i++){
                                         View lol = binding.main1.getChildAt(i);
                                         TextView text = lol.findViewById(R.id.taskTitle);
@@ -353,7 +372,7 @@ public class AnswerForTask extends AppCompatActivity {
                                 }
                             });
 
-                            String s = "Фото " + cntImg;
+                            String s = "Фото " + (binding.main1.getChildCount() + 1);
                             TextView name = custom.findViewById(R.id.taskTitle);
                             name.setText(s);
 
@@ -365,5 +384,83 @@ public class AnswerForTask extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    private void setActivityFormat(int score){
+        if(score < 100){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_blue);
+            getWindow().setStatusBarColor(ContextCompat.getColor(AnswerForTask.this,R.color.blue));
+            binding.addLink.setBackgroundTintList(ContextCompat.getColorStateList(AnswerForTask.this, R.color.blue));
+        }
+        else if(score < 300){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_green);
+            getWindow().setStatusBarColor(ContextCompat.getColor(AnswerForTask.this,R.color.green));
+            binding.addLink.setBackgroundTintList(ContextCompat.getColorStateList(AnswerForTask.this, R.color.green));
+        }
+        else if(score < 1000){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_brown);
+            getWindow().setStatusBarColor(ContextCompat.getColor(AnswerForTask.this,R.color.brown));
+            binding.addLink.setBackgroundTintList(ContextCompat.getColorStateList(AnswerForTask.this, R.color.brown));
+        }
+        else if(score < 2500){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_light_gray);
+            getWindow().setStatusBarColor(ContextCompat.getColor(AnswerForTask.this,R.color.light_gray));
+            binding.addLink.setBackgroundTintList(ContextCompat.getColorStateList(AnswerForTask.this, R.color.light_gray));
+        }
+        else if(score < 7000){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_ohra);
+            getWindow().setStatusBarColor(ContextCompat.getColor(AnswerForTask.this,R.color.ohra));
+            binding.addLink.setBackgroundTintList(ContextCompat.getColorStateList(AnswerForTask.this, R.color.ohra));
+        }
+        else if(score < 17000){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_red);
+            getWindow().setStatusBarColor(ContextCompat.getColor(AnswerForTask.this,R.color.red));
+            binding.addLink.setBackgroundTintList(ContextCompat.getColorStateList(AnswerForTask.this, R.color.red));
+        }
+        else if(score < 30000) {
+            binding.bguser.setBackgroundResource(R.drawable.gradient_orange);
+            getWindow().setStatusBarColor(ContextCompat.getColor(AnswerForTask.this, R.color.orange));
+            binding.addLink.setBackgroundTintList(ContextCompat.getColorStateList(AnswerForTask.this, R.color.orange));
+        }
+        else if(score < 50000){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_violete);
+            getWindow().setStatusBarColor(ContextCompat.getColor(AnswerForTask.this,R.color.violete));
+            binding.addLink.setBackgroundTintList(ContextCompat.getColorStateList(AnswerForTask.this, R.color.violete));
+        }
+        else{
+            binding.bguser.setBackgroundResource(R.drawable.gradient_blue_green);
+            getWindow().setStatusBarColor(ContextCompat.getColor(AnswerForTask.this,R.color.main_green));
+            binding.addLink.setBackgroundTintList(ContextCompat.getColorStateList(AnswerForTask.this, R.color.main_green));
+        }
+    }
+
+    private void setButtonColor(int score, ImageView but){
+        if(score < 100){
+            but.setImageResource(R.drawable.ad);
+        }
+        else if(score < 300){
+            but.setImageResource(R.drawable.green_add);
+        }
+        else if(score < 1000){
+            but.setImageResource(R.drawable.brown_add);
+        }
+        else if(score < 2500){
+            but.setImageResource(R.drawable.light_gray_add);
+        }
+        else if(score < 7000){
+            but.setImageResource(R.drawable.ohra_add);
+        }
+        else if(score < 17000){
+            but.setImageResource(R.drawable.red_add);
+        }
+        else if(score < 30000) {
+            but.setImageResource(R.drawable.brown_add);
+        }
+        else if(score < 50000){
+            but.setImageResource(R.drawable.violete_add);
+        }
+        else{
+            but.setImageResource(R.drawable.blue_green_add);
+        }
     }
 }

@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
@@ -48,6 +49,14 @@ public class TaskMenuActivity extends AppCompatActivity {
         prPhoto = arguments.getString("projectUrlPhoto");
         taskTitle = arguments.getString("taskTitle");
         taskId = arguments.getString("taskId");
+        String completed = arguments.getString("isComplete");
+
+        assert completed != null;
+        if(completed.equals("1")){
+            binding.view11.setBackgroundResource(R.drawable.green_line);
+            binding.oneOfImportant.setVisibility(View.VISIBLE);
+            binding.secondOfImportant.setVisibility(View.GONE);
+        }
 
         binding.taskName.setText(taskTitle);
         binding.nameProject.setText(title);
@@ -112,10 +121,24 @@ public class TaskMenuActivity extends AppCompatActivity {
                             View customImage = getLayoutInflater().inflate(R.layout.gblock_image2, null);
                             TextView imageName = customImage.findViewById(R.id.title);
                             ImageView img = customImage.findViewById(R.id.chosen_img);
+                            ImageView img2 = customImage.findViewById(R.id.chosen_img2);
                             imageName.setText(imageBlockNameArr[imageCnt]);
                             Glide
                                     .with(TaskMenuActivity.this)
                                     .load(imageBlockLinkArr[imageCnt])
+                                    .diskCacheStrategy(DiskCacheStrategy.DATA)
+                                    .listener(new RequestListener<Drawable>() {
+                                        @Override
+                                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                            img2.setVisibility(View.GONE);
+                                            return false;
+                                        }
+                                    })
                                     .into(img);
                             binding.main.addView(customImage);
                             imageCnt++;

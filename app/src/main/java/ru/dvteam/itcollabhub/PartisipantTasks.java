@@ -1,6 +1,7 @@
 package ru.dvteam.itcollabhub;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -43,6 +44,8 @@ public class PartisipantTasks extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         mail = sPref.getString("UserMail", "");
+        int score = sPref.getInt("UserScore", 0);
+        setActivityFormat(score);
 
         idsArr = new ArrayList<String>();
         idsTextBlocks = new ArrayList<String>();
@@ -66,11 +69,6 @@ public class PartisipantTasks extends AppCompatActivity {
                 .with(this)
                 .load(prPhoto)
                 .into(binding.prLogo);
-
-        Glide
-                .with(this)
-                .load(prPhoto)
-                .into(binding.advertPhoto);
 
         assert stringBlock != null;
         if(stringBlock.equals("Empty")){
@@ -115,7 +113,7 @@ public class PartisipantTasks extends AppCompatActivity {
 
                     userCircle.setVisibility(View.GONE);
                     project1.setVisibility(View.GONE);
-                    messege.setImageResource(R.drawable.violete_add);
+                    setButtonColor(score, messege);
 
                     Glide
                             .with(PartisipantTasks.this)
@@ -285,5 +283,74 @@ public class PartisipantTasks extends AppCompatActivity {
                         finish();
                     }
                 });
+    }
+
+    private void setActivityFormat(int score){
+        if(score < 100){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_blue);
+            getWindow().setStatusBarColor(ContextCompat.getColor(PartisipantTasks.this,R.color.blue));
+        }
+        else if(score < 300){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_green);
+            getWindow().setStatusBarColor(ContextCompat.getColor(PartisipantTasks.this,R.color.green));
+        }
+        else if(score < 1000){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_brown);
+            getWindow().setStatusBarColor(ContextCompat.getColor(PartisipantTasks.this,R.color.brown));
+        }
+        else if(score < 2500){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_light_gray);
+            getWindow().setStatusBarColor(ContextCompat.getColor(PartisipantTasks.this,R.color.light_gray));
+        }
+        else if(score < 7000){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_ohra);
+            getWindow().setStatusBarColor(ContextCompat.getColor(PartisipantTasks.this,R.color.ohra));
+        }
+        else if(score < 17000){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_red);
+            getWindow().setStatusBarColor(ContextCompat.getColor(PartisipantTasks.this,R.color.red));
+        }
+        else if(score < 30000) {
+            binding.bguser.setBackgroundResource(R.drawable.gradient_orange);
+            getWindow().setStatusBarColor(ContextCompat.getColor(PartisipantTasks.this, R.color.orange));
+        }
+        else if(score < 50000){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_violete);
+            getWindow().setStatusBarColor(ContextCompat.getColor(PartisipantTasks.this,R.color.violete));
+        }
+        else{
+            binding.bguser.setBackgroundResource(R.drawable.gradient_blue_green);
+            getWindow().setStatusBarColor(ContextCompat.getColor(PartisipantTasks.this,R.color.main_green));
+        }
+    }
+
+    private void setButtonColor(int score, ImageView but){
+        if(score < 100){
+            but.setImageResource(R.drawable.ad);
+        }
+        else if(score < 300){
+            but.setImageResource(R.drawable.green_add);
+        }
+        else if(score < 1000){
+            but.setImageResource(R.drawable.brown_add);
+        }
+        else if(score < 2500){
+            but.setImageResource(R.drawable.light_gray_add);
+        }
+        else if(score < 7000){
+            but.setImageResource(R.drawable.ohra_add);
+        }
+        else if(score < 17000){
+            but.setImageResource(R.drawable.red_add);
+        }
+        else if(score < 30000) {
+            but.setImageResource(R.drawable.brown_add);
+        }
+        else if(score < 50000){
+            but.setImageResource(R.drawable.violete_add);
+        }
+        else{
+            but.setImageResource(R.drawable.blue_green_add);
+        }
     }
 }

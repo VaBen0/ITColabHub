@@ -15,8 +15,6 @@
         android:backgroundTint="@color/transparent"
         android:gravity="top"
         android:hint="Блок текста добавлен. Начните редактирование"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/deleteBut"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,6 +26,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/delete_icon" />
+        app:srcCompat="?trash_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,9 @@
 package ru.dvteam.itcollabhub;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +32,8 @@ public class CompltedTasksByParticipants extends AppCompatActivity {
 
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         mail = sPref.getString("UserMail", "");
+        int score = sPref.getInt("UserScore", 0);
+        setActivityFormat(score);
 
         Bundle arguments = getIntent().getExtras();
         assert arguments != null;
@@ -41,6 +45,7 @@ public class CompltedTasksByParticipants extends AppCompatActivity {
 
         binding.taskTitle.setText(taskTitle);
         binding.nameProject.setText(title);
+        binding.nameProject.setText(title);
 
         Glide
                 .with(this)
@@ -50,13 +55,16 @@ public class CompltedTasksByParticipants extends AppCompatActivity {
         Glide
                 .with(this)
                 .load(prPhoto)
-                .into(binding.advertPhoto);
+                .into(binding.prLogo);
 
         PostDatas post = new PostDatas();
-        /*post.postDataGetPeoplesComplitedWork("GetWorks", id, mail, taskId, new CallBackInt() {
+        post.postDataGetPeoplesComplitedWork("GetWorksFromTask", id, mail, taskId, new CallBackInt5() {
             @Override
-            public void invoke(String res) {
-                for(int i = 0; i < res.length(); i++){
+            public void invoke(String id, String name, String photo) {
+                String[] idsArr = id.split("\uD83D\uDD70");
+                String[] namesArr = name.split("\uD83D\uDD70");
+                String[] photosArr = photo.split("\uD83D\uDD70");
+                for(int i = 0; i < idsArr.length; i++){
                     View custom = getLayoutInflater().inflate(R.layout.friend_window, null);
                     TextView nameu = (TextView) custom.findViewById(R.id.textView3);
                     ImageView loadImage = (ImageView) custom.findViewById(R.id.log);
@@ -66,21 +74,27 @@ public class CompltedTasksByParticipants extends AppCompatActivity {
 
                     userCircle.setVisibility(View.GONE);
                     project1.setVisibility(View.GONE);
-                    messege.setImageResource(R.drawable.upload_button);
+                    messege.setImageResource(R.drawable.upload_button_black);
 
                     Glide
                             .with(CompltedTasksByParticipants.this)
-                            .load(photos[i])
+                            .load(photosArr[i])
                             .into(loadImage);
-                    nameu.setText(names[i]);
+                    nameu.setText(namesArr[i]);
 
-                    int finalI = i;
-
+                    int finalI1 = i;
                     messege.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            //idsArr.add(ids[finalI]);
-                            messege.setVisibility(View.GONE);
+                            Intent intent = new Intent(CompltedTasksByParticipants.this, ActivityWork.class);
+                            intent.putExtra("projectId", id);
+                            intent.putExtra("projectTitle", title);
+                            intent.putExtra("projectUrlPhoto", prPhoto);
+                            intent.putExtra("taskTitle", taskTitle);
+                            intent.putExtra("workId", idsArr[finalI1]);
+                            intent.putExtra("userName", namesArr[finalI1]);
+                            intent.putExtra("userPhoto", photosArr[finalI1]);
+                            startActivity(intent);
                         }
                     });
                     binding.main.addView(custom);
@@ -88,6 +102,45 @@ public class CompltedTasksByParticipants extends AppCompatActivity {
                 View empty = getLayoutInflater().inflate(R.layout.emty_obj, null);
                 binding.main.addView(empty);
             }
-        });*/
+        });
+    }
+
+    private void setActivityFormat(int score){
+        if(score < 100){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_blue);
+            getWindow().setStatusBarColor(ContextCompat.getColor(CompltedTasksByParticipants.this,R.color.blue));
+        }
+        else if(score < 300){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_green);
+            getWindow().setStatusBarColor(ContextCompat.getColor(CompltedTasksByParticipants.this,R.color.green));
+        }
+        else if(score < 1000){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_brown);
+            getWindow().setStatusBarColor(ContextCompat.getColor(CompltedTasksByParticipants.this,R.color.brown));
+        }
+        else if(score < 2500){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_light_gray);
+            getWindow().setStatusBarColor(ContextCompat.getColor(CompltedTasksByParticipants.this,R.color.light_gray));
+        }
+        else if(score < 7000){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_ohra);
+            getWindow().setStatusBarColor(ContextCompat.getColor(CompltedTasksByParticipants.this,R.color.ohra));
+        }
+        else if(score < 17000){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_red);
+            getWindow().setStatusBarColor(ContextCompat.getColor(CompltedTasksByParticipants.this,R.color.red));
+        }
+        else if(score < 30000) {
+            binding.bguser.setBackgroundResource(R.drawable.gradient_orange);
+            getWindow().setStatusBarColor(ContextCompat.getColor(CompltedTasksByParticipants.this, R.color.orange));
+        }
+        else if(score < 50000){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_violete);
+            getWindow().setStatusBarColor(ContextCompat.getColor(CompltedTasksByParticipants.this,R.color.violete));
+        }
+        else{
+            binding.bguser.setBackgroundResource(R.drawable.gradient_blue_green);
+            getWindow().setStatusBarColor(ContextCompat.getColor(CompltedTasksByParticipants.this,R.color.main_green));
+        }
     }
 }

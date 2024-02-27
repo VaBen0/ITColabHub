@@ -14,9 +14,11 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
@@ -40,6 +42,8 @@ public class ActivityTaskMenuForLeader extends AppCompatActivity {
 
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         mail = sPref.getString("UserMail", "");
+        int score = sPref.getInt("UserScore", 0);
+        setActivityFormat(score);
 
         Bundle arguments = getIntent().getExtras();
         assert arguments != null;
@@ -48,6 +52,14 @@ public class ActivityTaskMenuForLeader extends AppCompatActivity {
         prPhoto = arguments.getString("projectUrlPhoto");
         taskTitle = arguments.getString("taskTitle");
         taskId = arguments.getString("taskId");
+        String completed = arguments.getString("isComplete");
+
+        assert completed != null;
+        if(completed.equals("1")){
+            binding.view11.setBackgroundResource(R.drawable.green_line);
+            binding.oneOfImportant.setVisibility(View.VISIBLE);
+            binding.secondOfImportant.setVisibility(View.GONE);
+        }
 
         binding.taskName.setText(taskTitle);
         binding.nameProject.setText(title);
@@ -56,11 +68,6 @@ public class ActivityTaskMenuForLeader extends AppCompatActivity {
                 .with(this)
                 .load(prPhoto)
                 .into(binding.prLogo);
-
-        Glide
-                .with(this)
-                .load(prPhoto)
-                .into(binding.advertPhoto);
 
         PostDatas post = new PostDatas();
         post.postDataGetMoreInfoTask("GetMoreInformationFromTaskFromProject", id, mail, taskId, new CallBackTaskInfo() {
@@ -112,10 +119,25 @@ public class ActivityTaskMenuForLeader extends AppCompatActivity {
                             View customImage = getLayoutInflater().inflate(R.layout.gblock_image2, null);
                             TextView imageName = customImage.findViewById(R.id.title);
                             ImageView img = customImage.findViewById(R.id.chosen_img);
+                            ImageView img2 = customImage.findViewById(R.id.chosen_img2);
+                            img.setImageResource(R.drawable.icon_changed);
                             imageName.setText(imageBlockNameArr[imageCnt]);
                             Glide
                                     .with(ActivityTaskMenuForLeader.this)
                                     .load(imageBlockLinkArr[imageCnt])
+                                    .diskCacheStrategy(DiskCacheStrategy.DATA)
+                                    .listener(new RequestListener<Drawable>() {
+                                        @Override
+                                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                            img2.setVisibility(View.GONE);
+                                            return false;
+                                        }
+                                    })
                                     .into(img);
                             binding.main.addView(customImage);
                             imageCnt++;
@@ -177,5 +199,44 @@ public class ActivityTaskMenuForLeader extends AppCompatActivity {
         Uri uriUrl = Uri.parse(url);
         Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
         startActivity(launchBrowser);
+    }
+
+    private void setActivityFormat(int score){
+        if(score < 100){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_blue);
+            getWindow().setStatusBarColor(ContextCompat.getColor(ActivityTaskMenuForLeader.this,R.color.blue));
+        }
+        else if(score < 300){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_green);
+            getWindow().setStatusBarColor(ContextCompat.getColor(ActivityTaskMenuForLeader.this,R.color.green));
+        }
+        else if(score < 1000){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_brown);
+            getWindow().setStatusBarColor(ContextCompat.getColor(ActivityTaskMenuForLeader.this,R.color.brown));
+        }
+        else if(score < 2500){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_light_gray);
+            getWindow().setStatusBarColor(ContextCompat.getColor(ActivityTaskMenuForLeader.this,R.color.light_gray));
+        }
+        else if(score < 7000){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_ohra);
+            getWindow().setStatusBarColor(ContextCompat.getColor(ActivityTaskMenuForLeader.this,R.color.ohra));
+        }
+        else if(score < 17000){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_red);
+            getWindow().setStatusBarColor(ContextCompat.getColor(ActivityTaskMenuForLeader.this,R.color.red));
+        }
+        else if(score < 30000) {
+            binding.bguser.setBackgroundResource(R.drawable.gradient_orange);
+            getWindow().setStatusBarColor(ContextCompat.getColor(ActivityTaskMenuForLeader.this, R.color.orange));
+        }
+        else if(score < 50000){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_violete);
+            getWindow().setStatusBarColor(ContextCompat.getColor(ActivityTaskMenuForLeader.this,R.color.violete));
+        }
+        else{
+            binding.bguser.setBackgroundResource(R.drawable.gradient_blue_green);
+            getWindow().setStatusBarColor(ContextCompat.getColor(ActivityTaskMenuForLeader.this,R.color.main_green));
+        }
     }
 }

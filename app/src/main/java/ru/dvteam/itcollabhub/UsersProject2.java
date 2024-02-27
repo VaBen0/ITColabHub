@@ -92,7 +92,7 @@ public class UsersProject2 extends AppCompatActivity {
             @Override
             public void invoke(String name, String photoUrl, String descript, double isend, String purposes,
                                String problems, String peoples, String time, String time1, String tg, String vk, String webs,
-                               String purposesids, String problemsids, String isl) {
+                               String purposesids, String problemsids, String isl, String tasks) {
                 binding.projectName.setText(name);
                 Glide
                         .with(UsersProject2.this)

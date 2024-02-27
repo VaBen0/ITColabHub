@@ -35,6 +35,8 @@ public class Model {
     private String image_blocks_links;
     private String youtube_blocks_names;
     private String youtube_blocks_links;
+    private String tasks;
+    private String complete;
 
     private int activityProjects, archiveProjects;
 
@@ -42,7 +44,8 @@ public class Model {
                  String vkLink, String webLink, double isend, String purposes, String problems, String peoples, String time, String time1,
                  String purposesids, String problemsids, String isl, int activityProjects, int archiveProjects, String names, String photos,
                  String ids, String texts, String queue_blocks, String text_blocks, String link_blocks_names, String link_blocks_links,
-                 String image_blocks_names, String image_blocks_links, String youtube_blocks_names, String youtube_blocks_links) {
+                 String image_blocks_names, String image_blocks_links, String youtube_blocks_names, String youtube_blocks_links, String tasks,
+                 String complete) {
         this.name = name;
         this.ret = ret;
         this.urlImg = urlImg;
@@ -70,6 +73,8 @@ public class Model {
         this.image_blocks_links = image_blocks_links;
         this.youtube_blocks_names = youtube_blocks_names;
         this.youtube_blocks_links = youtube_blocks_links;
+        this.tasks = tasks;
+        this.complete = complete;
     }
 
     public String getName() {
@@ -141,4 +146,11 @@ public class Model {
 
     public String getYoutube_blocks_names() {return youtube_blocks_names;}
 
+    public String getTasks() {
+        return tasks;
+    }
+
+    public String getComplete() {
+        return complete;
+    }
 }

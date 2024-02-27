@@ -229,7 +229,7 @@ public class ControlPanel extends AppCompatActivity {
             @Override
             public void invoke(String name, String photoUrl, String descript, double isend, String purposes,
                                String problems, String peoples, String time, String time1, String tg, String vk, String webs, String purposesids,
-                               String problemsids, String isl) {
+                               String problemsids, String isl, String tasks) {
                 title = name;
                 urlPhoto = photoUrl;
                 description = descript;
@@ -252,6 +252,11 @@ public class ControlPanel extends AppCompatActivity {
                     binding.problemsProgress.setBackgroundResource(R.drawable.custom_progress_bar_greeen);
                     binding.problemsProgress.setProgressDrawable(progressDrawable);
                 }
+                if(((int)(parse(tasks) * 100) == 100)){
+                    Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_greeen);
+                    binding.progressOfTasks.setBackgroundResource(R.drawable.custom_progress_bar_greeen);
+                    binding.progressOfTasks.setProgressDrawable(progressDrawable);
+                }
 
                 if(isl.equals("0")){
                     binding.main.removeView(binding.editProjectConst);
@@ -259,8 +264,10 @@ public class ControlPanel extends AppCompatActivity {
 
                 ProgressBar purposesProgress = findViewById(R.id.purp_progress);
                 ProgressBar problemsProgress = findViewById(R.id.problems_progress);
+                ProgressBar tasksProgress = findViewById(R.id.progress_of_tasks);
                 purposesProgress.setMax(100);
                 problemsProgress.setMax(100);
+                tasksProgress.setMax(100);
 
                 ObjectAnimator animation = ObjectAnimator.ofInt(purposesProgress, "progress", 0, (int)(parse(purposes) * 100));
                 animation.setStartDelay(300);
@@ -275,6 +282,13 @@ public class ControlPanel extends AppCompatActivity {
                 anim.setAutoCancel(true);
                 anim.setInterpolator(new DecelerateInterpolator());
                 anim.start();
+
+                ObjectAnimator anim3 = ObjectAnimator.ofInt(tasksProgress, "progress", 0, (int)(parse(tasks) * 100));
+                anim3.setStartDelay(300);
+                anim3.setDuration(1000);
+                anim3.setAutoCancel(true);
+                anim3.setInterpolator(new DecelerateInterpolator());
+                anim3.start();
             }
         });
 
@@ -304,7 +318,6 @@ public class ControlPanel extends AppCompatActivity {
                 long minutes = (allSeconds / 60) % 60;
                 long hours = (allSeconds / 3600) % 24;
                 binding.timer.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
-                // logic to set the EditText could go here
             }
 
             public void onFinish() {

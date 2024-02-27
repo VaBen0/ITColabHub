@@ -14,8 +14,6 @@
         android:layout_marginEnd="10dp"
         android:backgroundTint="@color/transparent"
         android:hint="Введите название ссылки на ютуб"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/deleteBut"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +25,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/linkTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/delete_icon" />
+        app:srcCompat="?trash_icon" />
 
     <EditText
         android:id="@+id/link"
@@ -37,8 +35,6 @@
         android:layout_marginTop="-10dp"
         android:backgroundTint="@color/transparent"
         android:hint="Вставьте ссылку на видео на ютубе"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linkTitle" />

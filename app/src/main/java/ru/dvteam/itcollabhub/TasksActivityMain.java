@@ -72,21 +72,27 @@ public class TasksActivityMain extends AppCompatActivity {
 
     private void setTasks(){
         PostDatas post = new PostDatas();
-        post.postDataGetProjectTasks("GetTasksFromProject", id, mail, new CallBackInt5() {
+        post.postDataGetProjectTasks("GetTasksFromProject", id, mail, new CallBackTasksInfo()  {
             @Override
-            public void invoke(String s1, String s2, String s3) {
+            public void invoke(String s1, String s2, String s3, String s4) {
                 if(!s1.equals("Ошибка")){
                     String[] idsArr = s1.split("\uD83D\uDD70");
                     String[] namesArr = s2.split("\uD83D\uDD70");
                     String[] textsArr = s3.split("\uD83D\uDD70");
+                    String[] completeArr = s4.split("\uD83D\uDD70");
 
                     for (int i = 0; i < namesArr.length; i++) {
                         int finalI = i;
                         int finalI1 = i;
+                        int finalI2 = i;
                         post.postDataGetCompletedWorks("CheckCountOfReadyWorksFromTask", id, mail, idsArr[i], new CallBackInt() {
                             @Override
                             public void invoke(String res) {
                                 View custom = getLayoutInflater().inflate(R.layout.tasks_panel, null);
+                                View view = custom.findViewById(R.id.view8);
+                                if(completeArr[finalI2].equals("1")){
+                                    view.setBackgroundResource(R.color.green_transperent);
+                                }
                                 TextView nameu = (TextView) custom.findViewById(R.id.taskTitle);
                                 TextView text = (TextView) custom.findViewById(R.id.taskText);
                                 ImageView prImg = (ImageView) custom.findViewById(R.id.loadImg);
@@ -125,6 +131,7 @@ public class TasksActivityMain extends AppCompatActivity {
                                         intent.putExtra("projectUrlPhoto", prPhoto);
                                         intent.putExtra("taskTitle", namesArr[finalI1]);
                                         intent.putExtra("taskId", idsArr[finalI1]);
+                                        intent.putExtra("isComplete", completeArr[finalI2]);
                                         startActivity(intent);
                                     }
                                 });
@@ -143,56 +150,56 @@ public class TasksActivityMain extends AppCompatActivity {
         if(score < 100){
             binding.bguser.setBackgroundResource(R.drawable.gradient_blue);
             getWindow().setStatusBarColor(ContextCompat.getColor(TasksActivityMain.this,R.color.blue));
-            binding.add1.setBackgroundTintList(ContextCompat.getColorStateList(TasksActivityMain.this, R.color.blue));
-            binding.add2.setBackgroundTintList(ContextCompat.getColorStateList(TasksActivityMain.this, R.color.blue));
+            binding.add1.setImageResource(R.drawable.blue);
+            binding.add2.setImageResource(R.drawable.blue);
         }
         else if(score < 300){
             binding.bguser.setBackgroundResource(R.drawable.gradient_green);
             getWindow().setStatusBarColor(ContextCompat.getColor(TasksActivityMain.this,R.color.green));
-            binding.add1.setBackgroundTintList(ContextCompat.getColorStateList(TasksActivityMain.this, R.color.green));
-            binding.add2.setBackgroundTintList(ContextCompat.getColorStateList(TasksActivityMain.this, R.color.green));
+            binding.add1.setImageResource(R.drawable.green_add);
+            binding.add2.setImageResource(R.drawable.green_add);
         }
         else if(score < 1000){
             binding.bguser.setBackgroundResource(R.drawable.gradient_brown);
             getWindow().setStatusBarColor(ContextCompat.getColor(TasksActivityMain.this,R.color.brown));
-            binding.add1.setBackgroundTintList(ContextCompat.getColorStateList(TasksActivityMain.this, R.color.brown));
-            binding.add2.setBackgroundTintList(ContextCompat.getColorStateList(TasksActivityMain.this, R.color.brown));
+            binding.add1.setImageResource(R.drawable.brown_add);
+            binding.add2.setImageResource(R.drawable.brown_add);
         }
         else if(score < 2500){
             binding.bguser.setBackgroundResource(R.drawable.gradient_light_gray);
             getWindow().setStatusBarColor(ContextCompat.getColor(TasksActivityMain.this,R.color.light_gray));
-            binding.add1.setBackgroundTintList(ContextCompat.getColorStateList(TasksActivityMain.this, R.color.light_gray));
-            binding.add2.setBackgroundTintList(ContextCompat.getColorStateList(TasksActivityMain.this, R.color.light_gray));
+            binding.add1.setImageResource(R.drawable.light_gray_add);
+            binding.add2.setImageResource(R.drawable.light_gray_add);
         }
         else if(score < 7000){
             binding.bguser.setBackgroundResource(R.drawable.gradient_ohra);
             getWindow().setStatusBarColor(ContextCompat.getColor(TasksActivityMain.this,R.color.ohra));
-            binding.add1.setBackgroundTintList(ContextCompat.getColorStateList(TasksActivityMain.this, R.color.ohra));
-            binding.add2.setBackgroundTintList(ContextCompat.getColorStateList(TasksActivityMain.this, R.color.ohra));
+            binding.add1.setImageResource(R.drawable.ohra_add);
+            binding.add2.setImageResource(R.drawable.ohra_add);
         }
         else if(score < 17000){
             binding.bguser.setBackgroundResource(R.drawable.gradient_red);
             getWindow().setStatusBarColor(ContextCompat.getColor(TasksActivityMain.this,R.color.red));
-            binding.add1.setBackgroundTintList(ContextCompat.getColorStateList(TasksActivityMain.this, R.color.red));
-            binding.add2.setBackgroundTintList(ContextCompat.getColorStateList(TasksActivityMain.this, R.color.red));
+            binding.add1.setImageResource(R.drawable.red_add);
+            binding.add2.setImageResource(R.drawable.red_add);
         }
         else if(score < 30000) {
             binding.bguser.setBackgroundResource(R.drawable.gradient_orange);
             getWindow().setStatusBarColor(ContextCompat.getColor(TasksActivityMain.this, R.color.orange));
-            binding.add1.setBackgroundTintList(ContextCompat.getColorStateList(TasksActivityMain.this, R.color.orange));
-            binding.add2.setBackgroundTintList(ContextCompat.getColorStateList(TasksActivityMain.this, R.color.orange));
+            binding.add1.setImageResource(R.drawable.brown_add);
+            binding.add2.setImageResource(R.drawable.brown_add);
         }
         else if(score < 50000){
             binding.bguser.setBackgroundResource(R.drawable.gradient_violete);
             getWindow().setStatusBarColor(ContextCompat.getColor(TasksActivityMain.this,R.color.violete));
-            binding.add1.setBackgroundTintList(ContextCompat.getColorStateList(TasksActivityMain.this, R.color.violete));
-            binding.add2.setBackgroundTintList(ContextCompat.getColorStateList(TasksActivityMain.this, R.color.violete));
+            binding.add1.setImageResource(R.drawable.violete_add);
+            binding.add2.setImageResource(R.drawable.violete_add);
         }
         else{
             binding.bguser.setBackgroundResource(R.drawable.gradient_blue_green);
             getWindow().setStatusBarColor(ContextCompat.getColor(TasksActivityMain.this,R.color.main_green));
-            binding.add1.setBackgroundTintList(ContextCompat.getColorStateList(TasksActivityMain.this, R.color.main_green));
-            binding.add2.setBackgroundTintList(ContextCompat.getColorStateList(TasksActivityMain.this, R.color.main_green));
+            binding.add1.setImageResource(R.drawable.blue_green_add);
+            binding.add2.setImageResource(R.drawable.blue_green_add);
         }
     }
 

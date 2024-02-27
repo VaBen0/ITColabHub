@@ -7,27 +7,18 @@
     tools:context=".ActivityWork">
 
     <ImageView
-        android:id="@+id/advertPhoto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/bguser"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="-40dp"
+        android:background="@drawable/gradient_blue"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHeight_default="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/logo_second_type" />
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black_transperent3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintWidth_default="spread" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/logo"
@@ -80,7 +71,6 @@
         android:autoSizeTextType="uniform"
         android:backgroundTint="@color/transparent"
         android:text="Название задания"
-        android:textColor="@color/white"
         android:textStyle="italic|bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -98,17 +88,6 @@
         app:layout_constraintTop_toBottomOf="@+id/taskName"
         app:shapeAppearance="@style/CornerCutForMini" />
 
-    <ImageView
-        android:id="@+id/user_circle"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:background="@drawable/circle_blue2"
-        android:elevation="2dp"
-        app:layout_constraintBottom_toBottomOf="@+id/log"
-        app:layout_constraintEnd_toEndOf="@+id/log"
-        app:layout_constraintStart_toStartOf="@+id/log"
-        app:layout_constraintTop_toTopOf="@+id/log" />
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="0dp"
@@ -116,10 +95,8 @@
         android:layout_marginStart="15dp"
         android:layout_marginEnd="20dp"
         android:layout_toEndOf="@+id/log"
-        android:elevation="2dp"
         android:text="Василий Сергеевич"
         android:gravity="center_vertical"
-        android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/log"
         app:layout_constraintEnd_toEndOf="parent"
@@ -127,6 +104,7 @@
         app:layout_constraintTop_toTopOf="@+id/log" />
 
     <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"

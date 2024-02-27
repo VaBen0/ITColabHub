@@ -13,12 +13,24 @@
         android:backgroundTint="@color/transparent"
         android:gravity="center"
         android:text="Введите название изображения"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/chosen_img2"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:scaleType="centerCrop"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearance="@style/CornerCut"
+        android:src="@drawable/icon_changed"/>
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/chosen_img"
@@ -32,6 +44,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:shapeAppearance="@style/CornerCut"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        android:src="@drawable/icon_changed"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

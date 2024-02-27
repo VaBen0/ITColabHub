@@ -37,7 +37,7 @@ public class ActivityProject extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
 
-        deleteCache(ActivityProject.this);
+        //deleteCache(ActivityProject.this);
 
         LinearLayout profileMenu = findViewById(R.id.profile_menu);
         LinearLayout forumMenu = findViewById(R.id.forum_menu);
