@@ -1,69 +1,82 @@
 package ru.dvteam.itcollabhub;
 
-import android.content.Intent;
-import android.os.Bundle;
-
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.WindowManager;
 
 import com.bumptech.glide.Glide;
 
-public class ParticipantEditProject extends Fragment {
+import ru.dvteam.itcollabhub.databinding.ActivityProjectParticipantsBinding;
+
+public class ProjectParticipants extends AppCompatActivity {
+
+    ActivityProjectParticipantsBinding binding;
+    String id, title, description, prPhoto, mail;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_participant_edit_project, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        Button add = v.findViewById(R.id.textView2);
-        LinearLayout main = v.findViewById(R.id.lin_main);
+        binding = ActivityProjectParticipantsBinding.inflate(getLayoutInflater());
 
-        EditProject editProject = (EditProject) getActivity();
-        assert editProject != null;
-        int score = editProject.getScore();
-        String mail = editProject.getMail();
+        setContentView(binding.getRoot());
 
+        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
+        mail = sPref.getString("UserMail", "");
+        int score = sPref.getInt("UserScore", 0);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+        Bundle arguments = getIntent().getExtras();
+
+        assert arguments != null;
+        id = arguments.getString("projectId");
+        title = arguments.getString("projectTitle");
+        prPhoto = arguments.getString("projectUrlPhoto");
+        description = arguments.getString("projectDescription");
+
+        binding.projectName.setText(title);
+        Glide
+                .with(ProjectParticipants.this)
+                .load(prPhoto)
+                .into(binding.prLogo);
 
         if(score < 100){
-            add.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.blue));
+            binding.add.setBackgroundTintList(ContextCompat.getColorStateList(ProjectParticipants.this, R.color.blue));
         }
         else if(score < 300){
-            add.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.green));
+            binding.add.setBackgroundTintList(ContextCompat.getColorStateList(ProjectParticipants.this, R.color.green));
         }
         else if(score < 1000){
-            add.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.brown));
+            binding.add.setBackgroundTintList(ContextCompat.getColorStateList(ProjectParticipants.this, R.color.brown));
         }
         else if(score < 2500){
-            add.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.light_gray));
+            binding.add.setBackgroundTintList(ContextCompat.getColorStateList(ProjectParticipants.this, R.color.light_gray));
         }
         else if(score < 7000){
-            add.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.ohra));
+            binding.add.setBackgroundTintList(ContextCompat.getColorStateList(ProjectParticipants.this, R.color.ohra));
         }
         else if(score < 17000){
-            add.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.red));
+            binding.add.setBackgroundTintList(ContextCompat.getColorStateList(ProjectParticipants.this, R.color.red));
         }
         else if(score < 30000){
-            add.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.orange));
+            binding.add.setBackgroundTintList(ContextCompat.getColorStateList(ProjectParticipants.this, R.color.orange));
         }
         else if(score < 50000){
-            add.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.violete));
+            binding.add.setBackgroundTintList(ContextCompat.getColorStateList(ProjectParticipants.this, R.color.violete));
         }
         else{
-            add.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.main_green));
+            binding.add.setBackgroundTintList(ContextCompat.getColorStateList(ProjectParticipants.this, R.color.main_green));
         }
-        add.setOnClickListener(new View.OnClickListener() {
+        binding.add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddParticipant.class);
+                Intent intent = new Intent(ProjectParticipants.this, AddParticipant.class);
                 startActivity(intent);
             }
         });
@@ -167,6 +180,5 @@ public class ParticipantEditProject extends Fragment {
                 }
             }
         });*/
-        return v;
     }
 }

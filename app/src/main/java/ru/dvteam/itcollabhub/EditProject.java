@@ -2,6 +2,7 @@ package ru.dvteam.itcollabhub;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -12,6 +13,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -22,6 +25,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -37,7 +41,7 @@ public class EditProject extends AppCompatActivity {
 
     ActivityEditProjectBinding binding;
 
-    private NavController navController;
+    //private NavController navController;
     String id, title, description, prPhoto, mail;
     int score;
     private static final int PICK_IMAGES_CODE = 0;
@@ -62,50 +66,58 @@ public class EditProject extends AppCompatActivity {
         setContentView(binding.getRoot());
         registerResult();
 
+        Fragment fragmentDescr = Fragment.instantiate(this, ProjectDescriptionEdit.class.getName());
+        Fragment fragmentLink = Fragment.instantiate(this, FragmentLinksProjectEdit.class.getName());
+        Fragment fragmentOther = Fragment.instantiate(this, FragmentOtherEdit.class.getName());
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.fragmentContainerView, fragmentDescr)
+                .add(R.id.fragmentContainerView, fragmentLink)
+                .add(R.id.fragmentContainerView, fragmentOther)
+                .commit();
+
+        getSupportFragmentManager().beginTransaction()
+                .show(fragmentDescr)
+                .hide(fragmentLink)
+                .hide(fragmentOther)
+                .commit();
+
         Bundle arguments = getIntent().getExtras();
-        navController = Navigation.findNavController(this, R.id.fragmentContainerView);
+        //navController = Navigation.findNavController(this, R.id.fragmentContainerView);
         if(score < 100){
-            binding.linearParticipiant.setBackgroundColor(0);
-            binding.linearEdit.setBackgroundResource(R.drawable.blue_line);
+            binding.linearDescription.setBackgroundResource(R.drawable.blue_line);
         }
         else if(score < 300){
-            binding.linearParticipiant.setBackgroundColor(0);
-            binding.linearEdit.setBackgroundResource(R.drawable.green_line);
+            binding.linearDescription.setBackgroundResource(R.drawable.green_line);
         }
         else if(score < 1000){
-            binding.linearParticipiant.setBackgroundColor(0);
-            binding.linearEdit.setBackgroundResource(R.drawable.brown_line);
+            binding.linearDescription.setBackgroundResource(R.drawable.brown_line);
         }
         else if(score < 2500){
-            binding.linearParticipiant.setBackgroundColor(0);
-            binding.linearEdit.setBackgroundResource(R.drawable.light_gray_line);
+            binding.linearDescription.setBackgroundResource(R.drawable.light_gray_line);
         }
         else if(score < 7000){
-            binding.linearParticipiant.setBackgroundColor(0);
-            binding.linearEdit.setBackgroundResource(R.drawable.ohra_line);
+            binding.linearDescription.setBackgroundResource(R.drawable.ohra_line);
         }
         else if(score < 17000){
-            binding.linearParticipiant.setBackgroundColor(0);
-            binding.linearEdit.setBackgroundResource(R.drawable.red_line);
+            binding.linearDescription.setBackgroundResource(R.drawable.red_line);
         }
         else if(score < 30000){
-            binding.linearParticipiant.setBackgroundColor(0);
-            binding.linearEdit.setBackgroundResource(R.drawable.orange_line);
+            binding.linearDescription.setBackgroundResource(R.drawable.orange_line);
         }
         else if(score < 50000){
-            binding.linearParticipiant.setBackgroundColor(0);
-            binding.linearEdit.setBackgroundResource(R.drawable.violete_line);
+            binding.linearDescription.setBackgroundResource(R.drawable.violete_line);
         }
         else{
-            binding.linearParticipiant.setBackgroundColor(0);
-            binding.linearEdit.setBackgroundResource(R.drawable.blue_green_line);
+            binding.linearDescription.setBackgroundResource(R.drawable.blue_green_line);
         }
         assert arguments != null;
         id = arguments.getString("projectId");
         title = arguments.getString("projectTitle");
         prPhoto = arguments.getString("projectUrlPhoto");
         description = arguments.getString("projectDescription");
-        navController.navigate(R.id.editProjectFragment);
+        //navController.navigate(R.id.projectDescriptionEdit2);
 
         binding.projectName.setText(title);
         Glide
@@ -118,88 +130,184 @@ public class EditProject extends AppCompatActivity {
 
             }
         });
-        binding.editFragment.setOnClickListener(new View.OnClickListener() {
+        binding.linksFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(score < 100){
-                    binding.linearParticipiant.setBackgroundColor(0);
-                    binding.linearEdit.setBackgroundResource(R.drawable.blue_line);
+                    binding.linearDescription.setBackgroundColor(0);
+                    binding.linkLine.setBackgroundResource(R.drawable.blue_line);
+                    binding.otherLine.setBackgroundColor(0);
                 }
                 else if(score < 300){
-                    binding.linearParticipiant.setBackgroundColor(0);
-                    binding.linearEdit.setBackgroundResource(R.drawable.green_line);
+                    binding.linearDescription.setBackgroundColor(0);
+                    binding.linkLine.setBackgroundResource(R.drawable.green_line);
+                    binding.otherLine.setBackgroundColor(0);
                 }
                 else if(score < 1000){
-                    binding.linearParticipiant.setBackgroundColor(0);
-                    binding.linearEdit.setBackgroundResource(R.drawable.brown_line);
+                    binding.linearDescription.setBackgroundColor(0);
+                    binding.linkLine.setBackgroundResource(R.drawable.brown_line);
+                    binding.otherLine.setBackgroundColor(0);
                 }
                 else if(score < 2500){
-                    binding.linearParticipiant.setBackgroundColor(0);
-                    binding.linearEdit.setBackgroundResource(R.drawable.light_gray_line);
+                    binding.linearDescription.setBackgroundColor(0);
+                    binding.linkLine.setBackgroundResource(R.drawable.light_gray_line);
+                    binding.otherLine.setBackgroundColor(0);
                 }
                 else if(score < 7000){
-                    binding.linearParticipiant.setBackgroundColor(0);
-                    binding.linearEdit.setBackgroundResource(R.drawable.ohra_line);
+                    binding.linearDescription.setBackgroundColor(0);
+                    binding.linkLine.setBackgroundResource(R.drawable.ohra_line);
+                    binding.otherLine.setBackgroundColor(0);
                 }
                 else if(score < 17000){
-                    binding.linearParticipiant.setBackgroundColor(0);
-                    binding.linearEdit.setBackgroundResource(R.drawable.red_line);
+                    binding.linearDescription.setBackgroundColor(0);
+                    binding.linkLine.setBackgroundResource(R.drawable.red_line);
+                    binding.otherLine.setBackgroundColor(0);
                 }
                 else if(score < 30000){
-                    binding.linearParticipiant.setBackgroundColor(0);
-                    binding.linearEdit.setBackgroundResource(R.drawable.orange_line);
+                    binding.linearDescription.setBackgroundColor(0);
+                    binding.linkLine.setBackgroundResource(R.drawable.orange_line);
+                    binding.otherLine.setBackgroundColor(0);
                 }
                 else if(score < 50000){
-                    binding.linearParticipiant.setBackgroundColor(0);
-                    binding.linearEdit.setBackgroundResource(R.drawable.violete_line);
+                    binding.linearDescription.setBackgroundColor(0);
+                    binding.linkLine.setBackgroundResource(R.drawable.violete_line);
+                    binding.otherLine.setBackgroundColor(0);
                 }
                 else{
-                    binding.linearParticipiant.setBackgroundColor(0);
-                    binding.linearEdit.setBackgroundResource(R.drawable.blue_green_line);
+                    binding.linearDescription.setBackgroundColor(0);
+                    binding.linkLine.setBackgroundResource(R.drawable.blue_green_line);
+                    binding.otherLine.setBackgroundColor(0);
                 }
-                navController.navigate(R.id.editProjectFragment);
+                if (binding.blockMenu.getVisibility() == View.VISIBLE) {
+                    binding.blockMenu.setVisibility(View.GONE);
+                    final Animation hide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_delete2);
+                    binding.blockMenu.startAnimation(hide);
+                }
+                getSupportFragmentManager().beginTransaction()
+                        .show(fragmentLink)
+                        .hide(fragmentDescr)
+                        .hide(fragmentOther)
+                        .commit();
             }
         });
-        binding.participiantFragment.setOnClickListener(new View.OnClickListener() {
+        binding.descriptionFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(score < 100){
-                    binding.linearEdit.setBackgroundColor(0);
-                    binding.linearParticipiant.setBackgroundResource(R.drawable.blue_line);
+                    binding.linkLine.setBackgroundColor(0);
+                    binding.linearDescription.setBackgroundResource(R.drawable.blue_line);
+                    binding.otherLine.setBackgroundColor(0);
                 }
                 else if(score < 300){
-                    binding.linearEdit.setBackgroundColor(0);
-                    binding.linearParticipiant.setBackgroundResource(R.drawable.green_line);
+                    binding.linkLine.setBackgroundColor(0);
+                    binding.linearDescription.setBackgroundResource(R.drawable.green_line);
+                    binding.otherLine.setBackgroundColor(0);
                 }
                 else if(score < 1000){
-                    binding.linearEdit.setBackgroundColor(0);
-                    binding.linearParticipiant.setBackgroundResource(R.drawable.brown_line);
+                    binding.linkLine.setBackgroundColor(0);
+                    binding.linearDescription.setBackgroundResource(R.drawable.brown_line);
+                    binding.otherLine.setBackgroundColor(0);
                 }
                 else if(score < 2500){
-                    binding.linearEdit.setBackgroundColor(0);
-                    binding.linearParticipiant.setBackgroundResource(R.drawable.light_gray_line);
+                    binding.linkLine.setBackgroundColor(0);
+                    binding.linearDescription.setBackgroundResource(R.drawable.light_gray_line);
+                    binding.otherLine.setBackgroundColor(0);
                 }
                 else if(score < 7000){
-                    binding.linearEdit.setBackgroundColor(0);
-                    binding.linearParticipiant.setBackgroundResource(R.drawable.ohra_line);
+                    binding.linkLine.setBackgroundColor(0);
+                    binding.linearDescription.setBackgroundResource(R.drawable.ohra_line);
+                    binding.otherLine.setBackgroundColor(0);
                 }
                 else if(score < 17000){
-                    binding.linearEdit.setBackgroundColor(0);
-                    binding.linearParticipiant.setBackgroundResource(R.drawable.red_line);
+                    binding.linkLine.setBackgroundColor(0);
+                    binding.linearDescription.setBackgroundResource(R.drawable.red_line);
+                    binding.otherLine.setBackgroundColor(0);
                 }
                 else if(score < 30000){
-                    binding.linearEdit.setBackgroundColor(0);
-                    binding.linearParticipiant.setBackgroundResource(R.drawable.orange_line);
+                    binding.linkLine.setBackgroundColor(0);
+                    binding.linearDescription.setBackgroundResource(R.drawable.orange_line);
+                    binding.otherLine.setBackgroundColor(0);
                 }
                 else if(score < 50000){
-                    binding.linearEdit.setBackgroundColor(0);
-                    binding.linearParticipiant.setBackgroundResource(R.drawable.violete_line);
+                    binding.linkLine.setBackgroundColor(0);
+                    binding.linearDescription.setBackgroundResource(R.drawable.violete_line);
+                    binding.otherLine.setBackgroundColor(0);
                 }
                 else{
-                    binding.linearEdit.setBackgroundColor(0);
-                    binding.linearParticipiant.setBackgroundResource(R.drawable.blue_green_line);
+                    binding.linkLine.setBackgroundColor(0);
+                    binding.linearDescription.setBackgroundResource(R.drawable.blue_green_line);
+                    binding.otherLine.setBackgroundColor(0);
                 }
-                navController.navigate(R.id.participantEditProject);
+                if (binding.blockMenu.getVisibility() == View.VISIBLE) {
+                    binding.blockMenu.setVisibility(View.GONE);
+                    final Animation hide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_delete2);
+                    binding.blockMenu.startAnimation(hide);
+                }
+                getSupportFragmentManager().beginTransaction()
+                        .show(fragmentDescr)
+                        .hide(fragmentLink)
+                        .hide(fragmentOther)
+                        .commit();
+            }
+        });
+        binding.otherFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(score < 100){
+                    binding.linearDescription.setBackgroundColor(0);
+                    binding.otherLine.setBackgroundResource(R.drawable.blue_line);
+                    binding.linkLine.setBackgroundColor(0);
+                }
+                else if(score < 300){
+                    binding.linearDescription.setBackgroundColor(0);
+                    binding.otherLine.setBackgroundResource(R.drawable.green_line);
+                    binding.linkLine.setBackgroundColor(0);
+                }
+                else if(score < 1000){
+                    binding.linearDescription.setBackgroundColor(0);
+                    binding.otherLine.setBackgroundResource(R.drawable.brown_line);
+                    binding.linkLine.setBackgroundColor(0);
+                }
+                else if(score < 2500){
+                    binding.linearDescription.setBackgroundColor(0);
+                    binding.otherLine.setBackgroundResource(R.drawable.light_gray_line);
+                    binding.linkLine.setBackgroundColor(0);
+                }
+                else if(score < 7000){
+                    binding.linearDescription.setBackgroundColor(0);
+                    binding.otherLine.setBackgroundResource(R.drawable.ohra_line);
+                    binding.linkLine.setBackgroundColor(0);
+                }
+                else if(score < 17000){
+                    binding.linearDescription.setBackgroundColor(0);
+                    binding.otherLine.setBackgroundResource(R.drawable.red_line);
+                    binding.linkLine.setBackgroundColor(0);
+                }
+                else if(score < 30000){
+                    binding.linearDescription.setBackgroundColor(0);
+                    binding.otherLine.setBackgroundResource(R.drawable.orange_line);
+                    binding.linkLine.setBackgroundColor(0);
+                }
+                else if(score < 50000){
+                    binding.linearDescription.setBackgroundColor(0);
+                    binding.otherLine.setBackgroundResource(R.drawable.violete_line);
+                    binding.linkLine.setBackgroundColor(0);
+                }
+                else{
+                    binding.linearDescription.setBackgroundColor(0);
+                    binding.otherLine.setBackgroundResource(R.drawable.blue_green_line);
+                    binding.linksFragment.setBackgroundColor(0);
+                }
+                if (binding.blockMenu.getVisibility() == View.VISIBLE) {
+                    binding.blockMenu.setVisibility(View.GONE);
+                    final Animation hide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_delete2);
+                    binding.blockMenu.startAnimation(hide);
+                }
+                getSupportFragmentManager().beginTransaction()
+                        .show(fragmentOther)
+                        .hide(fragmentDescr)
+                        .hide(fragmentLink)
+                        .commit();
             }
         });
 
@@ -255,7 +363,7 @@ public class EditProject extends AppCompatActivity {
             }
         });
     }
-    public void saveChanges(String changedDescription, String tg, String vk, String web){
+    /*public void saveChanges(String changedDescription, String tg, String vk, String web){
         PostDatas post = new PostDatas();
         String changedName = title;
         if(!binding.projectName.getText().toString().isEmpty()){
@@ -273,9 +381,9 @@ public class EditProject extends AppCompatActivity {
                         }
                     });
         } else {
-            File file = new File(mediaPath);
-            RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
-            post.postDataChangeProject("CreateNewProject", changedName, requestBody, id, mail,
+            File file = new File(mediaPath);*/
+            //RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
+            /*post.postDataChangeProject("CreateNewProject", changedName, requestBody, id, mail,
                     changedDescription, tg, vk, web, new CallBackInt() {
                         @Override
                         public void invoke(String res) {
@@ -287,18 +395,7 @@ public class EditProject extends AppCompatActivity {
                         }
                     });
         }
-    }
-
-    public String getDescription(){
-        return description;
-    }
-    public int getScore(){return score;}
-    public String getMail(){return mail;}
-
-    private void pickImage(){
-        Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
-        resultLauncher.launch(intent);
-    }
+    }*/
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -367,4 +464,109 @@ public class EditProject extends AppCompatActivity {
                 }
         );
     }
+
+    public void saveDescription(String description){
+        PostDatas post = new PostDatas();
+        if(mediaPath.isEmpty()){
+            post.postDataChangeProjectWithoutImageWithDescription("SaveChangesFromProjectWithoutImageAndDescription",
+                    binding.projectName.getText().toString(), description, id, mail, new CallBackInt() {
+                        @Override
+                        public void invoke(String res) {
+                            binding.blockMenu.setVisibility(View.VISIBLE);
+                            final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add3);
+                            binding.blockMenu.startAnimation(show);
+                        }
+                    });
+        } else{
+            File file = new File(mediaPath);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
+            post.postDataChangeProjectWithDescription("SaveChangesFromProjectWithImageAndDescription", binding.projectName.getText().toString(),
+                    requestBody, id, mail, description, new CallBackInt() {
+                        @Override
+                        public void invoke(String res) {
+                            deleteCache(EditProject.this);
+                            System.out.println("image");
+                            binding.blockMenu.setVisibility(View.VISIBLE);
+                            final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add3);
+                            binding.blockMenu.startAnimation(show);
+                        }
+                    });
+        }
+    }
+    public void saveLinks(String tg, String vk, String web){
+        PostDatas post = new PostDatas();
+        if(mediaPath.isEmpty()){
+            post.postDataChangeProjectWithoutImageWithLink("SaveChangesFromProjectWithoutImageAndLinks",
+                    binding.projectName.getText().toString(), tg, vk, web, id, mail, new CallBackInt() {
+                        @Override
+                        public void invoke(String res) {
+                            binding.blockMenu.setVisibility(View.VISIBLE);
+                            final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add3);
+                            binding.blockMenu.startAnimation(show);
+                        }
+                    });
+        } else{
+            File file = new File(mediaPath);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
+            post.postDataChangeProjectWithLink("SaveChangesFromProjectWithImageAndLinks", binding.projectName.getText().toString(),
+                    requestBody, id, mail, tg, vk, web, new CallBackInt() {
+                        @Override
+                        public void invoke(String res) {
+                            deleteCache(EditProject.this);
+                            System.out.println("image");
+                            binding.blockMenu.setVisibility(View.VISIBLE);
+                            final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add3);
+                            binding.blockMenu.startAnimation(show);
+                        }
+                    });
+        }
+    }
+    public void saveOther(){
+        binding.blockMenu.setVisibility(View.VISIBLE);
+        final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add3);
+        binding.blockMenu.startAnimation(show);
+    }
+
+    public int description(){return score;}
+    public String getDescription(){
+        return description;
+    }
+    public int getScore(){return score;}
+    public String getMail(){return mail;}
+    public String getTgLink(){return"tg";}
+
+    public String getVkLink(){return"vk";}
+
+    public String getWebLink(){return"web";}
+
+    private void pickImage(){
+        Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
+        resultLauncher.launch(intent);
+    }
+
+    public static void deleteCache(Context context) {
+        try {
+            File dir = context.getCacheDir();
+            deleteDir(dir);
+        } catch (Exception e) { e.printStackTrace();}
+    }
+
+    public static boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+            return dir.delete();
+        } else if(dir!= null && dir.isFile()) {
+            return dir.delete();
+        } else {
+            return false;
+        }
+    }
+
+
 }

@@ -26,7 +26,7 @@ import ru.dvteam.itcollabhub.databinding.ActivityCompltedTasksByParticipantsBind
 public class CompltedTasksByParticipants extends AppCompatActivity {
 
     ActivityCompltedTasksByParticipantsBinding binding;
-    private String mail, id, title, prPhoto, taskTitle, taskId;
+    private String mail, idPr, title, prPhoto, taskTitle, taskId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class CompltedTasksByParticipants extends AppCompatActivity {
 
         Bundle arguments = getIntent().getExtras();
         assert arguments != null;
-        id = arguments.getString("projectId");
+        idPr = arguments.getString("projectId");
         title = arguments.getString("projectTitle");
         prPhoto = arguments.getString("projectUrlPhoto");
         taskTitle = arguments.getString("taskTitle");
@@ -67,7 +67,7 @@ public class CompltedTasksByParticipants extends AppCompatActivity {
 
 
         PostDatas post = new PostDatas();
-        post.postDataGetPeoplesComplitedWork("GetWorksFromTask", id, mail, taskId, new CallBackInt5() {
+        post.postDataGetPeoplesComplitedWork("GetWorksFromTask", idPr, mail, taskId, new CallBackInt5() {
             @Override
             public void invoke(String id, String name, String photo) {
                 System.out.println(photo);
@@ -98,8 +98,9 @@ public class CompltedTasksByParticipants extends AppCompatActivity {
                         custom.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                System.out.println(id);
                                 Intent intent = new Intent(CompltedTasksByParticipants.this, ActivityWork.class);
-                                intent.putExtra("projectId", id);
+                                intent.putExtra("projectId", idPr);
                                 intent.putExtra("projectTitle", title);
                                 intent.putExtra("projectUrlPhoto", prPhoto);
                                 intent.putExtra("taskTitle", taskTitle);

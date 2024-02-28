@@ -27,9 +27,9 @@ public class EditProjectFragment extends Fragment {
 
         EditProject editProject = (EditProject) getActivity();
         assert editProject != null;
-        String description = editProject.getDescription();
+        //String description = editProject.getDescription();
         //Toast.makeText(editProject, description, Toast.LENGTH_SHORT).show();
-        prDesc.setHint(description);
+        //prDesc.setHint(description);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,12 +45,12 @@ public class EditProjectFragment extends Fragment {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String descr = description;
+                //String descr = description;
                 String tgLink = "@Va_Ben";
                 String vkLink = "Иван Клячин";
                 String webLink = "https...";
                 if(!prDesc.getText().toString().isEmpty()){
-                    descr = prDesc.getText().toString();
+                    //descr = prDesc.getText().toString();
                 }
                 if(!tg.getText().toString().isEmpty()){
                     tgLink = tg.getText().toString();
@@ -61,7 +61,7 @@ public class EditProjectFragment extends Fragment {
                 if(!web.getText().toString().isEmpty()){
                     webLink = web.getText().toString();
                 }
-                editProject.saveChanges(descr, tgLink, vkLink, webLink);
+                //editProject.saveChanges(descr, tgLink, vkLink, webLink);
             }
         });
 

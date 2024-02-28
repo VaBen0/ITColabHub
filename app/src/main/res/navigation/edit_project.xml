@@ -6,29 +6,48 @@
     app:startDestination="@id/empty2">
 
     <fragment
-        android:id="@+id/editProjectFragment"
-        android:name="ru.dvteam.itcollabhub.EditProjectFragment"
-        android:label="fragment_edit_project"
-        tools:layout="@layout/fragment_edit_project" >
-        <action
-            android:id="@+id/action_editProjectFragment_to_participantEditProject"
-            app:destination="@id/participantEditProject" />
-    </fragment>
-    <fragment
-        android:id="@+id/participantEditProject"
-        android:name="ru.dvteam.itcollabhub.ParticipantEditProject"
-        android:label="ParticipantEditProject" >
-        <action
-            android:id="@+id/action_participantEditProject_to_editProjectFragment"
-            app:destination="@id/editProjectFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/empty2"
         android:name="ru.dvteam.itcollabhub.Empty"
         android:label="fragment_empty"
         tools:layout="@layout/fragment_empty" >
         <action
-            android:id="@+id/action_empty2_to_editProjectFragment"
-            app:destination="@id/editProjectFragment" />
+            android:id="@+id/action_empty2_to_projectDescriptionEdit2"
+            app:destination="@id/projectDescriptionEdit2" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentLinksProjectEdit"
+        android:name="ru.dvteam.itcollabhub.FragmentLinksProjectEdit"
+        android:label="fragment_links_project_edit"
+        tools:layout="@layout/fragment_links_project_edit" >
+        <action
+            android:id="@+id/action_fragmentLinksProjectEdit_to_projectDescriptionEdit2"
+            app:destination="@id/projectDescriptionEdit2" />
+        <action
+            android:id="@+id/action_fragmentLinksProjectEdit_to_fragmentOtherEdit"
+            app:destination="@id/fragmentOtherEdit" />
+    </fragment>
+    <fragment
+        android:id="@+id/projectDescriptionEdit2"
+        android:name="ru.dvteam.itcollabhub.ProjectDescriptionEdit"
+        android:label="fragment_project_description_edit"
+        tools:layout="@layout/fragment_project_description_edit" >
+        <action
+            android:id="@+id/action_projectDescriptionEdit2_to_fragmentOtherEdit"
+            app:destination="@id/fragmentOtherEdit" />
+        <action
+            android:id="@+id/action_projectDescriptionEdit2_to_fragmentLinksProjectEdit"
+            app:destination="@id/fragmentLinksProjectEdit" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentOtherEdit"
+        android:name="ru.dvteam.itcollabhub.FragmentOtherEdit"
+        android:label="fragment_other_edit"
+        tools:layout="@layout/fragment_other_edit" >
+        <action
+            android:id="@+id/action_fragmentOtherEdit_to_projectDescriptionEdit2"
+            app:destination="@id/projectDescriptionEdit2" />
+        <action
+            android:id="@+id/action_fragmentOtherEdit_to_fragmentLinksProjectEdit"
+            app:destination="@id/fragmentLinksProjectEdit" />
     </fragment>
 </navigation>

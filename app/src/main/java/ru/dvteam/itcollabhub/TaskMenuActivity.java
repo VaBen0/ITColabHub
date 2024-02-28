@@ -176,6 +176,8 @@ public class TaskMenuActivity extends AppCompatActivity {
             }
         });
 
+        System.out.println(id);
+
         binding.nextMenuBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

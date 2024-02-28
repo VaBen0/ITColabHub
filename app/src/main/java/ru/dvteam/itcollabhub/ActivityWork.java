@@ -66,6 +66,8 @@ public class ActivityWork extends AppCompatActivity {
                 .load(prPhoto)
                 .into(binding.prLogo);
 
+        System.out.println(id);
+
 
         PostDatas post = new PostDatas();
         post.postDataGetWork("GetMoreInformationFromWork", id, mail, workId, new CallBackWorkInfo() {
@@ -80,40 +82,42 @@ public class ActivityWork extends AppCompatActivity {
                 String[] linkBlockNameArr = link_block_link.split("\uD83D\uDD70");
                 String[] imageBlockArr = image_block_link.split("\uD83D\uDD70");
                 String[] imageBlockNameArr = image_block_name.split("\uD83D\uDD70");
-
-                for(int i = 0; i < linkBlockArr.length; i++){
-                    View linkBlock = getLayoutInflater().inflate(R.layout.gblock_link2, null);
-                    TextView link = linkBlock.findViewById(R.id.name_link);
-                    link.setText(linkBlockNameArr[i]);
-                    int finalI = i;
-                    linkBlock.setOnClickListener(view -> goToLink(linkBlockArr[finalI]));
-                    binding.main.addView(linkBlock);
+                if (!linkBlockNameArr[0].equals("")) {
+                    for (int i = 0; i < linkBlockArr.length; i++) {
+                        View linkBlock = getLayoutInflater().inflate(R.layout.gblock_link2, null);
+                        TextView link = linkBlock.findViewById(R.id.name_link);
+                        link.setText(linkBlockNameArr[i]);
+                        int finalI = i;
+                        linkBlock.setOnClickListener(view -> goToLink(linkBlockArr[finalI]));
+                        binding.main.addView(linkBlock);
+                    }
                 }
+                if (!imageBlockNameArr[0].equals("")) {
+                    for (int i = 0; i < imageBlockNameArr.length; i++) {
+                        View imageBlock = getLayoutInflater().inflate(R.layout.gblock_image2, null);
+                        TextView name = imageBlock.findViewById(R.id.title);
+                        name.setText(imageBlockNameArr[i]);
+                        ImageView img = imageBlock.findViewById(R.id.chosen_img);
+                        ImageView img2 = imageBlock.findViewById(R.id.chosen_img2);
+                        Glide
+                                .with(ActivityWork.this)
+                                .load(imageBlockArr[i])
+                                .diskCacheStrategy(DiskCacheStrategy.DATA)
+                                .listener(new RequestListener<Drawable>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                        return false;
+                                    }
 
-                for(int i = 0; i < linkBlockArr.length; i++){
-                    View imageBlock = getLayoutInflater().inflate(R.layout.gblock_image2, null);
-                    TextView name = imageBlock.findViewById(R.id.title);
-                    name.setText(imageBlockNameArr[i]);
-                    ImageView img = imageBlock.findViewById(R.id.chosen_img);
-                    ImageView img2 = imageBlock.findViewById(R.id.chosen_img2);
-                    Glide
-                            .with(ActivityWork.this)
-                            .load(imageBlockArr[i])
-                            .diskCacheStrategy(DiskCacheStrategy.DATA)
-                            .listener(new RequestListener<Drawable>() {
-                                @Override
-                                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                    return false;
-                                }
-
-                                @Override
-                                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                    img2.setVisibility(View.GONE);
-                                    return false;
-                                }
-                            })
-                            .into(img);
-                    binding.main.addView(imageBlock);
+                                    @Override
+                                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                        img2.setVisibility(View.GONE);
+                                        return false;
+                                    }
+                                })
+                                .into(img);
+                        binding.main.addView(imageBlock);
+                    }
                 }
             }
         });

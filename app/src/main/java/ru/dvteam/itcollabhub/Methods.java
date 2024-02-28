@@ -250,17 +250,29 @@ public interface Methods {
 
     @Multipart
     @POST("/")
-    Call<Model> editProject(@Part MultipartBody.Part file, @Part("ProjectName") RequestBody name, @Part("Request") RequestBody req,
-                             @Part("Description") RequestBody description, @Part("ProjectId") RequestBody id,
-                             @Part("UserMail") RequestBody mail, @Part("TgLink") RequestBody tg, @Part("VkLink") RequestBody vk,
-                            @Part("WebLink") RequestBody web);
+    Call<Model> editProjectWithDescription(@Part MultipartBody.Part file, @Part("ProjectName") RequestBody name, @Part("Request") RequestBody req,
+                             @Part("ProjectDescription") RequestBody description, @Part("ProjectId") RequestBody id,
+                             @Part("UserMail") RequestBody mail);
 
     @FormUrlEncoded
     @POST("/")
-    Call<Model> editProjectWithoutImage(@Field("ProjectName") String name,
+    Call<Model> editProjectWithoutImageWithDescription(@Field("ProjectName") String name,
                                          @Field("Request") String req, @Field("ProjectId") String id,
-                                         @Field("Description") String description, @Field("UserMail") String mail,
-                                        @Field("TgLink") String tg, @Field("VkLink") String vk, @Field("WebLink") String web);
+                                         @Field("ProjectDescription") String description, @Field("UserMail") String mail);
+
+    @Multipart
+    @POST("/")
+    Call<Model> editProjectWithLinks(@Part MultipartBody.Part file, @Part("ProjectName") RequestBody name, @Part("Request") RequestBody req,
+                                           @Part("ProjectId") RequestBody id, @Part("ProjectTG") RequestBody tgLink,
+                                     @Part("ProjectVK") RequestBody vkLink, @Part("ProjectWEB") RequestBody webLink,
+                                           @Part("UserMail") RequestBody mail);
+
+    @FormUrlEncoded
+    @POST("/")
+    Call<Model> editProjectWithoutImageWithLinks(@Field("ProjectName") String name,
+                                                       @Field("Request") String req, @Field("ProjectId") String id,
+                                                 @Field("ProjectVK") String vkLink, @Field("ProjectTG") String tgLink,
+                                                 @Field("ProjectWEB") String webLink, @Field("UserMail") String mail);
 
     @FormUrlEncoded
     @POST("/")

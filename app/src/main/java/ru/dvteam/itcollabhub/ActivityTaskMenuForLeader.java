@@ -196,6 +196,7 @@ public class ActivityTaskMenuForLeader extends AppCompatActivity {
         binding.notify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println("Leader " + id);
                 Intent intent = new Intent(ActivityTaskMenuForLeader.this, CompltedTasksByParticipants.class);
                 intent.putExtra("projectId", id);
                 intent.putExtra("projectTitle", title);

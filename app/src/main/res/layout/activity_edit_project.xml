@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/pr_logo"
         android:layout_width="wrap_content"
-        android:layout_height="250dp"
+        android:layout_height="300dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -47,17 +47,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:text="Выбрать изображение проекта"
-        android:textColor="@color/white_transparent"
-        android:textSize="9sp"
-        app:layout_constraintBottom_toBottomOf="@+id/pr_logo"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
@@ -78,18 +67,18 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/edit_fragment"
+                android:id="@+id/descriptionFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Редактирование"
+                android:text="Описание"
                 android:textSize="16sp"
                 android:textStyle="italic|bold"
                 tools:ignore="TouchTargetSizeCheck" />
 
             <View
-                android:id="@+id/linear_edit"
-                android:layout_width="150dp"
+                android:id="@+id/linearDescription"
+                android:layout_width="80dp"
                 android:layout_height="3dp"
                 android:layout_gravity="center"
                 android:background="@drawable/blue_line" />
@@ -102,36 +91,58 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/participiant_fragment"
+                android:id="@+id/linksFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Участники"
+                android:text="Ссылки"
                 android:textSize="16sp"
                 android:textStyle="italic|bold"
                 tools:ignore="TouchTargetSizeCheck" />
 
             <View
-                android:id="@+id/linear_participiant"
-                android:layout_width="150dp"
+                android:id="@+id/linkLine"
+                android:layout_width="80dp"
                 android:layout_height="3dp"
                 android:layout_gravity="center" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/otherFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Прочее"
+                android:textSize="16sp"
+                android:textStyle="italic|bold"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <View
+                android:id="@+id/otherLine"
+                android:layout_width="80dp"
+                android:layout_height="3dp"
+                android:layout_gravity="center"/>
+        </LinearLayout>
     </LinearLayout>
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
-        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         app:defaultNavHost="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:navGraph="@navigation/edit_project" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"/>
 
     <View
         android:id="@+id/tint"
@@ -195,5 +206,67 @@
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="@+id/panel"
         app:layout_constraintTop_toBottomOf="@+id/confirmationText" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/blockMenu"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="160dp"
+        app:layout_constraintBottom_toBottomOf="@+id/fragmentContainerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <View
+            android:id="@+id/view10"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:background="?viewBackColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:id="@+id/view11"
+            android:layout_width="100dp"
+            android:layout_height="5dp"
+            android:background="?line"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textView59"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Сохранено!      "
+                android:textSize="15sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView15"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:srcCompat="?check_icon" />
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

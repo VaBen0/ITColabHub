@@ -1033,8 +1033,8 @@ public class PostDatas {
         });
     }
 
-    public void postDataChangeProject(String req, String name, RequestBody requestFile, String id, String mail,
-                                     String description, String tg, String vk, String web, CallBackInt result){
+    public void postDataChangeProjectWithDescription(String req, String name, RequestBody requestFile, String id, String mail,
+                                     String description, CallBackInt result){
 
         MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", "lol", requestFile);
         RequestBody requestName = RequestBody.create(MediaType.parse("text/plain"), name);
@@ -1042,13 +1042,12 @@ public class PostDatas {
         RequestBody requestId = RequestBody.create(MediaType.parse("text/plain"), id);
         RequestBody requestMail = RequestBody.create(MediaType.parse("text/plain"), mail);
         RequestBody requestDescription = RequestBody.create(MediaType.parse("text/plain"), description);
-        RequestBody requestTg = RequestBody.create(MediaType.parse("text/plain"), tg);
-        RequestBody requestVk = RequestBody.create(MediaType.parse("text/plain"), vk);
-        RequestBody requestWeb = RequestBody.create(MediaType.parse("text/plain"), web);
+//        RequestBody requestTg = RequestBody.create(MediaType.parse("text/plain"), tg);
+//        RequestBody requestVk = RequestBody.create(MediaType.parse("text/plain"), vk);
+//        RequestBody requestWeb = RequestBody.create(MediaType.parse("text/plain"), web);
 
         Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
-        Call<Model> call = methods.editProject(fileToUpload, requestName, requestReq, requestDescription, requestId, requestMail,
-                requestTg, requestVk, requestWeb);
+        Call<Model> call = methods.editProjectWithDescription(fileToUpload, requestName, requestReq, requestDescription, requestId, requestMail);
         call.enqueue(new Callback<Model>() {
             @Override
             public void onResponse(Call<Model> call, retrofit2.Response<Model> response) {
@@ -1063,10 +1062,57 @@ public class PostDatas {
         });
     }
 
-    public void postDataChangeProjectWithoutImage(String req, String name, String description, String id, String mail, String tg,
-                                                  String vk, String web, CallBackInt result){
+    public void postDataChangeProjectWithoutImageWithDescription(String req, String name, String description, String id, String mail, CallBackInt result){
         Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
-        Call<Model> call = methods.editProjectWithoutImage(name, req, id, description, mail, tg, vk, web);
+        Call<Model> call = methods.editProjectWithoutImageWithDescription(name, req, id, description, mail);
+
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, retrofit2.Response<Model> response) {
+                assert response.body() != null;
+                result.invoke(response.body().getReturn());
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+                //result.invoke("lol");
+            }
+        });
+    }
+
+    public void postDataChangeProjectWithLink(String req, String name, RequestBody requestFile, String id, String mail,
+                                                     String tg, String vk, String web, CallBackInt result){
+
+        MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", "lol", requestFile);
+        RequestBody requestName = RequestBody.create(MediaType.parse("text/plain"), name);
+        RequestBody requestReq = RequestBody.create(MediaType.parse("text/plain"), req);
+        RequestBody requestId = RequestBody.create(MediaType.parse("text/plain"), id);
+        RequestBody requestMail = RequestBody.create(MediaType.parse("text/plain"), mail);
+        RequestBody requestTg = RequestBody.create(MediaType.parse("text/plain"), tg);
+        RequestBody requestVk = RequestBody.create(MediaType.parse("text/plain"), vk);
+        RequestBody requestWeb = RequestBody.create(MediaType.parse("text/plain"), web);
+
+        Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
+        Call<Model> call = methods.editProjectWithLinks(fileToUpload, requestName, requestReq, requestId, requestTg, requestVk, requestWeb,
+                requestMail);
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, retrofit2.Response<Model> response) {
+                assert response.body() != null;
+                result.invoke(response.body().getReturn());
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+                result.invoke("All bad");
+            }
+        });
+    }
+
+    public void postDataChangeProjectWithoutImageWithLink(String req, String name, String tg, String vk, String web, String id,
+                                                          String mail, CallBackInt result){
+        Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
+        Call<Model> call = methods.editProjectWithoutImageWithLinks(name, req, id, vk, tg, web, mail);
 
         call.enqueue(new Callback<Model>() {
             @Override

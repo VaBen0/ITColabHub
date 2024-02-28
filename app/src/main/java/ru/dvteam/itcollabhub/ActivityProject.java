@@ -224,4 +224,10 @@ public class ActivityProject extends AppCompatActivity {
         };
         thread.start();
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+    }
 }
