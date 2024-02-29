@@ -204,72 +204,7 @@ public class ControlPanel2 extends AppCompatActivity {
         assert arguments != null;
         id = arguments.getString("projectId");
 
-        getAdvertIds();
-
-        PostDatas postDatas = new PostDatas();
-        postDatas.postDataGetProjectInformation("GetProjectMainInformation", id, mail, new CallBackInt4() {
-            @Override
-            public void invoke(String name, String photoUrl, String descript, double isend, String purposes,
-                               String problems, String peoples, String time, String time1, String tg, String vk, String webs, String purposesids,
-                               String problemsids, String isl, String tasks) {
-                title = name;
-                urlPhoto = photoUrl;
-                binding.nameProject.setText(name);
-                Glide
-                        .with(ControlPanel2.this)
-                        .load(photoUrl)
-                        .into(binding.prLogo);
-                purposesidss = purposesids;
-                islead = isl;
-                problemss = problemsids;
-
-                if(((int)(parse(purposes) * 100) == 100)){
-                    Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_greeen);
-                    binding.purpProgress.setBackgroundResource(R.drawable.custom_progress_bar_greeen);
-                    binding.purpProgress.setProgressDrawable(progressDrawable);
-                }
-                if(((int)(parse(problems) * 100) == 100)){
-                    Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_greeen);
-                    binding.problemsProgress.setBackgroundResource(R.drawable.custom_progress_bar_greeen);
-                    binding.problemsProgress.setProgressDrawable(progressDrawable);
-                }
-                if(((int)(parse(tasks) * 100) == 100)){
-                    Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_greeen);
-                    binding.progressOfTasks.setBackgroundResource(R.drawable.custom_progress_bar_greeen);
-                    binding.progressOfTasks.setProgressDrawable(progressDrawable);
-                }
-
-                ProgressBar purposesProgress = findViewById(R.id.purp_progress);
-                ProgressBar problemsProgress = findViewById(R.id.problems_progress);
-                ProgressBar tasksProgress = findViewById(R.id.progress_of_tasks);
-                purposesProgress.setMax(100);
-                problemsProgress.setMax(100);
-                tasksProgress.setMax(100);
-
-                ObjectAnimator animation = ObjectAnimator.ofInt(purposesProgress, "progress", 0, (int)(parse(purposes) * 100));
-                animation.setStartDelay(300);
-                animation.setDuration(1000);
-                animation.setAutoCancel(true);
-                animation.setInterpolator(new DecelerateInterpolator());
-                animation.start();
-
-                ObjectAnimator anim = ObjectAnimator.ofInt(problemsProgress, "progress", 0, (int)(parse(problems) * 100));
-                anim.setStartDelay(300);
-                anim.setDuration(1000);
-                anim.setAutoCancel(true);
-                anim.setInterpolator(new DecelerateInterpolator());
-                anim.start();
-
-                ObjectAnimator anim3 = ObjectAnimator.ofInt(tasksProgress, "progress", 0, (int)(parse(tasks) * 100));
-                anim3.setStartDelay(300);
-                anim3.setDuration(1000);
-                anim3.setAutoCancel(true);
-                anim3.setInterpolator(new DecelerateInterpolator());
-                anim3.start();
-
-                setTasks();
-            }
-        });
+        getMainInfo();
 
         Date date = new Date();
         LocalTime current = null;
@@ -381,6 +316,72 @@ public class ControlPanel2 extends AppCompatActivity {
             binding.reminderPlace.addView(custom);
         }*/
     }
+    private void getMainInfo(){
+        PostDatas postDatas = new PostDatas();
+        postDatas.postDataGetProjectInformation("GetProjectMainInformation", id, mail, new CallBackInt4() {
+            @Override
+            public void invoke(String name, String photoUrl, String descript, double isend, String purposes,
+                               String problems, String peoples, String time, String time1, String tg, String vk, String webs, String purposesids,
+                               String problemsids, String isl, String tasks) {
+                title = name;
+                urlPhoto = photoUrl;
+                binding.nameProject.setText(name);
+                Glide
+                        .with(ControlPanel2.this)
+                        .load(photoUrl)
+                        .into(binding.prLogo);
+                purposesidss = purposesids;
+                islead = isl;
+                problemss = problemsids;
+
+                if(((int)(parse(purposes) * 100) == 100)){
+                    Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_greeen);
+                    binding.purpProgress.setBackgroundResource(R.drawable.custom_progress_bar_greeen);
+                    binding.purpProgress.setProgressDrawable(progressDrawable);
+                }
+                if(((int)(parse(problems) * 100) == 100)){
+                    Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_greeen);
+                    binding.problemsProgress.setBackgroundResource(R.drawable.custom_progress_bar_greeen);
+                    binding.problemsProgress.setProgressDrawable(progressDrawable);
+                }
+                if(((int)(parse(tasks) * 100) == 100)){
+                    Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_greeen);
+                    binding.progressOfTasks.setBackgroundResource(R.drawable.custom_progress_bar_greeen);
+                    binding.progressOfTasks.setProgressDrawable(progressDrawable);
+                }
+
+                ProgressBar purposesProgress = findViewById(R.id.purp_progress);
+                ProgressBar problemsProgress = findViewById(R.id.problems_progress);
+                ProgressBar tasksProgress = findViewById(R.id.progress_of_tasks);
+                purposesProgress.setMax(100);
+                problemsProgress.setMax(100);
+                tasksProgress.setMax(100);
+
+                ObjectAnimator animation = ObjectAnimator.ofInt(purposesProgress, "progress", 0, (int)(parse(purposes) * 100));
+                animation.setStartDelay(300);
+                animation.setDuration(1000);
+                animation.setAutoCancel(true);
+                animation.setInterpolator(new DecelerateInterpolator());
+                animation.start();
+
+                ObjectAnimator anim = ObjectAnimator.ofInt(problemsProgress, "progress", 0, (int)(parse(problems) * 100));
+                anim.setStartDelay(300);
+                anim.setDuration(1000);
+                anim.setAutoCancel(true);
+                anim.setInterpolator(new DecelerateInterpolator());
+                anim.start();
+
+                ObjectAnimator anim3 = ObjectAnimator.ofInt(tasksProgress, "progress", 0, (int)(parse(tasks) * 100));
+                anim3.setStartDelay(300);
+                anim3.setDuration(1000);
+                anim3.setAutoCancel(true);
+                anim3.setInterpolator(new DecelerateInterpolator());
+                anim3.start();
+
+                getAdvertIds();
+            }
+        });
+    }
     double parse(String ratio) {
         if (ratio.contains("/")) {
             String[] rat = ratio.split("/");
@@ -392,6 +393,8 @@ public class ControlPanel2 extends AppCompatActivity {
 
     @Override
     protected void onRestart() {
+        binding.reminderPlace.removeAllViews();
+        getMainInfo();
         super.onRestart();
     }
 
@@ -471,6 +474,8 @@ public class ControlPanel2 extends AppCompatActivity {
                                 })
                                 .into(loadImg);
                     }
+
+                    setTasks();
                 }
             });
             post.postDataGetProjectAds("GetProjectAds", id2, new CallBackInt() {
@@ -594,11 +599,6 @@ public class ControlPanel2 extends AppCompatActivity {
                             TextView name = custom.findViewById(R.id.textView33);
                             TextView descr = custom.findViewById(R.id.textView32);
 
-                            Glide
-                                    .with(ControlPanel2.this)
-                                    .load(urlPhoto)
-                                    .into(loadImg);
-
                             name.setText(namesArr[finalI]);
                             descr.setText("Задание");
 
@@ -614,7 +614,29 @@ public class ControlPanel2 extends AppCompatActivity {
                                     startActivity(intent);
                                 }
                             });
-                            binding.reminderPlace.addView(custom);
+
+                            Glide
+                                    .with(ControlPanel2.this)
+                                    .load(urlPhoto)
+                                    .listener(new RequestListener<Drawable>() {
+                                        @Override
+                                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                            Transition t = null;
+                                            t = new Slide(Gravity.END);
+                                            t.setDuration(1000);
+
+                                            TransitionManager.beginDelayedTransition(binding.reminderPlace, t);
+
+                                            binding.reminderPlace.addView(custom);
+                                            return false;
+                                        }
+                                    })
+                                    .into(loadImg);
                         }
                     }
                 }

@@ -31,7 +31,8 @@ public interface Methods {
 
     @FormUrlEncoded
     @POST("/")
-    Call<Model> regEnd(@Field("Request")String req, @Field("UserMail")String mail, @Field("UserPassword")String pass, @Field("UserName")String name);
+    Call<Model> regEnd(@Field("Request")String req, @Field("UserMail")String mail,
+                       @Field("UserPassword")String pass, @Field("UserName")String name);
 
     @FormUrlEncoded
     @POST("/")
@@ -39,11 +40,13 @@ public interface Methods {
 
     @FormUrlEncoded
     @POST("/")
-    Call<Model> uploadLog(@Field("Request")String req, @Field("UserMail")String mail, @Field("UserName")String name, @Field("UserImage")String img);
+    Call<Model> uploadLog(@Field("Request")String req, @Field("UserMail")String mail,
+                          @Field("UserName")String name, @Field("UserImage")String img);
 
     @Multipart
     @POST("/")
-    Call<Model> uploadImage(@Part MultipartBody.Part file, @Part("UserName") RequestBody name, @Part("Request") RequestBody req, @Part("UserMail") RequestBody mail);
+    Call<Model> uploadImage(@Part MultipartBody.Part file, @Part("UserName") RequestBody name,
+                            @Part("Request") RequestBody req, @Part("UserMail") RequestBody mail);
 
     @FormUrlEncoded
     @POST("/")
@@ -63,8 +66,10 @@ public interface Methods {
 
     @Multipart
     @POST("/")
-    Call<Model> createProject(@Part MultipartBody.Part file, @Part("ProjectName") RequestBody name, @Part("Request") RequestBody req, @Part("ProjectPurposes") RequestBody purpose,
-                                @Part("UserMail") RequestBody mail, @Part("ProjectTasks") RequestBody task, @Part("UsersId") RequestBody id, @Part("ProjectDescription") RequestBody description);
+    Call<Model> createProject(@Part MultipartBody.Part file, @Part("ProjectName") RequestBody name, @Part("Request") RequestBody req,
+                              @Part("ProjectPurposes") RequestBody purpose, @Part("UserMail") RequestBody mail,
+                              @Part("ProjectTasks") RequestBody task, @Part("UsersId") RequestBody id,
+                              @Part("ProjectDescription") RequestBody description);
 
     @FormUrlEncoded
     @POST("/")
@@ -72,8 +77,10 @@ public interface Methods {
 
     @FormUrlEncoded
     @POST("/")
-    Call<Model> createProjectWithoutImage(@Field("ProjectName") String name, @Field("Request") String req, @Field("ProjectPurposes") String purpose,
-                              @Field("UserMail") String mail, @Field("ProjectTasks") String task, @Field("UsersId") String id, @Field("ProjectDescription") String description);
+    Call<Model> createProjectWithoutImage(@Field("ProjectName") String name, @Field("Request") String req,
+                                          @Field("ProjectPurposes") String purpose,
+                                          @Field("UserMail") String mail, @Field("ProjectTasks") String task, @Field("UsersId") String id,
+                                          @Field("ProjectDescription") String description);
 
     @FormUrlEncoded
     @POST("/")
@@ -109,7 +116,8 @@ public interface Methods {
     @Multipart
     @POST("/")
     Call<Model> createPurpose(@Part MultipartBody.Part file, @Part("PurposeName") RequestBody name, @Part("Request") RequestBody req,
-                              @Part("ProjectId") RequestBody id, @Part("PurposeDescription") RequestBody description, @Part("UserMail") RequestBody mail);
+                              @Part("ProjectId") RequestBody id, @Part("PurposeDescription") RequestBody description,
+                              @Part("UserMail") RequestBody mail);
 
     @FormUrlEncoded
     @POST("/")
@@ -119,11 +127,13 @@ public interface Methods {
 
     @FormUrlEncoded
     @POST("/")
-    Call<Model> setPurposesIsEnd(@Field("Request")String req, @Field("PurposeId")String id, @Field("ProjectId")String pid, @Field("UserMail")String mail);
+    Call<Model> setPurposesIsEnd(@Field("Request")String req, @Field("PurposeId")String id, @Field("ProjectId")String pid,
+                                 @Field("UserMail")String mail);
 
     @FormUrlEncoded
     @POST("/")
-    Call<Model> setProblemIsEnd(@Field("Request")String req, @Field("ProblemId")String id, @Field("ProjectId")String pid, @Field("UserMail")String mail);
+    Call<Model> setProblemIsEnd(@Field("Request")String req, @Field("ProblemId")String id, @Field("ProjectId")String pid,
+                                @Field("UserMail")String mail);
 
     @Multipart
     @POST("/")
@@ -140,7 +150,7 @@ public interface Methods {
     @FormUrlEncoded
     @POST("/")
     Call<Model> deleteProblem(@Field("Request")String req, @Field("ProblemId") String problemId,
-                                          @Field("UserMail") String mail, @Field("ProjectId") String projectId);
+                              @Field("UserMail") String mail, @Field("ProjectId") String projectId);
 
 
     @FormUrlEncoded
@@ -171,14 +181,14 @@ public interface Methods {
     @Multipart
     @POST("/")
     Call<Model> createFile(@Part MultipartBody.Part file, @Part("FileName") RequestBody name, @Part("Request") RequestBody req,
-                              @Part("FileLink") RequestBody link, @Part("ProjectId") RequestBody id,
-                              @Part("UserMail") RequestBody mail);
+                           @Part("FileLink") RequestBody link, @Part("ProjectId") RequestBody id,
+                           @Part("UserMail") RequestBody mail);
 
     @FormUrlEncoded
     @POST("/")
     Call<Model> createFileWithoutImage(@Field("FileName") String name,
-                                          @Field("Request") String req, @Field("ProjectId") String id,
-                                          @Field("FileLink") String link, @Field("UserMail") String mail);
+                                       @Field("Request") String req, @Field("ProjectId") String id,
+                                       @Field("FileLink") String link, @Field("UserMail") String mail);
 
     @Multipart
     @POST("/")
@@ -202,15 +212,18 @@ public interface Methods {
 
     @FormUrlEncoded
     @POST("/")
-    Call<Model> fixFile(@Field("Request") String req, @Field("FileId") String id, @Field("UserMail") String mail, @Field("ProjectId") String projectId);
+    Call<Model> fixFile(@Field("Request") String req, @Field("FileId") String id, @Field("UserMail") String mail,
+                        @Field("ProjectId") String projectId);
 
     @FormUrlEncoded
     @POST("/")
-    Call<Model> detachFile(@Field("Request") String req, @Field("FileId") String id, @Field("UserMail") String mail, @Field("ProjectId") String projectId);
+    Call<Model> detachFile(@Field("Request") String req, @Field("FileId") String id, @Field("UserMail") String mail,
+                           @Field("ProjectId") String projectId);
 
     @FormUrlEncoded
     @POST("/")
-    Call<Model> deleteFile(@Field("Request") String req, @Field("FileId") String id, @Field("UserMail") String mail, @Field("ProjectId") String projectId);
+    Call<Model> deleteFile(@Field("Request") String req, @Field("FileId") String id, @Field("UserMail") String mail,
+                           @Field("ProjectId") String projectId);
 
 
     @FormUrlEncoded
@@ -223,13 +236,14 @@ public interface Methods {
 
     @FormUrlEncoded
     @POST("/")
-    Call<Model> deleteAd(@Field("Request") String req, @Field("AdId") String id, @Field("UserMail") String mail, @Field("ProjectId") String projectId);
+    Call<Model> deleteAd(@Field("Request") String req, @Field("AdId") String id, @Field("UserMail") String mail,
+                         @Field("ProjectId") String projectId);
 
     @Multipart
     @POST("/")
     Call<Model> createAdvert(@Part MultipartBody.Part file, @Part("AdName") RequestBody name, @Part("Request") RequestBody req,
-                           @Part("Advertisement") RequestBody advertisement, @Part("ProjectId") RequestBody id,
-                           @Part("UserMail") RequestBody mail);
+                             @Part("Advertisement") RequestBody advertisement, @Part("ProjectId") RequestBody id,
+                             @Part("UserMail") RequestBody mail);
 
     @FormUrlEncoded
     @POST("/")
@@ -239,38 +253,39 @@ public interface Methods {
     @Multipart
     @POST("/")
     Call<Model> changeAdvert(@Part MultipartBody.Part file, @Part("AdName") RequestBody name, @Part("Request") RequestBody req,
-                           @Part("Advertisement") RequestBody advertisement, @Part("ProjectId") RequestBody id,
-                           @Part("UserMail") RequestBody mail, @Part("AdId") RequestBody adId);
+                             @Part("Advertisement") RequestBody advertisement, @Part("ProjectId") RequestBody id,
+                             @Part("UserMail") RequestBody mail, @Part("AdId") RequestBody adId);
 
     @FormUrlEncoded
     @POST("/")
     Call<Model> changeAdvertWithoutImage(@Field("AdName") String name,
-                                       @Field("Request") String req, @Field("ProjectId") String id,
-                                       @Field("Advertisement") String advertisement, @Field("UserMail") String mail, @Field("AdId") String adId);
+                                         @Field("Request") String req, @Field("ProjectId") String id,
+                                         @Field("Advertisement") String advertisement, @Field("UserMail") String mail,
+                                         @Field("AdId") String adId);
 
     @Multipart
     @POST("/")
     Call<Model> editProjectWithDescription(@Part MultipartBody.Part file, @Part("ProjectName") RequestBody name, @Part("Request") RequestBody req,
-                             @Part("ProjectDescription") RequestBody description, @Part("ProjectId") RequestBody id,
-                             @Part("UserMail") RequestBody mail);
-
-    @FormUrlEncoded
-    @POST("/")
-    Call<Model> editProjectWithoutImageWithDescription(@Field("ProjectName") String name,
-                                         @Field("Request") String req, @Field("ProjectId") String id,
-                                         @Field("ProjectDescription") String description, @Field("UserMail") String mail);
-
-    @Multipart
-    @POST("/")
-    Call<Model> editProjectWithLinks(@Part MultipartBody.Part file, @Part("ProjectName") RequestBody name, @Part("Request") RequestBody req,
-                                           @Part("ProjectId") RequestBody id, @Part("ProjectTG") RequestBody tgLink,
-                                     @Part("ProjectVK") RequestBody vkLink, @Part("ProjectWEB") RequestBody webLink,
+                                           @Part("ProjectDescription") RequestBody description, @Part("ProjectId") RequestBody id,
                                            @Part("UserMail") RequestBody mail);
 
     @FormUrlEncoded
     @POST("/")
-    Call<Model> editProjectWithoutImageWithLinks(@Field("ProjectName") String name,
+    Call<Model> editProjectWithoutImageWithDescription(@Field("ProjectName") String name,
                                                        @Field("Request") String req, @Field("ProjectId") String id,
+                                                       @Field("ProjectDescription") String description, @Field("UserMail") String mail);
+
+    @Multipart
+    @POST("/")
+    Call<Model> editProjectWithLinks(@Part MultipartBody.Part file, @Part("ProjectName") RequestBody name, @Part("Request") RequestBody req,
+                                     @Part("ProjectId") RequestBody id, @Part("ProjectTG") RequestBody tgLink,
+                                     @Part("ProjectVK") RequestBody vkLink, @Part("ProjectWEB") RequestBody webLink,
+                                     @Part("UserMail") RequestBody mail);
+
+    @FormUrlEncoded
+    @POST("/")
+    Call<Model> editProjectWithoutImageWithLinks(@Field("ProjectName") String name,
+                                                 @Field("Request") String req, @Field("ProjectId") String id,
                                                  @Field("ProjectVK") String vkLink, @Field("ProjectTG") String tgLink,
                                                  @Field("ProjectWEB") String webLink, @Field("UserMail") String mail);
 
@@ -284,7 +299,8 @@ public interface Methods {
 
     @FormUrlEncoded
     @POST("/")
-    Call<Model> createTextBlock(@Field("Request") String req, @Field("ProjectID") String id, @Field("UserMail") String mail, @Field("TextBlock") String text);
+    Call<Model> createTextBlock(@Field("Request") String req, @Field("ProjectID") String id, @Field("UserMail") String mail,
+                                @Field("TextBlock") String text);
 
     @FormUrlEncoded
     @POST("/")
@@ -294,17 +310,18 @@ public interface Methods {
     @FormUrlEncoded
     @POST("/")
     Call<Model> createYoutubeBlock(@Field("Request") String req, @Field("ProjectID") String id, @Field("UserMail") String mail,
-                                @Field("NameYouTubeBlock") String linkName, @Field("YouTubeBlock") String link);
+                                   @Field("NameYouTubeBlock") String linkName, @Field("YouTubeBlock") String link);
 
     @Multipart
     @POST("/")
     Call<Model> createImageBlock(@Part MultipartBody.Part file, @Part("Request") RequestBody req,
-                            @Part("NameImageBlock") RequestBody name, @Part("UserMail") RequestBody mail, @Part("ProjectID") RequestBody id);
+                                 @Part("NameImageBlock") RequestBody name, @Part("UserMail") RequestBody mail,
+                                 @Part("ProjectID") RequestBody id);
 
     @FormUrlEncoded
     @POST("/")
     Call<Model> createTask(@Field("Request") String req, @Field("ProjectID") String id, @Field("UserMail") String mail,
-                                   @Field("TaskName") String taskName, @Field("QueueBlocks") String queue, @Field("TextBlocks") String textBlocks,
+                           @Field("TaskName") String taskName, @Field("QueueBlocks") String queue, @Field("TextBlocks") String textBlocks,
                            @Field("LinkBlocks") String linkBlocks, @Field("PeoplesIds") String peoplesIds,
                            @Field("ImageBlocks") String imageBlocks, @Field("YouTubeBlocks") String youtubeBlocks);
 
@@ -324,7 +341,7 @@ public interface Methods {
     @FormUrlEncoded
     @POST("/")
     Call<Model> getMoreInfoTask(@Field("Request")String req, @Field("ProjectID")String id, @Field("UserMail") String mail,
-                                       @Field("TaskID") String taskID);
+                                @Field("TaskID") String taskID);
 
     @FormUrlEncoded
     @POST("/")
@@ -335,16 +352,30 @@ public interface Methods {
     @FormUrlEncoded
     @POST("/")
     Call<Model> getPeoplesCompletedWork(@Field("Request")String req, @Field("ProjectID")String id, @Field("UserMail") String mail,
-                                @Field("TaskID") String taskID);
+                                        @Field("TaskID") String taskID);
 
     @FormUrlEncoded
     @POST("/")
     Call<Model> makeTaskCompleted(@Field("Request")String req, @Field("ProjectID")String id, @Field("UserMail") String mail,
-                                        @Field("TaskID") String taskID);
+                                  @Field("TaskID") String taskID);
 
 
     @FormUrlEncoded
     @POST("/")
     Call<Model> getWork(@Field("Request")String req, @Field("ProjectID")String id, @Field("UserMail") String mail,
-                                        @Field("WorkID") String taskID);
+                        @Field("WorkID") String taskID);
+
+    @FormUrlEncoded
+    @POST("/")
+    Call<Model> getProjectParticipants(@Field("Request")String req, @Field("UserMail")String mail, @Field("ProjectID")String projectId);
+
+    @FormUrlEncoded
+    @POST("/")
+    Call<Model> findFriendForProject(@Field("Request")String req, @Field("UserName")String name, @Field("UserMail")String mail,
+                                     @Field("ProjectID")String projectId);
+
+    @FormUrlEncoded
+    @POST("/")
+    Call<Model> editStatusProject(@Field("Request")String req, @Field("UserMail")String mail,
+                                     @Field("ProjectID")String projectId);
 }

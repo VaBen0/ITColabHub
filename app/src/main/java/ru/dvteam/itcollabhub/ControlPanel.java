@@ -455,8 +455,10 @@ public class ControlPanel extends AppCompatActivity {
                 anim3.setAutoCancel(true);
                 anim3.setInterpolator(new DecelerateInterpolator());
                 anim3.start();
-                setTasks();
+
                 getAdvertIds();
+
+
             }
         });
     }
@@ -482,15 +484,8 @@ public class ControlPanel extends AppCompatActivity {
                             ImageView loadImg = custom.findViewById(R.id.loadImg);
                             TextView name = custom.findViewById(R.id.textView33);
                             TextView descr = custom.findViewById(R.id.textView32);
-
-                            Glide
-                                    .with(ControlPanel.this)
-                                    .load(urlPhoto)
-                                    .into(loadImg);
-
                             name.setText(namesArr[finalI]);
                             descr.setText("Задание");
-
                             custom.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -503,7 +498,30 @@ public class ControlPanel extends AppCompatActivity {
                                     startActivity(intent);
                                 }
                             });
-                            binding.reminderPlace.addView(custom);
+
+                            Glide
+                                    .with(ControlPanel.this)
+                                    .load(urlPhoto)
+                                    .listener(new RequestListener<Drawable>() {
+                                        @Override
+                                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                            return false;
+                                        }
+
+                                        @Override
+                                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                            Transition t = null;
+                                            t = new Slide(Gravity.END);
+                                            t.setDuration(1000);
+
+                                            TransitionManager.beginDelayedTransition(binding.reminderPlace, t);
+
+                                            binding.reminderPlace.addView(custom);
+                                            return false;
+                                        }
+                                    })
+                                    .into(loadImg);
+
                         }
                     }
                 }
@@ -587,7 +605,9 @@ public class ControlPanel extends AppCompatActivity {
                                 })
                                 .into(loadImg);
 
+
                     }
+
                 }
             });
             post.postDataGetProjectAds("GetProjectAds", id2, new CallBackInt() {
@@ -663,6 +683,7 @@ public class ControlPanel extends AppCompatActivity {
                                 })
                                 .into(loadImg);
                     }
+                    setTasks();
                 }
             });
         }

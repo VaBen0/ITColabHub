@@ -53,12 +53,25 @@
         android:id="@+id/saveBtn"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/violete"
         android:text="Сохранить"
-        app:cornerRadius="10dp"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch3" />
+
+    <Button
+        android:id="@+id/endBtn"
+        android:layout_width="185dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/violete"
+        android:text="Завершить проект"
+        android:textColor="@color/white"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/saveBtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

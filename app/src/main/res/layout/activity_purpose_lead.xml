@@ -133,7 +133,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/blockMenu"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="295dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -152,16 +152,17 @@
             android:id="@+id/view11"
             android:layout_width="100dp"
             android:layout_height="5dp"
+            android:layout_marginTop="5dp"
             android:background="?line"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:id="@+id/linearLayout8"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="275dp"
             android:layout_marginBottom="5dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -20,23 +20,45 @@ import com.bumptech.glide.Glide;
 
 public class MyProjects extends Fragment {
 
+    String mail;
+    int score;
+    LinearLayout main;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_my_projects, container, false);
 
-        LinearLayout main = v.findViewById(R.id.main_layout);
+        main = v.findViewById(R.id.main_layout);
         ActivityProject activityProject = (ActivityProject) getActivity();
         assert activityProject != null;
-        String mail = activityProject.getMail();
-        int score = activityProject.getScore();
+        mail = activityProject.getMail();
+        score = activityProject.getScore();
+        createProjects();
         //Toast.makeText(v.getContext(), mail, Toast.LENGTH_SHORT).show();
+
+        /*for (int i = 0; i < 5; i++) {
+            View custom = inflater.inflate(R.layout.project_window, null);
+
+            main.addView(custom);
+        }
+        View empty = inflater.inflate(R.layout.emty_obj, null);
+        main.addView(empty);
+
+        Toast.makeText(v.getContext(), "lol", Toast.LENGTH_SHORT).show();*/
+
+        return v;
+    }
+    public void createProjects(){
+        main.removeAllViews();
         PostDatas post = new PostDatas();
         post.postDataGetUserProjects("GetUserProject", mail, new CallBackInt() {
             @Override
             public void invoke(String info) {
                 //Toast.makeText(activityProject, info, Toast.LENGTH_SHORT).show();
+                System.out.println(info);
                 String[] inf = info.split(";");
+                ActivityProject activityProject = (ActivityProject) getActivity();
 
                 if(!inf[0].equals("Нет1проектов564")) {
                     main.removeAllViews();
@@ -49,7 +71,7 @@ public class MyProjects extends Fragment {
                     String[] percents = inf[7].split(",");
 
                     for (int i = 0; i < names.length; i++) {
-                        View custom = inflater.inflate(R.layout.project_window, null);
+                        View custom = getLayoutInflater().inflate(R.layout.project_window, null);
                         TextView nameu = (TextView) custom.findViewById(R.id.textView3);
                         ImageView loadImage = (ImageView) custom.findViewById(R.id.log);
                         ImageView user = (ImageView) custom.findViewById(R.id.logo);
@@ -164,26 +186,14 @@ public class MyProjects extends Fragment {
                         });
                         main.addView(custom);
                     }
-                    View empty = inflater.inflate(R.layout.emty_obj, null);
+                    View empty = getLayoutInflater().inflate(R.layout.emty_obj, null);
                     main.addView(empty);
                 }
                 else{
-                    Toast.makeText(v.getContext(), "Результаты не найдены", Toast.LENGTH_SHORT).show();;
+                    Toast.makeText(getActivity(), "Результаты не найдены", Toast.LENGTH_SHORT).show();;
                 }
             }
         });
-        /*for (int i = 0; i < 5; i++) {
-            View custom = inflater.inflate(R.layout.project_window, null);
-
-            main.addView(custom);
-        }
-        View empty = inflater.inflate(R.layout.emty_obj, null);
-        main.addView(empty);
-
-        Toast.makeText(v.getContext(), "lol", Toast.LENGTH_SHORT).show();*/
-
-        return v;
     }
-
 
 }

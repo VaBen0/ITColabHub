@@ -1410,4 +1410,41 @@ public class PostDatas {
             }
         });
     }
+
+    public void postDataFindFriendForProject(String req, String name, String mail, String prId, CallBackInt result){
+        Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
+        Call<Model> call = methods.findFriendForProject(req, name, mail, prId);
+
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, retrofit2.Response<Model> response) {
+                assert response.body() != null;
+                result.invoke(response.body().getReturn());
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+
+            }
+
+        });
+    }
+
+    public void postDataGetParticipants(String req, String mail, String prId, CallBackInt result){
+        Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
+        Call<Model> call = methods.getProjectParticipants(req, mail, prId);
+
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, retrofit2.Response<Model> response) {
+                assert response.body() != null;
+                result.invoke(response.body().getReturn());
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+
+            }
+        });
+    }
 }

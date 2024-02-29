@@ -27,7 +27,9 @@ public class FragmentOtherEdit extends Fragment {
         int score = editProject.getScore();
 
         Button btn = v.findViewById(R.id.saveBtn);
+        Button end = v.findViewById(R.id.endBtn);
         setColorBtn(score, btn);
+        setColorBtn(score, end);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override

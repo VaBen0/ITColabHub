@@ -34,7 +34,6 @@ public class GetFriend extends AppCompatActivity {
         int score = sPref.getInt("UserScore", 0);
         String urlImage = sPref.getString("UrlImg", "");
 
-
         String s = "Ваши очки: " + score;
         TextView nameu = findViewById(R.id.nameu);
         ImageView loadedImage = findViewById(R.id.loadImg);
@@ -131,6 +130,7 @@ public class GetFriend extends AppCompatActivity {
             @Override
             public void invoke(String info) {
                 String[] inf = info.split(";");
+                System.out.println(info);
 
                 if(!inf[0].equals("Нет1друзей564")) {
                     LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -144,7 +144,7 @@ public class GetFriend extends AppCompatActivity {
                     for (int i = 0; i < names.length; i++) {
                         View custom = inflater.inflate(R.layout.friend_window, null);
                         TextView nameu = (TextView) custom.findViewById(R.id.textView3);
-                        ImageView loadImage = (ImageView) custom.findViewById(R.id.loadImg);
+                        ImageView loadImage = (ImageView) custom.findViewById(R.id.log);
                         ImageView userCircle = (ImageView) custom.findViewById(R.id.user_circle);
                         TextView project1 = (TextView) custom.findViewById(R.id.projects1);
                         ImageView plus = (ImageView) custom.findViewById(R.id.notban);

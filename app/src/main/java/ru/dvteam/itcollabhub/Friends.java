@@ -179,7 +179,7 @@ public class Friends extends Fragment {
                                 for (int i = 0; i < names.length; i++) {
                                     View custom = inflater.inflate(R.layout.friend_window, null);
                                     TextView nameu = (TextView) custom.findViewById(R.id.textView3);
-                                    ImageView loadImage = (ImageView) custom.findViewById(R.id.loadImg);
+                                    ImageView loadImage = (ImageView) custom.findViewById(R.id.log);
                                     ImageView userCircle = (ImageView) custom.findViewById(R.id.user_circle);
                                     TextView project1 = (TextView) custom.findViewById(R.id.projects1);
                                     ImageView messege = (ImageView) custom.findViewById(R.id.notban);

@@ -62,23 +62,39 @@
         android:id="@+id/lin_lay"
         android:layout_width="match_parent"
         android:layout_height="72dp"
-        android:background="@drawable/view_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pr_logo">
+
+        <View
+            android:id="@+id/view9"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="13dp"
+            android:background="@drawable/project_friend_background"
+            android:elevation="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="10dp"
+            android:elevation="2dp"
             android:gravity="center"
-            android:text="Найти участника"
+            android:text="Найти друга"
             android:textColor="@color/black"
             android:textSize="9sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/view9"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -91,25 +107,25 @@
             android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/textView"
             android:background="@drawable/vertical_gray_line"
+            android:elevation="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/name_friend"
-            android:layout_width="0dp"
+            android:layout_width="150dp"
             android:layout_height="32dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="5dp"
-            android:layout_marginEnd="10dp"
             android:layout_toEndOf="@+id/line"
             android:background="@color/transparent"
+            android:elevation="2dp"
             android:inputType="text"
             android:textColor="@color/black"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/find"
             app:layout_constraintStart_toEndOf="@+id/line"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.488"
@@ -121,16 +137,34 @@
             android:layout_height="28dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="30dp"
+            android:layout_marginEnd="10dp"
             android:layout_toEndOf="@+id/name_friend"
             android:clickable="true"
+            android:elevation="2dp"
             android:focusable="true"
             android:src="@drawable/find"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/notification"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
+        <ImageView
+            android:id="@+id/notification"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="10dp"
+            android:layout_toEndOf="@+id/find"
+            android:background="@drawable/notification_false"
+            android:clickable="true"
+            android:elevation="2dp"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/view9"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button

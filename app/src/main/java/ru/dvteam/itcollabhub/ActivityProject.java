@@ -2,6 +2,7 @@ package ru.dvteam.itcollabhub;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 
 import android.content.Context;
@@ -21,12 +22,14 @@ import java.io.File;
 public class ActivityProject extends AppCompatActivity {
 
     int selectedColor, score;
-    private NavController navController;
+    //private NavController navController;
     String mail;
 
     private String[] wow = {"Хренос 2", "Кина не будет - электричество кончилось", "Ой, сломалось", "Караул!"};
     View back;
     ImageView dontWork;
+
+    Fragment fragmentPrMy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +49,24 @@ public class ActivityProject extends AppCompatActivity {
         ImageView bguser = findViewById(R.id.bguser);
         TextView myProjects = findViewById(R.id.my_projects);
         TextView endProjects = findViewById(R.id.end_projects);
-        View fragment = findViewById(R.id.nav_host_fragment);
         LinearLayout projectMenu = findViewById(R.id.project_menu);
         ImageView notif = findViewById(R.id.notifications);
         View my_projects_lin = findViewById(R.id.linear_my_projects);
         View end_projects_lin = findViewById(R.id.linear_end_projects);
         back = findViewById(R.id.view3);
         dontWork = findViewById(R.id.imageView12);
+
+        fragmentPrMy = Fragment.instantiate(this, MyProjects.class.getName());
+        //Fragment fragmentLink = Fragment.instantiate(this, FragmentLinksProjectEdit.class.getName());
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.fragmentContainerView3, fragmentPrMy, "mainFragment")
+                .commit();
+
+        getSupportFragmentManager().beginTransaction()
+                .show(fragmentPrMy)
+                .commit();
 
         PostDatas post = new PostDatas();
         post.postDataGetProjectReq("GRProjects", mail, new CallBackInt() {
@@ -228,6 +242,12 @@ public class ActivityProject extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
+        MyProjects frag = (MyProjects) getSupportFragmentManager().findFragmentByTag("mainFragment");
+        if (frag != null) {
+            frag.createProjects();
+        }else{
+            Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
+        }
 
     }
 }

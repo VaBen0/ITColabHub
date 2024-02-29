@@ -26,7 +26,7 @@ import ru.dvteam.itcollabhub.databinding.ActivityUsersProjectBinding;
 public class UsersProject extends AppCompatActivity {
 
     ActivityUsersProjectBinding binding;
-    String mail;
+    String mail, id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,8 +103,11 @@ public class UsersProject extends AppCompatActivity {
         Bundle arguments = getIntent().getExtras();
 
         assert arguments != null;
-        String id = arguments.getString("projectId");
+        id = arguments.getString("projectId");
+        getMainInfo();
+    }
 
+    private void getMainInfo(){
         PostDatas postDatas = new PostDatas();
         postDatas.postDataGetProjectInformation("GetProjectMainInformation", id, mail, new CallBackInt4() {
             @Override
@@ -200,8 +203,11 @@ public class UsersProject extends AppCompatActivity {
                 });
             }
         });
-
-
     }
 
+    @Override
+    protected void onRestart() {
+        getMainInfo();
+        super.onRestart();
+    }
 }
