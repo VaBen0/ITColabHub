@@ -1128,6 +1128,53 @@ public class PostDatas {
         });
     }
 
+    public void postDataChangeProjectWithStatus(String req, String name, RequestBody requestFile, String id, String mail,
+                                              String open, String visible, CallBackInt result){
+
+        MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", "lol", requestFile);
+        RequestBody requestName = RequestBody.create(MediaType.parse("text/plain"), name);
+        RequestBody requestReq = RequestBody.create(MediaType.parse("text/plain"), req);
+        RequestBody requestId = RequestBody.create(MediaType.parse("text/plain"), id);
+        RequestBody requestMail = RequestBody.create(MediaType.parse("text/plain"), mail);
+        RequestBody requestOpen = RequestBody.create(MediaType.parse("text/plain"), open);
+        RequestBody requestVisible = RequestBody.create(MediaType.parse("text/plain"), visible);
+
+        Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
+        Call<Model> call = methods.editProjectStatus(fileToUpload, requestName, requestReq, requestId, requestOpen, requestVisible,
+                requestMail);
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, retrofit2.Response<Model> response) {
+                assert response.body() != null;
+                result.invoke(response.body().getReturn());
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+                result.invoke("All bad");
+            }
+        });
+    }
+
+    public void postDataChangeProjectWithoutImageWithStatus(String req, String name, String open, String visible, String id,
+                                                          String mail, CallBackInt result){
+        Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
+        Call<Model> call = methods.editProjectWithoutImageWithStatus(name, req, id, open, visible, mail);
+
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, retrofit2.Response<Model> response) {
+                assert response.body() != null;
+                result.invoke(response.body().getReturn());
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+                //result.invoke("lol");
+            }
+        });
+    }
+
     public void postDataSetProjectStatus(String req, String id, String mail, CallBackInt result){
         Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
         Call<Model> call = methods.setProjectStatus(req, id, mail);
@@ -1146,7 +1193,7 @@ public class PostDatas {
         });
     }
 
-    public void postDataGetProjectParticipant(String req, String id, String mail, CallBackInt result){
+    public void postDataGetProjectParticipant(String req, String id, String mail, CallBackInt5 result){
         Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
         Call<Model> call = methods.getProjectPartisipant(req, id, mail);
 
@@ -1154,7 +1201,7 @@ public class PostDatas {
             @Override
             public void onResponse(Call<Model> call, retrofit2.Response<Model> response) {
                 assert response.body() != null;
-                result.invoke(response.body().getReturn());
+                result.invoke(response.body().getIds(), response.body().getNames(), response.body().getPhotos());
             }
 
             @Override
@@ -1430,9 +1477,9 @@ public class PostDatas {
         });
     }
 
-    public void postDataGetParticipants(String req, String mail, String prId, CallBackInt result){
+    public void postDataSetProjectIsEnd(String req, String mail, String prId, String ins, CallBackInt result){
         Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
-        Call<Model> call = methods.getProjectParticipants(req, mail, prId);
+        Call<Model> call = methods.setProjectIsEnd(req, prId, mail, ins);
 
         call.enqueue(new Callback<Model>() {
             @Override

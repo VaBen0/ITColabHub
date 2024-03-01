@@ -65,7 +65,7 @@ public class UsersProject extends AppCompatActivity {
             Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_lgoh);
             binding.projectProgress.setBackgroundResource(R.drawable.custom_progress_bar_lgoh);
             binding.projectProgress.setProgressDrawable(progressDrawable);
-            binding.controlPanelMove.setBackgroundTintList(ContextCompat.getColorStateList(UsersProject.this, R.color.light_gray));
+            binding.controlPanelMove.setBackgroundTintList(ContextCompat.getColorStateList(UsersProject.this, R.color.ohra));
         }
         else if(score < 7000){
             Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_ohred);

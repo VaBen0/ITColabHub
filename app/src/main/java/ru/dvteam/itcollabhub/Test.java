@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -49,14 +50,18 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.material.slider.Slider;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import ru.dvteam.itcollabhub.databinding.ActivityTestBinding;
 
 public class Test extends AppCompatActivity {
+
+    ActivityTestBinding binding;
 
     private static final int PERMISSION_REQUEST_CODE = 1000;
     private static final int PICK_FILE_REQUEST_CODE = 2000;
@@ -67,17 +72,30 @@ public class Test extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
 
-        LinearLayout linearLayout = findViewById(R.id.remPlace);
+        binding = ActivityTestBinding.inflate(getLayoutInflater());
 
-        for(int i = 0; i < 5; i += 3){
-            Transition t = TransitionInflater.from(Test.this)
-                    .inflateTransition(R.transition.advert_add);
-            TransitionManager.beginDelayedTransition(linearLayout, t);
-            View custom = getLayoutInflater().inflate(R.layout.reminder, null);
-            linearLayout.addView(custom);
-        }
+        setContentView(binding.getRoot());
+
+        binding.slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                binding.percents.setText(progress + "");
+                binding.progressOfTasks.setProgress(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+
     }
 
     private boolean checkPermission() {

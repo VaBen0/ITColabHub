@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.google.android.material.switchmaterial.SwitchMaterial;
+
 
 public class FragmentOtherEdit extends Fragment {
     @Override
@@ -28,13 +30,23 @@ public class FragmentOtherEdit extends Fragment {
 
         Button btn = v.findViewById(R.id.saveBtn);
         Button end = v.findViewById(R.id.endBtn);
+        SwitchMaterial open = v.findViewById(R.id.open);
+        SwitchMaterial visible = v.findViewById(R.id.visible);
         setColorBtn(score, btn);
         setColorBtn(score, end);
 
+        end.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editProject.endProject();
+            }
+        });
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editProject.saveOther();
+                int myInt1 = open.isChecked() ? 1 : 0;
+                int myInt2 = visible.isChecked() ? 1 : 0;
+                editProject.saveOther(myInt1 + "", myInt2 + "");
             }
         });
 

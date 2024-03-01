@@ -21,6 +21,12 @@
         android:theme="@style/Theme.ITCollabHub"
         tools:targetApi="26">
         <activity
+            android:name=".NotifyInParticipants"
+            android:exported="false" />
+        <activity
+            android:name=".EndProject"
+            android:exported="false" />
+        <activity
             android:name=".ProjectParticipants"
             android:exported="false" />
         <activity

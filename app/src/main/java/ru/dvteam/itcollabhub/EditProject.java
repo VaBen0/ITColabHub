@@ -521,10 +521,35 @@ public class EditProject extends AppCompatActivity {
                     });
         }
     }
-    public void saveOther(){
-        binding.blockMenu.setVisibility(View.VISIBLE);
-        final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add3);
-        binding.blockMenu.startAnimation(show);
+
+    public void saveOther(String open, String visible){
+        PostDatas post = new PostDatas();
+
+        if(mediaPath.isEmpty()){
+            post.postDataChangeProjectWithoutImageWithStatus("SaveChangesFromProjectWithoutImageAndIsOpenAndIsVisibile",
+                    binding.projectName.getText().toString(), open, visible, id, mail, new CallBackInt() {
+                        @Override
+                        public void invoke(String res) {
+                            binding.blockMenu.setVisibility(View.VISIBLE);
+                            final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add3);
+                            binding.blockMenu.startAnimation(show);
+                        }
+                    });
+        } else{
+            File file = new File(mediaPath);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
+            post.postDataChangeProjectWithStatus("SaveChangesFromProjectWithImageAndIsOpenAndIsVisibile", binding.projectName.getText().toString(),
+                    requestBody, id, mail, open, visible, new CallBackInt() {
+                        @Override
+                        public void invoke(String res) {
+                            deleteCache(EditProject.this);
+                            System.out.println("image");
+                            binding.blockMenu.setVisibility(View.VISIBLE);
+                            final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add3);
+                            binding.blockMenu.startAnimation(show);
+                        }
+                    });
+        }
     }
 
     public int description(){return score;}
@@ -568,5 +593,12 @@ public class EditProject extends AppCompatActivity {
         }
     }
 
+    public void endProject(){
+        Intent intent = new Intent(EditProject.this, EndProject.class);
+        intent.putExtra("projectTitle", title);
+        intent.putExtra("projectUrlPhoto", prPhoto);
+        intent.putExtra("projectId", id);
+        startActivity(intent);
+    }
 
 }

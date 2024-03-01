@@ -289,6 +289,18 @@ public interface Methods {
                                                  @Field("ProjectVK") String vkLink, @Field("ProjectTG") String tgLink,
                                                  @Field("ProjectWEB") String webLink, @Field("UserMail") String mail);
 
+    @Multipart
+    @POST("/")
+    Call<Model> editProjectStatus(@Part MultipartBody.Part file, @Part("ProjectName") RequestBody name, @Part("Request") RequestBody req,
+                                     @Part("ProjectId") RequestBody id, @Part("ProjectIsOpen") RequestBody open,
+                                     @Part("ProjectIsVisible") RequestBody visible, @Part("UserMail") RequestBody mail);
+
+    @FormUrlEncoded
+    @POST("/")
+    Call<Model> editProjectWithoutImageWithStatus(@Field("ProjectName") String name,
+                                                 @Field("Request") String req, @Field("ProjectId") String id, @Field("ProjectIsOpen") String open,
+                                                 @Field("ProjectIsVisible") String visible, @Field("UserMail") String mail);
+
     @FormUrlEncoded
     @POST("/")
     Call<Model> getProjectPartisipant(@Field("Request")String req, @Field("ProjectID")String id, @Field("UserMail") String mail);
@@ -376,6 +388,8 @@ public interface Methods {
 
     @FormUrlEncoded
     @POST("/")
-    Call<Model> editStatusProject(@Field("Request")String req, @Field("UserMail")String mail,
-                                     @Field("ProjectID")String projectId);
+    Call<Model> setProjectIsEnd(@Field("Request")String req, @Field("ProjectId")String id, @Field("UserMail")String mail,
+                                @Field("UsersIns")String ins);
+
+
 }
