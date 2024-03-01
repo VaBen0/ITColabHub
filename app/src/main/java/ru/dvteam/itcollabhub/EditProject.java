@@ -558,11 +558,6 @@ public class EditProject extends AppCompatActivity {
     }
     public int getScore(){return score;}
     public String getMail(){return mail;}
-    public String getTgLink(){return"tg";}
-
-    public String getVkLink(){return"vk";}
-
-    public String getWebLink(){return"web";}
 
     private void pickImage(){
         Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
