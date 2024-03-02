@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateTask">
+    tools:context=".CreateArticle">
 
     <ImageView
         android:id="@+id/bguser"
@@ -51,7 +51,7 @@
         android:autoSizeMinTextSize="19sp"
         android:autoSizeTextType="uniform"
         android:gravity="center|left"
-        android:text="Название проекта"
+        android:text="Имя пользователя"
         android:textColor="@color/white"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="@+id/logo"
@@ -70,7 +70,7 @@
         android:autoSizeMinTextSize="20sp"
         android:autoSizeTextType="uniform"
         android:backgroundTint="@color/transparent"
-        android:hint="Название задания"
+        android:hint="Название статьи"
         android:textSize="25sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
@@ -93,7 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="13dp"
         android:layout_marginTop="-5dp"
-        android:text="Добавьте блок задания"
+        android:text="Добавьте блок статьи"
         android:elevation="10dp"
         android:textSize="19sp"
         android:textStyle="italic"
@@ -143,7 +143,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Добавьте блок задания"
+        android:text="Добавьте блок статьи"
         android:textSize="17sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
@@ -264,6 +264,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Текст"
+                    android:textColor="@color/white"
                     android:textSize="15sp"
                     android:textStyle="bold|italic" />
 
@@ -274,6 +275,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Ссылка"
+                    android:textColor="@color/white"
                     android:textSize="15sp"
                     android:textStyle="bold|italic" />
 
@@ -284,6 +286,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Фото"
+                    android:textColor="@color/white"
                     android:textSize="15sp"
                     android:textStyle="bold|italic" />
 

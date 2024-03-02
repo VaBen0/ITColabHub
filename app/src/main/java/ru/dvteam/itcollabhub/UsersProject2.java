@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -99,6 +100,30 @@ public class UsersProject2 extends AppCompatActivity {
                         .load(photoUrl)
                         .into(binding.prLogo);
                 binding.description.setText(descript);
+                binding.tgIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(!tg.isEmpty()) {
+                            Toast.makeText(UsersProject2.this, tg, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                binding.vkIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(!vk.isEmpty()) {
+                            Toast.makeText(UsersProject2.this, vk, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                binding.webIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(!webs.isEmpty()) {
+                            Toast.makeText(UsersProject2.this, webs, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
 

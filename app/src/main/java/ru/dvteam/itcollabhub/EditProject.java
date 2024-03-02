@@ -42,7 +42,7 @@ public class EditProject extends AppCompatActivity {
     ActivityEditProjectBinding binding;
 
     //private NavController navController;
-    String id, title, description, prPhoto, mail;
+    private String id, title, description, prPhoto, mail, tgLink, vkLink, webLink;
     int score;
     private static final int PICK_IMAGES_CODE = 0;
     private String mediaPath = "", uriPath = "";
@@ -117,6 +117,9 @@ public class EditProject extends AppCompatActivity {
         title = arguments.getString("projectTitle");
         prPhoto = arguments.getString("projectUrlPhoto");
         description = arguments.getString("projectDescription");
+        tgLink = arguments.getString("tgLink");
+        vkLink = arguments.getString("vkLink");
+        webLink = arguments.getString("webLink");
         //navController.navigate(R.id.projectDescriptionEdit2);
 
         binding.projectName.setText(title);
@@ -495,6 +498,7 @@ public class EditProject extends AppCompatActivity {
     }
     public void saveLinks(String tg, String vk, String web){
         PostDatas post = new PostDatas();
+        System.out.println(tg + " " + vk + " " + web);
         if(mediaPath.isEmpty()){
             post.postDataChangeProjectWithoutImageWithLink("SaveChangesFromProjectWithoutImageAndLinks",
                     binding.projectName.getText().toString(), tg, vk, web, id, mail, new CallBackInt() {
@@ -558,6 +562,9 @@ public class EditProject extends AppCompatActivity {
     }
     public int getScore(){return score;}
     public String getMail(){return mail;}
+    public String getTgLink(){return tgLink;}
+    public String getVkLink(){return vkLink;}
+    public String getWebLink(){return webLink;}
 
     private void pickImage(){
         Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);

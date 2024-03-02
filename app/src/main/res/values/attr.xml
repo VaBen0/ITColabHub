@@ -24,4 +24,5 @@
     <attr name="trash_icon" format="reference"/>
     <attr name="arrow_icon" format="reference"/>
     <attr name="check_icon" format="reference"/>
+    <attr name="calendar_icon" format="reference"/>
 </resources>

@@ -121,6 +121,25 @@ public class UsersProject extends AppCompatActivity {
                         .into(binding.prLogo);
                 String percents = (int) isend + ".0%";
                 binding.projectPercents.setText(percents);
+                binding.tgIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(UsersProject.this, tg, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                binding.vkIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(UsersProject.this, vk, Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                binding.webIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(UsersProject.this, webs, Toast.LENGTH_SHORT).show();
+                    }
+                });
 
                 ObjectAnimator animation = ObjectAnimator.ofInt(binding.projectProgress, "progress", 0, (int) isend);
                 animation.setStartDelay(300);

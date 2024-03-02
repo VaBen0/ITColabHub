@@ -66,6 +66,17 @@ public class TasksActivityMain extends AppCompatActivity {
             }
         });
 
+        binding.add2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TasksActivityMain.this, CreateDeadline.class);
+                intent.putExtra("projectId", id);
+                intent.putExtra("projectTitle", title);
+                intent.putExtra("projectUrlPhoto", prPhoto);
+                startActivity(intent);
+            }
+        });
+
         setTasks();
 
     }

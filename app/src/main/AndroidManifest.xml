@@ -21,6 +21,18 @@
         android:theme="@style/Theme.ITCollabHub"
         tools:targetApi="26">
         <activity
+            android:name=".ActivityEndedProject"
+            android:exported="false" />
+        <activity
+            android:name=".CreateArticle"
+            android:exported="false" />
+        <activity
+            android:name=".CreateDedline2"
+            android:exported="false" />
+        <activity
+            android:name=".CreateDeadline"
+            android:exported="false" />
+        <activity
             android:name=".NotifyInParticipants"
             android:exported="false" />
         <activity

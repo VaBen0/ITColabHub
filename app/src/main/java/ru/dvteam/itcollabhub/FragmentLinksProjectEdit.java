@@ -28,10 +28,16 @@ public class FragmentLinksProjectEdit extends Fragment {
         EditProject editProject = (EditProject) getActivity();
         assert editProject != null;
         int score = editProject.getScore();
+        String tgLink = editProject.getTgLink();
+        String vkLink = editProject.getVkLink();
+        String webLink = editProject.getWebLink();
 
         EditText tg = v.findViewById(R.id.tgLink);
         EditText vk = v.findViewById(R.id.vkLink);
         EditText web = v.findViewById(R.id.webLink);
+        tg.setText(tgLink);
+        vk.setText(vkLink);
+        web.setText(webLink);
         Button btn = v.findViewById(R.id.saveBtn);
         setColorBtn(score, btn);
         setColorEditText(score, tg);
@@ -41,7 +47,23 @@ public class FragmentLinksProjectEdit extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editProject.saveLinks(tg.getText().toString(), vk.getText().toString(), web.getText().toString());
+                String tgStr, vkStr, webStr;
+                if(tg.getText().toString().isEmpty()){
+                    tgStr = "Нет";
+                }else {
+                    tgStr = tg.getText().toString();
+                }
+                if(vk.getText().toString().isEmpty()){
+                    vkStr = "Нет";
+                }else{
+                    vkStr = vk.getText().toString();
+                }
+                if(web.getText().toString().isEmpty()){
+                    webStr = "Нет";
+                }else{
+                    webStr = web.getText().toString();
+                }
+                editProject.saveLinks(tgStr, vkStr, webStr);
             }
         });
 

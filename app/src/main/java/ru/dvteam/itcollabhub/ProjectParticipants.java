@@ -102,6 +102,7 @@ public class ProjectParticipants extends AppCompatActivity {
                     ImageView loadImage = (ImageView) custom.findViewById(R.id.log);
                     ImageView userCircle = (ImageView) custom.findViewById(R.id.user_circle);
                     TextView project1 = (TextView) custom.findViewById(R.id.projects1);
+                    project1.setVisibility(View.GONE);
                     ImageView messege = (ImageView) custom.findViewById(R.id.notban);
                     messege.setImageResource(R.drawable.delete_black);
                     userCircle.setVisibility(View.GONE);

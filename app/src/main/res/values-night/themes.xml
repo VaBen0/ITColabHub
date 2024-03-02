@@ -9,7 +9,7 @@
         <item name="android:windowBackground">@color/dark_theme</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textColorHint">@color/white</item>
-        <item name="background_progress">@color/gray</item>
+        <item name="background_progress">@color/light_gray</item>
         <item name="background_panel">@color/dark_panel</item>
         <item name="background_panel_tasks1">@color/dark_theme</item>
         <item name="background_panel2">@color/dark_panel</item>
@@ -33,6 +33,7 @@
         <item name="chat_icon">@drawable/chat</item>
         <item name="logo_type">@drawable/app_logo</item>
         <item name="time_icon">@drawable/time_white</item>
+        <item name="calendar_icon">@drawable/calendar_white</item>
     </style>
 
     <style name="Theme.ITCollabHub" parent="Base.Theme.ITCollabHub">

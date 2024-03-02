@@ -1,4 +1,5 @@
 package ru.dvteam.itcollabhub;
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -17,6 +18,7 @@ import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -50,6 +52,10 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointForward;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.slider.Slider;
 
 import java.io.File;
@@ -57,6 +63,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.TimeZone;
+
 import ru.dvteam.itcollabhub.databinding.ActivityTestBinding;
 
 public class Test extends AppCompatActivity {
@@ -77,21 +87,49 @@ public class Test extends AppCompatActivity {
 
         setContentView(binding.getRoot());
 
-        binding.slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        int i = Calendar.getInstance().get(Calendar.YEAR);
+
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Russia"));
+        calendar.set(i, 0, 1);
+        long startYear = calendar.getTimeInMillis();
+
+        calendar.set(i + 1, 0, 1);
+        long endYear = calendar.getTimeInMillis();
+
+        CalendarConstraints.Builder calendarConstraintBuilder = new CalendarConstraints.Builder();
+
+        calendarConstraintBuilder.setValidator(DateValidatorPointForward.now());
+        calendarConstraintBuilder.setStart(startYear);
+        calendarConstraintBuilder.setEnd(endYear);
+
+        MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder
+                .datePicker()
+                .setCalendarConstraints(calendarConstraintBuilder.build())
+                .setTheme(R.style.datePicker)
+                .build();
+
+        //materialDateBuilder.setTitleText("SELECT A DATE");
+
+
+
+
+        datePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                binding.percents.setText(progress + "");
-                binding.progressOfTasks.setProgress(progress);
+            public void onPositiveButtonClick(Long selection) {
+                Calendar utc = Calendar.getInstance(TimeZone.getTimeZone("Russia"));
+                utc.setTimeInMillis(selection);
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+                String formatted = format.format(utc.getTime());
+                System.out.println(formatted);
+
             }
+        });
 
+        binding.date.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
+            public void onClick(View v) {
+                //StartTime.show();
+                datePicker.show(getSupportFragmentManager(), "you_can_give_any_name");
             }
         });
 

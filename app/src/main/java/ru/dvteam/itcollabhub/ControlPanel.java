@@ -49,7 +49,7 @@ public class ControlPanel extends AppCompatActivity {
     ActivityControlPanelBinding binding;
     String title, urlPhoto;
     String mail, islead;
-    String purposesidss, problemss, id, description;
+    String purposesidss, problemss, id, description, tgMain, vkMain, webMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -339,6 +339,9 @@ public class ControlPanel extends AppCompatActivity {
                 intent.putExtra("projectUrlPhoto", urlPhoto);
                 intent.putExtra("projectId", id);
                 intent.putExtra("projectDescription", description);
+                intent.putExtra("tgLink", tgMain);
+                intent.putExtra("vkLink", vkMain);
+                intent.putExtra("webLink", webMain);
                 startActivity(intent);
             }
         });
@@ -399,6 +402,10 @@ public class ControlPanel extends AppCompatActivity {
                 title = name;
                 urlPhoto = photoUrl;
                 description = descript;
+                tgMain = tg;
+                vkMain = vk;
+                webMain = webs;
+
                 binding.nameProject.setText(name);
                 Glide
                         .with(ControlPanel.this)
@@ -407,6 +414,7 @@ public class ControlPanel extends AppCompatActivity {
                 purposesidss = purposesids;
                 islead = isl;
                 problemss = problemsids;
+
 
                 if(((int)(parse(purposes) * 100) == 100)){
                     Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_greeen);
