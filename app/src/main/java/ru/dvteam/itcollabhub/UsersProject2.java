@@ -1,6 +1,6 @@
 package ru.dvteam.itcollabhub;
 
-import android.content.Intent;
+import  android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -12,27 +12,26 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 
-import ru.dvteam.itcollabhub.databinding.ActivityUsersProjectBinding;
+import ru.dvteam.itcollabhub.databinding.ActivityUsersProject2Binding;
 
 public class UsersProject2 extends AppCompatActivity {
 
-    ActivityUsersProjectBinding binding;
+    ActivityUsersProject2Binding binding;
     String mail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        binding = ActivityUsersProject2Binding.inflate(getLayoutInflater());
+
+        setContentView(binding.getRoot());
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         mail = sPref.getString("UserMail", "");
         int score = sPref.getInt("UserScore", 0);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-
-        binding = ActivityUsersProjectBinding.inflate(getLayoutInflater());
-
-        setContentView(binding.getRoot());
 
         if(score < 100){
             Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_bgreen);
@@ -127,14 +126,6 @@ public class UsersProject2 extends AppCompatActivity {
             }
         });
 
-        binding.controlPanelMove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(UsersProject2.this, ControlPanel.class);
-                intent.putExtra("projectId", id);
-                startActivity(intent);
-            }
-        });
     }
 
 }

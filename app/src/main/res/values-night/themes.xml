@@ -5,11 +5,11 @@
         <!-- <item name="colorPrimary">@color/darkColorPrimary</item> -->
         <item name="colorPrimary">@color/dark_theme</item>
         <item name="colorPrimaryVariant">@color/green</item>
-        <item name="colorOnPrimary">@color/light_gray</item>
+        <item name="colorOnPrimary">@color/white</item>
         <item name="android:windowBackground">@color/dark_theme</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textColorHint">@color/white</item>
-        <item name="background_progress">@color/light_gray</item>
+        <item name="background_progress">@color/s_gray</item>
         <item name="background_panel">@color/dark_panel</item>
         <item name="background_panel_tasks1">@color/dark_theme</item>
         <item name="background_panel2">@color/dark_panel</item>
@@ -38,5 +38,15 @@
 
     <style name="Theme.ITCollabHub" parent="Base.Theme.ITCollabHub">
         <item name="colorPrimary">@color/dark_theme</item>
+    </style>
+
+    <style name="datePicker" parent="@style/ThemeOverlay.Material3.MaterialCalendar">
+
+        <item name="colorOnSurfaceVariant">@color/white</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="colorPrimary">@color/pink_gold</item>
+        <item name="colorOnPrimary">@color/dark_theme</item>
+        <item name="colorSurfaceVariant">@color/pink_gold</item>
+
     </style>
 </resources>

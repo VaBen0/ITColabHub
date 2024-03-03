@@ -106,15 +106,7 @@ public class ProjectRequests extends AppCompatActivity {
                         nameu.setText(names[i]);
 
                         int finalI = i;
-                        loadImage.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(ProjectRequests.this, UsersProject2.class);
-                                intent.putExtra("projectId", id[finalI]);
-                                startActivity(intent);
-                            }
-                        });
-                        nameu.setOnClickListener(new View.OnClickListener() {
+                        custom.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 Intent intent = new Intent(ProjectRequests.this, UsersProject2.class);

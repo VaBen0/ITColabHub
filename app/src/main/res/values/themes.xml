@@ -115,17 +115,7 @@
         <item name="colorPrimary">@color/pink_gold</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorSurfaceVariant">@color/pink_gold</item>
-        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
-        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
 
-    </style>
-
-    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
-        <item name="cornerFamily">cut</item>
-    </style>
-
-    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
-        <item name="cornerSize">16dp</item>
     </style>
 
 </resources>

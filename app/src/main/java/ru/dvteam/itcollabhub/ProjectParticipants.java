@@ -10,8 +10,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
 
 import ru.dvteam.itcollabhub.databinding.ActivityProjectParticipantsBinding;
 
@@ -19,6 +22,7 @@ public class ProjectParticipants extends AppCompatActivity {
 
     ActivityProjectParticipantsBinding binding;
     String id, title, description, prPhoto, mail;
+    ArrayList<Integer> indexViews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,13 +88,42 @@ public class ProjectParticipants extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        binding.find.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                indexViews = new ArrayList<>();
+                if(binding.nameFriend.getText().toString().isEmpty()){
+                    Toast.makeText(ProjectParticipants.this, "Вы ничего не ввели", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    for(int i = 0; i < binding.linMain.getChildCount() - 1; i++){
+                        View custom = binding.linMain.getChildAt(i);
+                        TextView nameu = (TextView) custom.findViewById(R.id.textView3);
+                        if(nameu.getText().toString().contains(binding.nameFriend.getText().toString())){
+                            indexViews.add(i);
+                        }
+                    }
+                    if(indexViews.isEmpty()){
+                        Toast.makeText(ProjectParticipants.this, "Таких участников не существует", Toast.LENGTH_SHORT).show();
+                    }else{
+                        for(int i = 0; i < binding.linMain.getChildCount() - 1; i++){
+                            if(!indexViews.contains(i)) {
+                                binding.linMain.getChildAt(i).setVisibility(View.GONE);
+                            }
+                            else{
+                                binding.linMain.getChildAt(i).setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }
+                }
+
+            }
+        });
 
         PostDatas post = new PostDatas();
         post.postDataGetProjectParticipant("GetPeoplesFromProjects", id, mail, new CallBackInt5() {
             @Override
             public void invoke(String ids, String names, String photos) {
-
-
                 binding.linMain.removeAllViews();
                 String[] idsArr = ids.split("\uD83D\uDD70");
                 String[] namesArr = names.split("\uD83D\uDD70");
