@@ -27,6 +27,8 @@ public class FragmentOtherEdit extends Fragment {
         EditProject editProject = (EditProject) getActivity();
         assert editProject != null;
         int score = editProject.getScore();
+        String isOpen = editProject.getIsOpen();
+        String isVisible = editProject.getIsVisible();
 
         Button btn = v.findViewById(R.id.saveBtn);
         Button end = v.findViewById(R.id.endBtn);
@@ -34,6 +36,9 @@ public class FragmentOtherEdit extends Fragment {
         SwitchMaterial visible = v.findViewById(R.id.visible);
         setColorBtn(score, btn);
         setColorBtn(score, end);
+
+        open.setChecked(isOpen.equals("1"));
+        visible.setChecked(isVisible.equals("1"));
 
         end.setOnClickListener(new View.OnClickListener() {
             @Override

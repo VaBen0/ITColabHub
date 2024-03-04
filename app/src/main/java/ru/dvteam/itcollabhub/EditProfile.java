@@ -48,17 +48,18 @@ public class EditProfile extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     ActivityResultLauncher<Intent> resultLauncher;
     private NavController navController;
-    private String mail;
+    private String mail, name;
     private String[] wow = {"Хренос 2", "Кина не будет - электричество кончилось", "Ой, сломалось", "Караул!"};
     View back;
     ImageView dontWork;
+    EditText UserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
 
         mail = sPref.getString("UserMail", "");
-        String name = sPref.getString("UserName", "");
+        name = sPref.getString("UserName", "");
         score = sPref.getInt("UserScore", 0);
         String imgUrl = sPref.getString("UrlImg", "");
 
@@ -67,8 +68,7 @@ public class EditProfile extends AppCompatActivity {
         registerResult();
 
         Img = findViewById(R.id.loadImg);
-        EditText UserName = findViewById(R.id.nameu);
-        Button btn = findViewById(R.id.save);
+        UserName = findViewById(R.id.nameu);
         String s = "Ваши очки: " + score;
         ImageView userCircle = findViewById(R.id.userCircle);
         ImageView bguser = findViewById(R.id.bguser);
@@ -82,7 +82,7 @@ public class EditProfile extends AppCompatActivity {
         TextView links = findViewById(R.id.first_menu);
         View about = findViewById(R.id.linear_friends);
         View link = findViewById(R.id.linear_projects);
-        UserName.setHint(name);
+        UserName.setText(name);
         UserScore.setText(s);
         back = findViewById(R.id.view3);
         dontWork = findViewById(R.id.imageView12);
@@ -97,7 +97,6 @@ public class EditProfile extends AppCompatActivity {
             userCircle.setBackgroundResource(R.drawable.circle_blue);
             UserScore.setTextColor(Color.parseColor("#B20000FF"));
             selectedColor = Color.parseColor("#B20000FF");
-            btn.setBackgroundTintList(ContextCompat.getColorStateList(EditProfile.this, R.color.blue));
             getWindow().setStatusBarColor(ContextCompat.getColor(EditProfile.this,R.color.blue));
             link.setBackgroundResource(R.drawable.blue_line);
         }
@@ -106,7 +105,6 @@ public class EditProfile extends AppCompatActivity {
             userCircle.setBackgroundResource(R.drawable.circle_green);
             UserScore.setTextColor(Color.parseColor("#B21AFF00"));
             selectedColor = Color.parseColor("#B21AFF00");
-            btn.setBackgroundTintList(ContextCompat.getColorStateList(EditProfile.this, R.color.green));
             getWindow().setStatusBarColor(ContextCompat.getColor(EditProfile.this,R.color.green));
             link.setBackgroundResource(R.drawable.green_line);
         }
@@ -115,7 +113,6 @@ public class EditProfile extends AppCompatActivity {
             userCircle.setBackgroundResource(R.drawable.circle_brown);
             UserScore.setTextColor(Color.parseColor("#FFCC7722"));
             selectedColor = Color.parseColor("#FFCC7722");
-            btn.setBackgroundTintList(ContextCompat.getColorStateList(EditProfile.this, R.color.brown));
             getWindow().setStatusBarColor(ContextCompat.getColor(EditProfile.this,R.color.brown));
             link.setBackgroundResource(R.drawable.brown_line);
         }
@@ -124,7 +121,6 @@ public class EditProfile extends AppCompatActivity {
             userCircle.setBackgroundResource(R.drawable.circle_light_gray);
             UserScore.setTextColor(Color.parseColor("#B2B5B5B5"));
             selectedColor = Color.parseColor("#B2B5B5B5");
-            btn.setBackgroundTintList(ContextCompat.getColorStateList(EditProfile.this, R.color.light_gray));
             getWindow().setStatusBarColor(ContextCompat.getColor(EditProfile.this,R.color.light_gray));
             link.setBackgroundResource(R.drawable.light_gray_line);
         }
@@ -133,7 +129,6 @@ public class EditProfile extends AppCompatActivity {
             userCircle.setBackgroundResource(R.drawable.circle_ohra);
             UserScore.setTextColor(Color.parseColor("#FFE8AA0E"));
             selectedColor = Color.parseColor("#FFE8AA0E");
-            btn.setBackgroundTintList(ContextCompat.getColorStateList(EditProfile.this, R.color.ohra));
             getWindow().setStatusBarColor(ContextCompat.getColor(EditProfile.this,R.color.ohra));
             link.setBackgroundResource(R.drawable.ohra_line);
         }
@@ -142,7 +137,6 @@ public class EditProfile extends AppCompatActivity {
             userCircle.setBackgroundResource(R.drawable.circle_red);
             UserScore.setTextColor(Color.parseColor("#FF0000"));
             selectedColor = Color.parseColor("#FF0000");
-            btn.setBackgroundTintList(ContextCompat.getColorStateList(EditProfile.this, R.color.red));
             getWindow().setStatusBarColor(ContextCompat.getColor(EditProfile.this,R.color.red));
             link.setBackgroundResource(R.drawable.red_line);
         }
@@ -151,7 +145,6 @@ public class EditProfile extends AppCompatActivity {
             userCircle.setBackgroundResource(R.drawable.circle_orange);
             UserScore.setTextColor(Color.parseColor("#FFCC7722"));
             selectedColor = Color.parseColor("#FFCC7722");
-            btn.setBackgroundTintList(ContextCompat.getColorStateList(EditProfile.this, R.color.orange));
             getWindow().setStatusBarColor(ContextCompat.getColor(EditProfile.this,R.color.orange));
             link.setBackgroundResource(R.drawable.orange_line);
         }
@@ -160,7 +153,6 @@ public class EditProfile extends AppCompatActivity {
             userCircle.setBackgroundResource(R.drawable.circle_violete);
             UserScore.setTextColor(Color.parseColor("#4F0070"));
             selectedColor = Color.parseColor("#4F0070");
-            btn.setBackgroundTintList(ContextCompat.getColorStateList(EditProfile.this, R.color.violete));
             getWindow().setStatusBarColor(ContextCompat.getColor(EditProfile.this,R.color.violete));
             link.setBackgroundResource(R.drawable.violete_line);
         }
@@ -169,7 +161,6 @@ public class EditProfile extends AppCompatActivity {
             userCircle.setBackgroundResource(R.drawable.circle_blue_green);
             UserScore.setTextColor(Color.parseColor("#FF00C6A2"));
             selectedColor = Color.parseColor("#FF00C6A2");
-            btn.setBackgroundTintList(ContextCompat.getColorStateList(EditProfile.this, R.color.main_green));
             getWindow().setStatusBarColor(ContextCompat.getColor(EditProfile.this,R.color.main_green));
             link.setBackgroundResource(R.drawable.blue_green_line);
         }
@@ -234,59 +225,6 @@ public class EditProfile extends AppCompatActivity {
             });
         }
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText UserName = findViewById(R.id.nameu);
-                PostDatas post = new PostDatas();
-                if(mediaPath.equals("")){
-                    post.postDataEditName("CreateNameLog1", mail, UserName.getText().toString(), new CallBackInt() {
-                        @Override
-                        public void invoke(String res) {
-                            Toast.makeText(EditProfile.this, res, Toast.LENGTH_SHORT).show();
-                            if(res.equals("Сохранено")) {
-                                Intent intent = new Intent(EditProfile.this, Profile.class);
-
-                                startActivity(intent);
-                            }
-                        }
-                    });
-                }
-                else if(UserName.getText().toString().equals("")){
-                    File file = new File(mediaPath);
-                    RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
-
-                    post.postDataCreateAccount("CreateNameLog1", name, requestBody, mail, new CallBackInt() {
-                        @Override
-                        public void invoke(String res) {
-                            Toast.makeText(EditProfile.this, res, Toast.LENGTH_SHORT).show();
-                            if(res.equals("Сохранено")) {
-                                Intent intent = new Intent(EditProfile.this, Profile.class);
-
-                                startActivity(intent);
-                            }
-                        }
-                    });
-                }
-                else{
-                    File file = new File(mediaPath);
-                    RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
-
-                    post.postDataCreateAccount("CreateNameLog1", UserName.getText().toString(), requestBody, mail, new CallBackInt() {
-                        @Override
-                        public void invoke(String res) {
-                            Toast.makeText(EditProfile.this, res, Toast.LENGTH_SHORT).show();
-                            if(res.equals("Сохранено")) {
-                                Intent intent = new Intent(EditProfile.this, Profile.class);
-
-                                startActivity(intent);
-                            }
-                        }
-                    });
-                }
-            }
-        });
-
         links.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -326,7 +264,6 @@ public class EditProfile extends AppCompatActivity {
                     about.setBackgroundColor(0);
                     link.setBackgroundResource(R.drawable.blue_green_line);
                 }
-                btn.setVisibility(View.VISIBLE);
                 navController = Navigation.findNavController(EditProfile.this, R.id.nav_host_fragment);
                 navController.navigate(R.id.accountLinks);
             }
@@ -371,7 +308,6 @@ public class EditProfile extends AppCompatActivity {
                     link.setBackgroundColor(0);
                     about.setBackgroundResource(R.drawable.blue_green_line);
                 }
-                btn.setVisibility(View.GONE);
                 navController = Navigation.findNavController(EditProfile.this, R.id.nav_host_fragment);
                 navController.navigate(R.id.aboutApp);
             }
@@ -447,6 +383,40 @@ public class EditProfile extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    public void editProfile(String vk, String tg, String web){
+        EditText UserName = findViewById(R.id.nameu);
+        PostDatas post = new PostDatas();
+        if(mediaPath.isEmpty()){
+            post.postDataEditProfileWithoutImage("CreateNameLog1", mail, UserName.getText().toString(), tg, vk, web, new CallBackInt() {
+                @Override
+                public void invoke(String res) {
+                    Toast.makeText(EditProfile.this, res, Toast.LENGTH_SHORT).show();
+                    if(res.equals("Сохранено")) {
+                        Intent intent = new Intent(EditProfile.this, Profile.class);
+
+                        startActivity(intent);
+                    }
+                }
+            });
+        }
+        else{
+            File file = new File(mediaPath);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
+            post.postDataEditProfile("CreateNameLog1", UserName.getText().toString(), tg, vk, web, requestBody, mail, new CallBackInt() {
+                @Override
+                public void invoke(String res) {
+                    Toast.makeText(EditProfile.this, res, Toast.LENGTH_SHORT).show();
+                    if(res.equals("Сохранено")) {
+                        Intent intent = new Intent(EditProfile.this, Profile.class);
+
+                        startActivity(intent);
+                    }
+                }
+            });
+        }
+
     }
 
     public String getMail(){

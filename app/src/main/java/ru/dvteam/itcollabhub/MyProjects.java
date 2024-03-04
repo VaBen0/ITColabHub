@@ -50,6 +50,7 @@ public class MyProjects extends Fragment {
         return v;
     }
     public void createProjects(){
+        System.out.println("my");
         main.removeAllViews();
         PostDatas post = new PostDatas();
         post.postDataGetUserProjects("GetUserProject", mail, new CallBackInt() {

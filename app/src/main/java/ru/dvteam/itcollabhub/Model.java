@@ -37,6 +37,8 @@ public class Model {
     private String youtube_blocks_links;
     private String tasks;
     private String complete;
+    private String isVisible;
+    private String isOpen;
 
     private int activityProjects, archiveProjects;
 
@@ -45,7 +47,7 @@ public class Model {
                  String purposesids, String problemsids, String isl, int activityProjects, int archiveProjects, String names, String photos,
                  String ids, String texts, String queue_blocks, String text_blocks, String link_blocks_names, String link_blocks_links,
                  String image_blocks_names, String image_blocks_links, String youtube_blocks_names, String youtube_blocks_links, String tasks,
-                 String complete) {
+                 String complete, String isVisible, String isOpen) {
         this.name = name;
         this.ret = ret;
         this.urlImg = urlImg;
@@ -75,6 +77,8 @@ public class Model {
         this.youtube_blocks_links = youtube_blocks_links;
         this.tasks = tasks;
         this.complete = complete;
+        this.isVisible = isVisible;
+        this.isOpen = isOpen;
     }
 
     public String getName() {
@@ -152,5 +156,13 @@ public class Model {
 
     public String getComplete() {
         return complete;
+    }
+
+    public String getIsVisible() {
+        return isVisible;
+    }
+
+    public String getisOpen() {
+        return isOpen;
     }
 }

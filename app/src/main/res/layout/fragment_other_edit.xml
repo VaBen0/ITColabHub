@@ -23,7 +23,8 @@
         android:layout_marginStart="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView58"
         app:layout_constraintStart_toEndOf="@+id/textView58"
-        app:layout_constraintTop_toTopOf="@+id/textView58" />
+        app:layout_constraintTop_toTopOf="@+id/textView58"
+        app:thumbIconSize="15dp"/>
 
     <TextView
         android:id="@+id/textView57"

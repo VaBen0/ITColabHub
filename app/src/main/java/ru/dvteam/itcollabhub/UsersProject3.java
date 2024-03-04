@@ -12,18 +12,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 
-import ru.dvteam.itcollabhub.databinding.ActivityUsersProject2Binding;
+import ru.dvteam.itcollabhub.databinding.ActivityUsersProject3Binding;
 
-public class UsersProject2 extends AppCompatActivity {
+public class UsersProject3 extends AppCompatActivity {
 
-    ActivityUsersProject2Binding binding;
+    ActivityUsersProject3Binding binding;
     String mail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityUsersProject2Binding.inflate(getLayoutInflater());
+        binding = ActivityUsersProject3Binding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
@@ -95,7 +95,7 @@ public class UsersProject2 extends AppCompatActivity {
                                String purposesids, String problemsids, String isl, String tasks, String isOpen, String isVisible) {
                 binding.projectName.setText(name);
                 Glide
-                        .with(UsersProject2.this)
+                        .with(UsersProject3.this)
                         .load(photoUrl)
                         .into(binding.prLogo);
                 binding.description.setText(descript);
@@ -103,7 +103,7 @@ public class UsersProject2 extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if(!tg.isEmpty()) {
-                            Toast.makeText(UsersProject2.this, tg, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UsersProject3.this, tg, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -111,15 +111,23 @@ public class UsersProject2 extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if(!vk.isEmpty()) {
-                            Toast.makeText(UsersProject2.this, vk, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UsersProject3.this, vk, Toast.LENGTH_SHORT).show();
                         }
+                    }
+                });
+                binding.controlPanelMove.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(UsersProject3.this, ControlPanel3.class);
+                        intent.putExtra("projectId", id);
+                        startActivity(intent);
                     }
                 });
                 binding.webIcon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if(!webs.isEmpty()) {
-                            Toast.makeText(UsersProject2.this, webs, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UsersProject3.this, webs, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

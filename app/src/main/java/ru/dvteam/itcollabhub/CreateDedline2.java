@@ -297,6 +297,7 @@ public class CreateDedline2 extends AppCompatActivity {
         String idsLinkBlocksStr;
         String idsImageBlocksArr;
         String idsYouTubeBlocksArr;
+        String date = dayCalendar + "." + monthCalendar + "." + yearCalendar;
 
         if(idsTextBlocks.isEmpty()){
             idsTextBlocksStr = "";
@@ -320,9 +321,9 @@ public class CreateDedline2 extends AppCompatActivity {
         }
 
         PostDatas post = new PostDatas();
-        post.postDataCreateTask("CreateTask", id, mail, taskName, queue, idsTextBlocksStr,
+        post.postDataCreateDeadline("CreateDeadline", id, mail, taskName, queue, idsTextBlocksStr,
                 idsLinkBlocksStr, idsArrStr, idsImageBlocksArr,
-                idsYouTubeBlocksArr, new CallBackInt() {
+                idsYouTubeBlocksArr, date, new CallBackInt() {
                     @Override
                     public void invoke(String res) {
                         /*Intent intent = new Intent(PartisipantTasks.this, TasksActivityMain.class);

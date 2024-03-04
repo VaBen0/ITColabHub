@@ -106,6 +106,7 @@ public class ProjectParticipants extends AppCompatActivity {
                     if(indexViews.isEmpty()){
                         Toast.makeText(ProjectParticipants.this, "Таких участников не существует", Toast.LENGTH_SHORT).show();
                     }else{
+                        binding.cancel.setVisibility(View.VISIBLE);
                         for(int i = 0; i < binding.linMain.getChildCount() - 1; i++){
                             if(!indexViews.contains(i)) {
                                 binding.linMain.getChildAt(i).setVisibility(View.GONE);
@@ -117,6 +118,16 @@ public class ProjectParticipants extends AppCompatActivity {
                     }
                 }
 
+            }
+        });
+        binding.cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for(int i = 0; i < binding.linMain.getChildCount(); i++){
+                    binding.linMain.getChildAt(i).setVisibility(View.VISIBLE);
+                }
+                binding.cancel.setVisibility(View.GONE);
+                binding.nameFriend.setText("");
             }
         });
 

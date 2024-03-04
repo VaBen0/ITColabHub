@@ -50,6 +50,7 @@ public class ControlPanel2 extends AppCompatActivity {
     String title, urlPhoto;
     String mail, islead;
     String purposesidss, problemss, id;
+    String description, tgMain, vkMain, webMain, isOpenM, isVisibleM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -310,11 +311,18 @@ public class ControlPanel2 extends AppCompatActivity {
             }
         });
 
-        /*for (int i = 0; i < 5; i++) {
-            View custom = getLayoutInflater().inflate(R.layout.reminder, null);
+        binding.projectChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ControlPanel2.this, ProjectPage.class);
+                intent.putExtra("projectTitle", title);
+                intent.putExtra("projectUrlPhoto", urlPhoto);
+                intent.putExtra("projectDescription", description);
+                intent.putExtra("webLink", webMain);
+                startActivity(intent);
+            }
+        });
 
-            binding.reminderPlace.addView(custom);
-        }*/
     }
     private void getMainInfo(){
         PostDatas postDatas = new PostDatas();
@@ -322,9 +330,12 @@ public class ControlPanel2 extends AppCompatActivity {
             @Override
             public void invoke(String name, String photoUrl, String descript, double isend, String purposes,
                                String problems, String peoples, String time, String time1, String tg, String vk, String webs, String purposesids,
-                               String problemsids, String isl, String tasks) {
+                               String problemsids, String isl, String tasks, String isOpen, String isVisible) {
                 title = name;
                 urlPhoto = photoUrl;
+                description = descript;
+                webMain = webs;
+
                 binding.nameProject.setText(name);
                 Glide
                         .with(ControlPanel2.this)

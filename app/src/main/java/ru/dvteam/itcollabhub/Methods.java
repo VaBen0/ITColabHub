@@ -62,7 +62,13 @@ public interface Methods {
 
     @FormUrlEncoded
     @POST("/")
-    Call<Model> editName(@Field("Request")String req, @Field("UserName")String name, @Field("UserMail")String mail);
+    Call<Model> editProfileWithooutImage(@Field("Request")String req, @Field("UserName")String name, @Field("UserMail")String mail,
+                            @Field("LinkTG")String tg, @Field("LinkVK")String vk, @Field("LinkWEB")String web);
+    @Multipart
+    @POST("/")
+    Call<Model> editProfile(@Part MultipartBody.Part file, @Part("UserName") RequestBody name,
+                            @Part("Request") RequestBody req, @Part("UserMail") RequestBody mail, @Part("LinkTG") RequestBody tg,
+                            @Part("LinkVK") RequestBody vk, @Part("LinkWEB") RequestBody web);
 
     @Multipart
     @POST("/")
@@ -339,6 +345,14 @@ public interface Methods {
 
     @FormUrlEncoded
     @POST("/")
+    Call<Model> createDeadline(@Field("Request") String req, @Field("ProjectID") String id, @Field("UserMail") String mail,
+                           @Field("DeadlineName") String taskName, @Field("QueueBlocks") String queue, @Field("TextBlocks") String textBlocks,
+                           @Field("LinkBlocks") String linkBlocks, @Field("PeoplesIds") String peoplesIds,
+                           @Field("ImageBlocks") String imageBlocks, @Field("YouTubeBlocks") String youtubeBlocks,
+                           @Field("DateIsEnd") String date);
+
+    @FormUrlEncoded
+    @POST("/")
     Call<Model> getPeoplesFromProject(@Field("Request")String req, @Field("ProjectID")String id, @Field("UserMail") String mail);
 
     @FormUrlEncoded
@@ -376,10 +390,6 @@ public interface Methods {
     @POST("/")
     Call<Model> getWork(@Field("Request")String req, @Field("ProjectID")String id, @Field("UserMail") String mail,
                         @Field("WorkID") String taskID);
-
-    @FormUrlEncoded
-    @POST("/")
-    Call<Model> getProjectParticipants(@Field("Request")String req, @Field("UserMail")String mail, @Field("ProjectID")String projectId);
 
     @FormUrlEncoded
     @POST("/")

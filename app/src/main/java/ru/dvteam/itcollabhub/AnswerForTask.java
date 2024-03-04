@@ -48,6 +48,7 @@ public class AnswerForTask extends AppCompatActivity {
     private ArrayList<String> mediaPaths, linkName, linkLink, imageNames, idsImageBlocks, idsLinkBlocks;
     private Boolean acces = false;
     private String text;
+    private int score;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     ActivityResultLauncher<Intent> resultLauncher;
     private Boolean click = true;
@@ -64,7 +65,7 @@ public class AnswerForTask extends AppCompatActivity {
 
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         mail = sPref.getString("UserMail", "");
-        int score = sPref.getInt("UserScore", 0);
+        score = sPref.getInt("UserScore", 0);
         setActivityFormat(score);
 
         mediaPaths = new ArrayList<>();
@@ -143,6 +144,7 @@ public class AnswerForTask extends AppCompatActivity {
                     String s = "Ссылка " + (binding.main2.getChildCount() + 1);
                     TextView name = custom.findViewById(R.id.taskTitle);
                     name.setText(s);
+                    setButtonBackground(score, custom);
                     binding.main2.addView(custom);
                     binding.linkTitle.setText("");
                     binding.link.setText("");
@@ -322,6 +324,7 @@ public class AnswerForTask extends AppCompatActivity {
                 String s = "Фото " + (binding.main1.getChildCount() + 1);
                 TextView name = custom.findViewById(R.id.taskTitle);
                 name.setText(s);
+                setButtonBackground(score, custom);
 
                 binding.main1.addView(custom);
 
@@ -377,6 +380,7 @@ public class AnswerForTask extends AppCompatActivity {
                             String s = "Фото " + (binding.main1.getChildCount() + 1);
                             TextView name = custom.findViewById(R.id.taskTitle);
                             name.setText(s);
+                            setButtonBackground(score, custom);
 
                             binding.main1.addView(custom);
 
@@ -463,6 +467,35 @@ public class AnswerForTask extends AppCompatActivity {
         }
         else{
             but.setImageResource(R.drawable.blue_green_add);
+        }
+    }
+    private void setButtonBackground(int score, View but){
+        if(score < 100){
+            but.setBackgroundResource(R.drawable.blue_line);
+        }
+        else if(score < 300){
+            but.setBackgroundResource(R.drawable.green_line);
+        }
+        else if(score < 1000){
+            but.setBackgroundResource(R.drawable.brown_line);
+        }
+        else if(score < 2500){
+            but.setBackgroundResource(R.drawable.light_gray_line);
+        }
+        else if(score < 7000){
+            but.setBackgroundResource(R.drawable.ohra_line);
+        }
+        else if(score < 17000){
+            but.setBackgroundResource(R.drawable.red_line);
+        }
+        else if(score < 30000) {
+            but.setBackgroundResource(R.drawable.brown_line);
+        }
+        else if(score < 50000){
+            but.setBackgroundResource(R.drawable.violete_line);
+        }
+        else{
+            but.setBackgroundResource(R.drawable.blue_green_line);
         }
     }
 }

@@ -210,9 +210,35 @@ public class PostDatas {
         });
     }
 
-    public void postDataEditName(String req, String mail, String name, CallBackInt result){
+    public void postDataEditProfile(String req, String name, String tg, String vk, String web, RequestBody requestFile, String mail, CallBackInt result){
+
+        MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", "lol", requestFile);
+        RequestBody requestName = RequestBody.create(MediaType.parse("text/plain"), name);
+        RequestBody requestMail = RequestBody.create(MediaType.parse("text/plain"), mail);
+        RequestBody requestReq = RequestBody.create(MediaType.parse("text/plain"), req);
+        RequestBody requestTg = RequestBody.create(MediaType.parse("text/plain"), tg);
+        RequestBody requestVk = RequestBody.create(MediaType.parse("text/plain"), vk);
+        RequestBody requestWeb = RequestBody.create(MediaType.parse("text/plain"), web);
+
         Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
-        Call<Model> call = methods.editName(req, name, mail);
+        Call<Model> call = methods.editProfile(fileToUpload, requestName, requestReq, requestMail, requestTg, requestVk, requestWeb);
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, retrofit2.Response<Model> response) {
+                assert response.body() != null;
+                result.invoke(response.body().getReturn());
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+                result.invoke("All bad");
+            }
+        });
+    }
+
+    public void postDataEditProfileWithoutImage(String req, String mail, String name, String tg, String vk, String web, CallBackInt result){
+        Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
+        Call<Model> call = methods.editProfileWithooutImage(req, name, mail, tg, vk, web);
 
         call.enqueue(new Callback<Model>() {
             @Override
@@ -322,7 +348,7 @@ public class PostDatas {
                         response.body().getIsend(), response.body().getPurposes(), response.body().getProblems(), response.body().getPeoples(),
                         response.body().getTime(), response.body().getTime1(), response.body().getTg(), response.body().getVk(),
                         response.body().getWebs(),response.body().getPurposesids(), response.body().getProblemsids(), response.body().getIsl(),
-                        response.body().getTasks());
+                        response.body().getTasks(), response.body().getisOpen(), response.body().getIsVisible());
             }
 
             @Override
@@ -1313,6 +1339,27 @@ public class PostDatas {
         Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
         Call<Model> call = methods.createTask(req, id, mail, taskName, queue, textBlocks, linkBlocks, peopleIds,
                 imageBlocks, youtubeBlocks);
+
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, retrofit2.Response<Model> response) {
+                assert response.body() != null;
+                result.invoke(response.body().getReturn());
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+                //result.invoke("lol");
+            }
+        });
+    }
+
+    public void postDataCreateDeadline(String req, String id, String mail, String taskName, String queue, String textBlocks,
+                                   String linkBlocks, String peopleIds, String imageBlocks, String youtubeBlocks, String date,
+                                   CallBackInt result){
+        Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
+        Call<Model> call = methods.createDeadline(req, id, mail, taskName, queue, textBlocks, linkBlocks, peopleIds,
+                imageBlocks, youtubeBlocks, date);
 
         call.enqueue(new Callback<Model>() {
             @Override

@@ -44,6 +44,7 @@ public class EndProjects extends Fragment {
     }
 
     public void createProjects(){
+        System.out.println("end");
         main.removeAllViews();
         PostDatas post = new PostDatas();
         post.postDataGetUserProjects("GetUserEndProject", mail, new CallBackInt() {

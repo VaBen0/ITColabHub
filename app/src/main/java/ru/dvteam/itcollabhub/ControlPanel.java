@@ -49,7 +49,7 @@ public class ControlPanel extends AppCompatActivity {
     ActivityControlPanelBinding binding;
     String title, urlPhoto;
     String mail, islead;
-    String purposesidss, problemss, id, description, tgMain, vkMain, webMain;
+    String purposesidss, problemss, id, description, tgMain, vkMain, webMain, isOpenM, isVisibleM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class ControlPanel extends AppCompatActivity {
             binding.projectFiles.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.blue));
             binding.advertisments.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.blue));
             binding.editProject.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.blue));
-            binding.projectChat.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.blue));
+            binding.projectPage.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.blue));
             binding.projectParticipants.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.blue));
             Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_bg);
             binding.purpProgress.setBackgroundResource(R.drawable.custom_progress_bar_bg);
@@ -87,7 +87,7 @@ public class ControlPanel extends AppCompatActivity {
             binding.projectFiles.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.green));
             binding.advertisments.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.green));
             binding.editProject.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.green));
-            binding.projectChat.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.green));
+            binding.projectPage.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.green));
             binding.projectParticipants.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.green));
             Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_gg);
             binding.purpProgress.setBackgroundResource(R.drawable.custom_progress_bar_gg);
@@ -105,7 +105,7 @@ public class ControlPanel extends AppCompatActivity {
             binding.projectFiles.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.brown));
             binding.advertisments.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.brown));
             binding.editProject.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.brown));
-            binding.projectChat.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.brown));
+            binding.projectPage.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.brown));
             binding.projectParticipants.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.brown));
             Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_brg);
             binding.purpProgress.setBackgroundResource(R.drawable.custom_progress_bar_brg);
@@ -123,7 +123,7 @@ public class ControlPanel extends AppCompatActivity {
             binding.projectFiles.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.light_gray));
             binding.advertisments.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.light_gray));
             binding.editProject.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.light_gray));
-            binding.projectChat.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.light_gray));
+            binding.projectPage.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.light_gray));
             binding.projectParticipants.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.light_gray));
             Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_lgg);
             binding.purpProgress.setBackgroundResource(R.drawable.custom_progress_bar_lgg);
@@ -141,7 +141,7 @@ public class ControlPanel extends AppCompatActivity {
             binding.projectFiles.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.ohra));
             binding.advertisments.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.ohra));
             binding.editProject.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.ohra));
-            binding.projectChat.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.ohra));
+            binding.projectPage.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.ohra));
             binding.projectParticipants.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.ohra));
             Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_ohg);
             binding.purpProgress.setBackgroundResource(R.drawable.custom_progress_bar_ohg);
@@ -159,7 +159,7 @@ public class ControlPanel extends AppCompatActivity {
             binding.projectFiles.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.red));
             binding.advertisments.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.red));
             binding.editProject.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.red));
-            binding.projectChat.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.red));
+            binding.projectPage.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.red));
             binding.projectParticipants.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.red));
             Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_rg);
             binding.purpProgress.setBackgroundResource(R.drawable.custom_progress_bar_rg);
@@ -177,7 +177,7 @@ public class ControlPanel extends AppCompatActivity {
             binding.projectFiles.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.orange));
             binding.advertisments.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.orange));
             binding.editProject.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.orange));
-            binding.projectChat.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.orange));
+            binding.projectPage.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.orange));
             binding.projectParticipants.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.orange));
             Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_og);
             binding.purpProgress.setBackgroundResource(R.drawable.custom_progress_bar_og);
@@ -195,7 +195,7 @@ public class ControlPanel extends AppCompatActivity {
             binding.projectFiles.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.violete));
             binding.advertisments.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.violete));
             binding.editProject.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.violete));
-            binding.projectChat.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.violete));
+            binding.projectPage.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.violete));
             binding.projectParticipants.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.violete));
             Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_vg);
             binding.purpProgress.setBackgroundResource(R.drawable.custom_progress_bar_vg);
@@ -213,7 +213,7 @@ public class ControlPanel extends AppCompatActivity {
             binding.projectFiles.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.main_green));
             binding.advertisments.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.main_green));
             binding.editProject.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.main_green));
-            binding.projectChat.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.main_green));
+            binding.projectPage.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.main_green));
             binding.projectParticipants.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.main_green));
             Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_mgg);
             binding.purpProgress.setBackgroundResource(R.drawable.custom_progress_bar_mgg);
@@ -342,6 +342,8 @@ public class ControlPanel extends AppCompatActivity {
                 intent.putExtra("tgLink", tgMain);
                 intent.putExtra("vkLink", vkMain);
                 intent.putExtra("webLink", webMain);
+                intent.putExtra("isOpen", isOpenM);
+                intent.putExtra("isVisible", isVisibleM);
                 startActivity(intent);
             }
         });
@@ -369,12 +371,17 @@ public class ControlPanel extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        /*for (int i = 0; i < 5; i++) {
-            View custom = getLayoutInflater().inflate(R.layout.reminder, null);
-
-            binding.reminderPlace.addView(custom);
-        }*/
+        binding.projectPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ControlPanel.this, ProjectPage.class);
+                intent.putExtra("projectTitle", title);
+                intent.putExtra("projectUrlPhoto", urlPhoto);
+                intent.putExtra("projectDescription", description);
+                intent.putExtra("webLink", webMain);
+                startActivity(intent);
+            }
+        });
     }
     double parse(String ratio) {
         if (ratio.contains("/")) {
@@ -398,13 +405,15 @@ public class ControlPanel extends AppCompatActivity {
             @Override
             public void invoke(String name, String photoUrl, String descript, double isend, String purposes,
                                String problems, String peoples, String time, String time1, String tg, String vk, String webs, String purposesids,
-                               String problemsids, String isl, String tasks) {
+                               String problemsids, String isl, String tasks, String isOpen, String isVisible) {
                 title = name;
                 urlPhoto = photoUrl;
                 description = descript;
                 tgMain = tg;
                 vkMain = vk;
                 webMain = webs;
+                isOpenM = isOpen;
+                isVisibleM = isVisible;
 
                 binding.nameProject.setText(name);
                 Glide
@@ -465,8 +474,6 @@ public class ControlPanel extends AppCompatActivity {
                 anim3.start();
 
                 getAdvertIds();
-
-
             }
         });
     }

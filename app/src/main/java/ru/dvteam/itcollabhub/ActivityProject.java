@@ -24,12 +24,12 @@ public class ActivityProject extends AppCompatActivity {
     int selectedColor, score;
     //private NavController navController;
     String mail;
-
+    Boolean fragmentMan = true;
     private String[] wow = {"Хренос 2", "Кина не будет - электричество кончилось", "Ой, сломалось", "Караул!"};
     View back;
     ImageView dontWork;
 
-    Fragment fragmentPrMy;
+    Fragment fragmentPrMy, fragmentPrEnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,15 +57,17 @@ public class ActivityProject extends AppCompatActivity {
         dontWork = findViewById(R.id.imageView12);
 
         fragmentPrMy = Fragment.instantiate(this, MyProjects.class.getName());
-        //Fragment fragmentLink = Fragment.instantiate(this, FragmentLinksProjectEdit.class.getName());
+        fragmentPrEnd = Fragment.instantiate(this, EndProjects.class.getName());
 
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragmentContainerView3, fragmentPrMy, "mainFragment")
+                .add(R.id.fragmentContainerView3, fragmentPrEnd, "secondFragment")
                 .commit();
 
         getSupportFragmentManager().beginTransaction()
                 .show(fragmentPrMy)
+                .hide(fragmentPrEnd)
                 .commit();
 
         PostDatas post = new PostDatas();
@@ -147,10 +149,25 @@ public class ActivityProject extends AppCompatActivity {
         endProjects.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                error();
+                fragmentMan = false;
+                changeLine(my_projects_lin, end_projects_lin);
+                getSupportFragmentManager().beginTransaction()
+                        .hide(fragmentPrMy)
+                        .show(fragmentPrEnd)
+                        .commit();
             }
         });
-
+        myProjects.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentMan = true;
+                changeLine(end_projects_lin, my_projects_lin);
+                getSupportFragmentManager().beginTransaction()
+                        .hide(fragmentPrEnd)
+                        .show(fragmentPrMy)
+                        .commit();
+            }
+        });
         profileMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,7 +178,8 @@ public class ActivityProject extends AppCompatActivity {
         forumMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                error();
+                Intent intent = new Intent(ActivityProject.this, Forum.class);
+                startActivity(intent);
             }
         });
         plus.setOnClickListener(new View.OnClickListener() {
@@ -242,12 +260,55 @@ public class ActivityProject extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        MyProjects frag = (MyProjects) getSupportFragmentManager().findFragmentByTag("mainFragment");
-        if (frag != null) {
-            frag.createProjects();
+
+        if(fragmentMan){
+            MyProjects frag;
+            frag = (MyProjects) getSupportFragmentManager().findFragmentByTag("mainFragment");
+            if (frag != null) {
+                frag.createProjects();
+            }else{
+                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
+            }
         }else{
-            Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
+            EndProjects frag;
+            frag = (EndProjects) getSupportFragmentManager().findFragmentByTag("secondFragment");
+            if (frag != null) {
+                frag.createProjects();
+            }else{
+                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
+            }
         }
 
+    }
+
+    private void changeLine(View firstLine, View line){
+        firstLine.setBackgroundResource(0);
+        if(score < 100){
+            line.setBackgroundResource(R.drawable.blue_line);
+        }
+        else if(score < 300){
+            line.setBackgroundResource(R.drawable.green_line);
+        }
+        else if(score < 1000){
+            line.setBackgroundResource(R.drawable.brown_line);
+        }
+        else if(score < 2500){
+            line.setBackgroundResource(R.drawable.light_gray_line);
+        }
+        else if(score < 7000){
+            line.setBackgroundResource(R.drawable.ohra_line);
+        }
+        else if(score < 17000){
+            line.setBackgroundResource(R.drawable.red_line);
+        }
+        else if(score < 30000){
+            line.setBackgroundResource(R.drawable.orange_line);
+        }
+        else if(score < 50000){
+            line.setBackgroundResource(R.drawable.violete_line);
+        }
+        else{
+            line.setBackgroundResource(R.drawable.blue_green_line);
+        }
     }
 }

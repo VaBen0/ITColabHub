@@ -42,7 +42,7 @@ public class EditProject extends AppCompatActivity {
     ActivityEditProjectBinding binding;
 
     //private NavController navController;
-    private String id, title, description, prPhoto, mail, tgLink, vkLink, webLink;
+    private String id, title, description, prPhoto, mail, tgLink, vkLink, webLink, isOpen, isVisible;
     int score;
     private static final int PICK_IMAGES_CODE = 0;
     private String mediaPath = "", uriPath = "";
@@ -83,7 +83,6 @@ public class EditProject extends AppCompatActivity {
                 .hide(fragmentOther)
                 .commit();
 
-        Bundle arguments = getIntent().getExtras();
         //navController = Navigation.findNavController(this, R.id.fragmentContainerView);
         if(score < 100){
             binding.linearDescription.setBackgroundResource(R.drawable.blue_line);
@@ -112,6 +111,8 @@ public class EditProject extends AppCompatActivity {
         else{
             binding.linearDescription.setBackgroundResource(R.drawable.blue_green_line);
         }
+
+        Bundle arguments = getIntent().getExtras();
         assert arguments != null;
         id = arguments.getString("projectId");
         title = arguments.getString("projectTitle");
@@ -120,6 +121,8 @@ public class EditProject extends AppCompatActivity {
         tgLink = arguments.getString("tgLink");
         vkLink = arguments.getString("vkLink");
         webLink = arguments.getString("webLink");
+        isOpen = arguments.getString("isOpen");
+        isVisible = arguments.getString("isVisible");
         //navController.navigate(R.id.projectDescriptionEdit2);
 
         binding.projectName.setText(title);
@@ -565,6 +568,8 @@ public class EditProject extends AppCompatActivity {
     public String getTgLink(){return tgLink;}
     public String getVkLink(){return vkLink;}
     public String getWebLink(){return webLink;}
+    public String getIsOpen(){return isOpen;}
+    public String getIsVisible(){return isVisible;}
 
     private void pickImage(){
         Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);

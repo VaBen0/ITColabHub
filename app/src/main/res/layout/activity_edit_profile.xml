@@ -115,17 +115,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameu" />
 
-    <Button
-        android:id="@+id/save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/blue"
-        android:text="Сохранить изменения"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_menu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
@@ -193,14 +182,14 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
-        app:layout_constraintHeight_default="spread"
-        app:layout_constraintWidth_default="spread"
-        app:layout_constraintBottom_toTopOf="@+id/save"
+        app:defaultNavHost="false"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_menu"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:defaultNavHost="false"
-        app:navGraph="@navigation/edit_profile"/>
+        app:layout_constraintWidth_default="spread"
+        app:navGraph="@navigation/edit_profile" />
 
     <LinearLayout
         android:id="@+id/bottom_menu"

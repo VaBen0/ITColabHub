@@ -26,7 +26,7 @@ public class AccountLinks extends Fragment {
         EditText tg_link = v.findViewById(R.id.tg);
         EditText vk_link = v.findViewById(R.id.vk);
         EditText web_link = v.findViewById(R.id.web);
-        Button save = v.findViewById(R.id.update);
+        Button save = v.findViewById(R.id.save);
 
         if(score < 100){
             save.setBackgroundTintList(ContextCompat.getColorStateList(v.getContext(), R.color.blue));
@@ -63,17 +63,17 @@ public class AccountLinks extends Fragment {
                 if(tg.equals("null")){
                     tg_link.setHint("Ваш ник в Телеграмм");
                 }else{
-                    tg_link.setHint(tg);
+                    tg_link.setText(tg);
                 }
                 if(vk.equals("null")){
                     vk_link.setHint("Ваш ник в Вк");
                 }else{
-                    vk_link.setHint(vk);
+                    vk_link.setText(vk);
                 }
                 if(web.equals("null")){
                     web_link.setHint("Ссылка на ваш сайт");
                 }else{
-                    web_link.setHint(web);
+                    web_link.setText(web);
                 }
             }
         });
@@ -81,18 +81,9 @@ public class AccountLinks extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!tg_link.getText().toString().isEmpty()){
-                    PostDatas post = new PostDatas();
-                    post.postDataSendLink("SendUserLinkTg", mail, tg_link.getText().toString());
-                }
-                if(!vk_link.getText().toString().isEmpty()){
-                    PostDatas post = new PostDatas();
-                    post.postDataSendLink("SendUserLinkVk", mail, vk_link.getText().toString());
-                }
-                if(!web_link.getText().toString().isEmpty()){
-                    PostDatas post = new PostDatas();
-                    post.postDataSendLink("SendUserLinkWeb", mail, web_link.getText().toString());
-                }
+                EditProfile editProfile = (EditProfile) getActivity();
+                assert editProfile != null;
+                editProfile.editProfile(vk_link.getText().toString(), tg_link.getText().toString(), web_link.getText().toString());
             }
         });
 
