@@ -369,7 +369,7 @@ public class Problems extends AppCompatActivity {
                     });
 
                     countProblems++;
-                    binding.reminderPlace.addView(custom);
+                    binding.reminderPlace.addView(custom, 0);
                 }
             }
         });

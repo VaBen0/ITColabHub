@@ -333,7 +333,7 @@ public class ProjectFiles extends AppCompatActivity {
                     if(inf[i + 2].equals("1")){
                         binding.filesPlace.addView(custom, 0);
                     } else{
-                        binding.filesPlace.addView(custom);
+                        binding.filesPlace.addView(custom, 0);
                     }
                 }
             }

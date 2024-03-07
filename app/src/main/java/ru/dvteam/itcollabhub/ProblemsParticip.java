@@ -106,7 +106,7 @@ public class ProblemsParticip extends AppCompatActivity {
                             .with(ProblemsParticip.this)
                             .load(inf[i+3])
                             .into(loadImg);
-                    binding.reminderPlace.addView(custom);
+                    binding.reminderPlace.addView(custom, 0);
                 }
             }
         });

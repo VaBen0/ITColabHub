@@ -132,7 +132,7 @@ public class Purposes extends Fragment {
 
                     TransitionManager.beginDelayedTransition(purposePanel, t);
 
-                    purposePanel.addView(custom);
+                    purposePanel.addView(custom, 0);
                 }
             }
         });
@@ -188,7 +188,7 @@ public class Purposes extends Fragment {
 
                 name.setText(purpName[i]);
 
-                purposePanel.addView(custom);
+                purposePanel.addView(custom, 0);
             }
         }
     }

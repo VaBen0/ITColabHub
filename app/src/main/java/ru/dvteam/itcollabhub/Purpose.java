@@ -353,7 +353,7 @@ public class Purpose extends AppCompatActivity {
                             .with(Purpose.this)
                             .load(inf[i+3])
                             .into(loadImg);
-                    binding.reminderPlace.addView(custom);
+                    binding.reminderPlace.addView(custom, 0);
                 }
             }
         });

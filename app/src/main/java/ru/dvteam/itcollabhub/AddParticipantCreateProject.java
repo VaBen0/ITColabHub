@@ -17,15 +17,15 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 
-public class Participant extends Fragment {
+public class AddParticipantCreateProject extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_participant, container, false);
+        View v = inflater.inflate(R.layout.fragment_add_participant_create_project, container, false);
 
-        assert getArguments() != null;
-        String mail = getArguments().getString("mail");
+        CreateProject2 createProject2 = (CreateProject2) getActivity();
+        String mail = createProject2.getMail();
 
         ImageView find_but = v.findViewById(R.id.find);
         LinearLayout main = v.findViewById(R.id.lin_main);
@@ -64,7 +64,7 @@ public class Participant extends Fragment {
                                     messege.setBackgroundResource(R.drawable.ad);
 
                                     Glide
-                                            .with(Participant.this)
+                                            .with(AddParticipantCreateProject.this)
                                             .load(photo[i])
                                             .into(loadImage);
                                     nameu.setText(names[i]);

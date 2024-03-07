@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/participants"
+    app:startDestination="@id/addParticipantCreateProject">
+
+    <fragment
+        android:id="@+id/friendAsPartisipant"
+        android:name="ru.dvteam.itcollabhub.FriendAsPartisipant"
+        android:label="fragment_friend_as_partisipant"
+        tools:layout="@layout/fragment_friend_as_partisipant" >
+        <action
+            android:id="@+id/action_friendAsPartisipant_to_addedParticipants"
+            app:destination="@id/addedParticipants" />
+        <action
+            android:id="@+id/action_friendAsPartisipant_to_addParticipantCreateProject"
+            app:destination="@id/addParticipantCreateProject" />
+    </fragment>
+    <fragment
+        android:id="@+id/addedParticipants"
+        android:name="ru.dvteam.itcollabhub.AddedParticipants"
+        android:label="fragment_added_participants"
+        tools:layout="@layout/fragment_added_participants" >
+        <action
+            android:id="@+id/action_addedParticipants_to_friendAsPartisipant"
+            app:destination="@id/friendAsPartisipant" />
+        <action
+            android:id="@+id/action_addedParticipants_to_addParticipantCreateProject"
+            app:destination="@id/addParticipantCreateProject" />
+    </fragment>
+    <fragment
+        android:id="@+id/addParticipantCreateProject"
+        android:name="ru.dvteam.itcollabhub.AddParticipantCreateProject"
+        android:label="fragment_add_participant_create_project"
+        tools:layout="@layout/fragment_add_participant_create_project" >
+        <action
+            android:id="@+id/action_addParticipantCreateProject_to_friendAsPartisipant"
+            app:destination="@id/friendAsPartisipant" />
+        <action
+            android:id="@+id/action_addParticipantCreateProject_to_addedParticipants"
+            app:destination="@id/addedParticipants" />
+    </fragment>
+</navigation>

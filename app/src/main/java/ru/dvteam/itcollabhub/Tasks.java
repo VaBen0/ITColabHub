@@ -126,7 +126,7 @@ public class Tasks extends Fragment {
 
                     TransitionManager.beginDelayedTransition(problemPlace, t);
 
-                    problemPlace.addView(custom);
+                    problemPlace.addView(custom, 0);
                 }
             }
         });
@@ -181,7 +181,7 @@ public class Tasks extends Fragment {
 
                 name.setText(purpName[i]);
 
-                problemPlace.addView(custom);
+                problemPlace.addView(custom, 0);
             }
         }
     }

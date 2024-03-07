@@ -327,19 +327,19 @@ public class CreateProject2 extends AppCompatActivity {
         else{
             id1 = id1 + "," + id;
         }
+        Toast.makeText(this, "Участник добавлен", Toast.LENGTH_SHORT).show();
     }
 
     public int getScore(){
         return score;
     }
+    public String getMail(){
+        return mail;
+    }
 
     public void taskSet(){
         NavController navController2 = Navigation.findNavController(this, R.id.nav_host_fragment2);
         navController2.navigate(R.id.clop3);
-    }
-    public void deadlineSet(){
-        NavController navController2 = Navigation.findNavController(this, R.id.nav_host_fragment2);
-        navController2.navigate(R.id.clop2);
     }
     public void purpose(){
         NavController navController2 = Navigation.findNavController(this, R.id.nav_host_fragment2);

@@ -12,21 +12,6 @@
         <action
             android:id="@+id/action_purposes_to_tasks"
             app:destination="@id/clop3" />
-        <action
-            android:id="@+id/action_purposes_to_deadline"
-            app:destination="@id/clop2" />
-    </fragment>
-    <fragment
-        android:id="@+id/clop2"
-        android:name="ru.dvteam.itcollabhub.Deadline"
-        android:label="fragment_deadline"
-        tools:layout="@layout/fragment_deadline" >
-        <action
-            android:id="@+id/action_deadline_to_purposes"
-            app:destination="@id/clop1" />
-        <action
-            android:id="@+id/action_deadline_to_tasks"
-            app:destination="@id/clop3" />
     </fragment>
     <fragment
         android:id="@+id/clop3"
@@ -35,8 +20,5 @@
         <action
             android:id="@+id/action_tasks_to_purposes"
             app:destination="@id/clop1" />
-        <action
-            android:id="@+id/action_tasks_to_deadline"
-            app:destination="@id/clop2" />
     </fragment>
 </navigation>

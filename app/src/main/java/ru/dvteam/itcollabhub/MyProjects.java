@@ -185,7 +185,7 @@ public class MyProjects extends Fragment {
                                 activityProject.changeActivity(id[finalI]);
                             }
                         });
-                        main.addView(custom);
+                        main.addView(custom, 0);
                     }
                     View empty = getLayoutInflater().inflate(R.layout.emty_obj, null);
                     main.addView(empty);

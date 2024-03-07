@@ -321,7 +321,7 @@ public class ProjectAdvertisments extends AppCompatActivity {
                         }
                     });
 
-                    binding.advertsPlace.addView(custom);
+                    binding.advertsPlace.addView(custom, 0);
                 }
             }
         });

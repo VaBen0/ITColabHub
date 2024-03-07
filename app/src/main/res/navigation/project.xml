@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/participant"
-        android:name="ru.dvteam.itcollabhub.Participant"
+        android:name="ru.dvteam.itcollabhub.CreateProjectParticipantPart"
         android:label="Participant" >
         <action
             android:id="@+id/action_participant_to_differentActivity"

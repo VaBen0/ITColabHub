@@ -199,6 +199,7 @@ public class CreateProject extends AppCompatActivity {
                     public void onActivityResult(ActivityResult result) {
                         try{
                             Uri imageUri = result.getData().getData();
+                            uriPath = imageUri.toString();
                             String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
                             Cursor cursor = getContentResolver().query(imageUri, filePathColumn, null, null, null);
