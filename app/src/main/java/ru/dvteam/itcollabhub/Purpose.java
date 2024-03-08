@@ -43,11 +43,6 @@ import ru.dvteam.itcollabhub.databinding.ActivityPurposeLeadBinding;
 public class Purpose extends AppCompatActivity {
 
     ActivityPurposeLeadBinding binding;
-
-    FragmentTransaction transaction;
-
-    private NavController navController;
-    private EditText description;
     private boolean clicked = false;
     private static final int PICK_IMAGES_CODE = 0;
     private String mediaPath = "";

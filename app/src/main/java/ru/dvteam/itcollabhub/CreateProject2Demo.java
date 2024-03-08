@@ -1,48 +1,38 @@
 package ru.dvteam.itcollabhub;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.transition.Slide;
-import android.transition.Transition;
-import android.transition.TransitionManager;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
+import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import ru.dvteam.itcollabhub.databinding.ActivityCreateProject2Binding;
+import ru.dvteam.itcollabhub.databinding.ActivityCreateProject2DemoBinding;
 
-public class CreateProject2 extends AppCompatActivity {
+public class CreateProject2Demo extends AppCompatActivity {
 
-    ActivityCreateProject2Binding binding;
+    ActivityCreateProject2DemoBinding binding;
     String mail;
 
     private ImageView Img;
-    private NavController navController;
     private EditText description;
     private static final int PICK_IMAGES_CODE = 0;
     private String purposes_name = "", purposes = "", tasks_name = "", tasks = "";
@@ -53,18 +43,19 @@ public class CreateProject2 extends AppCompatActivity {
     ActivityResultLauncher<Intent> resultLauncher;
     int score;
     String title, description1;
+    Fragment fragmentDifferentActivityDemo, fragmentParticipantDemo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        binding = ActivityCreateProject2DemoBinding.inflate(getLayoutInflater());
+
+        setContentView(binding.getRoot());
+
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         mail = sPref.getString("UserMail", "");
         score = sPref.getInt("UserScore", 0);
-
-        binding = ActivityCreateProject2Binding.inflate(getLayoutInflater());
-
-        setContentView(binding.getRoot());
 
         setActivityFormat();
         Bundle arguments = getIntent().getExtras();
@@ -79,15 +70,20 @@ public class CreateProject2 extends AppCompatActivity {
             Uri uri = Uri.parse(uriPath);
             binding.prLogo.setImageURI(uri);
         }
-        
+
         binding.nameProject.setText(title);
 
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        fragmentDifferentActivityDemo = Fragment.instantiate(this, DifferentActivityDemo.class.getName());
+        fragmentParticipantDemo = Fragment.instantiate(this, CreateProjectParticipantPartEmpty.class.getName());
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.nav_host_fragment_demo, fragmentDifferentActivityDemo, "mainFragment")
+                .commit();
 
         binding.adParticipiant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if(score < 100){
                     binding.linearProjects.setBackgroundColor(0);
                     binding.linearFriends.setBackgroundResource(R.drawable.blue_line);
@@ -127,7 +123,10 @@ public class CreateProject2 extends AppCompatActivity {
 
                 Bundle bundle = new Bundle();
                 bundle.putString("mail", mail);
-                navController.navigate(R.id.participant, bundle);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.nav_host_fragment_demo, fragmentParticipantDemo, "mainFragment")
+                        .commit();
             }
         });
         binding.adActivity.setOnClickListener(new View.OnClickListener() {
@@ -169,7 +168,10 @@ public class CreateProject2 extends AppCompatActivity {
                     binding.linearFriends.setBackgroundColor(0);
                     binding.linearProjects.setBackgroundResource(R.drawable.blue_green_line);
                 }
-                navController.navigate(R.id.differentActivity);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.nav_host_fragment_demo, fragmentDifferentActivityDemo, "mainFragment")
+                        .commit();
             }
         });
 
@@ -191,9 +193,9 @@ public class CreateProject2 extends AppCompatActivity {
                     mainId = id1;
                 }
                 if (purposes_name.isEmpty()) {
-                    Toast.makeText(CreateProject2.this, "Нет целей", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateProject2Demo.this, "Нет целей", Toast.LENGTH_SHORT).show();
                 } else if (tasks_name.isEmpty()) {
-                    Toast.makeText(CreateProject2.this, "Нет задач", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateProject2Demo.this, "Нет задач", Toast.LENGTH_SHORT).show();
                 } else {
                     for (int i = 0; i < purpose1.length; i++) {
                         if (i != purpose1.length - 1) {
@@ -211,33 +213,32 @@ public class CreateProject2 extends AppCompatActivity {
                     }
 
                     if (mediaPath.isEmpty()) {
-                        PostDatas post = new PostDatas();
-                        post.postDataCreateProjectWithoutImage("CreateNewProject", title, mail, purposeMain, taskMain,
-                                description1, mainId, new CallBackInt() {
-                                    @Override
-                                    public void invoke(String res) {
-                                        Toast.makeText(CreateProject2.this, res, Toast.LENGTH_SHORT).show();
-                                        if (res.equals("Успешно")) {
-                                            Intent intent = new Intent(CreateProject2.this, ActivityProject.class);
-                                            startActivity(intent);
-                                        }
-                                    }
-                                });
+                        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
+                        SharedPreferences.Editor ed = sPref.edit();
+                        ed.putBoolean("DemoProject", true);
+                        ed.putString("DemoProjectTitle", title);
+                        ed.putString("DemoProjectDescription", description1);
+                        ed.putString("DemoProjectPurposes", purposeMain);
+                        ed.putString("DemoProjectProblems", taskMain);
+                        ed.putString("UriPath", uriPath);
+                        ed.putBoolean("IsEnd", false);
+                        ed.apply();
+
+                        Intent intent = new Intent(CreateProject2Demo.this, ActivityProject.class);
+                        startActivity(intent);
                     } else {
-                        File file = new File(mediaPath);
-                        RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
-                        PostDatas post = new PostDatas();
-                        post.postDataCreateProject("CreateNewProject", title, requestBody, mail, purposeMain, taskMain,
-                                description1, mainId, new CallBackInt() {
-                                    @Override
-                                    public void invoke(String res) {
-                                        Toast.makeText(CreateProject2.this, res, Toast.LENGTH_SHORT).show();
-                                        if (res.equals("Успешно")) {
-                                            Intent intent = new Intent(CreateProject2.this, ActivityProject.class);
-                                            startActivity(intent);
-                                        }
-                                    }
-                                });
+                        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
+                        SharedPreferences.Editor ed = sPref.edit();
+                        ed.putBoolean("DemoProject", true);
+                        ed.putString("DemoProjectTitle", title);
+                        ed.putString("DemoProjectDescription", description1);
+                        ed.putString("DemoProjectPurposes", purposeMain);
+                        ed.putString("DemoProjectProblems", taskMain);
+                        ed.putBoolean("IsEnd", false);
+                        ed.apply();
+
+                        Intent intent = new Intent(CreateProject2Demo.this, ActivityProject.class);
+                        startActivity(intent);
                     }
                 }
             }
@@ -248,57 +249,57 @@ public class CreateProject2 extends AppCompatActivity {
     private void setActivityFormat(){
         if(score < 100){
             binding.bguser.setBackgroundResource(R.drawable.gradient_blue);
-            getWindow().setStatusBarColor(ContextCompat.getColor(CreateProject2.this,R.color.blue));
+            getWindow().setStatusBarColor(ContextCompat.getColor(CreateProject2Demo.this,R.color.blue));
             binding.linearProjects.setBackgroundResource(R.drawable.blue_line);
-            binding.send.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject2.this, R.color.blue));
+            binding.send.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject2Demo.this, R.color.blue));
         }
         else if(score < 300){
             binding.bguser.setBackgroundResource(R.drawable.gradient_green);
-            getWindow().setStatusBarColor(ContextCompat.getColor(CreateProject2.this,R.color.green));
+            getWindow().setStatusBarColor(ContextCompat.getColor(CreateProject2Demo.this,R.color.green));
             binding.linearProjects.setBackgroundResource(R.drawable.green_line);
-            binding.send.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject2.this, R.color.green));
+            binding.send.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject2Demo.this, R.color.green));
         }
         else if(score < 1000){
             binding.bguser.setBackgroundResource(R.drawable.gradient_brown);
-            getWindow().setStatusBarColor(ContextCompat.getColor(CreateProject2.this,R.color.brown));
+            getWindow().setStatusBarColor(ContextCompat.getColor(CreateProject2Demo.this,R.color.brown));
             binding.linearProjects.setBackgroundResource(R.drawable.brown_line);
-            binding.send.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject2.this, R.color.brown));
+            binding.send.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject2Demo.this, R.color.brown));
         }
         else if(score < 2500){
             binding.bguser.setBackgroundResource(R.drawable.gradient_light_gray);
-            getWindow().setStatusBarColor(ContextCompat.getColor(CreateProject2.this,R.color.light_gray));
+            getWindow().setStatusBarColor(ContextCompat.getColor(CreateProject2Demo.this,R.color.light_gray));
             binding.linearProjects.setBackgroundResource(R.drawable.light_gray_line);
-            binding.send.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject2.this, R.color.light_gray));
+            binding.send.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject2Demo.this, R.color.light_gray));
         }
         else if(score < 7000){
             binding.bguser.setBackgroundResource(R.drawable.gradient_ohra);
-            getWindow().setStatusBarColor(ContextCompat.getColor(CreateProject2.this,R.color.ohra));
+            getWindow().setStatusBarColor(ContextCompat.getColor(CreateProject2Demo.this,R.color.ohra));
             binding.linearProjects.setBackgroundResource(R.drawable.ohra_line);
-            binding.send.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject2.this, R.color.ohra));
+            binding.send.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject2Demo.this, R.color.ohra));
         }
         else if(score < 17000){
             binding.bguser.setBackgroundResource(R.drawable.gradient_red);
-            getWindow().setStatusBarColor(ContextCompat.getColor(CreateProject2.this,R.color.red));
+            getWindow().setStatusBarColor(ContextCompat.getColor(CreateProject2Demo.this,R.color.red));
             binding.linearProjects.setBackgroundResource(R.drawable.red_line);
-            binding.send.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject2.this, R.color.red));
+            binding.send.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject2Demo.this, R.color.red));
         }
         else if(score < 30000){
             binding.bguser.setBackgroundResource(R.drawable.gradient_orange);
-            getWindow().setStatusBarColor(ContextCompat.getColor(CreateProject2.this,R.color.orange));
+            getWindow().setStatusBarColor(ContextCompat.getColor(CreateProject2Demo.this,R.color.orange));
             binding.linearProjects.setBackgroundResource(R.drawable.orange_line);
-            binding.send.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject2.this, R.color.orange));
+            binding.send.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject2Demo.this, R.color.orange));
         }
         else if(score < 50000){
             binding.bguser.setBackgroundResource(R.drawable.gradient_violete);
-            getWindow().setStatusBarColor(ContextCompat.getColor(CreateProject2.this,R.color.violete));
+            getWindow().setStatusBarColor(ContextCompat.getColor(CreateProject2Demo.this,R.color.violete));
             binding.linearProjects.setBackgroundResource(R.drawable.violete_line);
-            binding.send.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject2.this, R.color.violete));
+            binding.send.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject2Demo.this, R.color.violete));
         }
         else{
             binding.bguser.setBackgroundResource(R.drawable.gradient_blue_green);
-            getWindow().setStatusBarColor(ContextCompat.getColor(CreateProject2.this,R.color.main_green));
+            getWindow().setStatusBarColor(ContextCompat.getColor(CreateProject2Demo.this,R.color.main_green));
             binding.linearProjects.setBackgroundResource(R.drawable.blue_green_line);
-            binding.send.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject2.this, R.color.main_green));
+            binding.send.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject2Demo.this, R.color.main_green));
         }
     }
 
@@ -339,14 +340,6 @@ public class CreateProject2 extends AppCompatActivity {
         return mail;
     }
 
-    public void taskSet(){
-        NavController navController2 = Navigation.findNavController(this, R.id.nav_host_fragment2);
-        navController2.navigate(R.id.clop3);
-    }
-    public void purpose(){
-        NavController navController2 = Navigation.findNavController(this, R.id.nav_host_fragment2);
-        navController2.navigate(R.id.clop1);
-    }
     public String getPurposes_name(){
         return purposes_name;
     }
@@ -359,7 +352,6 @@ public class CreateProject2 extends AppCompatActivity {
     public String getTasks(){
         return tasks;
     }
-    public String getPeoplesIds(){return id1;}
     public void setEdit1(String name, String purp){
         purposes_name = name;
         purposes = purp;
@@ -367,19 +359,11 @@ public class CreateProject2 extends AppCompatActivity {
     public String getUriPath(){
         return uriPath;
     }
-
     public String getPrName(){
         return title;
     }
-
     public void setEdit2(String name, String problem){
         tasks_name = name;
         tasks = problem;
-    }
-    public void delPeople(String id){
-        ArrayList<String> idArr = new ArrayList<String>(Arrays.asList(id1.split(",")));
-        idArr.remove(id);
-
-        id1 = String.join(",", idArr);
     }
 }

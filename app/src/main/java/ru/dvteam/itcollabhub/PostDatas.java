@@ -1541,4 +1541,22 @@ public class PostDatas {
             }
         });
     }
+
+    public void postDataGetAddedPeoples(String req, String id, CallBackInt1 result){
+        Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
+        Call<Model> call = methods.getPeoplesAdded(req, id);
+
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, Response<Model> response) {
+                assert response.body() != null;
+                result.invoke(response.body().getNames(), response.body().getPhotoLocalLinks());
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+                result.invoke("Ошибка сервера", "");
+            }
+        });
+    }
 }

@@ -2,63 +2,83 @@ package ru.dvteam.itcollabhub;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AddedParticipants#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.bumptech.glide.Glide;
+
+import  ru.dvteam.itcollabhub.databinding.FragmentAddedParticipantsBinding;
+
 public class AddedParticipants extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public AddedParticipants() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AddedParticipants.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AddedParticipants newInstance(String param1, String param2) {
-        AddedParticipants fragment = new AddedParticipants();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    FragmentAddedParticipantsBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_added_participants, container, false);
+        binding = FragmentAddedParticipantsBinding.inflate(inflater, container, false);
+
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        CreateProject2 createProject2 = (CreateProject2) getActivity();
+        String ids = createProject2.getPeoplesIds();
+        String[] idsArr = ids.split(",");
+
+        PostDatas post = new PostDatas();
+        post.postDataGetAddedPeoples("GetProjectAddsUsers", ids, new CallBackInt1() {
+            @Override
+            public void invoke(String res, String name) {
+                String[] namesArr = res.split("\uD83D\uDD70");
+                String[] photosArr = name.split("\uD83D\uDD70");
+                for(int i = 0; i < namesArr.length; i++){
+                    View custom = getLayoutInflater().inflate(R.layout.friend_window, null);
+                    TextView nameu = (TextView) custom.findViewById(R.id.textView3);
+                    ImageView loadImage = (ImageView) custom.findViewById(R.id.log);
+                    ImageView userCircle = (ImageView) custom.findViewById(R.id.user_circle);
+                    TextView project1 = (TextView) custom.findViewById(R.id.projects1);
+                    project1.setVisibility(View.GONE);
+                    ImageView messege = (ImageView) custom.findViewById(R.id.notban);
+                    messege.setImageResource(R.drawable.delete_black);
+                    userCircle.setVisibility(View.GONE);
+                    System.out.println(photosArr[i]);
+
+                    Glide
+                            .with(AddedParticipants.this)
+                            .load(photosArr[i])
+                            .into(loadImage);
+                    nameu.setText(namesArr[i]);
+
+                    int finalI = i;
+                    messege.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            createProject2.delPeople(idsArr[finalI]);
+                            binding.linMain.removeView(custom);
+                        }
+                    });
+
+                    binding.linMain.addView(custom);
+                }
+                View empty = getLayoutInflater().inflate(R.layout.emty_obj, null);
+                binding.linMain.addView(empty);
+            }
+        });
     }
 }

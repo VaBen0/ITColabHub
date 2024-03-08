@@ -40,8 +40,6 @@ import ru.dvteam.itcollabhub.databinding.ActivityEditProjectBinding;
 public class EditProject extends AppCompatActivity {
 
     ActivityEditProjectBinding binding;
-
-    //private NavController navController;
     private String id, title, description, prPhoto, mail, tgLink, vkLink, webLink, isOpen, isVisible;
     int score;
     private static final int PICK_IMAGES_CODE = 0;

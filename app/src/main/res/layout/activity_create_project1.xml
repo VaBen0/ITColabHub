@@ -99,5 +99,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/demoProjectSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/demoProjectText"
+        app:layout_constraintStart_toEndOf="@+id/demoProjectText"
+        app:layout_constraintTop_toTopOf="@+id/demoProjectText" />
+
+    <TextView
+        android:id="@+id/demoProjectText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Демо-проект"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gray_line" />
+
+    <ImageView
+        android:id="@+id/newInformation"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/demoProjectSwitch"
+        app:layout_constraintStart_toEndOf="@+id/demoProjectSwitch"
+        app:layout_constraintTop_toTopOf="@+id/demoProjectSwitch"
+        app:srcCompat="@drawable/new_information" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

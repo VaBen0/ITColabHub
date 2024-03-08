@@ -326,7 +326,7 @@ public class ControlPanel2 extends AppCompatActivity {
     }
     private void getMainInfo(){
         PostDatas postDatas = new PostDatas();
-        postDatas.postDataGetProjectInformation("GetProjectMainInformation", id, mail, new CallBackInt4() {
+        postDatas.postDataGetProjectInformation("GetProjectMainInformation1", id, mail, new CallBackInt4() {
             @Override
             public void invoke(String name, String photoUrl, String descript, double isend, String purposes,
                                String problems, String peoples, String time, String time1, String tg, String vk, String webs, String purposesids,

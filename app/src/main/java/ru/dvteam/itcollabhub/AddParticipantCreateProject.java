@@ -26,6 +26,7 @@ public class AddParticipantCreateProject extends Fragment {
 
         CreateProject2 createProject2 = (CreateProject2) getActivity();
         String mail = createProject2.getMail();
+        String addedIdArr = createProject2.getPeoplesIds();
 
         ImageView find_but = v.findViewById(R.id.find);
         LinearLayout main = v.findViewById(R.id.lin_main);
@@ -55,76 +56,78 @@ public class AddParticipantCreateProject extends Fragment {
                                 String[] project = inf[4].split(",");
 
                                 for (int i = 0; i < names.length; i++) {
-                                    View custom = inflater.inflate(R.layout.friend_window, null);
-                                    TextView nameu = (TextView) custom.findViewById(R.id.textView3);
-                                    ImageView loadImage = (ImageView) custom.findViewById(R.id.log);
-                                    ImageView userCircle = (ImageView) custom.findViewById(R.id.user_circle);
-                                    TextView project1 = (TextView) custom.findViewById(R.id.projects1);
-                                    ImageView messege = (ImageView) custom.findViewById(R.id.notban);
-                                    messege.setBackgroundResource(R.drawable.ad);
+                                    if (!addedIdArr.contains(id[i])) {
+                                        View custom = inflater.inflate(R.layout.friend_window, null);
+                                        TextView nameu = (TextView) custom.findViewById(R.id.textView3);
+                                        ImageView loadImage = (ImageView) custom.findViewById(R.id.log);
+                                        ImageView userCircle = (ImageView) custom.findViewById(R.id.user_circle);
+                                        TextView project1 = (TextView) custom.findViewById(R.id.projects1);
+                                        ImageView messege = (ImageView) custom.findViewById(R.id.notban);
+                                        messege.setBackgroundResource(R.drawable.ad);
 
-                                    Glide
-                                            .with(AddParticipantCreateProject.this)
-                                            .load(photo[i])
-                                            .into(loadImage);
-                                    nameu.setText(names[i]);
-                                    project1.setText(project[i]);
+                                        Glide
+                                                .with(AddParticipantCreateProject.this)
+                                                .load(photo[i])
+                                                .into(loadImage);
+                                        nameu.setText(names[i]);
+                                        project1.setText(project[i]);
 
-                                    if (Integer.parseInt(score[i]) < 100) {
-                                        userCircle.setBackgroundResource(R.drawable.circle_blue2);
-                                    } else if (Integer.parseInt(score[i]) < 300) {
-                                        userCircle.setBackgroundResource(R.drawable.circle_green2);
-                                    } else if (Integer.parseInt(score[i]) < 1000) {
-                                        userCircle.setBackgroundResource(R.drawable.circle_brown2);
-                                    } else if (Integer.parseInt(score[i]) < 2500) {
-                                        userCircle.setBackgroundResource(R.drawable.circle_light_gray2);
-                                    } else if (Integer.parseInt(score[i]) < 7000) {
-                                        userCircle.setBackgroundResource(R.drawable.circle_ohra2);
-                                    } else if (Integer.parseInt(score[i]) < 17000) {
-                                        userCircle.setBackgroundResource(R.drawable.circle_red2);
-                                    } else if (Integer.parseInt(score[i]) < 30000) {
-                                        userCircle.setBackgroundResource(R.drawable.circle_orange2);
-                                    } else if (Integer.parseInt(score[i]) < 50000) {
-                                        userCircle.setBackgroundResource(R.drawable.circle_violete2);
-                                    } else {
-                                        userCircle.setBackgroundResource(R.drawable.circle_blue_green2);
+                                        if (Integer.parseInt(score[i]) < 100) {
+                                            userCircle.setBackgroundResource(R.drawable.circle_blue2);
+                                        } else if (Integer.parseInt(score[i]) < 300) {
+                                            userCircle.setBackgroundResource(R.drawable.circle_green2);
+                                        } else if (Integer.parseInt(score[i]) < 1000) {
+                                            userCircle.setBackgroundResource(R.drawable.circle_brown2);
+                                        } else if (Integer.parseInt(score[i]) < 2500) {
+                                            userCircle.setBackgroundResource(R.drawable.circle_light_gray2);
+                                        } else if (Integer.parseInt(score[i]) < 7000) {
+                                            userCircle.setBackgroundResource(R.drawable.circle_ohra2);
+                                        } else if (Integer.parseInt(score[i]) < 17000) {
+                                            userCircle.setBackgroundResource(R.drawable.circle_red2);
+                                        } else if (Integer.parseInt(score[i]) < 30000) {
+                                            userCircle.setBackgroundResource(R.drawable.circle_orange2);
+                                        } else if (Integer.parseInt(score[i]) < 50000) {
+                                            userCircle.setBackgroundResource(R.drawable.circle_violete2);
+                                        } else {
+                                            userCircle.setBackgroundResource(R.drawable.circle_blue_green2);
+                                        }
+
+
+                                        int finalI = i;
+                                        loadImage.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                Intent intent = new Intent(v.getContext(), FriendProfile.class);
+                                                intent.putExtra("id", id[finalI]);
+                                                intent.putExtra("name", names[finalI]);
+                                                intent.putExtra("score", score[finalI]);
+                                                intent.putExtra("image_url", photo[finalI]);
+                                                intent.putExtra("project", project[finalI]);
+                                                startActivity(intent);
+                                            }
+                                        });
+                                        nameu.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                Intent intent = new Intent(v.getContext(), FriendProfile.class);
+                                                intent.putExtra("id", id[finalI]);
+                                                intent.putExtra("name", names[finalI]);
+                                                intent.putExtra("score", score[finalI]);
+                                                intent.putExtra("image_url", photo[finalI]);
+                                                intent.putExtra("project", project[finalI]);
+                                                startActivity(intent);
+                                            }
+                                        });
+                                        messege.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                CreateProject2 createProject = (CreateProject2) getActivity();
+                                                createProject.setId(id[finalI]);
+                                                main.removeView(custom);
+                                            }
+                                        });
+                                        main.addView(custom);
                                     }
-
-
-                                    int finalI = i;
-                                    loadImage.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            Intent intent = new Intent(v.getContext(), FriendProfile.class);
-                                            intent.putExtra("id", id[finalI]);
-                                            intent.putExtra("name", names[finalI]);
-                                            intent.putExtra("score", score[finalI]);
-                                            intent.putExtra("image_url", photo[finalI]);
-                                            intent.putExtra("project", project[finalI]);
-                                            startActivity(intent);
-                                        }
-                                    });
-                                    nameu.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            Intent intent = new Intent(v.getContext(), FriendProfile.class);
-                                            intent.putExtra("id", id[finalI]);
-                                            intent.putExtra("name", names[finalI]);
-                                            intent.putExtra("score", score[finalI]);
-                                            intent.putExtra("image_url", photo[finalI]);
-                                            intent.putExtra("project", project[finalI]);
-                                            startActivity(intent);
-                                        }
-                                    });
-                                    messege.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            CreateProject2 createProject = (CreateProject2) getActivity();
-                                            createProject.setId(id[finalI]);
-                                            main.removeView(custom);
-                                        }
-                                    });
-                                    main.addView(custom);
                                 }
                                 View empty = inflater.inflate(R.layout.emty_obj, null);
                                 main.addView(empty);

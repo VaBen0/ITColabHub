@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProjectPage">
+    tools:context=".DemoProjectPage">
 
     <ImageView
         android:id="@+id/pr_logo"
@@ -52,6 +52,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginBottom="20dp"
         android:scaleType="centerCrop"
+        android:src="@drawable/logo_second_type"
         app:layout_constraintBottom_toBottomOf="@+id/pr_logo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:shapeAppearance="@style/CornerCutForMini" />

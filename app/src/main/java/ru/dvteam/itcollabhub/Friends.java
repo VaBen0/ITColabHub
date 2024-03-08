@@ -117,9 +117,6 @@ public class Friends extends Fragment {
                                 intent.putExtra("score", score[finalI]);
                                 intent.putExtra("image_url", photo[finalI]);
                                 intent.putExtra("project", project[finalI]);
-
-
-
                                 startActivity(intent);
                             }
                         });

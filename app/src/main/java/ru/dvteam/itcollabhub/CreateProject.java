@@ -12,7 +12,10 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -22,6 +25,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -29,6 +33,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.io.File;
 
@@ -48,6 +54,7 @@ public class CreateProject extends AppCompatActivity {
     ActivityResultLauncher<Intent> resultLauncher;
     int score;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
@@ -63,6 +70,8 @@ public class CreateProject extends AppCompatActivity {
         EditText nameu = findViewById(R.id.projectName);
         EditText description  = findViewById(R.id.description);
         Button sendProject = findViewById(R.id.send);
+        ImageView newInform = findViewById(R.id.newInformation);
+        SwitchMaterial demo = findViewById(R.id.demoProjectSwitch);
 
         if(score < 100){
             sendProject.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject.this, R.color.blue));
@@ -129,7 +138,12 @@ public class CreateProject extends AppCompatActivity {
                 } else {
                     mainDescription = description.getText().toString();
                 }
-                Intent intent = new Intent(CreateProject.this, CreateProject2.class);
+                Intent intent;
+                if(demo.isChecked()){
+                    intent = new Intent(CreateProject.this, CreateProject2Demo.class);
+                }else {
+                    intent = new Intent(CreateProject.this, CreateProject2.class);
+                }
                 intent.putExtra("uriPath", uriPath);
                 intent.putExtra("mediaPath", mediaPath);
                 intent.putExtra("title", mainName);
@@ -138,6 +152,31 @@ public class CreateProject extends AppCompatActivity {
 
             }
         });
+
+        newInform.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                displayAlert();
+                return false;
+            }
+        });
+
+
+    }
+
+    public  void displayAlert()
+    {
+        new AlertDialog.Builder(this).setMessage("Демо проект - это проект с очень ограниченным функционалом, \n" +
+                        "который создать можно всего один. Это сделано, чтобы вы смогли ознакомиться с основным функционалом этого меню.")
+                .setTitle("Демо проект")
+                .setCancelable(true)
+                .setNeutralButton(android.R.string.ok,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton){
+                                finish();
+                            }
+                        })
+                .show();
     }
 
     public void purpose(){

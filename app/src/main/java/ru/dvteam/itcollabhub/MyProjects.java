@@ -1,8 +1,10 @@
 package ru.dvteam.itcollabhub;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -187,6 +189,39 @@ public class MyProjects extends Fragment {
                         });
                         main.addView(custom, 0);
                     }
+
+                    if(activityProject.getDemoProject() && !activityProject.getDemoEndProject()){
+                        String titleDemo = activityProject.getDemoTitle();
+                        String uri = activityProject.getDemoUri();
+                        Uri uriImage = Uri.parse(uri);
+                        View custom = getLayoutInflater().inflate(R.layout.project_window, null);
+                        TextView nameu = (TextView) custom.findViewById(R.id.textView3);
+                        ImageView loadImage = (ImageView) custom.findViewById(R.id.log);
+                        ImageView user = (ImageView) custom.findViewById(R.id.logo);
+                        ImageView userCircle = (ImageView) custom.findViewById(R.id.user_circle);
+                        TextView nameOfUser = (TextView) custom.findViewById(R.id.textView13);
+                        TextView percent = custom.findViewById(R.id.textView16);
+                        ProgressBar lvl = custom.findViewById(R.id.lvl);
+
+                        nameOfUser.setText("Demo");
+
+                        nameu.setText(titleDemo);
+
+                        custom.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                activityProject.changeActivityDemo();
+                            }
+                        });
+                        loadImage.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                activityProject.changeActivityDemo();
+                            }
+                        });
+                        main.addView(custom, 0);
+                    }
+
                     View empty = getLayoutInflater().inflate(R.layout.emty_obj, null);
                     main.addView(empty);
                 }

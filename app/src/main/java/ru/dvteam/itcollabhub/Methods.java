@@ -401,5 +401,9 @@ public interface Methods {
     Call<Model> setProjectIsEnd(@Field("Request")String req, @Field("ProjectId")String id, @Field("UserMail")String mail,
                                 @Field("UsersIns")String ins);
 
+    @FormUrlEncoded
+    @POST("/")
+    Call<Model> getPeoplesAdded(@Field("Request")String req, @Field("IDs")String id);
+
 
 }

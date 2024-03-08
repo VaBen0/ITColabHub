@@ -428,6 +428,7 @@ public class Profile extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Profile.this, ActivityProject.class);
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                finish();
             }
         });
         forumMenu.setOnClickListener(new View.OnClickListener() {

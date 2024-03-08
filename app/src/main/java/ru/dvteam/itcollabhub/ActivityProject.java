@@ -23,19 +23,24 @@ public class ActivityProject extends AppCompatActivity {
 
     int selectedColor, score;
     //private NavController navController;
-    String mail;
-    Boolean fragmentMan = true;
+    String mail, titleDemo, descriptionDemo, problemsDemo, purposesDemo, uriDemo;
+    Boolean fragmentMan = true, projectEnd;
     private String[] wow = {"Хренос 2", "Кина не будет - электричество кончилось", "Ой, сломалось", "Караул!"};
     View back;
     ImageView dontWork;
 
     Fragment fragmentPrMy, fragmentPrEnd;
+    Boolean demoProjects;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         mail = sPref.getString("UserMail", "");
         score = sPref.getInt("UserScore", 0);
+        demoProjects = sPref.getBoolean("DemoProject", false);
+        titleDemo = sPref.getString("DemoProjectTitle", "");
+        uriDemo = sPref.getString("UriPath", "");
+        projectEnd = sPref.getBoolean("IsEnd", false);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
@@ -173,6 +178,7 @@ public class ActivityProject extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityProject.this, Profile.class);
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                finish();
             }
         });
         forumMenu.setOnClickListener(new View.OnClickListener() {
@@ -203,9 +209,26 @@ public class ActivityProject extends AppCompatActivity {
     public int getScore(){
         return score;
     }
+    public boolean getDemoProject(){
+        return demoProjects;
+    }
+    public boolean getDemoEndProject(){
+        return projectEnd;
+    }
+    public String getDemoTitle(){
+        return titleDemo;
+    }
+    public String getDemoUri(){
+        return uriDemo;
+    }
     public void changeActivity(String id){
         Intent intent = new Intent(ActivityProject.this, UsersProject.class);
         intent.putExtra("projectId", id);
+        startActivity(intent);
+    }
+
+    public void changeActivityDemo(){
+        Intent intent = new Intent(ActivityProject.this, UsersProjectDemo.class);
         startActivity(intent);
     }
 
