@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,17 +37,19 @@ public class Profile extends AppCompatActivity {
     private final String[] wow = {"Хренос 2", "Кина не будет - электричество кончилось", "Ой, сломалось", "Караул!"};
     View back;
     ImageView dontWork;
+    String urlPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setThemeActivity();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         String name = sPref.getString("UserName", "");
         mail = sPref.getString("UserMail", "");
         score = sPref.getInt("UserScore", 0);
-
+        int themeNum = sPref.getInt("ThemeNum", 1);
+        UsersChosenTheme.setThemeNum(themeNum);
+        setThemeActivity();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
@@ -68,6 +71,7 @@ public class Profile extends AppCompatActivity {
         LinearLayout profileMenu = findViewById(R.id.profile_menu);
         LinearLayout forumMenu = findViewById(R.id.forum_menu);
         ImageView editProfile = findViewById(R.id.notifications);
+        Button theme = findViewById(R.id.themes);
         back = findViewById(R.id.view3);
         dontWork = findViewById(R.id.imageView12);
 
@@ -158,6 +162,7 @@ public class Profile extends AppCompatActivity {
                 status = topStatus;
                 ativePr = activityProjects;
                 archivPr = archiveProjects;
+                urlPhoto = urlImage;
                 UserName.setText(name);
                 UserScore.setText(s);
                 Glide
@@ -296,6 +301,15 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        theme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Profile.this, ChooseThemeForApp.class);
+                intent.putExtra("UserPhoto", urlPhoto);
+                startActivity(intent);
+            }
+        });
+
         restartLine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -395,4 +409,10 @@ public class Profile extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        startActivity(getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+        finish();
+    }
 }

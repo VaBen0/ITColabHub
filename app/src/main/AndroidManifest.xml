@@ -21,6 +21,9 @@
         android:theme="@style/Theme.ITCollabHub"
         tools:targetApi="26">
         <activity
+            android:name=".ChooseThemeForApp"
+            android:exported="false" />
+        <activity
             android:name=".DemoProjectPage"
             android:exported="false"
             android:screenOrientation="portrait" />
