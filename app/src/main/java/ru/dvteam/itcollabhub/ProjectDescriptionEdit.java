@@ -1,7 +1,10 @@
 package ru.dvteam.itcollabhub;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -36,7 +39,6 @@ public class ProjectDescriptionEdit extends Fragment {
         projectDescription = v.findViewById(R.id.descriptionProject);
         projectDescription.setText(description);
         Button save = v.findViewById(R.id.saveBtn);
-        setColor(score, projectDescription, save);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,5 +94,12 @@ public class ProjectDescriptionEdit extends Fragment {
             prDesc.setBackgroundResource(R.drawable.blue_green_rounded);
             btn.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.main_green));
         }
+    }
+
+    @NonNull
+    @Override
+    public LayoutInflater onGetLayoutInflater(@Nullable Bundle savedInstanceState) {
+        return super.onGetLayoutInflater(savedInstanceState);
+
     }
 }

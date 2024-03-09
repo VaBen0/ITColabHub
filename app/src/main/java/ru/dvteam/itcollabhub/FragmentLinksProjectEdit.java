@@ -39,10 +39,6 @@ public class FragmentLinksProjectEdit extends Fragment {
         vk.setText(vkLink);
         web.setText(webLink);
         Button btn = v.findViewById(R.id.saveBtn);
-        setColorBtn(score, btn);
-        setColorEditText(score, tg);
-        setColorEditText(score, vk);
-        setColorEditText(score, web);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override

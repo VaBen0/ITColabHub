@@ -40,6 +40,150 @@
         <item name="colorPrimary">@color/dark_theme</item>
     </style>
 
+    <style name="Theme.ITCollabHub.Blue" parent="Base.Theme.ITCollabHub">
+        <item name="statusBarColor">@color/blue</item>
+        <item name="userBackgroundColor">@drawable/gradient_blue</item>
+        <item name="secondTextColor">@color/blue</item>
+        <item name="userCircleColor">@drawable/circle_blue</item>
+        <item name="circleProgressBackground">@drawable/progress_circle_blue</item>
+        <item name="circleProgressDrawable">@drawable/circular_progress_bar_green</item>
+        <item name="fragmentLines">@drawable/blue_line</item>
+        <item name="addButtonColor">@drawable/ad</item>
+        <item name="buttonColor">@color/blue</item>
+        <item name="editTextColorRounded">@drawable/blue_rounded</item>
+        <item name="circleProgressBackground2">@drawable/progress_circle_blue2</item>
+        <item name="circleProgressDrawable2">@drawable/circular_progress_bar_green2</item>
+        <item name="lineProgressDrawable2">@drawable/custom_progress_bar_bg</item>
+    </style>
+    <style name="Theme.ITCollabHub.Green" parent="Base.Theme.ITCollabHub">
+        <item name="statusBarColor">@color/green</item>
+        <item name="userBackgroundColor">@drawable/gradient_green</item>
+        <item name="secondTextColor">@color/green</item>
+        <item name="userCircleColor">@drawable/circle_green</item>
+        <item name="circleProgressBackground">@drawable/progress_circle_green</item>
+        <item name="circleProgressDrawable">@drawable/circular_progress_bar_brown</item>
+        <item name="fragmentLines">@drawable/green_line</item>
+        <item name="addButtonColor">@drawable/green_add</item>
+        <item name="buttonColor">@color/green</item>
+        <item name="lineProgressDrawable">@drawable/custom_progress_bar_gbrown</item>
+        <item name="editTextColorRounded">@drawable/green_rounded</item>
+        <item name="circleProgressBackground2">@drawable/progress_circle_green2</item>
+        <item name="circleProgressDrawable2">@drawable/circular_progress_bar_brown2</item>
+        <item name="lineProgressDrawable2">@drawable/custom_progress_bar_gg</item>
+    </style>
+    <style name="Theme.ITCollabHub.Brown" parent="Base.Theme.ITCollabHub">
+        <item name="statusBarColor">@color/brown</item>
+        <item name="userBackgroundColor">@drawable/gradient_brown</item>
+        <item name="secondTextColor">@color/brown</item>
+        <item name="userCircleColor">@drawable/circle_brown</item>
+        <item name="circleProgressBackground">@drawable/progress_circle_brown</item>
+        <item name="circleProgressDrawable">@drawable/circular_progress_bar_light_gray</item>
+        <item name="fragmentLines">@drawable/brown_line</item>
+        <item name="addButtonColor">@drawable/brown_add</item>
+        <item name="buttonColor">@color/brown</item>
+        <item name="lineProgressDrawable">@drawable/custom_progress_bar_brlg</item>
+        <item name="editTextColorRounded">@drawable/brown_rounded</item>
+        <item name="circleProgressBackground2">@drawable/progress_circle_brown2</item>
+        <item name="circleProgressDrawable2">@drawable/circular_progress_bar_light_gray2</item>
+        <item name="lineProgressDrawable2">@drawable/custom_progress_bar_brg</item>
+    </style>
+    <style name="Theme.ITCollabHub.PinkGold" parent="Base.Theme.ITCollabHub">
+        <item name="statusBarColor">@color/pink_gold</item>
+        <item name="userBackgroundColor">@drawable/gradient_pink_gold</item>
+        <item name="secondTextColor">@color/pink_gold</item>
+        <item name="userCircleColor">@drawable/circle_pink_gold</item>
+        <item name="circleProgressBackground">@drawable/progress_circle_light_gray</item>
+        <item name="circleProgressDrawable">@drawable/circular_progress_bar_ohra</item>
+        <item name="fragmentLines">@drawable/pink_gold_line</item>
+        <item name="addButtonColor">@drawable/light_gray_add</item>
+        <item name="buttonColor">@color/pink_gold</item>
+        <item name="lineProgressDrawable">@drawable/custom_progress_bar_lgoh</item>
+        <item name="editTextColorRounded">@drawable/grey_rounded</item>
+        <item name="circleProgressBackground2">@drawable/progress_circle_light_gray2</item>
+        <item name="circleProgressDrawable2">@drawable/circular_progress_bar_ohra2</item>
+        <item name="lineProgressDrawable2">@drawable/custom_progress_bar_lgg</item>
+    </style>
+    <style name="Theme.ITCollabHub.Ohra" parent="Base.Theme.ITCollabHub">
+        <item name="statusBarColor">@color/ohra</item>
+        <item name="userBackgroundColor">@drawable/gradient_ohra</item>
+        <item name="secondTextColor">@color/ohra</item>
+        <item name="userCircleColor">@drawable/circle_ohra</item>
+        <item name="circleProgressBackground">@drawable/progress_circle_ohra</item>
+        <item name="circleProgressDrawable">@drawable/circular_progress_bar_red</item>
+        <item name="fragmentLines">@drawable/ohra_line</item>
+        <item name="addButtonColor">@drawable/ohra_add</item>
+        <item name="buttonColor">@color/ohra</item>
+        <item name="lineProgressDrawable">@drawable/custom_progress_bar_ohred</item>
+        <item name="editTextColorRounded">@drawable/ohra_rounded</item>
+        <item name="circleProgressBackground2">@drawable/progress_circle_ohra2</item>
+        <item name="circleProgressDrawable2">@drawable/circular_progress_bar_red2</item>
+        <item name="lineProgressDrawable2">@drawable/custom_progress_bar_ohg</item>
+    </style>
+    <style name="Theme.ITCollabHub.Red" parent="Base.Theme.ITCollabHub">
+        <item name="statusBarColor">@color/red</item>
+        <item name="userBackgroundColor">@drawable/gradient_red</item>
+        <item name="secondTextColor">@color/red</item>
+        <item name="userCircleColor">@drawable/circle_red</item>
+        <item name="circleProgressBackground">@drawable/progress_circle_red</item>
+        <item name="circleProgressDrawable">@drawable/circular_progress_bar_orange</item>
+        <item name="fragmentLines">@drawable/red_line</item>
+        <item name="addButtonColor">@drawable/red_add</item>
+        <item name="buttonColor">@color/red</item>
+        <item name="lineProgressDrawable">@drawable/custom_progress_bar_redora</item>
+        <item name="editTextColorRounded">@drawable/red_rounded</item>
+        <item name="circleProgressBackground2">@drawable/progress_circle_red2</item>
+        <item name="circleProgressDrawable2">@drawable/circular_progress_bar_orange2</item>
+        <item name="lineProgressDrawable2">@drawable/custom_progress_bar_rg</item>
+    </style>
+    <style name="Theme.ITCollabHub.Orange" parent="Base.Theme.ITCollabHub">
+        <item name="statusBarColor">@color/orange</item>
+        <item name="userBackgroundColor">@drawable/gradient_orange</item>
+        <item name="secondTextColor">@color/orange</item>
+        <item name="userCircleColor">@drawable/circle_orange</item>
+        <item name="circleProgressBackground">@drawable/progress_circle_orange</item>
+        <item name="circleProgressDrawable">@drawable/circular_progress_bar_violete</item>
+        <item name="fragmentLines">@drawable/orange_line</item>
+        <item name="addButtonColor">@drawable/orange_add</item>
+        <item name="buttonColor">@color/orange</item>
+        <item name="lineProgressDrawable">@drawable/custom_progress_bar_vo</item>
+        <item name="editTextColorRounded">@drawable/orange_rounded</item>
+        <item name="circleProgressBackground2">@drawable/progress_circle_orange2</item>
+        <item name="circleProgressDrawable2">@drawable/circular_progress_bar_violete2</item>
+        <item name="lineProgressDrawable2">@drawable/custom_progress_bar_og</item>
+    </style>
+    <style name="Theme.ITCollabHub.Violete" parent="Base.Theme.ITCollabHub">
+        <item name="statusBarColor">@color/violete</item>
+        <item name="userBackgroundColor">@drawable/gradient_violete</item>
+        <item name="secondTextColor">@color/violete_light</item>
+        <item name="userCircleColor">@drawable/circle_violete</item>
+        <item name="circleProgressBackground">@drawable/progress_circle_violete</item>
+        <item name="circleProgressDrawable">@drawable/circular_progress_bar_blue_green</item>
+        <item name="fragmentLines">@drawable/violete_line</item>
+        <item name="addButtonColor">@drawable/violete_add</item>
+        <item name="buttonColor">@color/violete</item>
+        <item name="lineProgressDrawable">@drawable/custom_progress_bar_violetbluegreen</item>
+        <item name="editTextColorRounded">@drawable/violete_rounded</item>
+        <item name="circleProgressBackground2">@drawable/progress_circle_violete2</item>
+        <item name="circleProgressDrawable2">@drawable/circular_progress_bar_blue_green2</item>
+        <item name="lineProgressDrawable2">@drawable/custom_progress_bar_vg</item>
+    </style>
+    <style name="Theme.ITCollabHub.BlueGreen" parent="Base.Theme.ITCollabHub">
+        <item name="statusBarColor">@color/main_green</item>
+        <item name="userBackgroundColor">@drawable/gradient_blue_green</item>
+        <item name="secondTextColor">@color/main_green</item>
+        <item name="userCircleColor">@drawable/circle_blue_green</item>
+        <item name="circleProgressBackground">@drawable/progress_circle_blue_green</item>
+        <item name="circleProgressDrawable">@drawable/circular_progress_bar_blue_green</item>
+        <item name="fragmentLines">@drawable/blue_green_line</item>
+        <item name="addButtonColor">@drawable/blue_green_add</item>
+        <item name="buttonColor">@color/main_green</item>
+        <item name="lineProgressDrawable">@drawable/custom_progress_bar_violetbluegreen</item>
+        <item name="editTextColorRounded">@drawable/blue_green_rounded</item>
+        <item name="circleProgressBackground2">@drawable/progress_circle_blue_green2</item>
+        <item name="circleProgressDrawable2">@drawable/circular_progress_bar_blue_green2</item>
+        <item name="lineProgressDrawable2">@drawable/custom_progress_bar_mgg</item>
+    </style>
+
     <style name="datePicker" parent="@style/ThemeOverlay.Material3.MaterialCalendar">
 
         <item name="colorOnSurfaceVariant">@color/white</item>

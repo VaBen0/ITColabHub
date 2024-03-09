@@ -10,7 +10,7 @@
         android:id="@+id/bguser"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/gradient_blue"
+        android:background="?userBackgroundColor"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +90,7 @@
                 android:layout_width="150dp"
                 android:layout_height="3dp"
                 android:layout_gravity="center"
-                android:background="@drawable/blue_line" />
+                android:background="?fragmentLines" />
         </LinearLayout>
 
         <LinearLayout
@@ -111,6 +111,7 @@
 
             <View
                 android:id="@+id/linear_friends"
+                android:background="?fragmentLines"
                 android:layout_width="150dp"
                 android:layout_height="3dp"
                 android:layout_gravity="center" />
@@ -139,7 +140,7 @@
         android:layout_width="170dp"
         android:layout_height="45dp"
         android:layout_marginBottom="20dp"
-        android:backgroundTint="@color/blue"
+        android:backgroundTint="?buttonColor"
         android:text="Создать проект"
         android:textColor="@color/white"
         android:textSize="12sp"

@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.service.controls.Control;
+import android.util.TypedValue;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -32,6 +33,7 @@ public class ControlPanelDemo extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setThemeActivity();
         super.onCreate(savedInstanceState);
 
         binding = ActivityControlPanelDemoBinding.inflate(getLayoutInflater());
@@ -42,168 +44,10 @@ public class ControlPanelDemo extends AppCompatActivity {
         demoTitle = sPref.getString("DemoProjectTitle", "");
         int score = sPref.getInt("UserScore", 0);
 
-        if(score < 100){
-            binding.bguser.setBackgroundResource(R.drawable.gradient_blue);
-            getWindow().setStatusBarColor(ContextCompat.getColor(ControlPanelDemo.this,R.color.blue));
-            binding.projectFiles.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.blue));
-            binding.advertisments.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.blue));
-            binding.editProject.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.blue));
-            binding.projectPage.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.blue));
-            binding.projectParticipants.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.blue));
-            Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_bg);
-            binding.purpProgress.setBackgroundResource(R.drawable.custom_progress_bar_bg);
-            binding.purpProgress.setProgressDrawable(progressDrawable);
-            Drawable progressDrawable1 = getResources().getDrawable(R.drawable.custom_progress_bar_bg);
-            binding.problemsProgress.setBackgroundResource(R.drawable.custom_progress_bar_bg);
-            binding.problemsProgress.setProgressDrawable(progressDrawable1);
-            Drawable progressDrawable2 = getResources().getDrawable(R.drawable.custom_progress_bar_bg);
-            binding.progressOfTasks.setBackgroundResource(R.drawable.custom_progress_bar_bg);
-            binding.progressOfTasks.setProgressDrawable(progressDrawable2);
-        }
-        else if(score < 300){
-            binding.bguser.setBackgroundResource(R.drawable.gradient_green);
-            getWindow().setStatusBarColor(ContextCompat.getColor(ControlPanelDemo.this,R.color.green));
-            binding.projectFiles.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.green));
-            binding.advertisments.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.green));
-            binding.editProject.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.green));
-            binding.projectPage.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.green));
-            binding.projectParticipants.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.green));
-            Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_gg);
-            binding.purpProgress.setBackgroundResource(R.drawable.custom_progress_bar_gg);
-            binding.purpProgress.setProgressDrawable(progressDrawable);
-            Drawable progressDrawable1 = getResources().getDrawable(R.drawable.custom_progress_bar_gg);
-            binding.problemsProgress.setBackgroundResource(R.drawable.custom_progress_bar_gg);
-            binding.problemsProgress.setProgressDrawable(progressDrawable1);
-            Drawable progressDrawable2 = getResources().getDrawable(R.drawable.custom_progress_bar_gg);
-            binding.progressOfTasks.setBackgroundResource(R.drawable.custom_progress_bar_gg);
-            binding.progressOfTasks.setProgressDrawable(progressDrawable2);
-        }
-        else if(score < 1000){
-            binding.bguser.setBackgroundResource(R.drawable.gradient_brown);
-            getWindow().setStatusBarColor(ContextCompat.getColor(ControlPanelDemo.this,R.color.brown));
-            binding.projectFiles.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.brown));
-            binding.advertisments.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.brown));
-            binding.editProject.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.brown));
-            binding.projectPage.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.brown));
-            binding.projectParticipants.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.brown));
-            Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_brg);
-            binding.purpProgress.setBackgroundResource(R.drawable.custom_progress_bar_brg);
-            binding.purpProgress.setProgressDrawable(progressDrawable);
-            Drawable progressDrawable1 = getResources().getDrawable(R.drawable.custom_progress_bar_brg);
-            binding.problemsProgress.setBackgroundResource(R.drawable.custom_progress_bar_brg);
-            binding.problemsProgress.setProgressDrawable(progressDrawable1);
-            Drawable progressDrawable2 = getResources().getDrawable(R.drawable.custom_progress_bar_brg);
-            binding.progressOfTasks.setBackgroundResource(R.drawable.custom_progress_bar_brg);
-            binding.progressOfTasks.setProgressDrawable(progressDrawable2);
-        }
-        else if(score < 2500){
-            binding.bguser.setBackgroundResource(R.drawable.gradient_light_gray);
-            getWindow().setStatusBarColor(ContextCompat.getColor(ControlPanelDemo.this,R.color.light_gray));
-            binding.projectFiles.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.light_gray));
-            binding.advertisments.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.light_gray));
-            binding.editProject.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.light_gray));
-            binding.projectPage.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.light_gray));
-            binding.projectParticipants.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.light_gray));
-            Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_lgg);
-            binding.purpProgress.setBackgroundResource(R.drawable.custom_progress_bar_lgg);
-            binding.purpProgress.setProgressDrawable(progressDrawable);
-            Drawable progressDrawable1 = getResources().getDrawable(R.drawable.custom_progress_bar_lgg);
-            binding.problemsProgress.setBackgroundResource(R.drawable.custom_progress_bar_lgg);
-            binding.problemsProgress.setProgressDrawable(progressDrawable1);
-            Drawable progressDrawable2 = getResources().getDrawable(R.drawable.custom_progress_bar_lgg);
-            binding.progressOfTasks.setBackgroundResource(R.drawable.custom_progress_bar_lgg);
-            binding.progressOfTasks.setProgressDrawable(progressDrawable2);
-        }
-        else if(score < 7000){
-            binding.bguser.setBackgroundResource(R.drawable.gradient_ohra);
-            getWindow().setStatusBarColor(ContextCompat.getColor(ControlPanelDemo.this,R.color.ohra));
-            binding.projectFiles.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.ohra));
-            binding.advertisments.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.ohra));
-            binding.editProject.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.ohra));
-            binding.projectPage.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.ohra));
-            binding.projectParticipants.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.ohra));
-            Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_ohg);
-            binding.purpProgress.setBackgroundResource(R.drawable.custom_progress_bar_ohg);
-            binding.purpProgress.setProgressDrawable(progressDrawable);
-            Drawable progressDrawable1 = getResources().getDrawable(R.drawable.custom_progress_bar_ohg);
-            binding.problemsProgress.setBackgroundResource(R.drawable.custom_progress_bar_ohg);
-            binding.problemsProgress.setProgressDrawable(progressDrawable1);
-            Drawable progressDrawable2 = getResources().getDrawable(R.drawable.custom_progress_bar_ohg);
-            binding.progressOfTasks.setBackgroundResource(R.drawable.custom_progress_bar_ohg);
-            binding.progressOfTasks.setProgressDrawable(progressDrawable2);
-        }
-        else if(score < 17000){
-            binding.bguser.setBackgroundResource(R.drawable.gradient_red);
-            getWindow().setStatusBarColor(ContextCompat.getColor(ControlPanelDemo.this,R.color.red));
-            binding.projectFiles.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.red));
-            binding.advertisments.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.red));
-            binding.editProject.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.red));
-            binding.projectPage.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.red));
-            binding.projectParticipants.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.red));
-            Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_rg);
-            binding.purpProgress.setBackgroundResource(R.drawable.custom_progress_bar_rg);
-            binding.purpProgress.setProgressDrawable(progressDrawable);
-            Drawable progressDrawable1 = getResources().getDrawable(R.drawable.custom_progress_bar_rg);
-            binding.problemsProgress.setBackgroundResource(R.drawable.custom_progress_bar_rg);
-            binding.problemsProgress.setProgressDrawable(progressDrawable1);
-            Drawable progressDrawable2 = getResources().getDrawable(R.drawable.custom_progress_bar_rg);
-            binding.progressOfTasks.setBackgroundResource(R.drawable.custom_progress_bar_rg);
-            binding.progressOfTasks.setProgressDrawable(progressDrawable2);
-        }
-        else if(score < 30000){
-            binding.bguser.setBackgroundResource(R.drawable.gradient_orange);
-            getWindow().setStatusBarColor(ContextCompat.getColor(ControlPanelDemo.this,R.color.orange));
-            binding.projectFiles.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.orange));
-            binding.advertisments.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.orange));
-            binding.editProject.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.orange));
-            binding.projectPage.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.orange));
-            binding.projectParticipants.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.orange));
-            Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_og);
-            binding.purpProgress.setBackgroundResource(R.drawable.custom_progress_bar_og);
-            binding.purpProgress.setProgressDrawable(progressDrawable);
-            Drawable progressDrawable1 = getResources().getDrawable(R.drawable.custom_progress_bar_og);
-            binding.problemsProgress.setBackgroundResource(R.drawable.custom_progress_bar_og);
-            binding.problemsProgress.setProgressDrawable(progressDrawable1);
-            Drawable progressDrawable2 = getResources().getDrawable(R.drawable.custom_progress_bar_og);
-            binding.progressOfTasks.setBackgroundResource(R.drawable.custom_progress_bar_og);
-            binding.progressOfTasks.setProgressDrawable(progressDrawable2);
-        }
-        else if(score < 50000){
-            binding.bguser.setBackgroundResource(R.drawable.gradient_violete);
-            getWindow().setStatusBarColor(ContextCompat.getColor(ControlPanelDemo.this,R.color.violete));
-            binding.projectFiles.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.violete));
-            binding.advertisments.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.violete));
-            binding.editProject.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.violete));
-            binding.projectPage.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.violete));
-            binding.projectParticipants.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.violete));
-            Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_vg);
-            binding.purpProgress.setBackgroundResource(R.drawable.custom_progress_bar_vg);
-            binding.purpProgress.setProgressDrawable(progressDrawable);
-            Drawable progressDrawable1 = getResources().getDrawable(R.drawable.custom_progress_bar_vg);
-            binding.problemsProgress.setBackgroundResource(R.drawable.custom_progress_bar_vg);
-            binding.problemsProgress.setProgressDrawable(progressDrawable1);
-            Drawable progressDrawable2 = getResources().getDrawable(R.drawable.custom_progress_bar_vg);
-            binding.progressOfTasks.setBackgroundResource(R.drawable.custom_progress_bar_vg);
-            binding.progressOfTasks.setProgressDrawable(progressDrawable2);
-        }
-        else{
-            binding.bguser.setBackgroundResource(R.drawable.gradient_blue_green);
-            getWindow().setStatusBarColor(ContextCompat.getColor(ControlPanelDemo.this,R.color.main_green));
-            binding.projectFiles.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.main_green));
-            binding.advertisments.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.main_green));
-            binding.editProject.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.main_green));
-            binding.projectPage.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.main_green));
-            binding.projectParticipants.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanelDemo.this, R.color.main_green));
-            Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_mgg);
-            binding.purpProgress.setBackgroundResource(R.drawable.custom_progress_bar_mgg);
-            binding.purpProgress.setProgressDrawable(progressDrawable);
-            Drawable progressDrawable1 = getResources().getDrawable(R.drawable.custom_progress_bar_mgg);
-            binding.problemsProgress.setBackgroundResource(R.drawable.custom_progress_bar_mgg);
-            binding.problemsProgress.setProgressDrawable(progressDrawable1);
-            Drawable progressDrawable2 = getResources().getDrawable(R.drawable.custom_progress_bar_mgg);
-            binding.progressOfTasks.setBackgroundResource(R.drawable.custom_progress_bar_mgg);
-            binding.progressOfTasks.setProgressDrawable(progressDrawable2);
-        }
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
+        int color = ContextCompat.getColor(ControlPanelDemo.this, typedValue.resourceId);
+        getWindow().setStatusBarColor(color);
 
         Date date = new Date();
         LocalTime current = null;
@@ -273,5 +117,40 @@ public class ControlPanelDemo extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public void setThemeActivity(){
+        int themeType = UsersChosenTheme.getThemeNum();
+
+        switch (themeType) {
+            case (1):
+                setTheme(R.style.Theme_ITCollabHub_Blue);
+                break;
+            case (2):
+                setTheme(R.style.Theme_ITCollabHub_Green);
+                break;
+            case (3):
+                setTheme(R.style.Theme_ITCollabHub_Brown);
+                break;
+            case (4):
+                setTheme(R.style.Theme_ITCollabHub_PinkGold);
+                break;
+            case (5):
+                setTheme(R.style.Theme_ITCollabHub_Ohra);
+                break;
+            case (6):
+                setTheme(R.style.Theme_ITCollabHub_Red);
+                break;
+            case (7):
+                setTheme(R.style.Theme_ITCollabHub_Orange);
+                break;
+            case (8):
+                setTheme(R.style.Theme_ITCollabHub_Violete);
+                break;
+            case (9):
+                setTheme(R.style.Theme_ITCollabHub_BlueGreen);
+                break;
+        }
+
     }
 }

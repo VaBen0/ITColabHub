@@ -10,7 +10,7 @@
         android:id="@+id/bguser"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/gradient_blue"
+        android:background="?userBackgroundColor"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +72,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="82dp"
-        android:background="@drawable/circle_blue"
+        android:src="?userCircleColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -95,7 +95,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:gravity="center|top"
-        android:textColor="#0000FF"
+        android:textColor="?secondTextColor"
         android:text="Ваши очки: 0"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -134,6 +134,7 @@
 
             <View
                 android:id="@+id/linear_projects"
+                android:background="?fragmentLines"
                 android:layout_width="85dp"
                 android:layout_height="3dp"
                 android:layout_gravity="center"/>
@@ -158,6 +159,7 @@
 
             <View
                 android:id="@+id/linear_rating"
+                android:background="?fragmentLines"
                 android:layout_width="85dp"
                 android:layout_height="3dp"
                 android:layout_gravity="center" />
@@ -183,6 +185,7 @@
 
             <View
                 android:id="@+id/linear_friends"
+                android:background="?fragmentLines"
                 android:layout_width="85dp"
                 android:layout_height="3dp"
                 android:layout_gravity="center" />

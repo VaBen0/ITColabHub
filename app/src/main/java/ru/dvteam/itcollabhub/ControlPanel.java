@@ -11,6 +11,7 @@ import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionManager;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -53,6 +54,7 @@ public class ControlPanel extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setThemeActivity();
         super.onCreate(savedInstanceState);
 
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
@@ -63,7 +65,12 @@ public class ControlPanel extends AppCompatActivity {
 
         setContentView(binding.getRoot());
 
-        if(score < 100){
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
+        int color = ContextCompat.getColor(ControlPanel.this, typedValue.resourceId);
+        getWindow().setStatusBarColor(color);
+
+        /*if(score < 100){
             binding.bguser.setBackgroundResource(R.drawable.gradient_blue);
             getWindow().setStatusBarColor(ContextCompat.getColor(ControlPanel.this,R.color.blue));
             binding.projectFiles.setBackgroundTintList(ContextCompat.getColorStateList(ControlPanel.this, R.color.blue));
@@ -224,7 +231,7 @@ public class ControlPanel extends AppCompatActivity {
             Drawable progressDrawable2 = getResources().getDrawable(R.drawable.custom_progress_bar_mgg);
             binding.progressOfTasks.setBackgroundResource(R.drawable.custom_progress_bar_mgg);
             binding.progressOfTasks.setProgressDrawable(progressDrawable2);
-        }
+        }*/
 
         Bundle arguments = getIntent().getExtras();
 
@@ -545,6 +552,7 @@ public class ControlPanel extends AppCompatActivity {
     }
     public void getAdverts(String id1, String id2){
         if(!id1.isEmpty() || !id2.isEmpty()){
+            binding.textView15.setVisibility(View.GONE);
             PostDatas post = new PostDatas();
 
             post.postDataGetProjectAds("GetProjectAds", id1, new CallBackInt() {
@@ -723,5 +731,38 @@ public class ControlPanel extends AppCompatActivity {
         });
     }
 
+    public void setThemeActivity(){
+        int themeType = UsersChosenTheme.getThemeNum();
 
+        switch (themeType) {
+            case (1):
+                setTheme(R.style.Theme_ITCollabHub_Blue);
+                break;
+            case (2):
+                setTheme(R.style.Theme_ITCollabHub_Green);
+                break;
+            case (3):
+                setTheme(R.style.Theme_ITCollabHub_Brown);
+                break;
+            case (4):
+                setTheme(R.style.Theme_ITCollabHub_PinkGold);
+                break;
+            case (5):
+                setTheme(R.style.Theme_ITCollabHub_Ohra);
+                break;
+            case (6):
+                setTheme(R.style.Theme_ITCollabHub_Red);
+                break;
+            case (7):
+                setTheme(R.style.Theme_ITCollabHub_Orange);
+                break;
+            case (8):
+                setTheme(R.style.Theme_ITCollabHub_Violete);
+                break;
+            case (9):
+                setTheme(R.style.Theme_ITCollabHub_BlueGreen);
+                break;
+        }
+
+    }
 }

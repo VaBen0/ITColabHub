@@ -34,6 +34,7 @@ public class ActivityTaskMenuForLeader extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setThemeActivity();
         super.onCreate(savedInstanceState);
 
         binding = ActivityTaskMenuForLeaderBinding.inflate(getLayoutInflater());
@@ -51,7 +52,6 @@ public class ActivityTaskMenuForLeader extends AppCompatActivity {
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         mail = sPref.getString("UserMail", "");
         int score = sPref.getInt("UserScore", 0);
-        setActivityFormat(score);
 
         Bundle arguments = getIntent().getExtras();
         assert arguments != null;
@@ -265,5 +265,40 @@ public class ActivityTaskMenuForLeader extends AppCompatActivity {
             binding.bguser.setBackgroundResource(R.drawable.gradient_blue_green);
             getWindow().setStatusBarColor(ContextCompat.getColor(ActivityTaskMenuForLeader.this,R.color.main_green));
         }
+    }
+
+    public void setThemeActivity(){
+        int themeType = UsersChosenTheme.getThemeNum();
+
+        switch (themeType) {
+            case (1):
+                setTheme(R.style.Theme_ITCollabHub_Blue);
+                break;
+            case (2):
+                setTheme(R.style.Theme_ITCollabHub_Green);
+                break;
+            case (3):
+                setTheme(R.style.Theme_ITCollabHub_Brown);
+                break;
+            case (4):
+                setTheme(R.style.Theme_ITCollabHub_PinkGold);
+                break;
+            case (5):
+                setTheme(R.style.Theme_ITCollabHub_Ohra);
+                break;
+            case (6):
+                setTheme(R.style.Theme_ITCollabHub_Red);
+                break;
+            case (7):
+                setTheme(R.style.Theme_ITCollabHub_Orange);
+                break;
+            case (8):
+                setTheme(R.style.Theme_ITCollabHub_Violete);
+                break;
+            case (9):
+                setTheme(R.style.Theme_ITCollabHub_BlueGreen);
+                break;
+        }
+
     }
 }

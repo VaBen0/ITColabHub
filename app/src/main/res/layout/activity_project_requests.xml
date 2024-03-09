@@ -10,7 +10,7 @@
         android:id="@+id/bguser"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:background="@drawable/gradient_blue"
+        android:background="?userBackgroundColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

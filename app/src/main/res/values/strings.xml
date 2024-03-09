@@ -25,7 +25,7 @@
     <string name="description_purpose2">Последняя цель будет отмечена выполненной после заверщения проекта</string>
     <string name="description_problem">Задачи проекта - это конкретные действия или шаги, которые нужно выполнить для достижения цели проекта</string>
     <string name="description_problem1">Последняя задачу будет отмечена выполненной после завершения проекта</string>
-    <string name="description_adverb1">Автоматическое удаление объявления происходит через 3 дня со дня создания</string>
+    <string name="description_adverb1">Автоматическое удаление объявления произойдёт через:</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

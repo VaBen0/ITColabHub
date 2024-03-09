@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,9 +25,15 @@ public class GetFriend extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setThemeActivity();
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         setContentView(R.layout.activity_get_friend);
+
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
+        int color = ContextCompat.getColor(GetFriend.this, typedValue.resourceId);
+        getWindow().setStatusBarColor(color);
 
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         String name = sPref.getString("UserName", "");
@@ -51,79 +58,6 @@ public class GetFriend extends AppCompatActivity {
                 .load(urlImage)
                 .into(loadedImage);
         nameu.setText(name);
-
-        if(score < 100){
-            bguser.setBackgroundResource(R.drawable.gradient_blue);
-            userCircle.setBackgroundResource(R.drawable.circle_blue);
-            UserScore.setTextColor(Color.parseColor("#B20000FF"));
-            selectedColor = Color.parseColor("#B20000FF");
-            projects_lin.setBackgroundResource(R.drawable.blue_line);
-            getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.blue));
-        }
-        else if(score < 300){
-            bguser.setBackgroundResource(R.drawable.gradient_green);
-            userCircle.setBackgroundResource(R.drawable.circle_green);
-            UserScore.setTextColor(Color.parseColor("#B21AFF00"));
-            selectedColor = Color.parseColor("#B21AFF00");
-            projects_lin.setBackgroundResource(R.drawable.green_line);
-            getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.green));
-        }
-        else if(score < 1000){
-            bguser.setBackgroundResource(R.drawable.gradient_brown);
-            userCircle.setBackgroundResource(R.drawable.circle_brown);
-            UserScore.setTextColor(Color.parseColor("#FFCC7722"));
-            selectedColor = Color.parseColor("#FFCC7722");
-            projects_lin.setBackgroundResource(R.drawable.brown_line);
-            getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.brown));
-        }
-        else if(score < 2500){
-            bguser.setBackgroundResource(R.drawable.gradient_light_gray);
-            userCircle.setBackgroundResource(R.drawable.circle_light_gray);
-            UserScore.setTextColor(Color.parseColor("#B2B5B5B5"));
-            selectedColor = Color.parseColor("#B2B5B5B5");
-            projects_lin.setBackgroundResource(R.drawable.light_gray_line);
-            getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.light_gray));
-        }
-        else if(score < 7000){
-            bguser.setBackgroundResource(R.drawable.gradient_ohra);
-            userCircle.setBackgroundResource(R.drawable.circle_ohra);
-            UserScore.setTextColor(Color.parseColor("#FFE8AA0E"));
-            selectedColor = Color.parseColor("#FFE8AA0E");
-            projects_lin.setBackgroundResource(R.drawable.ohra_line);
-            getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.ohra));
-        }
-        else if(score < 17000){
-            bguser.setBackgroundResource(R.drawable.gradient_red);
-            userCircle.setBackgroundResource(R.drawable.circle_red);
-            UserScore.setTextColor(Color.parseColor("#FF0000"));
-            selectedColor = Color.parseColor("#FF0000");
-            projects_lin.setBackgroundResource(R.drawable.red_line);
-            getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.red));
-        }
-        else if(score < 30000){
-            bguser.setBackgroundResource(R.drawable.gradient_orange);
-            userCircle.setBackgroundResource(R.drawable.circle_orange);
-            UserScore.setTextColor(Color.parseColor("#FFCC7722"));
-            selectedColor = Color.parseColor("#FFCC7722");
-            projects_lin.setBackgroundResource(R.drawable.orange_line);
-            getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.orange));
-        }
-        else if(score < 50000){
-            bguser.setBackgroundResource(R.drawable.gradient_violete);
-            userCircle.setBackgroundResource(R.drawable.circle_violete);
-            UserScore.setTextColor(Color.parseColor("#4F0070"));
-            selectedColor = Color.parseColor("#4F0070");
-            projects_lin.setBackgroundResource(R.drawable.violete_line);
-            getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.violete));
-        }
-        else{
-            bguser.setBackgroundResource(R.drawable.gradient_blue_green);
-            userCircle.setBackgroundResource(R.drawable.circle_blue_green);
-            UserScore.setTextColor(Color.parseColor("#FF00C6A2"));
-            selectedColor = Color.parseColor("#FF00C6A2");
-            projects_lin.setBackgroundResource(R.drawable.blue_green_line);
-            getWindow().setStatusBarColor(ContextCompat.getColor(this,R.color.main_green));
-        }
 
         PostDatas post = new PostDatas();
         post.postDataGetFriends("GetUserFriendsR", mail, new CallBackInt() {
@@ -235,5 +169,40 @@ public class GetFriend extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void setThemeActivity(){
+        int themeType = UsersChosenTheme.getThemeNum();
+
+        switch (themeType) {
+            case (1):
+                setTheme(R.style.Theme_ITCollabHub_Blue);
+                break;
+            case (2):
+                setTheme(R.style.Theme_ITCollabHub_Green);
+                break;
+            case (3):
+                setTheme(R.style.Theme_ITCollabHub_Brown);
+                break;
+            case (4):
+                setTheme(R.style.Theme_ITCollabHub_PinkGold);
+                break;
+            case (5):
+                setTheme(R.style.Theme_ITCollabHub_Ohra);
+                break;
+            case (6):
+                setTheme(R.style.Theme_ITCollabHub_Red);
+                break;
+            case (7):
+                setTheme(R.style.Theme_ITCollabHub_Orange);
+                break;
+            case (8):
+                setTheme(R.style.Theme_ITCollabHub_Violete);
+                break;
+            case (9):
+                setTheme(R.style.Theme_ITCollabHub_BlueGreen);
+                break;
+        }
+
     }
 }

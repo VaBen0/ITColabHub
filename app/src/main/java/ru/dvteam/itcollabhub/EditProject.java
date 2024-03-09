@@ -50,6 +50,7 @@ public class EditProject extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setThemeActivity();
         super.onCreate(savedInstanceState);
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         mail = sPref.getString("UserMail", "");
@@ -82,33 +83,11 @@ public class EditProject extends AppCompatActivity {
                 .commit();
 
         //navController = Navigation.findNavController(this, R.id.fragmentContainerView);
-        if(score < 100){
-            binding.linearDescription.setBackgroundResource(R.drawable.blue_line);
-        }
-        else if(score < 300){
-            binding.linearDescription.setBackgroundResource(R.drawable.green_line);
-        }
-        else if(score < 1000){
-            binding.linearDescription.setBackgroundResource(R.drawable.brown_line);
-        }
-        else if(score < 2500){
-            binding.linearDescription.setBackgroundResource(R.drawable.light_gray_line);
-        }
-        else if(score < 7000){
-            binding.linearDescription.setBackgroundResource(R.drawable.ohra_line);
-        }
-        else if(score < 17000){
-            binding.linearDescription.setBackgroundResource(R.drawable.red_line);
-        }
-        else if(score < 30000){
-            binding.linearDescription.setBackgroundResource(R.drawable.orange_line);
-        }
-        else if(score < 50000){
-            binding.linearDescription.setBackgroundResource(R.drawable.violete_line);
-        }
-        else{
-            binding.linearDescription.setBackgroundResource(R.drawable.blue_green_line);
-        }
+
+        binding.linearDescription.setVisibility(View.VISIBLE);
+        binding.linkLine.setVisibility(View.INVISIBLE);
+        binding.otherLine.setVisibility(View.INVISIBLE);
+
 
         Bundle arguments = getIntent().getExtras();
         assert arguments != null;
@@ -137,56 +116,16 @@ public class EditProject extends AppCompatActivity {
         binding.linksFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(score < 100){
-                    binding.linearDescription.setBackgroundColor(0);
-                    binding.linkLine.setBackgroundResource(R.drawable.blue_line);
-                    binding.otherLine.setBackgroundColor(0);
-                }
-                else if(score < 300){
-                    binding.linearDescription.setBackgroundColor(0);
-                    binding.linkLine.setBackgroundResource(R.drawable.green_line);
-                    binding.otherLine.setBackgroundColor(0);
-                }
-                else if(score < 1000){
-                    binding.linearDescription.setBackgroundColor(0);
-                    binding.linkLine.setBackgroundResource(R.drawable.brown_line);
-                    binding.otherLine.setBackgroundColor(0);
-                }
-                else if(score < 2500){
-                    binding.linearDescription.setBackgroundColor(0);
-                    binding.linkLine.setBackgroundResource(R.drawable.light_gray_line);
-                    binding.otherLine.setBackgroundColor(0);
-                }
-                else if(score < 7000){
-                    binding.linearDescription.setBackgroundColor(0);
-                    binding.linkLine.setBackgroundResource(R.drawable.ohra_line);
-                    binding.otherLine.setBackgroundColor(0);
-                }
-                else if(score < 17000){
-                    binding.linearDescription.setBackgroundColor(0);
-                    binding.linkLine.setBackgroundResource(R.drawable.red_line);
-                    binding.otherLine.setBackgroundColor(0);
-                }
-                else if(score < 30000){
-                    binding.linearDescription.setBackgroundColor(0);
-                    binding.linkLine.setBackgroundResource(R.drawable.orange_line);
-                    binding.otherLine.setBackgroundColor(0);
-                }
-                else if(score < 50000){
-                    binding.linearDescription.setBackgroundColor(0);
-                    binding.linkLine.setBackgroundResource(R.drawable.violete_line);
-                    binding.otherLine.setBackgroundColor(0);
-                }
-                else{
-                    binding.linearDescription.setBackgroundColor(0);
-                    binding.linkLine.setBackgroundResource(R.drawable.blue_green_line);
-                    binding.otherLine.setBackgroundColor(0);
-                }
+                binding.linkLine.setVisibility(View.VISIBLE);
+                binding.linearDescription.setVisibility(View.INVISIBLE);
+                binding.otherLine.setVisibility(View.INVISIBLE);
+
                 if (binding.blockMenu.getVisibility() == View.VISIBLE) {
                     binding.blockMenu.setVisibility(View.GONE);
                     final Animation hide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_delete2);
                     binding.blockMenu.startAnimation(hide);
                 }
+
                 getSupportFragmentManager().beginTransaction()
                         .show(fragmentLink)
                         .hide(fragmentDescr)
@@ -197,56 +136,16 @@ public class EditProject extends AppCompatActivity {
         binding.descriptionFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(score < 100){
-                    binding.linkLine.setBackgroundColor(0);
-                    binding.linearDescription.setBackgroundResource(R.drawable.blue_line);
-                    binding.otherLine.setBackgroundColor(0);
-                }
-                else if(score < 300){
-                    binding.linkLine.setBackgroundColor(0);
-                    binding.linearDescription.setBackgroundResource(R.drawable.green_line);
-                    binding.otherLine.setBackgroundColor(0);
-                }
-                else if(score < 1000){
-                    binding.linkLine.setBackgroundColor(0);
-                    binding.linearDescription.setBackgroundResource(R.drawable.brown_line);
-                    binding.otherLine.setBackgroundColor(0);
-                }
-                else if(score < 2500){
-                    binding.linkLine.setBackgroundColor(0);
-                    binding.linearDescription.setBackgroundResource(R.drawable.light_gray_line);
-                    binding.otherLine.setBackgroundColor(0);
-                }
-                else if(score < 7000){
-                    binding.linkLine.setBackgroundColor(0);
-                    binding.linearDescription.setBackgroundResource(R.drawable.ohra_line);
-                    binding.otherLine.setBackgroundColor(0);
-                }
-                else if(score < 17000){
-                    binding.linkLine.setBackgroundColor(0);
-                    binding.linearDescription.setBackgroundResource(R.drawable.red_line);
-                    binding.otherLine.setBackgroundColor(0);
-                }
-                else if(score < 30000){
-                    binding.linkLine.setBackgroundColor(0);
-                    binding.linearDescription.setBackgroundResource(R.drawable.orange_line);
-                    binding.otherLine.setBackgroundColor(0);
-                }
-                else if(score < 50000){
-                    binding.linkLine.setBackgroundColor(0);
-                    binding.linearDescription.setBackgroundResource(R.drawable.violete_line);
-                    binding.otherLine.setBackgroundColor(0);
-                }
-                else{
-                    binding.linkLine.setBackgroundColor(0);
-                    binding.linearDescription.setBackgroundResource(R.drawable.blue_green_line);
-                    binding.otherLine.setBackgroundColor(0);
-                }
+                binding.linearDescription.setVisibility(View.VISIBLE);
+                binding.linkLine.setVisibility(View.INVISIBLE);
+                binding.otherLine.setVisibility(View.INVISIBLE);
+
                 if (binding.blockMenu.getVisibility() == View.VISIBLE) {
                     binding.blockMenu.setVisibility(View.GONE);
                     final Animation hide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_delete2);
                     binding.blockMenu.startAnimation(hide);
                 }
+
                 getSupportFragmentManager().beginTransaction()
                         .show(fragmentDescr)
                         .hide(fragmentLink)
@@ -257,56 +156,16 @@ public class EditProject extends AppCompatActivity {
         binding.otherFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(score < 100){
-                    binding.linearDescription.setBackgroundColor(0);
-                    binding.otherLine.setBackgroundResource(R.drawable.blue_line);
-                    binding.linkLine.setBackgroundColor(0);
-                }
-                else if(score < 300){
-                    binding.linearDescription.setBackgroundColor(0);
-                    binding.otherLine.setBackgroundResource(R.drawable.green_line);
-                    binding.linkLine.setBackgroundColor(0);
-                }
-                else if(score < 1000){
-                    binding.linearDescription.setBackgroundColor(0);
-                    binding.otherLine.setBackgroundResource(R.drawable.brown_line);
-                    binding.linkLine.setBackgroundColor(0);
-                }
-                else if(score < 2500){
-                    binding.linearDescription.setBackgroundColor(0);
-                    binding.otherLine.setBackgroundResource(R.drawable.light_gray_line);
-                    binding.linkLine.setBackgroundColor(0);
-                }
-                else if(score < 7000){
-                    binding.linearDescription.setBackgroundColor(0);
-                    binding.otherLine.setBackgroundResource(R.drawable.ohra_line);
-                    binding.linkLine.setBackgroundColor(0);
-                }
-                else if(score < 17000){
-                    binding.linearDescription.setBackgroundColor(0);
-                    binding.otherLine.setBackgroundResource(R.drawable.red_line);
-                    binding.linkLine.setBackgroundColor(0);
-                }
-                else if(score < 30000){
-                    binding.linearDescription.setBackgroundColor(0);
-                    binding.otherLine.setBackgroundResource(R.drawable.orange_line);
-                    binding.linkLine.setBackgroundColor(0);
-                }
-                else if(score < 50000){
-                    binding.linearDescription.setBackgroundColor(0);
-                    binding.otherLine.setBackgroundResource(R.drawable.violete_line);
-                    binding.linkLine.setBackgroundColor(0);
-                }
-                else{
-                    binding.linearDescription.setBackgroundColor(0);
-                    binding.otherLine.setBackgroundResource(R.drawable.blue_green_line);
-                    binding.linksFragment.setBackgroundColor(0);
-                }
+                binding.otherLine.setVisibility(View.VISIBLE);
+                binding.linkLine.setVisibility(View.INVISIBLE);
+                binding.linearDescription.setVisibility(View.INVISIBLE);
+
                 if (binding.blockMenu.getVisibility() == View.VISIBLE) {
                     binding.blockMenu.setVisibility(View.GONE);
                     final Animation hide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_delete2);
                     binding.blockMenu.startAnimation(hide);
                 }
+
                 getSupportFragmentManager().beginTransaction()
                         .show(fragmentOther)
                         .hide(fragmentDescr)
@@ -604,6 +463,41 @@ public class EditProject extends AppCompatActivity {
         intent.putExtra("projectUrlPhoto", prPhoto);
         intent.putExtra("projectId", id);
         startActivity(intent);
+    }
+
+    public void setThemeActivity(){
+        int themeType = UsersChosenTheme.getThemeNum();
+
+        switch (themeType) {
+            case (1):
+                setTheme(R.style.Theme_ITCollabHub_Blue);
+                break;
+            case (2):
+                setTheme(R.style.Theme_ITCollabHub_Green);
+                break;
+            case (3):
+                setTheme(R.style.Theme_ITCollabHub_Brown);
+                break;
+            case (4):
+                setTheme(R.style.Theme_ITCollabHub_PinkGold);
+                break;
+            case (5):
+                setTheme(R.style.Theme_ITCollabHub_Ohra);
+                break;
+            case (6):
+                setTheme(R.style.Theme_ITCollabHub_Red);
+                break;
+            case (7):
+                setTheme(R.style.Theme_ITCollabHub_Orange);
+                break;
+            case (8):
+                setTheme(R.style.Theme_ITCollabHub_Violete);
+                break;
+            case (9):
+                setTheme(R.style.Theme_ITCollabHub_BlueGreen);
+                break;
+        }
+
     }
 
 }

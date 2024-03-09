@@ -57,6 +57,7 @@ public class CreateProject extends AppCompatActivity {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setThemeActivity();
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         String mail = sPref.getString("UserMail", "");
         score = sPref.getInt("UserScore", 0);
@@ -72,34 +73,6 @@ public class CreateProject extends AppCompatActivity {
         Button sendProject = findViewById(R.id.send);
         ImageView newInform = findViewById(R.id.newInformation);
         SwitchMaterial demo = findViewById(R.id.demoProjectSwitch);
-
-        if(score < 100){
-            sendProject.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject.this, R.color.blue));
-        }
-        else if(score < 300){
-            sendProject.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject.this, R.color.green));
-        }
-        else if(score < 1000){
-            sendProject.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject.this, R.color.brown));
-        }
-        else if(score < 2500){
-            sendProject.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject.this, R.color.light_gray));
-        }
-        else if(score < 7000){
-            sendProject.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject.this, R.color.ohra));
-        }
-        else if(score < 17000){
-            sendProject.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject.this, R.color.red));
-        }
-        else if(score < 30000){
-            sendProject.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject.this, R.color.orange));
-        }
-        else if(score < 50000){
-            sendProject.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject.this, R.color.violete));
-        }
-        else{
-            sendProject.setBackgroundTintList(ContextCompat.getColorStateList(CreateProject.this, R.color.main_green));
-        }
 
         if(Build.VERSION.SDK_INT >= 33) {
             Img.setOnClickListener(view -> pickImage());
@@ -260,5 +233,40 @@ public class CreateProject extends AppCompatActivity {
 
     public int getScore(){
         return score;
+    }
+
+    public void setThemeActivity(){
+        int themeType = UsersChosenTheme.getThemeNum();
+
+        switch (themeType) {
+            case (1):
+                setTheme(R.style.Theme_ITCollabHub_Blue);
+                break;
+            case (2):
+                setTheme(R.style.Theme_ITCollabHub_Green);
+                break;
+            case (3):
+                setTheme(R.style.Theme_ITCollabHub_Brown);
+                break;
+            case (4):
+                setTheme(R.style.Theme_ITCollabHub_PinkGold);
+                break;
+            case (5):
+                setTheme(R.style.Theme_ITCollabHub_Ohra);
+                break;
+            case (6):
+                setTheme(R.style.Theme_ITCollabHub_Red);
+                break;
+            case (7):
+                setTheme(R.style.Theme_ITCollabHub_Orange);
+                break;
+            case (8):
+                setTheme(R.style.Theme_ITCollabHub_Violete);
+                break;
+            case (9):
+                setTheme(R.style.Theme_ITCollabHub_BlueGreen);
+                break;
+        }
+
     }
 }

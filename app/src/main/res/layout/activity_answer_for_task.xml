@@ -10,7 +10,7 @@
         android:id="@+id/bguser"
         android:layout_width="0dp"
         android:layout_height="200dp"
-        android:background="@drawable/gradient_blue"
+        android:background="?userBackgroundColor"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_default="spread"
@@ -161,7 +161,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/textView53"
                 app:layout_constraintStart_toEndOf="@+id/textView53"
                 app:layout_constraintTop_toTopOf="@+id/textView53"
-                app:srcCompat="@drawable/violete_add" />
+                app:srcCompat="?addButtonColor" />
 
             <EditText
                 android:id="@+id/linkTitle"
@@ -194,7 +194,7 @@
                 android:id="@+id/addLink"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/violete"
+                android:backgroundTint="?buttonColor"
                 android:text="Добавить"
                 android:textColor="@color/white"
                 app:cornerRadius="15dp"

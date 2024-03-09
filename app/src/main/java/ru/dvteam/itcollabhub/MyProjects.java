@@ -83,52 +83,6 @@ public class MyProjects extends Fragment {
                         TextView percent = custom.findViewById(R.id.textView16);
                         ProgressBar lvl = custom.findViewById(R.id.lvl);
 
-                        if(score < 100){
-                            Drawable progressDrawable = getResources().getDrawable(R.drawable.circular_progress_bar_green2);
-                            lvl.setBackgroundResource(R.drawable.progress_circle_blue2);
-                            lvl.setProgressDrawable(progressDrawable);
-                        }
-                        else if(score < 300){
-                            Drawable progressDrawable = getResources().getDrawable(R.drawable.circular_progress_bar_brown2);
-                            lvl.setBackgroundResource(R.drawable.progress_circle_green2);
-                            lvl.setProgressDrawable(progressDrawable);
-                        }
-                        else if(score < 1000){
-                            Drawable progressDrawable = getResources().getDrawable(R.drawable.circular_progress_bar_light_gray2);
-                            lvl.setBackgroundResource(R.drawable.progress_circle_brown2);
-                            lvl.setProgressDrawable(progressDrawable);
-                        }
-                        else if(score < 2500){
-                            Drawable progressDrawable = getResources().getDrawable(R.drawable.circular_progress_bar_ohra2);
-                            lvl.setBackgroundResource(R.drawable.progress_circle_light_gray2);
-                            lvl.setProgressDrawable(progressDrawable);
-                        }
-                        else if(score < 7000){
-                            Drawable progressDrawable = getResources().getDrawable(R.drawable.circular_progress_bar_red2);
-                            lvl.setBackgroundResource(R.drawable.progress_circle_ohra2);
-                            lvl.setProgressDrawable(progressDrawable);
-                        }
-                        else if(score < 17000){
-                            Drawable progressDrawable = getResources().getDrawable(R.drawable.circular_progress_bar_orange2);
-                            lvl.setBackgroundResource(R.drawable.progress_circle_red2);
-                            lvl.setProgressDrawable(progressDrawable);
-                        }
-                        else if(score < 30000){
-                            Drawable progressDrawable = getResources().getDrawable(R.drawable.circular_progress_bar_violete2);
-                            lvl.setBackgroundResource(R.drawable.progress_circle_orange2);
-                            lvl.setProgressDrawable(progressDrawable);
-                        }
-                        else if(score < 50000){
-                            Drawable progressDrawable = getResources().getDrawable(R.drawable.circular_progress_bar_blue_green2);
-                            lvl.setBackgroundResource(R.drawable.progress_circle_violete2);
-                            lvl.setProgressDrawable(progressDrawable);
-                        }
-                        else{
-                            Drawable progressDrawable = getResources().getDrawable(R.drawable.circular_progress_bar_blue_green2);
-                            lvl.setBackgroundResource(R.drawable.progress_circle_blue_green2);
-                            lvl.setProgressDrawable(progressDrawable);
-                        }
-
                         lvl.setProgress(Integer.parseInt(percents[i]));
                         percent.setText(percents[i] + ".0%");
 

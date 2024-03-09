@@ -19,6 +19,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -49,6 +50,7 @@ public class Problems extends AppCompatActivity {
     String projectTitle, photoProject, prId, mail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setThemeActivity();
         super.onCreate(savedInstanceState);
 
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
@@ -60,53 +62,16 @@ public class Problems extends AppCompatActivity {
         setContentView(binding.getRoot());
         registerResult();
 
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
+        int color = ContextCompat.getColor(Problems.this, typedValue.resourceId);
+        getWindow().setStatusBarColor(color);
+
         binding.blockMenu.setVisibility(View.GONE);
 
         binding.blockMenu.setVisibility(View.VISIBLE);
         final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add2);
         binding.blockMenu.startAnimation(show);
-
-        if(score < 100){
-            binding.bguser.setBackgroundResource(R.drawable.gradient_blue);
-            getWindow().setStatusBarColor(ContextCompat.getColor(Problems.this,R.color.blue));
-        }
-        else if(score < 300){
-            binding.bguser.setBackgroundResource(R.drawable.gradient_green);
-            getWindow().setStatusBarColor(ContextCompat.getColor(Problems.this,R.color.green));
-        }
-        else if(score < 1000){
-            binding.bguser.setBackgroundResource(R.drawable.gradient_brown);
-            getWindow().setStatusBarColor(ContextCompat.getColor(Problems.this,R.color.brown));
-        }
-        else if(score < 2500){
-            binding.bguser.setBackgroundResource(R.drawable.gradient_light_gray);
-            getWindow().setStatusBarColor(ContextCompat.getColor(Problems.this,R.color.light_gray));
-        }
-        else if(score < 7000){
-            binding.bguser.setBackgroundResource(R.drawable.gradient_ohra);
-            getWindow().setStatusBarColor(ContextCompat.getColor(Problems.this,R.color.ohra));
-        }
-        else if(score < 17000){
-            binding.bguser.setBackgroundResource(R.drawable.gradient_red);
-            getWindow().setStatusBarColor(ContextCompat.getColor(Problems.this,R.color.red));
-        }
-        else if(score < 30000){
-            binding.bguser.setBackgroundResource(R.drawable.gradient_orange);
-            getWindow().setStatusBarColor(ContextCompat.getColor(Problems.this,R.color.orange));
-        }
-        else if(score < 50000){
-            binding.bguser.setBackgroundResource(R.drawable.gradient_violete);
-            getWindow().setStatusBarColor(ContextCompat.getColor(Problems.this,R.color.violete));
-        }
-        else{
-            binding.bguser.setBackgroundResource(R.drawable.gradient_blue_green);
-            getWindow().setStatusBarColor(ContextCompat.getColor(Problems.this,R.color.main_green));
-        }
-
-
-        /*Glide.with(this)
-                .load("https://serveritcollabhub.development-team.ru/project_image/moaiitcollabhub.png")
-                .into(binding.textView8);*/
 
         Bundle arguments = getIntent().getExtras();
 
@@ -390,5 +355,40 @@ public class Problems extends AppCompatActivity {
         super.onRestart();
         binding.reminderPlace.removeAllViews();
         postProblems();
+    }
+
+    public void setThemeActivity(){
+        int themeType = UsersChosenTheme.getThemeNum();
+
+        switch (themeType) {
+            case (1):
+                setTheme(R.style.Theme_ITCollabHub_Blue);
+                break;
+            case (2):
+                setTheme(R.style.Theme_ITCollabHub_Green);
+                break;
+            case (3):
+                setTheme(R.style.Theme_ITCollabHub_Brown);
+                break;
+            case (4):
+                setTheme(R.style.Theme_ITCollabHub_PinkGold);
+                break;
+            case (5):
+                setTheme(R.style.Theme_ITCollabHub_Ohra);
+                break;
+            case (6):
+                setTheme(R.style.Theme_ITCollabHub_Red);
+                break;
+            case (7):
+                setTheme(R.style.Theme_ITCollabHub_Orange);
+                break;
+            case (8):
+                setTheme(R.style.Theme_ITCollabHub_Violete);
+                break;
+            case (9):
+                setTheme(R.style.Theme_ITCollabHub_BlueGreen);
+                break;
+        }
+
     }
 }

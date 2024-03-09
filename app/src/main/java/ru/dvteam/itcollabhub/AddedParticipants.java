@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -41,44 +42,48 @@ public class AddedParticipants extends Fragment {
         String ids = createProject2.getPeoplesIds();
         String[] idsArr = ids.split(",");
 
-        PostDatas post = new PostDatas();
-        post.postDataGetAddedPeoples("GetProjectAddsUsers", ids, new CallBackInt1() {
-            @Override
-            public void invoke(String res, String name) {
-                String[] namesArr = res.split("\uD83D\uDD70");
-                String[] photosArr = name.split("\uD83D\uDD70");
-                for(int i = 0; i < namesArr.length; i++){
-                    View custom = getLayoutInflater().inflate(R.layout.friend_window, null);
-                    TextView nameu = (TextView) custom.findViewById(R.id.textView3);
-                    ImageView loadImage = (ImageView) custom.findViewById(R.id.log);
-                    ImageView userCircle = (ImageView) custom.findViewById(R.id.user_circle);
-                    TextView project1 = (TextView) custom.findViewById(R.id.projects1);
-                    project1.setVisibility(View.GONE);
-                    ImageView messege = (ImageView) custom.findViewById(R.id.notban);
-                    messege.setImageResource(R.drawable.delete_black);
-                    userCircle.setVisibility(View.GONE);
-                    System.out.println(photosArr[i]);
+        if(ids.isEmpty()){
+            Toast.makeText(createProject2, "Вы никого не добавили", Toast.LENGTH_SHORT).show();
+        }else {
+            PostDatas post = new PostDatas();
+            post.postDataGetAddedPeoples("GetProjectAddsUsers", ids, new CallBackInt1() {
+                @Override
+                public void invoke(String res, String name) {
+                    String[] namesArr = res.split("\uD83D\uDD70");
+                    String[] photosArr = name.split("\uD83D\uDD70");
+                    for (int i = 0; i < namesArr.length; i++) {
+                        View custom = getLayoutInflater().inflate(R.layout.friend_window, null);
+                        TextView nameu = (TextView) custom.findViewById(R.id.textView3);
+                        ImageView loadImage = (ImageView) custom.findViewById(R.id.log);
+                        ImageView userCircle = (ImageView) custom.findViewById(R.id.user_circle);
+                        TextView project1 = (TextView) custom.findViewById(R.id.projects1);
+                        project1.setVisibility(View.GONE);
+                        ImageView messege = (ImageView) custom.findViewById(R.id.notban);
+                        messege.setImageResource(R.drawable.delete_black);
+                        userCircle.setVisibility(View.GONE);
+                        System.out.println(photosArr[i]);
 
-                    Glide
-                            .with(AddedParticipants.this)
-                            .load(photosArr[i])
-                            .into(loadImage);
-                    nameu.setText(namesArr[i]);
+                        Glide
+                                .with(AddedParticipants.this)
+                                .load(photosArr[i])
+                                .into(loadImage);
+                        nameu.setText(namesArr[i]);
 
-                    int finalI = i;
-                    messege.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            createProject2.delPeople(idsArr[finalI]);
-                            binding.linMain.removeView(custom);
-                        }
-                    });
+                        int finalI = i;
+                        messege.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                createProject2.delPeople(idsArr[finalI]);
+                                binding.linMain.removeView(custom);
+                            }
+                        });
 
-                    binding.linMain.addView(custom);
+                        binding.linMain.addView(custom);
+                    }
+                    View empty = getLayoutInflater().inflate(R.layout.emty_obj, null);
+                    binding.linMain.addView(empty);
                 }
-                View empty = getLayoutInflater().inflate(R.layout.emty_obj, null);
-                binding.linMain.addView(empty);
-            }
-        });
+            });
+        }
     }
 }

@@ -22,6 +22,7 @@
         android:gravity="center"
         android:text="Следующая цель: бронзовый пользователь"
         android:textSize="12sp"
+        android:textColor="?secondTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/status" />
@@ -33,6 +34,7 @@
         android:layout_marginTop="-3dp"
         android:gravity="center"
         android:text="До следующей цели: 25"
+        android:textColor="?secondTextColor"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,9 +45,9 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="190dp"
         android:layout_height="190dp"
-        android:background="@drawable/progress_circle_blue"
+        android:background="?circleProgressBackground"
         android:indeterminate="false"
-        android:progressDrawable="@drawable/circular_progress_bar_green"
+        android:progressDrawable="?circleProgressDrawable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nextScore" />

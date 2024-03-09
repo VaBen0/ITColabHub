@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -40,6 +41,24 @@ public class Advertisment extends AppCompatActivity {
         String problemName = arguments.getString("problemName");
         String problemDescription = arguments.getString("problemDescription");
 
+        long millis = 259200000;
+
+        new CountDownTimer(millis, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                long allSeconds = millisUntilFinished / 1000;
+                long seconds = allSeconds % 60;
+                long minutes = (allSeconds / 60) % 60;
+                long hours = (allSeconds / 3600) % 24;
+                long days = (allSeconds / 3600) / 24;
+                binding.timer.setText(String.format("%02d:%02d:%02d:%02d", days, hours, minutes, seconds));
+            }
+
+            public void onFinish() {
+                binding.timer.setText("А всё)");
+            }
+
+        }.start();
 
         binding.nameProject.setText(projectTitle);
         binding.problemTitle.setText(problemName);

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,8 +22,14 @@ public class ProjectRequests extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setThemeActivity();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_requests);
+
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
+        int color = ContextCompat.getColor(ProjectRequests.this, typedValue.resourceId);
+        getWindow().setStatusBarColor(color);
 
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         String mail = sPref.getString("UserMail", "");
@@ -30,51 +37,6 @@ public class ProjectRequests extends AppCompatActivity {
 
         ImageView bguser = findViewById(R.id.bguser);
 
-        if(score < 100){
-            bguser.setBackgroundResource(R.drawable.gradient_blue);
-            selectedColor = Color.parseColor("#B20000FF");
-            getWindow().setStatusBarColor(ContextCompat.getColor(ProjectRequests.this,R.color.blue));
-        }
-        else if(score < 300){
-            bguser.setBackgroundResource(R.drawable.gradient_green);
-            selectedColor = Color.parseColor("#B21AFF00");
-            getWindow().setStatusBarColor(ContextCompat.getColor(ProjectRequests.this,R.color.green));
-        }
-        else if(score < 1000){
-            bguser.setBackgroundResource(R.drawable.gradient_brown);
-            selectedColor = Color.parseColor("#FFCC7722");
-            getWindow().setStatusBarColor(ContextCompat.getColor(ProjectRequests.this,R.color.brown));
-        }
-        else if(score < 2500){
-            bguser.setBackgroundResource(R.drawable.gradient_light_gray);
-            selectedColor = Color.parseColor("#B2B5B5B5");
-            getWindow().setStatusBarColor(ContextCompat.getColor(ProjectRequests.this,R.color.light_gray));
-        }
-        else if(score < 7000){
-            bguser.setBackgroundResource(R.drawable.gradient_ohra);
-            selectedColor = Color.parseColor("#FFE8AA0E");
-            getWindow().setStatusBarColor(ContextCompat.getColor(ProjectRequests.this,R.color.ohra));
-        }
-        else if(score < 17000){
-            bguser.setBackgroundResource(R.drawable.gradient_red);
-            selectedColor = Color.parseColor("#FF0000");
-            getWindow().setStatusBarColor(ContextCompat.getColor(ProjectRequests.this,R.color.red));
-        }
-        else if(score < 30000){
-            bguser.setBackgroundResource(R.drawable.gradient_orange);
-            selectedColor = Color.parseColor("#FFCC7722");
-            getWindow().setStatusBarColor(ContextCompat.getColor(ProjectRequests.this,R.color.orange));
-        }
-        else if(score < 50000){
-            bguser.setBackgroundResource(R.drawable.gradient_violete);
-            selectedColor = Color.parseColor("#4F0070");
-            getWindow().setStatusBarColor(ContextCompat.getColor(ProjectRequests.this,R.color.violete));
-        }
-        else{
-            bguser.setBackgroundResource(R.drawable.gradient_blue_green);
-            selectedColor = Color.parseColor("#FF00C6A2");
-            getWindow().setStatusBarColor(ContextCompat.getColor(ProjectRequests.this,R.color.main_green));
-        }
 
         LinearLayout main = findViewById(R.id.main);
 
@@ -146,5 +108,40 @@ public class ProjectRequests extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void setThemeActivity(){
+        int themeType = UsersChosenTheme.getThemeNum();
+
+        switch (themeType) {
+            case (1):
+                setTheme(R.style.Theme_ITCollabHub_Blue);
+                break;
+            case (2):
+                setTheme(R.style.Theme_ITCollabHub_Green);
+                break;
+            case (3):
+                setTheme(R.style.Theme_ITCollabHub_Brown);
+                break;
+            case (4):
+                setTheme(R.style.Theme_ITCollabHub_PinkGold);
+                break;
+            case (5):
+                setTheme(R.style.Theme_ITCollabHub_Ohra);
+                break;
+            case (6):
+                setTheme(R.style.Theme_ITCollabHub_Red);
+                break;
+            case (7):
+                setTheme(R.style.Theme_ITCollabHub_Orange);
+                break;
+            case (8):
+                setTheme(R.style.Theme_ITCollabHub_Violete);
+                break;
+            case (9):
+                setTheme(R.style.Theme_ITCollabHub_BlueGreen);
+                break;
+        }
+
     }
 }

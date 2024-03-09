@@ -10,7 +10,7 @@
         android:id="@+id/bguser"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/gradient_blue"
+        android:background="?userBackgroundColor"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@+id/score"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +84,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="82dp"
-        android:background="@drawable/circle_blue"
+        android:background="?userCircleColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -108,7 +108,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:gravity="center|top"
-        android:textColor="#0000FF"
+        android:textColor="?secondTextColor"
         android:text="Ваши очки: 0"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -146,6 +146,7 @@
 
             <View
                 android:id="@+id/linear_projects"
+                android:background="?fragmentLines"
                 android:layout_width="150dp"
                 android:layout_height="3dp"
                 android:layout_gravity="center"/>
@@ -169,6 +170,7 @@
 
             <View
                 android:id="@+id/linear_friends"
+                android:background="?fragmentLines"
                 android:layout_width="114dp"
                 android:layout_height="3dp"
                 android:layout_gravity="center"/>
@@ -176,110 +178,19 @@
         </LinearLayout>
     </LinearLayout>
 
-    <fragment
-        android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/editProfileFragmentContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
         app:defaultNavHost="false"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_default="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintWidth_default="spread"
-        app:navGraph="@navigation/edit_profile" />
-
-    <LinearLayout
-        android:id="@+id/bottom_menu"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-
-        <View
-            android:id="@+id/line"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@color/s_gray" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:id="@+id/forum_menu"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="28dp"
-                    android:src="@drawable/forum" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Форум"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/project_menu"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="28dp"
-                    android:src="@drawable/projects" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Проекты"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/profile_menu"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="28dp"
-                    android:src="@drawable/profile" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Профиль"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-        </LinearLayout>
-
-    </LinearLayout>
+        app:layout_constraintWidth_default="spread" />
 
     <View
         android:id="@+id/view3"

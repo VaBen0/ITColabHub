@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -24,11 +25,17 @@ public class UsersProjectDemo extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setThemeActivity();
         super.onCreate(savedInstanceState);
 
         binding = ActivityUsersProjectDemoBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
+
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
+        int color = ContextCompat.getColor(UsersProjectDemo.this, typedValue.resourceId);
+        getWindow().setStatusBarColor(color);
 
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         titleDemo = sPref.getString("DemoProjectTitle", "");
@@ -37,61 +44,6 @@ public class UsersProjectDemo extends AppCompatActivity {
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-
-        if(score < 100){
-            Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_bgreen);
-            binding.projectProgress.setBackgroundResource(R.drawable.custom_progress_bar_bgreen);
-            binding.projectProgress.setProgressDrawable(progressDrawable);
-            binding.controlPanelMove.setBackgroundTintList(ContextCompat.getColorStateList(UsersProjectDemo.this, R.color.blue));
-        }
-        else if(score < 300){
-            Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_gbrown);
-            binding.projectProgress.setBackgroundResource(R.drawable.custom_progress_bar_gbrown);
-            binding.projectProgress.setProgressDrawable(progressDrawable);
-            binding.controlPanelMove.setBackgroundTintList(ContextCompat.getColorStateList(UsersProjectDemo.this, R.color.green));
-        }
-        else if(score < 1000){
-            Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_brlg);
-            binding.projectProgress.setBackgroundResource(R.drawable.custom_progress_bar_brlg);
-            binding.projectProgress.setProgressDrawable(progressDrawable);
-            binding.controlPanelMove.setBackgroundTintList(ContextCompat.getColorStateList(UsersProjectDemo.this, R.color.brown));
-        }
-        else if(score < 2500){
-            Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_lgoh);
-            binding.projectProgress.setBackgroundResource(R.drawable.custom_progress_bar_lgoh);
-            binding.projectProgress.setProgressDrawable(progressDrawable);
-            binding.controlPanelMove.setBackgroundTintList(ContextCompat.getColorStateList(UsersProjectDemo.this, R.color.light_gray));
-        }
-        else if(score < 7000){
-            Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_ohred);
-            binding.projectProgress.setBackgroundResource(R.drawable.custom_progress_bar_ohred);
-            binding.projectProgress.setProgressDrawable(progressDrawable);
-            binding.controlPanelMove.setBackgroundTintList(ContextCompat.getColorStateList(UsersProjectDemo.this, R.color.ohra));
-        }
-        else if(score < 17000) {
-            Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_redora);
-            binding.projectProgress.setBackgroundResource(R.drawable.custom_progress_bar_redora);
-            binding.projectProgress.setProgressDrawable(progressDrawable);
-            binding.controlPanelMove.setBackgroundTintList(ContextCompat.getColorStateList(UsersProjectDemo.this, R.color.red));
-        }
-        else if(score < 30000){
-            Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_vo);
-            binding.projectProgress.setBackgroundResource(R.drawable.custom_progress_bar_vo);
-            binding.projectProgress.setProgressDrawable(progressDrawable);
-            binding.controlPanelMove.setBackgroundTintList(ContextCompat.getColorStateList(UsersProjectDemo.this, R.color.orange));
-        }
-        else if(score < 50000){
-            Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_violetbluegreen);
-            binding.projectProgress.setBackgroundResource(R.drawable.custom_progress_bar_violetbluegreen);
-            binding.projectProgress.setProgressDrawable(progressDrawable);
-            binding.controlPanelMove.setBackgroundTintList(ContextCompat.getColorStateList(UsersProjectDemo.this, R.color.violete));
-        }
-        else{
-            Drawable progressDrawable = getResources().getDrawable(R.drawable.custom_progress_bar_violetbluegreen);
-            binding.projectProgress.setBackgroundResource(R.drawable.custom_progress_bar_violetbluegreen);
-            binding.projectProgress.setProgressDrawable(progressDrawable);
-            binding.controlPanelMove.setBackgroundTintList(ContextCompat.getColorStateList(UsersProjectDemo.this, R.color.main_green));
-        }
 
         binding.description.setText(descriptionDemo);
         binding.projectName.setText(titleDemo);
@@ -124,5 +76,40 @@ public class UsersProjectDemo extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public void setThemeActivity(){
+        int themeType = UsersChosenTheme.getThemeNum();
+
+        switch (themeType) {
+            case (1):
+                setTheme(R.style.Theme_ITCollabHub_Blue);
+                break;
+            case (2):
+                setTheme(R.style.Theme_ITCollabHub_Green);
+                break;
+            case (3):
+                setTheme(R.style.Theme_ITCollabHub_Brown);
+                break;
+            case (4):
+                setTheme(R.style.Theme_ITCollabHub_PinkGold);
+                break;
+            case (5):
+                setTheme(R.style.Theme_ITCollabHub_Ohra);
+                break;
+            case (6):
+                setTheme(R.style.Theme_ITCollabHub_Red);
+                break;
+            case (7):
+                setTheme(R.style.Theme_ITCollabHub_Orange);
+                break;
+            case (8):
+                setTheme(R.style.Theme_ITCollabHub_Violete);
+                break;
+            case (9):
+                setTheme(R.style.Theme_ITCollabHub_BlueGreen);
+                break;
+        }
+
     }
 }

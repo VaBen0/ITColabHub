@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionManager;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -56,6 +57,7 @@ public class CreateProject2 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setThemeActivity();
         super.onCreate(savedInstanceState);
 
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
@@ -66,7 +68,11 @@ public class CreateProject2 extends AppCompatActivity {
 
         setContentView(binding.getRoot());
 
-        setActivityFormat();
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
+        int color = ContextCompat.getColor(CreateProject2.this, typedValue.resourceId);
+        getWindow().setStatusBarColor(color);
+
         Bundle arguments = getIntent().getExtras();
 
         assert arguments != null;
@@ -79,6 +85,8 @@ public class CreateProject2 extends AppCompatActivity {
             Uri uri = Uri.parse(uriPath);
             binding.prLogo.setImageURI(uri);
         }
+        binding.linearFriends.setVisibility(View.INVISIBLE);
+        binding.linearProjects.setVisibility(View.VISIBLE);
         
         binding.nameProject.setText(title);
 
@@ -87,43 +95,8 @@ public class CreateProject2 extends AppCompatActivity {
         binding.adParticipiant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(score < 100){
-                    binding.linearProjects.setBackgroundColor(0);
-                    binding.linearFriends.setBackgroundResource(R.drawable.blue_line);
-                }
-                else if(score < 300){
-                    binding.linearProjects.setBackgroundColor(0);
-                    binding.linearFriends.setBackgroundResource(R.drawable.green_line);
-                }
-                else if(score < 1000){
-                    binding.linearProjects.setBackgroundColor(0);
-                    binding.linearFriends.setBackgroundResource(R.drawable.brown_line);
-                }
-                else if(score < 2500){
-                    binding.linearProjects.setBackgroundColor(0);
-                    binding.linearFriends.setBackgroundResource(R.drawable.light_gray_line);
-                }
-                else if(score < 7000){
-                    binding.linearProjects.setBackgroundColor(0);
-                    binding.linearFriends.setBackgroundResource(R.drawable.ohra_line);
-                }
-                else if(score < 17000){
-                    binding.linearProjects.setBackgroundColor(0);
-                    binding.linearFriends.setBackgroundResource(R.drawable.red_line);
-                }
-                else if(score < 30000){
-                    binding.linearProjects.setBackgroundColor(0);
-                    binding.linearFriends.setBackgroundResource(R.drawable.orange_line);
-                }
-                else if(score < 50000){
-                    binding.linearProjects.setBackgroundColor(0);
-                    binding.linearFriends.setBackgroundResource(R.drawable.violete_line);
-                }
-                else{
-                    binding.linearProjects.setBackgroundColor(0);
-                    binding.linearFriends.setBackgroundResource(R.drawable.blue_green_line);
-                }
+                binding.linearProjects.setVisibility(View.INVISIBLE);
+                binding.linearFriends.setVisibility(View.VISIBLE);
 
                 Bundle bundle = new Bundle();
                 bundle.putString("mail", mail);
@@ -133,42 +106,9 @@ public class CreateProject2 extends AppCompatActivity {
         binding.adActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(score < 100){
-                    binding.linearFriends.setBackgroundColor(0);
-                    binding.linearProjects.setBackgroundResource(R.drawable.blue_line);
-                }
-                else if(score < 300){
-                    binding.linearFriends.setBackgroundColor(0);
-                    binding.linearProjects.setBackgroundResource(R.drawable.green_line);
-                }
-                else if(score < 1000){
-                    binding.linearFriends.setBackgroundColor(0);
-                    binding.linearProjects.setBackgroundResource(R.drawable.brown_line);
-                }
-                else if(score < 2500){
-                    binding.linearFriends.setBackgroundColor(0);
-                    binding.linearProjects.setBackgroundResource(R.drawable.light_gray_line);
-                }
-                else if(score < 7000){
-                    binding.linearFriends.setBackgroundColor(0);
-                    binding.linearProjects.setBackgroundResource(R.drawable.ohra_line);
-                }
-                else if(score < 17000){
-                    binding.linearFriends.setBackgroundColor(0);
-                    binding.linearProjects.setBackgroundResource(R.drawable.red_line);
-                }
-                else if(score < 30000){
-                    binding.linearFriends.setBackgroundColor(0);
-                    binding.linearProjects.setBackgroundResource(R.drawable.orange_line);
-                }
-                else if(score < 50000){
-                    binding.linearFriends.setBackgroundColor(0);
-                    binding.linearProjects.setBackgroundResource(R.drawable.violete_line);
-                }
-                else{
-                    binding.linearFriends.setBackgroundColor(0);
-                    binding.linearProjects.setBackgroundResource(R.drawable.blue_green_line);
-                }
+                binding.linearFriends.setVisibility(View.INVISIBLE);
+                binding.linearProjects.setVisibility(View.VISIBLE);
+
                 navController.navigate(R.id.differentActivity);
             }
         });
@@ -381,5 +321,40 @@ public class CreateProject2 extends AppCompatActivity {
         idArr.remove(id);
 
         id1 = String.join(",", idArr);
+    }
+
+    public void setThemeActivity(){
+        int themeType = UsersChosenTheme.getThemeNum();
+
+        switch (themeType) {
+            case (1):
+                setTheme(R.style.Theme_ITCollabHub_Blue);
+                break;
+            case (2):
+                setTheme(R.style.Theme_ITCollabHub_Green);
+                break;
+            case (3):
+                setTheme(R.style.Theme_ITCollabHub_Brown);
+                break;
+            case (4):
+                setTheme(R.style.Theme_ITCollabHub_PinkGold);
+                break;
+            case (5):
+                setTheme(R.style.Theme_ITCollabHub_Ohra);
+                break;
+            case (6):
+                setTheme(R.style.Theme_ITCollabHub_Red);
+                break;
+            case (7):
+                setTheme(R.style.Theme_ITCollabHub_Orange);
+                break;
+            case (8):
+                setTheme(R.style.Theme_ITCollabHub_Violete);
+                break;
+            case (9):
+                setTheme(R.style.Theme_ITCollabHub_BlueGreen);
+                break;
+        }
+
     }
 }

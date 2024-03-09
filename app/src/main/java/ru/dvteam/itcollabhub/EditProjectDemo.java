@@ -25,6 +25,7 @@ public class EditProjectDemo extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setThemeActivity();
         super.onCreate(savedInstanceState);
 
         binding = ActivityEditProjectDemoBinding.inflate(getLayoutInflater());
@@ -44,15 +45,19 @@ public class EditProjectDemo extends AppCompatActivity {
         fragmentLinkDemo = Fragment.instantiate(this, EditProjectLinkDemo.class.getName());
         fragmentOtherDemo = Fragment.instantiate(this, EditProjectOtherDemo.class.getName());
 
-        changeLine(score, binding.linearDescription, binding.linkLine, binding.otherLine);
         getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragmentContainerViewDemo, fragmentDescriptionDemo)
                     .commit();
+        binding.linearDescription.setVisibility(View.VISIBLE);
+        binding.linkLine.setVisibility(View.INVISIBLE);
+        binding.otherLine.setVisibility(View.INVISIBLE);
 
         binding.descriptionFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeLine(score, binding.linearDescription, binding.linkLine, binding.otherLine);
+                binding.linearDescription.setVisibility(View.VISIBLE);
+                binding.linkLine.setVisibility(View.INVISIBLE);
+                binding.otherLine.setVisibility(View.INVISIBLE);
                 getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragmentContainerViewDemo, fragmentDescriptionDemo)
                             .commit();
@@ -62,59 +67,36 @@ public class EditProjectDemo extends AppCompatActivity {
         binding.linksFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeLine(score, binding.linkLine, binding.linearDescription, binding.otherLine);
+                binding.linkLine.setVisibility(View.VISIBLE);
+                binding.linearDescription.setVisibility(View.INVISIBLE);
+                binding.otherLine.setVisibility(View.INVISIBLE);
                 getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragmentContainerViewDemo, fragmentLinkDemo)
                             .commit();
+                if (binding.blockMenu.getVisibility() == View.VISIBLE) {
+                    binding.blockMenu.setVisibility(View.GONE);
+                    final Animation hide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_delete2);
+                    binding.blockMenu.startAnimation(hide);
+                }
             }
         });
 
         binding.otherFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeLine(score, binding.otherLine, binding.linearDescription, binding.linkLine);
+                binding.otherLine.setVisibility(View.VISIBLE);
+                binding.linearDescription.setVisibility(View.INVISIBLE);
+                binding.linkLine.setVisibility(View.INVISIBLE);
                 getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragmentContainerViewDemo, fragmentOtherDemo)
                             .commit();
+                if (binding.blockMenu.getVisibility() == View.VISIBLE) {
+                    binding.blockMenu.setVisibility(View.GONE);
+                    final Animation hide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_delete2);
+                    binding.blockMenu.startAnimation(hide);
+                }
             }
         });
-    }
-
-    private void changeLine(int score, View firstLine, View secondLine, View thirdLine){
-        secondLine.setBackgroundResource(0);
-        thirdLine.setBackgroundResource(0);
-        if(score < 100){
-            firstLine.setBackgroundResource(R.drawable.blue_line);
-        }
-        else if(score < 300){
-            firstLine.setBackgroundResource(R.drawable.green_line);
-        }
-        else if(score < 1000){
-            firstLine.setBackgroundResource(R.drawable.brown_line);
-        }
-        else if(score < 2500){
-            firstLine.setBackgroundResource(R.drawable.light_gray_line);
-        }
-        else if(score < 7000){
-            firstLine.setBackgroundResource(R.drawable.ohra_line);
-        }
-        else if(score < 17000){
-            firstLine.setBackgroundResource(R.drawable.red_line);
-        }
-        else if(score < 30000){
-            firstLine.setBackgroundResource(R.drawable.orange_line);
-        }
-        else if(score < 50000){
-            firstLine.setBackgroundResource(R.drawable.violete_line);
-        }
-        else{
-            firstLine.setBackgroundResource(R.drawable.blue_green_line);
-        }
-        if (binding.blockMenu.getVisibility() == View.VISIBLE) {
-            binding.blockMenu.setVisibility(View.GONE);
-            final Animation hide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_delete2);
-            binding.blockMenu.startAnimation(hide);
-        }
     }
 
     public String getDemoDescription(){return demoDescription;}
@@ -133,5 +115,40 @@ public class EditProjectDemo extends AppCompatActivity {
         ed.putString("UserReg", "true");
         ed.putBoolean("DemoProjectIsEnd", true);
         ed.apply();
+    }
+
+    public void setThemeActivity(){
+        int themeType = UsersChosenTheme.getThemeNum();
+
+        switch (themeType) {
+            case (1):
+                setTheme(R.style.Theme_ITCollabHub_Blue);
+                break;
+            case (2):
+                setTheme(R.style.Theme_ITCollabHub_Green);
+                break;
+            case (3):
+                setTheme(R.style.Theme_ITCollabHub_Brown);
+                break;
+            case (4):
+                setTheme(R.style.Theme_ITCollabHub_PinkGold);
+                break;
+            case (5):
+                setTheme(R.style.Theme_ITCollabHub_Ohra);
+                break;
+            case (6):
+                setTheme(R.style.Theme_ITCollabHub_Red);
+                break;
+            case (7):
+                setTheme(R.style.Theme_ITCollabHub_Orange);
+                break;
+            case (8):
+                setTheme(R.style.Theme_ITCollabHub_Violete);
+                break;
+            case (9):
+                setTheme(R.style.Theme_ITCollabHub_BlueGreen);
+                break;
+        }
+
     }
 }

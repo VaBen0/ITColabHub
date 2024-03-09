@@ -7,27 +7,16 @@
     tools:context=".TaskMenuActivity">
 
     <ImageView
-        android:id="@+id/advertPhoto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/bguser"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:background="?userBackgroundColor"
+        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHeight_default="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/logo_second_type" />
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black_transperent3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintWidth_default="spread" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/logo"
@@ -37,7 +26,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
         app:cardCornerRadius="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -56,6 +45,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp"
         android:autoSizeMaxTextSize="25sp"
         android:autoSizeMinTextSize="19sp"
         android:autoSizeTextType="uniform"
@@ -80,7 +70,7 @@
         android:autoSizeTextType="uniform"
         android:backgroundTint="@color/transparent"
         android:text="Название задания"
-        android:textColor="@color/white"
+        android:textSize="25sp"
         android:textStyle="italic|bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +80,7 @@
         android:id="@+id/blockMenu"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:layout_constraintBottom_toBottomOf="@+id/advertPhoto"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 

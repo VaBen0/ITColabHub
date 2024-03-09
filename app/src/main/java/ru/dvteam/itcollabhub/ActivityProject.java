@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -34,6 +35,7 @@ public class ActivityProject extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setThemeActivity();
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         mail = sPref.getString("UserMail", "");
         score = sPref.getInt("UserScore", 0);
@@ -45,11 +47,15 @@ public class ActivityProject extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
 
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
+        int color = ContextCompat.getColor(ActivityProject.this, typedValue.resourceId);
+        getWindow().setStatusBarColor(color);
         //deleteCache(ActivityProject.this);
 
         LinearLayout profileMenu = findViewById(R.id.profile_menu);
         LinearLayout forumMenu = findViewById(R.id.forum_menu);
-        ImageButton plus = findViewById(R.id.plus);
+        ImageView plus = findViewById(R.id.plus);
 
         ImageView bguser = findViewById(R.id.bguser);
         TextView myProjects = findViewById(R.id.my_projects);
@@ -60,6 +66,8 @@ public class ActivityProject extends AppCompatActivity {
         View end_projects_lin = findViewById(R.id.linear_end_projects);
         back = findViewById(R.id.view3);
         dontWork = findViewById(R.id.imageView12);
+
+        end_projects_lin.setVisibility(View.INVISIBLE);
 
         fragmentPrMy = Fragment.instantiate(this, MyProjects.class.getName());
         fragmentPrEnd = Fragment.instantiate(this, EndProjects.class.getName());
@@ -88,7 +96,7 @@ public class ActivityProject extends AppCompatActivity {
             }
         });
 
-        if(score < 100){
+        /*if(score < 100){
             bguser.setBackgroundResource(R.drawable.gradient_blue);
             selectedColor = Color.parseColor("#B20000FF");
             my_projects_lin.setBackgroundResource(R.drawable.blue_line);
@@ -149,13 +157,16 @@ public class ActivityProject extends AppCompatActivity {
             my_projects_lin.setBackgroundResource(R.drawable.blue_green_line);
             getWindow().setStatusBarColor(ContextCompat.getColor(ActivityProject.this,R.color.main_green));
             plus.setBackgroundResource(R.drawable.blue_green_add);
-        }
+        }*/
 
         endProjects.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fragmentMan = false;
-                changeLine(my_projects_lin, end_projects_lin);
+
+                my_projects_lin.setVisibility(View.INVISIBLE);
+                end_projects_lin.setVisibility(View.VISIBLE);
+
                 getSupportFragmentManager().beginTransaction()
                         .hide(fragmentPrMy)
                         .show(fragmentPrEnd)
@@ -166,7 +177,10 @@ public class ActivityProject extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 fragmentMan = true;
-                changeLine(end_projects_lin, my_projects_lin);
+
+                end_projects_lin.setVisibility(View.INVISIBLE);
+                my_projects_lin.setVisibility(View.VISIBLE);
+
                 getSupportFragmentManager().beginTransaction()
                         .hide(fragmentPrEnd)
                         .show(fragmentPrMy)
@@ -333,5 +347,40 @@ public class ActivityProject extends AppCompatActivity {
         else{
             line.setBackgroundResource(R.drawable.blue_green_line);
         }
+    }
+
+    public void setThemeActivity(){
+        int themeType = UsersChosenTheme.getThemeNum();
+
+        switch (themeType) {
+            case (1):
+                setTheme(R.style.Theme_ITCollabHub_Blue);
+                break;
+            case (2):
+                setTheme(R.style.Theme_ITCollabHub_Green);
+                break;
+            case (3):
+                setTheme(R.style.Theme_ITCollabHub_Brown);
+                break;
+            case (4):
+                setTheme(R.style.Theme_ITCollabHub_PinkGold);
+                break;
+            case (5):
+                setTheme(R.style.Theme_ITCollabHub_Ohra);
+                break;
+            case (6):
+                setTheme(R.style.Theme_ITCollabHub_Red);
+                break;
+            case (7):
+                setTheme(R.style.Theme_ITCollabHub_Orange);
+                break;
+            case (8):
+                setTheme(R.style.Theme_ITCollabHub_Violete);
+                break;
+            case (9):
+                setTheme(R.style.Theme_ITCollabHub_BlueGreen);
+                break;
+        }
+
     }
 }

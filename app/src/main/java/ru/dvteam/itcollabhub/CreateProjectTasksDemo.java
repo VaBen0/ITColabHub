@@ -49,34 +49,6 @@ public class CreateProjectTasksDemo extends Fragment {
         tasks = createProject.getTasks();
         create();
 
-        if(score < 100){
-            addTask.setBackgroundResource(R.drawable.ad);
-        }
-        else if(score < 300){
-            addTask.setBackgroundResource(R.drawable.green_add);
-        }
-        else if(score < 1000){
-            addTask.setBackgroundResource(R.drawable.brown_add);
-        }
-        else if(score < 2500){
-            addTask.setBackgroundResource(R.drawable.light_gray_add);
-        }
-        else if(score < 7000){
-            addTask.setBackgroundResource(R.drawable.ohra_add);
-        }
-        else if(score < 17000){
-            addTask.setBackgroundResource(R.drawable.red_add);
-        }
-        else if(score < 30000){
-            addTask.setBackgroundResource(R.drawable.brown_add);
-        }
-        else if(score < 50000){
-            addTask.setBackgroundResource(R.drawable.violete_add);
-        }
-        else{
-            addTask.setBackgroundResource(R.drawable.blue_green_add);
-        }
-
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

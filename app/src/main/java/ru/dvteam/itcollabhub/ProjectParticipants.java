@@ -26,6 +26,7 @@ public class ProjectParticipants extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setThemeActivity();
         super.onCreate(savedInstanceState);
 
         binding = ActivityProjectParticipantsBinding.inflate(getLayoutInflater());
@@ -52,25 +53,6 @@ public class ProjectParticipants extends AppCompatActivity {
                 .load(prPhoto)
                 .into(binding.prLogo);
 
-        if (score < 100) {
-            binding.add.setBackgroundTintList(ContextCompat.getColorStateList(ProjectParticipants.this, R.color.blue));
-        } else if (score < 300) {
-            binding.add.setBackgroundTintList(ContextCompat.getColorStateList(ProjectParticipants.this, R.color.green));
-        } else if (score < 1000) {
-            binding.add.setBackgroundTintList(ContextCompat.getColorStateList(ProjectParticipants.this, R.color.brown));
-        } else if (score < 2500) {
-            binding.add.setBackgroundTintList(ContextCompat.getColorStateList(ProjectParticipants.this, R.color.light_gray));
-        } else if (score < 7000) {
-            binding.add.setBackgroundTintList(ContextCompat.getColorStateList(ProjectParticipants.this, R.color.ohra));
-        } else if (score < 17000) {
-            binding.add.setBackgroundTintList(ContextCompat.getColorStateList(ProjectParticipants.this, R.color.red));
-        } else if (score < 30000) {
-            binding.add.setBackgroundTintList(ContextCompat.getColorStateList(ProjectParticipants.this, R.color.orange));
-        } else if (score < 50000) {
-            binding.add.setBackgroundTintList(ContextCompat.getColorStateList(ProjectParticipants.this, R.color.violete));
-        } else {
-            binding.add.setBackgroundTintList(ContextCompat.getColorStateList(ProjectParticipants.this, R.color.main_green));
-        }
         binding.add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -172,6 +154,41 @@ public class ProjectParticipants extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    public void setThemeActivity(){
+        int themeType = UsersChosenTheme.getThemeNum();
+
+        switch (themeType) {
+            case (1):
+                setTheme(R.style.Theme_ITCollabHub_Blue);
+                break;
+            case (2):
+                setTheme(R.style.Theme_ITCollabHub_Green);
+                break;
+            case (3):
+                setTheme(R.style.Theme_ITCollabHub_Brown);
+                break;
+            case (4):
+                setTheme(R.style.Theme_ITCollabHub_PinkGold);
+                break;
+            case (5):
+                setTheme(R.style.Theme_ITCollabHub_Ohra);
+                break;
+            case (6):
+                setTheme(R.style.Theme_ITCollabHub_Red);
+                break;
+            case (7):
+                setTheme(R.style.Theme_ITCollabHub_Orange);
+                break;
+            case (8):
+                setTheme(R.style.Theme_ITCollabHub_Violete);
+                break;
+            case (9):
+                setTheme(R.style.Theme_ITCollabHub_BlueGreen);
+                break;
+        }
 
     }
 }

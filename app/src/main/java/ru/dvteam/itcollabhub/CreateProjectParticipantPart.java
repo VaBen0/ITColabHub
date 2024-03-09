@@ -42,7 +42,10 @@ public class CreateProjectParticipantPart extends Fragment {
         fragmentFindPeople = Fragment.instantiate(getContext(), AddParticipantCreateProject.class.getName());
         fragmentAddedParticipants = Fragment.instantiate(getContext(), AddedParticipants.class.getName());
 
-        changeLine(binding.addFriendInProjectLine, binding.findPeopleLine, binding.addedParticipantLine);
+        binding.addFriendInProjectLine.setVisibility(View.INVISIBLE);
+        binding.findPeopleLine.setVisibility(View.VISIBLE);
+        binding.addedParticipantLine.setVisibility(View.INVISIBLE);
+
         getParentFragmentManager().beginTransaction()
                 .replace(R.id.participantTypes, fragmentFindPeople)
                 .commit();
@@ -50,7 +53,9 @@ public class CreateProjectParticipantPart extends Fragment {
         binding.addFriendInProject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeLine(binding.findPeopleLine, binding.addFriendInProjectLine, binding.addedParticipantLine);
+                binding.findPeopleLine.setVisibility(View.INVISIBLE);
+                binding.addFriendInProjectLine.setVisibility(View.VISIBLE);
+                binding.addedParticipantLine.setVisibility(View.INVISIBLE);
                 getParentFragmentManager().beginTransaction()
                         .replace(R.id.participantTypes, fragmentFriends)
                         .commit();
@@ -59,7 +64,9 @@ public class CreateProjectParticipantPart extends Fragment {
         binding.addedParticipant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeLine(binding.findPeopleLine, binding.addedParticipantLine, binding.addFriendInProjectLine);
+                binding.addFriendInProjectLine.setVisibility(View.INVISIBLE);
+                binding.addedParticipantLine.setVisibility(View.VISIBLE);
+                binding.findPeopleLine.setVisibility(View.INVISIBLE);
                 getParentFragmentManager().beginTransaction()
                         .replace(R.id.participantTypes, fragmentAddedParticipants)
                         .commit();
@@ -68,7 +75,9 @@ public class CreateProjectParticipantPart extends Fragment {
         binding.findPeoples.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeLine(binding.addFriendInProjectLine, binding.findPeopleLine, binding.addedParticipantLine);
+                binding.addFriendInProjectLine.setVisibility(View.INVISIBLE);
+                binding.findPeopleLine.setVisibility(View.VISIBLE);
+                binding.addedParticipantLine.setVisibility(View.INVISIBLE);
                 getParentFragmentManager().beginTransaction()
                         .replace(R.id.participantTypes, fragmentFindPeople)
                         .commit();

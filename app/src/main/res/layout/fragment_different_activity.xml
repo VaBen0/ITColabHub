@@ -40,7 +40,7 @@
                 android:layout_width="85dp"
                 android:layout_height="3dp"
                 android:layout_gravity="center"
-                android:background="@drawable/blue_line"/>
+                android:background="?fragmentLines"/>
         </LinearLayout>
 
         <LinearLayout
@@ -63,7 +63,8 @@
                 android:id="@+id/linear_rating"
                 android:layout_width="85dp"
                 android:layout_height="3dp"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:background="?fragmentLines" />
 
         </LinearLayout>
 

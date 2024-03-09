@@ -81,7 +81,7 @@
                 android:layout_width="80dp"
                 android:layout_height="3dp"
                 android:layout_gravity="center"
-                android:background="@drawable/blue_line" />
+                android:background="?fragmentLines" />
         </LinearLayout>
 
         <LinearLayout
@@ -104,7 +104,8 @@
                 android:id="@+id/linkLine"
                 android:layout_width="80dp"
                 android:layout_height="3dp"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:background="?fragmentLines" />
 
         </LinearLayout>
 
@@ -128,7 +129,8 @@
                 android:id="@+id/otherLine"
                 android:layout_width="80dp"
                 android:layout_height="3dp"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:background="?fragmentLines"/>
         </LinearLayout>
     </LinearLayout>
 
