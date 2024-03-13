@@ -15,11 +15,51 @@ public class SlideAdapterBg extends PagerAdapter {
 
     Context context;
     LayoutInflater inflater;
-    public int[] imageList = {R.drawable.gradient_blue, R.drawable.gradient_green, R.drawable.gradient_brown,
-            R.drawable.gradient_pink_gold, R.drawable.gradient_ohra, R.drawable.gradient_red,
-            R.drawable.gradient_orange, R.drawable.gradient_violete, R.drawable.gradient_blue_green};
+    public int[] imageList = new int[9];
 
     public SlideAdapterBg(Context context, int score){
+
+        imageList[0] = R.drawable.gradient_blue;
+        if(score > 100){
+            imageList[1] = R.drawable.gradient_green;
+        }else{
+            imageList[1] = R.drawable.gradient_light_gray;
+        }
+        if(score > 300){
+            imageList[2] = R.drawable.gradient_brown;
+        }else{
+            imageList[2] = R.drawable.gradient_light_gray;
+        }
+        if(score > 1000){
+            imageList[3] = R.drawable.gradient_pink_gold;
+        }else{
+            imageList[3] = R.drawable.gradient_light_gray;
+        }
+        if(score > 2500){
+            imageList[4] = R.drawable.gradient_ohra;
+        }else{
+            imageList[4] = R.drawable.gradient_light_gray;
+        }
+        if(score > 7000){
+            imageList[5] = R.drawable.gradient_red;
+        }else{
+            imageList[5] = R.drawable.gradient_light_gray;
+        }
+        if(score > 17000){
+            imageList[6] = R.drawable.gradient_orange;
+        }else{
+            imageList[6] = R.drawable.gradient_light_gray;
+        }
+        if(score > 30000){
+            imageList[7] = R.drawable.gradient_violete;
+        }else{
+            imageList[7] = R.drawable.gradient_light_gray;
+        }
+        if(score > 50000){
+            imageList[8] = R.drawable.gradient_blue_green;
+        }else{
+            imageList[8] = R.drawable.gradient_light_gray;
+        }
 
         this.context = context;
     }

@@ -439,6 +439,7 @@ public class ControlPanel2 extends AppCompatActivity {
         }
         else{
             binding.textView15.setVisibility(View.VISIBLE);
+            setTasks();
         }
 
     }

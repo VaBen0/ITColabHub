@@ -705,13 +705,14 @@ public class ControlPanel extends AppCompatActivity {
                                     }
                                 })
                                 .into(loadImg);
+                        setTasks();
                     }
-                    setTasks();
                 }
             });
         }
         else{
             binding.textView15.setVisibility(View.VISIBLE);
+            setTasks();
         }
 
     }

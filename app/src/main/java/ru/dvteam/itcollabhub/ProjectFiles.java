@@ -20,6 +20,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -61,6 +62,11 @@ public class ProjectFiles extends AppCompatActivity {
 
         setContentView(binding.getRoot());
         registerResult();
+
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
+        int color = ContextCompat.getColor(ProjectFiles.this, typedValue.resourceId);
+        getWindow().setStatusBarColor(color);
 
         Bundle arguments = getIntent().getExtras();
 

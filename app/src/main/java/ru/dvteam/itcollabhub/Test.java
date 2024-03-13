@@ -87,51 +87,6 @@ public class Test extends AppCompatActivity {
 
         setContentView(binding.getRoot());
 
-        int i = Calendar.getInstance().get(Calendar.YEAR);
-
-        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Russia"));
-        calendar.set(i, 0, 1);
-        long startYear = calendar.getTimeInMillis();
-
-        calendar.set(i + 1, 0, 1);
-        long endYear = calendar.getTimeInMillis();
-
-        CalendarConstraints.Builder calendarConstraintBuilder = new CalendarConstraints.Builder();
-
-        calendarConstraintBuilder.setValidator(DateValidatorPointForward.now());
-        calendarConstraintBuilder.setStart(startYear);
-        calendarConstraintBuilder.setEnd(endYear);
-
-        MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder
-                .datePicker()
-                .setCalendarConstraints(calendarConstraintBuilder.build())
-                .setTheme(R.style.datePicker)
-                .build();
-
-        //materialDateBuilder.setTitleText("SELECT A DATE");
-
-
-
-
-        datePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
-            @Override
-            public void onPositiveButtonClick(Long selection) {
-                Calendar utc = Calendar.getInstance(TimeZone.getTimeZone("Russia"));
-                utc.setTimeInMillis(selection);
-                @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-                String formatted = format.format(utc.getTime());
-                System.out.println(formatted);
-
-            }
-        });
-
-        binding.date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //StartTime.show();
-                datePicker.show(getSupportFragmentManager(), "you_can_give_any_name");
-            }
-        });
 
 
     }

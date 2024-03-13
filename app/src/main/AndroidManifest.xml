@@ -22,7 +22,8 @@
         tools:targetApi="26">
         <activity
             android:name=".ChooseThemeForApp"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".DemoProjectPage"
             android:exported="false"
@@ -237,10 +238,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".FriendProfile"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Test"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

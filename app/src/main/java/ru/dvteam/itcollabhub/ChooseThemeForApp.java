@@ -1,5 +1,6 @@
 package ru.dvteam.itcollabhub;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,7 +52,7 @@ public class ChooseThemeForApp extends AppCompatActivity {
                 .into(binding.log);
 
         binding.nameu.setText(name);
-        binding.score.setText("Ваши очки" + score);
+        binding.score.setText("Ваши очки: " + score);
 
         adapter = new SlideAdapter(this, score);
         binding.viewPager.setAdapter(adapter);
@@ -59,7 +60,7 @@ public class ChooseThemeForApp extends AppCompatActivity {
 
         binding.viewPager.setClipToPadding(false);
         binding.viewPager.setPadding(48, 0, 48, 0);
-        binding.viewPager.setPageMargin(-550);
+        binding.viewPager.setPageMargin(-660);
 
         adapterBg = new SlideAdapterBg(this, score);
         binding.viewPagerBg.setAdapter(adapterBg);
@@ -152,6 +153,11 @@ public class ChooseThemeForApp extends AppCompatActivity {
                     SharedPreferences.Editor ed = sPref.edit();
                     ed.putInt("ThemeNum", binding.viewPager.getCurrentItem() + 1);
                     ed.apply();
+                    Profile.ma.finish();
+                    Intent intent = new Intent(ChooseThemeForApp.this, Profile.class);
+                    startActivity(intent);
+                    finish();
+
                 }else{
                     Toast.makeText(ChooseThemeForApp.this, "Не разблокирован", Toast.LENGTH_SHORT).show();
                 }
@@ -165,78 +171,180 @@ public class ChooseThemeForApp extends AppCompatActivity {
                 circle.setImageResource(R.drawable.circle_blue);
                 break;
             case (1):
-                circle.setImageResource(R.drawable.circle_green);
+                if(score < 100){
+                    circle.setImageResource(R.drawable.circle_light_gray);
+                }else{
+                    circle.setImageResource(R.drawable.circle_green);
+                }
+
                 break;
             case (2):
-                circle.setImageResource(R.drawable.circle_brown);
+                if(score < 300){
+                    circle.setImageResource(R.drawable.circle_light_gray);
+                }else{
+                    circle.setImageResource(R.drawable.circle_brown);
+                }
                 break;
             case (3):
-                circle.setImageResource(R.drawable.circle_pink_gold);
+                if(score < 1000){
+                    circle.setImageResource(R.drawable.circle_light_gray);
+                }else{
+                    circle.setImageResource(R.drawable.circle_pink_gold);
+                }
+
                 break;
             case (4):
-                circle.setImageResource(R.drawable.circle_ohra);
+                if(score < 2500){
+                    circle.setImageResource(R.drawable.circle_light_gray);
+                }else{
+                    circle.setImageResource(R.drawable.circle_ohra);
+                }
                 break;
             case (5):
-                circle.setImageResource(R.drawable.circle_red);
+                if(score < 7000){
+                    circle.setImageResource(R.drawable.circle_light_gray);
+                }else{
+                    circle.setImageResource(R.drawable.circle_red);
+                }
+
                 break;
             case (6):
-                circle.setImageResource(R.drawable.circle_orange);
+                if(score < 17000){
+                    circle.setImageResource(R.drawable.circle_light_gray);
+                }else{
+                    circle.setImageResource(R.drawable.circle_orange);
+                }
+
                 break;
             case (7):
-                circle.setImageResource(R.drawable.circle_violete);
+                if(score < 30000){
+                    circle.setImageResource(R.drawable.circle_light_gray);
+                }else{
+                    circle.setImageResource(R.drawable.circle_violete);
+                }
+
                 break;
             case (8):
-                circle.setImageResource(R.drawable.circle_blue_green);
+                if(score < 50000){
+                    circle.setImageResource(R.drawable.circle_light_gray);
+                }else{
+                    circle.setImageResource(R.drawable.circle_blue_green);
+                }
+
                 break;
         }
     }
-    public void setCircleResource(TextView score, View line, int position){
+    public void setCircleResource(TextView scoreT, View line, int position){
         switch (position){
             case (0):
-                score.setTextColor(getResources().getColor(R.color.blue));
+                scoreT.setTextColor(getResources().getColor(R.color.blue));
                 line.setBackgroundResource(R.drawable.blue_line);
                 binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.blue));
                 break;
             case (1):
-                score.setTextColor(getResources().getColor(R.color.green));
-                line.setBackgroundResource(R.drawable.green_line);
-                binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.green));
-                break;
+                if(score < 100){
+                    scoreT.setTextColor(getResources().getColor(R.color.light_gray_m));
+                    line.setBackgroundResource(R.drawable.light_gray_line);
+                    binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray_m));
+                    break;
+                }else{
+                    scoreT.setTextColor(getResources().getColor(R.color.green));
+                    line.setBackgroundResource(R.drawable.green_line);
+                    binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.green));
+                    break;
+                }
+
             case (2):
-                score.setTextColor(getResources().getColor(R.color.brown));
-                line.setBackgroundResource(R.drawable.brown_line);
-                binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.brown));
-                break;
+                if(score < 300){
+                    scoreT.setTextColor(getResources().getColor(R.color.light_gray_m));
+                    line.setBackgroundResource(R.drawable.light_gray_line);
+                    binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray_m));
+                    break;
+                }else{
+                    scoreT.setTextColor(getResources().getColor(R.color.brown));
+                    line.setBackgroundResource(R.drawable.brown_line);
+                    binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.brown));
+                    break;
+                }
+
             case (3):
-                score.setTextColor(getResources().getColor(R.color.pink_gold));
-                line.setBackgroundResource(R.drawable.pink_gold_line);
-                binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.pink_gold));
-                break;
+                if(score < 1000){
+                    scoreT.setTextColor(getResources().getColor(R.color.light_gray_m));
+                    line.setBackgroundResource(R.drawable.light_gray_line);
+                    binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray_m));
+                    break;
+                }else{
+                    scoreT.setTextColor(getResources().getColor(R.color.pink_gold));
+                    line.setBackgroundResource(R.drawable.pink_gold_line);
+                    binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.pink_gold));
+                    break;
+                }
+
             case (4):
-                score.setTextColor(getResources().getColor(R.color.ohra));
-                line.setBackgroundResource(R.drawable.ohra_line);
-                binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.ohra));
-                break;
+                if(score < 2500){
+                    scoreT.setTextColor(getResources().getColor(R.color.light_gray_m));
+                    line.setBackgroundResource(R.drawable.light_gray_line);
+                    binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray_m));
+                    break;
+                }else{
+                    scoreT.setTextColor(getResources().getColor(R.color.ohra));
+                    line.setBackgroundResource(R.drawable.ohra_line);
+                    binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.ohra));
+                    break;
+                }
+
             case (5):
-                score.setTextColor(getResources().getColor(R.color.red));
-                line.setBackgroundResource(R.drawable.red_line);
-                binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.red));
-                break;
+                if(score < 7000){
+                    scoreT.setTextColor(getResources().getColor(R.color.light_gray_m));
+                    line.setBackgroundResource(R.drawable.light_gray_line);
+                    binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray_m));
+                    break;
+                }else{
+                    scoreT.setTextColor(getResources().getColor(R.color.red));
+                    line.setBackgroundResource(R.drawable.red_line);
+                    binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.red));
+                    break;
+                }
+
             case (6):
-                score.setTextColor(getResources().getColor(R.color.orange));
-                line.setBackgroundResource(R.drawable.orange_line);
-                binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.orange));
-                break;
+                if(score < 17000){
+                    scoreT.setTextColor(getResources().getColor(R.color.light_gray_m));
+                    line.setBackgroundResource(R.drawable.light_gray_line);
+                    binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray_m));
+                    break;
+                }else{
+                    scoreT.setTextColor(getResources().getColor(R.color.orange));
+                    line.setBackgroundResource(R.drawable.orange_line);
+                    binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.orange));
+                    break;
+                }
+
             case (7):
-                score.setTextColor(getResources().getColor(R.color.violete_light));
-                line.setBackgroundResource(R.drawable.violete_line);
-                binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.violete_light));
-                break;
+                if(score < 30000){
+                    scoreT.setTextColor(getResources().getColor(R.color.light_gray_m));
+                    line.setBackgroundResource(R.drawable.light_gray_line);
+                    binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray_m));
+                    break;
+                }else{
+                    scoreT.setTextColor(getResources().getColor(R.color.violete_light));
+                    line.setBackgroundResource(R.drawable.violete_line);
+                    binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.violete_light));
+                    break;
+                }
+
             case (8):
-                score.setTextColor(getResources().getColor(R.color.main_green));
-                line.setBackgroundResource(R.drawable.blue_green_line);
-                binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.main_green));
-                break;
+                if(score < 50000){
+                    scoreT.setTextColor(getResources().getColor(R.color.light_gray_m));
+                    line.setBackgroundResource(R.drawable.light_gray_line);
+                    binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.light_gray_m));
+                    break;
+                }else{
+                    scoreT.setTextColor(getResources().getColor(R.color.main_green));
+                    line.setBackgroundResource(R.drawable.blue_green_line);
+                    binding.save.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.main_green));
+                    break;
+                }
+
         }
     }
 }

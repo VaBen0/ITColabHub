@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ public class ProblemsParticip extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setThemeActivity();
         super.onCreate(savedInstanceState);
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         String mail = sPref.getString("UserMail", "");
@@ -27,6 +29,11 @@ public class ProblemsParticip extends AppCompatActivity {
         binding = ActivityProblemsParticipBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
+
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
+        int color = ContextCompat.getColor(ProblemsParticip.this, typedValue.resourceId);
+        getWindow().setStatusBarColor(color);
 
         if(score < 100){
             binding.bguser.setBackgroundResource(R.drawable.gradient_blue);
@@ -109,5 +116,40 @@ public class ProblemsParticip extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void setThemeActivity(){
+        int themeType = UsersChosenTheme.getThemeNum();
+
+        switch (themeType) {
+            case (1):
+                setTheme(R.style.Theme_ITCollabHub_Blue);
+                break;
+            case (2):
+                setTheme(R.style.Theme_ITCollabHub_Green);
+                break;
+            case (3):
+                setTheme(R.style.Theme_ITCollabHub_Brown);
+                break;
+            case (4):
+                setTheme(R.style.Theme_ITCollabHub_PinkGold);
+                break;
+            case (5):
+                setTheme(R.style.Theme_ITCollabHub_Ohra);
+                break;
+            case (6):
+                setTheme(R.style.Theme_ITCollabHub_Red);
+                break;
+            case (7):
+                setTheme(R.style.Theme_ITCollabHub_Orange);
+                break;
+            case (8):
+                setTheme(R.style.Theme_ITCollabHub_Violete);
+                break;
+            case (9):
+                setTheme(R.style.Theme_ITCollabHub_BlueGreen);
+                break;
+        }
+
     }
 }
