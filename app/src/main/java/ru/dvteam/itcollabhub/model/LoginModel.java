@@ -9,9 +9,9 @@ import ru.dvteam.itcollabhub.CallBackInt1;
 import ru.dvteam.itcollabhub.PostDatas;
 
 public class LoginModel {
-    private String strEmailAddress;
-    private String strPassword;
-    private PostDatas postDatas = new PostDatas();
+    private final String strEmailAddress;
+    private final String strPassword;
+    private final PostDatas postDatas = new PostDatas();
 
     public LoginModel(String EmailAddress, String Password) {
         strEmailAddress = EmailAddress;

@@ -1,6 +1,5 @@
 package ru.dvteam.itcollabhub;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -10,9 +9,8 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.File;
-
 import ru.dvteam.itcollabhub.databinding.ActivityMainBinding;
+import ru.dvteam.itcollabhub.view.LogIn;
 
 public class MainActivity extends AppCompatActivity {
 

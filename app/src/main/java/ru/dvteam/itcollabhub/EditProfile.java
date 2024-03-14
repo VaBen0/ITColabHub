@@ -1,5 +1,22 @@
 package ru.dvteam.itcollabhub;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.TypedValue;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -9,32 +26,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
-import android.Manifest;
-import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Color;
-import android.net.Uri;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.TypedValue;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-
-import org.w3c.dom.Text;
 
 import java.io.File;
 
@@ -46,11 +39,11 @@ public class EditProfile extends AppCompatActivity {
     ImageView Img;
     private static final int PICK_IMAGES_CODE = 0;
     private String mediaPath = "";
-    private int selectedColor, score;
+    private int score;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     ActivityResultLauncher<Intent> resultLauncher;
-    private String mail, name;
-    private String[] wow = {"Хренос 2", "Кина не будет - электричество кончилось", "Ой, сломалось", "Караул!"};
+    private String mail;
+    private final String[] wow = {"Хренос 2", "Кина не будет - электричество кончилось", "Ой, сломалось", "Караул!"};
     View back;
     ImageView dontWork;
     EditText UserName;
@@ -62,7 +55,7 @@ public class EditProfile extends AppCompatActivity {
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
 
         mail = sPref.getString("UserMail", "");
-        name = sPref.getString("UserName", "");
+        String name = sPref.getString("UserName", "");
         score = sPref.getInt("UserScore", 0);
         String imgUrl = sPref.getString("UrlImg", "");
 
@@ -78,8 +71,6 @@ public class EditProfile extends AppCompatActivity {
         Img = findViewById(R.id.loadImg);
         UserName = findViewById(R.id.nameu);
         String s = "Ваши очки: " + score;
-        ImageView userCircle = findViewById(R.id.userCircle);
-        ImageView bguser = findViewById(R.id.bguser);
         TextView UserScore = findViewById(R.id.score);
         ImageView restartLine = findViewById(R.id.restart);
         TextView quitProfile = findViewById(R.id.quit);
@@ -110,8 +101,8 @@ public class EditProfile extends AppCompatActivity {
         restartLine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(getIntent());
                 finish();
+                startActivity(getIntent());
             }
         });
 
@@ -123,10 +114,7 @@ public class EditProfile extends AppCompatActivity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
                 SharedPreferences.Editor ed = sPref.edit();
-                ed.putString("UserReg", "false");
-                ed.putString("UserMail", "");
-                ed.putInt("UserScore", 0);
-                ed.putString("UrlImg", "");
+                ed.clear();
                 ed.apply();
                 startActivity(intent);
                 finish();
@@ -300,6 +288,7 @@ public class EditProfile extends AppCompatActivity {
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
+
                 }
 
                 runOnUiThread(new Runnable() {

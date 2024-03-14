@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Register">
+    tools:context=".view.Register">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -56,17 +56,34 @@
             android:layout_height="58dp"
             android:hint="Почта" />
 
+        <TextView
+            android:id="@+id/rightEmail"
+            android:layout_width="236dp"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"/>
+
         <EditText
             android:id="@+id/passu"
             android:layout_width="236dp"
             android:layout_height="58dp"
             android:hint="Пароль" />
+        <TextView
+            android:id="@+id/rightPass"
+            android:layout_width="236dp"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"/>
 
         <EditText
             android:id="@+id/passuagain"
             android:layout_width="236dp"
             android:layout_height="58dp"
             android:hint="Повторите пароль"/>
+
+        <TextView
+            android:id="@+id/rightPassAgain"
+            android:layout_width="236dp"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"/>
 
         <Button
             android:id="@+id/Reg"

@@ -1,14 +1,11 @@
 package ru.dvteam.itcollabhub.viewmodel;
 
 import android.content.SharedPreferences;
-import android.view.View;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import ru.dvteam.itcollabhub.CallBackBoolean;
-import ru.dvteam.itcollabhub.LogIn;
 import ru.dvteam.itcollabhub.model.LoginModel;
 
 public class LoginViewModel extends ViewModel {
@@ -50,18 +47,6 @@ public class LoginViewModel extends ViewModel {
                 result.invoke(res);
             }
         });
-
-    }
-
-    public void onRegisterClick(View view) {
-
-        System.out.println("Register");
-
-    }
-
-    public void onForgotClick(View view) {
-
-        System.out.println("Forgot");
 
     }
 }

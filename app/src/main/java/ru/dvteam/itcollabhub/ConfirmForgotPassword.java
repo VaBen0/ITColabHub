@@ -12,8 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import retrofit2.Call;
-import retrofit2.Callback;
+import ru.dvteam.itcollabhub.view.LogIn;
 
 public class ConfirmForgotPassword extends AppCompatActivity {
 

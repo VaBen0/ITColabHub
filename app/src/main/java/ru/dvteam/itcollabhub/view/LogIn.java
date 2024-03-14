@@ -1,6 +1,5 @@
-package ru.dvteam.itcollabhub;
+package ru.dvteam.itcollabhub.view;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -11,16 +10,13 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Objects;
-
+import ru.dvteam.itcollabhub.CallBackBoolean;
+import ru.dvteam.itcollabhub.Forgot;
+import ru.dvteam.itcollabhub.Profile;
 import ru.dvteam.itcollabhub.databinding.ActivityLogInBinding;
 import ru.dvteam.itcollabhub.viewmodel.LoginViewModel;
 
@@ -49,35 +45,7 @@ public class LogIn extends AppCompatActivity {
         binding.hub.setTypeface(face);
         binding.collaborotory.setTypeface(face);
 
-        binding.mailu.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                viewModel.setEmail(binding.mailu.getText().toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-
-        binding.passu.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                viewModel.setPass(binding.passu.getText().toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
+        initEditTexts();
 
         viewModel.getEmailValid().observe(this, new Observer<Boolean>() {
             @Override
@@ -119,19 +87,45 @@ public class LogIn extends AppCompatActivity {
             }
         });
 
-        binding.regBut.setOnClickListener(new View.OnClickListener() {
+        binding.regBut.setOnClickListener(v -> {
+            Intent intent = new Intent(LogIn.this, Register.class);
+            startActivity(intent);
+        });
+
+        binding.forgotBut.setOnClickListener(v -> {
+            Intent intent = new Intent(LogIn.this, Forgot.class);
+            startActivity(intent);
+        });
+    }
+
+    public void initEditTexts(){
+        binding.mailu.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LogIn.this, Register.class);
-                startActivity(intent);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                viewModel.setEmail(binding.mailu.getText().toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
             }
         });
 
-        binding.forgotBut.setOnClickListener(new View.OnClickListener() {
+        binding.passu.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LogIn.this, Forgot.class);
-                startActivity(intent);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                viewModel.setPass(binding.passu.getText().toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
             }
         });
     }

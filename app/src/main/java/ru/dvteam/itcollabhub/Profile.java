@@ -52,7 +52,7 @@ public class Profile extends AppCompatActivity {
         score = sPref.getInt("UserScore", 0);
         int themeNum = sPref.getInt("ThemeNum", 1);
         UsersChosenTheme.setThemeNum(themeNum);
-        setThemeActivity();
+        UsersChosenTheme.setThemeActivity(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 

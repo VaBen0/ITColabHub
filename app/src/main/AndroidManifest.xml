@@ -253,7 +253,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LogIn"
+            android:name=".view.LogIn"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -261,11 +261,11 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ConfirmReg"
+            android:name=".view.ConfirmReg"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Register"
+            android:name=".view.Register"
             android:exported="false"
             android:screenOrientation="portrait" />
 
