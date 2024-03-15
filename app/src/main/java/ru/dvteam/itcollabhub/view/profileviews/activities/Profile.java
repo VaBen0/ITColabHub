@@ -18,10 +18,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.bumptech.glide.Glide;
 
 import ru.dvteam.itcollabhub.ActivityProject;
-import ru.dvteam.itcollabhub.ChooseThemeForApp;
 import ru.dvteam.itcollabhub.Forum;
 import ru.dvteam.itcollabhub.view.profileviews.fragments.Friends;
-import ru.dvteam.itcollabhub.GetFriend;
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.view.profileviews.fragments.Rating;
 import ru.dvteam.itcollabhub.UsersChosenTheme;
@@ -37,13 +35,14 @@ public class Profile extends AppCompatActivity {
     Fragment fragmentRating, fragmentAwards, fragmentFriends;
     ProfileViewModel profileViewModel;
     public static Activity ma;
+    private int themeNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        int themeNum = sPref.getInt("ThemeNum", 1);
+        themeNum = sPref.getInt("ThemeNum", 1);
 
         UsersChosenTheme.setThemeNum(themeNum);
         UsersChosenTheme.setThemeActivity(this);
@@ -131,6 +130,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Profile.this, ChooseThemeForApp.class);
+                profileViewModel.setDataForChooseTheme(themeNum);
                 startActivity(intent);
             }
         });
@@ -169,6 +169,7 @@ public class Profile extends AppCompatActivity {
     public String getMail(){return "mail";}
     public void changeActivity(){
         Intent intent = new Intent(Profile.this, GetFriend.class);
+        profileViewModel.setDataForChooseTheme(themeNum);
         startActivity(intent);
     }
     public int getScore(){return 0;}

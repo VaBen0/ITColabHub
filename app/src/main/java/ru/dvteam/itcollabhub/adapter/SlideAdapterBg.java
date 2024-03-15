@@ -1,72 +1,74 @@
-package ru.dvteam.itcollabhub;
+package ru.dvteam.itcollabhub.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-public class SlideAdapter extends PagerAdapter {
+import ru.dvteam.itcollabhub.R;
+
+public class SlideAdapterBg extends PagerAdapter {
 
     Context context;
     LayoutInflater inflater;
     public int[] imageList = new int[9];
-    public String[] titles = {"Синий", "Зелёный", "Бронзовый", "Розовое Золото", "Охра", "Красный", "Оранжевый", "Фиолетовый", "Морская волна"};
 
-    public SlideAdapter(Context context, int score){
-        imageList[0] = R.drawable.color0;
+    public SlideAdapterBg(Context context, int score){
+
+        imageList[0] = R.drawable.gradient_blue;
         if(score > 100){
-            imageList[1] = R.drawable.color1;
+            imageList[1] = R.drawable.gradient_green;
         }else{
-            imageList[1] = R.drawable.notcolor;
+            imageList[1] = R.drawable.gradient_light_gray;
         }
         if(score > 300){
-            imageList[2] = R.drawable.color2;
+            imageList[2] = R.drawable.gradient_brown;
         }else{
-            imageList[2] = R.drawable.notcolor;
+            imageList[2] = R.drawable.gradient_light_gray;
         }
         if(score > 1000){
-            imageList[3] = R.drawable.color3;
+            imageList[3] = R.drawable.gradient_pink_gold;
         }else{
-            imageList[3] = R.drawable.notcolor;
+            imageList[3] = R.drawable.gradient_light_gray;
         }
         if(score > 2500){
-            imageList[4] = R.drawable.color4;
+            imageList[4] = R.drawable.gradient_ohra;
         }else{
-            imageList[4] = R.drawable.notcolor;
+            imageList[4] = R.drawable.gradient_light_gray;
         }
         if(score > 7000){
-            imageList[5] = R.drawable.color5;
+            imageList[5] = R.drawable.gradient_red;
         }else{
-            imageList[5] = R.drawable.notcolor;
+            imageList[5] = R.drawable.gradient_light_gray;
         }
         if(score > 17000){
-            imageList[6] = R.drawable.color6;
+            imageList[6] = R.drawable.gradient_orange;
         }else{
-            imageList[6] = R.drawable.notcolor;
+            imageList[6] = R.drawable.gradient_light_gray;
         }
         if(score > 30000){
-            imageList[7] = R.drawable.color7;
+            imageList[7] = R.drawable.gradient_violete;
         }else{
-            imageList[7] = R.drawable.notcolor;
+            imageList[7] = R.drawable.gradient_light_gray;
         }
         if(score > 50000){
-            imageList[8] = R.drawable.color8;
+            imageList[8] = R.drawable.gradient_blue_green;
         }else{
-            imageList[8] = R.drawable.notcolor;
+            imageList[8] = R.drawable.gradient_light_gray;
         }
+
         this.context = context;
     }
 
     @Override
     public int getCount() {
-        return titles.length;
+        return imageList.length;
     }
 
     @Override
@@ -78,12 +80,10 @@ public class SlideAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.slide_image, container, false);
+        View view = inflater.inflate(R.layout.slide_bg, container, false);
 
         ImageView img = view.findViewById(R.id.imageView17);
-        TextView title = view.findViewById(R.id.title);
         img.setImageResource(imageList[position]);
-        title.setText(titles[position]);
         container.addView(view);
         return view;
     }

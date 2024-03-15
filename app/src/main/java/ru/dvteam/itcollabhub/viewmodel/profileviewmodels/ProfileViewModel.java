@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.Objects;
+
 import ru.dvteam.itcollabhub.callbackclasses.CallBackProfileInformation;
 import ru.dvteam.itcollabhub.ProfileInformation;
 import ru.dvteam.itcollabhub.model.profilemodels.ProfileModel;
@@ -28,5 +30,9 @@ public class ProfileViewModel extends ViewModel {
                 profileInformation.setValue(profileInform);
             }
         });
+    }
+
+    public void setDataForChooseTheme(int themeNum){
+        profileModel.setDataForChooseThemeActivity(themeNum, Objects.requireNonNull(profileInformation.getValue()));
     }
 }

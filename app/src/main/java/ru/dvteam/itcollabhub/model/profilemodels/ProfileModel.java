@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt2;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackProfileInformation;
+import ru.dvteam.itcollabhub.globaldata.GlobalDataScoreProfile;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
 import ru.dvteam.itcollabhub.ProfileInformation;
 
@@ -20,5 +21,13 @@ public class ProfileModel {
                         rfr, activityProjects, archiveProjects, mail));
             }
         });
+    }
+
+    public void setDataForChooseThemeActivity(int themeNum, ProfileInformation profileInformation){
+        GlobalDataScoreProfile globalDataScoreProfile = GlobalDataScoreProfile.getInstance();
+        globalDataScoreProfile.setScore(profileInformation.getUserScore());
+        globalDataScoreProfile.setName(profileInformation.getUserName());
+        globalDataScoreProfile.setThemeNum(themeNum);
+        globalDataScoreProfile.setUrlPhoto(profileInformation.getUserImageUrl());
     }
 }

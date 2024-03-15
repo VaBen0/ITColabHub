@@ -70,7 +70,7 @@ public class ActivityWork extends AppCompatActivity {
 
 
         PostDatas post = new PostDatas();
-        post.postDataGetWork("GetMoreInformationFromWork", id, mail, workId, new CallBackWorkInfo() {
+        post.postDataGetWork("GetMoreInformationFromWorkFromTask", id, mail, workId, new CallBackWorkInfo() {
             @Override
             public void invoke(String text_block, String link_block_link, String link_block_name, String image_block_link, String image_block_name) {
                 View textBlock = getLayoutInflater().inflate(R.layout.gblock_text2, null);

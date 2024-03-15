@@ -1,4 +1,4 @@
-package ru.dvteam.itcollabhub;
+package ru.dvteam.itcollabhub.view.profileviews.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,18 +14,27 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
+
+import ru.dvteam.itcollabhub.InformationForChooseThemeForApp;
+import ru.dvteam.itcollabhub.R;
+import ru.dvteam.itcollabhub.adapter.SlideAdapter;
+import ru.dvteam.itcollabhub.adapter.SlideAdapterBg;
+import ru.dvteam.itcollabhub.SyncScrollOnTouchListener;
+import ru.dvteam.itcollabhub.UsersChosenTheme;
 import ru.dvteam.itcollabhub.databinding.ActivityChooseThemeForAppBinding;
-import ru.dvteam.itcollabhub.view.profileviews.activities.Profile;
+import ru.dvteam.itcollabhub.viewmodel.profileviewmodels.ChooseThemeForAppViewModel;
 
 public class ChooseThemeForApp extends AppCompatActivity {
 
     ActivityChooseThemeForAppBinding binding;
-    String mail;
-    int score;
     private SlideAdapter adapter;
     private SlideAdapterBg adapterBg;
+    ChooseThemeForAppViewModel chooseThemeForAppViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,54 +43,55 @@ public class ChooseThemeForApp extends AppCompatActivity {
         binding = ActivityChooseThemeForAppBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
+
+        chooseThemeForAppViewModel = new ViewModelProvider(this).get(ChooseThemeForAppViewModel.class);
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        String name = sPref.getString("UserName", "");
-        mail = sPref.getString("UserMail", "");
-        score = sPref.getInt("UserScore", 0);
 
-        //String urlPhoto = Objects.requireNonNull(getIntent().getExtras()).getString("UserPhoto");
-//        Glide.with(ChooseThemeForApp.this)
-//                .load(urlPhoto)
-//                .into(binding.log);
+        chooseThemeForAppViewModel.getInfo().observe(this, informationForChooseThemeForApp -> {
+            Glide.with(ChooseThemeForApp.this)
+                    .load(informationForChooseThemeForApp.getUrlPhoto())
+                    .into(binding.log);
 
-        binding.nameu.setText(name);
-        binding.score.setText("Ваши очки: " + score);
+            int score = informationForChooseThemeForApp.getScore();
 
-        adapter = new SlideAdapter(this, score);
-        binding.viewPager.setAdapter(adapter);
-        binding.viewPager.setCurrentItem(UsersChosenTheme.getThemeNum()-1);
+            binding.nameu.setText(informationForChooseThemeForApp.getName());
+            binding.score.setText("Ваши очки: " + score);
 
-        binding.viewPager.setClipToPadding(false);
-        binding.viewPager.setPadding(48, 0, 48, 0);
-        binding.viewPager.setPageMargin(-660);
+            adapter = new SlideAdapter(this, score);
+            binding.viewPager.setAdapter(adapter);
+            binding.viewPager.setCurrentItem(UsersChosenTheme.getThemeNum()-1);
 
-        adapterBg = new SlideAdapterBg(this, score);
-        binding.viewPagerBg.setAdapter(adapterBg);
-        binding.viewPagerBg.setClickable(false);
-        binding.viewPagerBg.setCurrentItem(UsersChosenTheme.getThemeNum()-1);
+            binding.viewPager.setClipToPadding(false);
+            binding.viewPager.setPadding(48, 0, 48, 0);
+            binding.viewPager.setPageMargin(-660);
 
-        setCircleResource(binding.userCircle, UsersChosenTheme.getThemeNum()-1);
-        setCircleResource(binding.score, binding.linearFriends, UsersChosenTheme.getThemeNum()-1);
-        binding.viewPagerBg.setOnTouchListener(new View.OnTouchListener() {
+            adapterBg = new SlideAdapterBg(this, score);
+            binding.viewPagerBg.setAdapter(adapterBg);
+            binding.viewPagerBg.setClickable(false);
+            binding.viewPagerBg.setCurrentItem(UsersChosenTheme.getThemeNum()-1);
 
-            public boolean onTouch(View arg0, MotionEvent arg1) {
-                return true;
-            }
-        });
+            setCircleResource(binding.userCircle, UsersChosenTheme.getThemeNum()-1, score);
+            setCircleResource(binding.score, binding.linearFriends, UsersChosenTheme.getThemeNum()-1, score);
+            binding.viewPagerBg.setOnTouchListener(new View.OnTouchListener() {
 
-        binding.viewPager.setOnTouchListener(new SyncScrollOnTouchListener(binding.viewPagerBg));
-        binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset,
-                                       int positionOffsetPixels) {
-                //no-op
-            }
+                public boolean onTouch(View arg0, MotionEvent arg1) {
+                    return true;
+                }
+            });
 
-            @Override
-            public void onPageSelected(int position) {
-                binding.viewPagerBg.setCurrentItem(position, true);
+            binding.viewPager.setOnTouchListener(new SyncScrollOnTouchListener(binding.viewPagerBg));
+            binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset,
+                                           int positionOffsetPixels) {
+                    //no-op
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    binding.viewPagerBg.setCurrentItem(position, true);
                     final Animation anim_out = AnimationUtils.loadAnimation(ChooseThemeForApp.this, android.R.anim.fade_out);
                     final Animation anim_in  = AnimationUtils.loadAnimation(ChooseThemeForApp.this, android.R.anim.fade_in);
                     anim_out.setAnimationListener(new Animation.AnimationListener()
@@ -90,7 +100,7 @@ public class ChooseThemeForApp extends AppCompatActivity {
                         @Override public void onAnimationRepeat(Animation animation) {}
                         @Override public void onAnimationEnd(Animation animation)
                         {
-                            setCircleResource(binding.userCircle, position);
+                            setCircleResource(binding.userCircle, position, score);
                             anim_in.setAnimationListener(new Animation.AnimationListener() {
                                 @Override public void onAnimationStart(Animation animation) {}
                                 @Override public void onAnimationRepeat(Animation animation) {}
@@ -100,67 +110,72 @@ public class ChooseThemeForApp extends AppCompatActivity {
                         }
                     });
                     binding.userCircle.startAnimation(anim_out);
-                setCircleResource(binding.score, binding.linearFriends, position);
-            }
+                    setCircleResource(binding.score, binding.linearFriends, position, score);
+                }
 
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                //no-op
-            }
+                @Override
+                public void onPageScrollStateChanged(int state) {
+                    //no-op
+                }
+            });
+
+            binding.save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int scoreC = 0;
+                    switch (binding.viewPager.getCurrentItem()){
+                        case(0):
+                            scoreC = 0;
+                            break;
+                        case(1):
+                            scoreC = 101;
+                            break;
+                        case(2):
+                            scoreC = 301;
+                            break;
+                        case(3):
+                            scoreC = 1001;
+                            break;
+                        case(4):
+                            scoreC = 2501;
+                            break;
+                        case(5):
+                            scoreC = 7001;
+                            break;
+                        case(6):
+                            scoreC = 17001;
+                            break;
+                        case(7):
+                            scoreC = 30001;
+                            break;
+                        case(8):
+                            scoreC = 50001;
+                            break;
+                    }
+                    if(score > scoreC){
+                        UsersChosenTheme.setThemeNum(binding.viewPager.getCurrentItem() + 1);
+                        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
+                        SharedPreferences.Editor ed = sPref.edit();
+                        ed.putInt("ThemeNum", binding.viewPager.getCurrentItem() + 1);
+                        ed.apply();
+                        Profile.ma.finish();
+                        Intent intent = new Intent(ChooseThemeForApp.this, Profile.class);
+                        startActivity(intent);
+                        finish();
+
+                    }else{
+                        Toast.makeText(ChooseThemeForApp.this, "Не разблокирован", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         });
 
-        binding.save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int scoreC = 0;
-                switch (binding.viewPager.getCurrentItem()){
-                    case(0):
-                        scoreC = 0;
-                        break;
-                    case(1):
-                        scoreC = 101;
-                        break;
-                    case(2):
-                        scoreC = 301;
-                        break;
-                    case(3):
-                        scoreC = 1001;
-                        break;
-                    case(4):
-                        scoreC = 2501;
-                        break;
-                    case(5):
-                        scoreC = 7001;
-                        break;
-                    case(6):
-                        scoreC = 17001;
-                        break;
-                    case(7):
-                        scoreC = 30001;
-                        break;
-                    case(8):
-                        scoreC = 50001;
-                        break;
-                }
-                if(score > scoreC){
-                    UsersChosenTheme.setThemeNum(binding.viewPager.getCurrentItem() + 1);
-                    SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-                    SharedPreferences.Editor ed = sPref.edit();
-                    ed.putInt("ThemeNum", binding.viewPager.getCurrentItem() + 1);
-                    ed.apply();
-                    Profile.ma.finish();
-                    Intent intent = new Intent(ChooseThemeForApp.this, Profile.class);
-                    startActivity(intent);
-                    finish();
+        chooseThemeForAppViewModel.getInfoFromModel();
 
-                }else{
-                    Toast.makeText(ChooseThemeForApp.this, "Не разблокирован", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+
     }
 
-    public void setCircleResource(ImageView circle, int position){
+    public void setCircleResource(ImageView circle, int position, int score){
         switch (position){
             case (0):
                 circle.setImageResource(R.drawable.circle_blue);
@@ -229,7 +244,7 @@ public class ChooseThemeForApp extends AppCompatActivity {
                 break;
         }
     }
-    public void setCircleResource(TextView scoreT, View line, int position){
+    public void setCircleResource(TextView scoreT, View line, int position, int score){
         switch (position){
             case (0):
                 scoreT.setTextColor(getResources().getColor(R.color.blue));
