@@ -50,6 +50,7 @@
         <item name="fragmentLines">@drawable/blue_line</item>
         <item name="addButtonColor">@drawable/ad</item>
         <item name="buttonColor">@color/blue</item>
+        <item name="lineProgressDrawable">@drawable/custom_progress_bar_bgreen</item>
         <item name="editTextColorRounded">@drawable/blue_rounded</item>
         <item name="circleProgressBackground2">@drawable/progress_circle_blue2</item>
         <item name="circleProgressDrawable2">@drawable/circular_progress_bar_green2</item>

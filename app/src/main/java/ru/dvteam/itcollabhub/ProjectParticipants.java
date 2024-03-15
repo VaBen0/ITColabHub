@@ -1,7 +1,6 @@
 package ru.dvteam.itcollabhub;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,7 +15,9 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
+import ru.dvteam.itcollabhub.callbackclasses.CallBackInt5;
 import ru.dvteam.itcollabhub.databinding.ActivityProjectParticipantsBinding;
+import ru.dvteam.itcollabhub.retrofit.PostDatas;
 
 public class ProjectParticipants extends AppCompatActivity {
 

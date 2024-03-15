@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Profile">
+    tools:context=".view.profileviews.activities.Profile">
 
     <ImageView
         android:id="@+id/bguser"
@@ -193,19 +193,15 @@
         </LinearLayout>
     </LinearLayout>
 
-    <fragment
-        android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/profileMenus"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:defaultNavHost="false"
         app:layout_constraintBottom_toTopOf="@+id/bottom_menu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_default="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintWidth_default="spread"
-        app:navGraph="@navigation/account" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"/>
 
     <LinearLayout
         android:id="@+id/bottom_menu"

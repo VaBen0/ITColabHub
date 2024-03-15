@@ -5,7 +5,6 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
@@ -15,6 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+
+import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
+import ru.dvteam.itcollabhub.retrofit.PostDatas;
 
 public class ProjectRequests extends AppCompatActivity {
 

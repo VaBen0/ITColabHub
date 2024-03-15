@@ -6,11 +6,9 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.service.controls.Control;
 import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionManager;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -18,7 +16,6 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,16 +29,16 @@ import com.bumptech.glide.request.target.Target;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.OffsetDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
+import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackInt4;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackTasksInfo;
 import ru.dvteam.itcollabhub.databinding.ActivityControlPanel2Binding;
+import ru.dvteam.itcollabhub.retrofit.PostDatas;
 
 public class ControlPanel2 extends AppCompatActivity {
 

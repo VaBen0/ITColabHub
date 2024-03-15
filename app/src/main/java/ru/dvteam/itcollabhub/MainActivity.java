@@ -10,7 +10,8 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import ru.dvteam.itcollabhub.databinding.ActivityMainBinding;
-import ru.dvteam.itcollabhub.view.LogIn;
+import ru.dvteam.itcollabhub.view.authorizeviews.LogIn;
+import ru.dvteam.itcollabhub.view.profileviews.activities.Profile;
 
 public class MainActivity extends AppCompatActivity {
 

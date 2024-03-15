@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,9 +28,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
 
 import com.bumptech.glide.Glide;
 
@@ -39,7 +35,9 @@ import java.io.File;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.databinding.ActivityPurposeLeadBinding;
+import ru.dvteam.itcollabhub.retrofit.PostDatas;
 
 public class Purpose extends AppCompatActivity {
 

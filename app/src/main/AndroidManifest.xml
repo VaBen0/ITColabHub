@@ -221,7 +221,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EditProfile"
+            android:name=".view.profileviews.activities.EditProfile"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -241,31 +241,31 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CreateAccount"
+            android:name=".view.authorizeviews.CreateAccount"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ConfirmForgotPassword"
+            android:name=".view.authorizeviews.ConfirmForgotPassword"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Forgot"
+            android:name=".view.authorizeviews.Forgot"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.LogIn"
+            android:name=".view.authorizeviews.LogIn"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Profile"
+            android:name=".view.profileviews.activities.Profile"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.ConfirmReg"
+            android:name=".view.authorizeviews.ConfirmReg"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.Register"
+            android:name=".view.authorizeviews.Register"
             android:exported="false"
             android:screenOrientation="portrait" />
 

@@ -4,14 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -21,7 +19,10 @@ import java.util.Objects;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackInt5;
 import ru.dvteam.itcollabhub.databinding.ActivityPartisipantTasksBinding;
+import ru.dvteam.itcollabhub.retrofit.PostDatas;
 
 public class PartisipantTasks extends AppCompatActivity {
 

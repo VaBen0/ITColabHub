@@ -6,7 +6,7 @@ import android.util.TypedValue;
 import androidx.core.content.ContextCompat;
 
 public class UsersChosenTheme {
-    private static int themeNum = 3;
+    private static int themeNum = 1;
 
     public static int getThemeNum() {
         return themeNum;

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/rating"
-        android:name="ru.dvteam.itcollabhub.Rating"
+        android:name="ru.dvteam.itcollabhub.view.profileviews.fragments.Rating"
         android:label="Rating" >
         <action
             android:id="@+id/action_rating_to_projects"
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/friends"
-        android:name="ru.dvteam.itcollabhub.Friends"
+        android:name="ru.dvteam.itcollabhub.view.profileviews.fragments.Friends"
         android:label="Friends" >
         <action
             android:id="@+id/action_friends_to_rating"

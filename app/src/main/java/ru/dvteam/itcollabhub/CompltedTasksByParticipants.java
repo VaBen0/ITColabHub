@@ -13,7 +13,9 @@ import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 
+import ru.dvteam.itcollabhub.callbackclasses.CallBackInt5;
 import ru.dvteam.itcollabhub.databinding.ActivityCompltedTasksByParticipantsBinding;
+import ru.dvteam.itcollabhub.retrofit.PostDatas;
 
 public class CompltedTasksByParticipants extends AppCompatActivity {
 

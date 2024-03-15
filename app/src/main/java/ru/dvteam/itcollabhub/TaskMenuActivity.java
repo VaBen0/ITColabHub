@@ -24,7 +24,9 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
+import ru.dvteam.itcollabhub.callbackclasses.CallBackTaskInfo;
 import ru.dvteam.itcollabhub.databinding.ActivityTaskMenuBinding;
+import ru.dvteam.itcollabhub.retrofit.PostDatas;
 
 public class TaskMenuActivity extends AppCompatActivity {
 

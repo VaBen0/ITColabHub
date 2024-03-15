@@ -35,7 +35,9 @@ import java.io.File;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.databinding.ActivityProblemsBinding;
+import ru.dvteam.itcollabhub.retrofit.PostDatas;
 
 public class Problems extends AppCompatActivity {
 

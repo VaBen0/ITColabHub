@@ -18,13 +18,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +31,9 @@ import java.util.ArrayList;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.databinding.ActivityAnswerForTaskBinding;
+import ru.dvteam.itcollabhub.retrofit.PostDatas;
 
 public class AnswerForTask extends AppCompatActivity {
 
@@ -246,7 +244,7 @@ public class AnswerForTask extends AppCompatActivity {
         }else{
             idsImageBlocksStr = String.join(",", idsImageBlocks);
         }
-        post.postDataCreateWork("CreateWork", id, mail, taskId, text, idsLinkBlocksStr,
+        post.postDataCreateWork("CreateWorkInTask", id, mail, taskId, text, idsLinkBlocksStr,
                 idsImageBlocksStr, new CallBackInt() {
             @Override
             public void invoke(String res) {

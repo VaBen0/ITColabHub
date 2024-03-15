@@ -3,7 +3,6 @@ package ru.dvteam.itcollabhub;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,16 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
-import com.bumptech.glide.Glide;
-
-import java.util.Objects;
-
 import ru.dvteam.itcollabhub.databinding.ActivityChooseThemeForAppBinding;
+import ru.dvteam.itcollabhub.view.profileviews.activities.Profile;
 
 public class ChooseThemeForApp extends AppCompatActivity {
 
@@ -46,10 +41,10 @@ public class ChooseThemeForApp extends AppCompatActivity {
         mail = sPref.getString("UserMail", "");
         score = sPref.getInt("UserScore", 0);
 
-        String urlPhoto = Objects.requireNonNull(getIntent().getExtras()).getString("UserPhoto");
-        Glide.with(ChooseThemeForApp.this)
-                .load(urlPhoto)
-                .into(binding.log);
+        //String urlPhoto = Objects.requireNonNull(getIntent().getExtras()).getString("UserPhoto");
+//        Glide.with(ChooseThemeForApp.this)
+//                .load(urlPhoto)
+//                .into(binding.log);
 
         binding.nameu.setText(name);
         binding.score.setText("Ваши очки: " + score);

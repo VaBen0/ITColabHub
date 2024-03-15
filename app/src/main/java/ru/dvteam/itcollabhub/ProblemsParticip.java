@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.databinding.ActivityProblemsParticipBinding;
+import ru.dvteam.itcollabhub.retrofit.PostDatas;
 
 public class ProblemsParticip extends AppCompatActivity {
 

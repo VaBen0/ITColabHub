@@ -10,13 +10,13 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import org.w3c.dom.Text;
-
+import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackTasksInfo;
 import ru.dvteam.itcollabhub.databinding.ActivityTasksMainBinding;
+import ru.dvteam.itcollabhub.retrofit.PostDatas;
 
 public class TasksActivityMain extends AppCompatActivity {
 

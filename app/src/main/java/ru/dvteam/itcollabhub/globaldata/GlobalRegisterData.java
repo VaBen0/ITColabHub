@@ -1,7 +1,5 @@
 package ru.dvteam.itcollabhub.globaldata;
 
-import ru.dvteam.itcollabhub.PostDatas;
-
 public class GlobalRegisterData {
     private static GlobalRegisterData INSTANCE;
     private String EmailAddress;

@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
+import ru.dvteam.itcollabhub.retrofit.PostDatas;
+
 
 public class AddParticipantCreateProject extends Fragment {
 

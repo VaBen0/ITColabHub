@@ -12,7 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 
+import ru.dvteam.itcollabhub.callbackclasses.CallBackInt4;
 import ru.dvteam.itcollabhub.databinding.ActivityUsersProject3Binding;
+import ru.dvteam.itcollabhub.retrofit.PostDatas;
 
 public class UsersProject3 extends AppCompatActivity {
 

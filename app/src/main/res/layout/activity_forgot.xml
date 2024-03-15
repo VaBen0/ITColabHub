@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Forgot">
+    tools:context=".view.authorizeviews.Forgot">
 
 
     <LinearLayout
@@ -127,5 +127,13 @@
         app:layout_constraintTop_toBottomOf="@+id/confirmBut"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/checkEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="11sp"
+        app:layout_constraintStart_toStartOf="@+id/mailu"
+        app:layout_constraintTop_toBottomOf="@+id/mailu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

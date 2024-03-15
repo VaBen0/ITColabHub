@@ -1,10 +1,5 @@
 package ru.dvteam.itcollabhub;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -19,6 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+
+import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
+import ru.dvteam.itcollabhub.retrofit.PostDatas;
 
 public class MyProjects extends Fragment {
 
@@ -144,7 +142,7 @@ public class MyProjects extends Fragment {
                         main.addView(custom, 0);
                     }
 
-                    if(activityProject.getDemoProject() && !activityProject.getDemoEndProject()){
+                    /*if(activityProject.getDemoProject() && !activityProject.getDemoEndProject()){
                         String titleDemo = activityProject.getDemoTitle();
                         String uri = activityProject.getDemoUri();
                         Uri uriImage = Uri.parse(uri);
@@ -174,7 +172,7 @@ public class MyProjects extends Fragment {
                             }
                         });
                         main.addView(custom, 0);
-                    }
+                    }*/
 
                     View empty = getLayoutInflater().inflate(R.layout.emty_obj, null);
                     main.addView(empty);

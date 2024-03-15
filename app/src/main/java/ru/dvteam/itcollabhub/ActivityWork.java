@@ -21,9 +21,9 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
-import org.w3c.dom.Text;
-
+import ru.dvteam.itcollabhub.callbackclasses.CallBackWorkInfo;
 import ru.dvteam.itcollabhub.databinding.ActivityWorkBinding;
+import ru.dvteam.itcollabhub.retrofit.PostDatas;
 
 public class ActivityWork extends AppCompatActivity {
 
