@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ControlPanel">
+    tools:context=".view.projectmenusviews.activities.ControlPanel">
 
     <ImageView
         android:id="@+id/bguser"
@@ -101,20 +101,13 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <HorizontalScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/reminderPlace"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none">
 
-            <LinearLayout
-                android:id="@+id/reminder_place"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-            </LinearLayout>
-
-        </HorizontalScrollView>
+        </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 
     <TextView

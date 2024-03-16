@@ -1,4 +1,4 @@
-package ru.dvteam.itcollabhub;
+package ru.dvteam.itcollabhub.view.projectmenusviews.activities;
 
 import android.Manifest;
 import android.app.Activity;
@@ -26,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 
@@ -33,34 +34,39 @@ import java.io.File;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import ru.dvteam.itcollabhub.EndProject;
+import ru.dvteam.itcollabhub.FragmentLinksProjectEdit;
+import ru.dvteam.itcollabhub.FragmentOtherEdit;
+import ru.dvteam.itcollabhub.ProjectDescriptionEdit;
+import ru.dvteam.itcollabhub.R;
+import ru.dvteam.itcollabhub.UsersChosenTheme;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.databinding.ActivityEditProjectBinding;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
+import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.EditProjectViewModel;
 
 public class EditProject extends AppCompatActivity {
 
     ActivityEditProjectBinding binding;
-    private String id, title, description, prPhoto, mail, tgLink, vkLink, webLink, isOpen, isVisible;
     int score;
     private static final int PICK_IMAGES_CODE = 0;
-    private String mediaPath = "", uriPath = "";
     private Boolean acces = false;
+    private String mediaPath, uriPath;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     ActivityResultLauncher<Intent> resultLauncher;
+    EditProjectViewModel editProjectViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setThemeActivity();
         super.onCreate(savedInstanceState);
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        mail = sPref.getString("UserMail", "");
-        score = sPref.getInt("UserScore", 0);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         binding = ActivityEditProjectBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_create_project1);
+        editProjectViewModel = new ViewModelProvider(this).get(EditProjectViewModel.class);
 
         setContentView(binding.getRoot());
         registerResult();
@@ -82,37 +88,24 @@ public class EditProject extends AppCompatActivity {
                 .hide(fragmentOther)
                 .commit();
 
-        //navController = Navigation.findNavController(this, R.id.fragmentContainerView);
-
         binding.linearDescription.setVisibility(View.VISIBLE);
         binding.linkLine.setVisibility(View.INVISIBLE);
         binding.otherLine.setVisibility(View.INVISIBLE);
 
 
-        Bundle arguments = getIntent().getExtras();
-        assert arguments != null;
-        id = arguments.getString("projectId");
-        title = arguments.getString("projectTitle");
-        prPhoto = arguments.getString("projectUrlPhoto");
-        description = arguments.getString("projectDescription");
-        tgLink = arguments.getString("tgLink");
-        vkLink = arguments.getString("vkLink");
-        webLink = arguments.getString("webLink");
-        isOpen = arguments.getString("isOpen");
-        isVisible = arguments.getString("isVisible");
-        //navController.navigate(R.id.projectDescriptionEdit2);
-
-        binding.projectName.setText(title);
-        Glide
-                .with(EditProject.this)
-                .load(prPhoto)
-                .into(binding.prLogo);
+//        binding.projectName.setText(title);
+//        Glide
+//                .with(EditProject.this)
+//                .load(prPhoto)
+//                .into(binding.prLogo);
         binding.tint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
+
+        editProjectViewModel.getAllProjectInfo();
         binding.linksFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,7 +168,7 @@ public class EditProject extends AppCompatActivity {
         });
 
         if(Build.VERSION.SDK_INT >= 33) {
-            binding.prLogo.setOnClickListener(view -> pickImage());
+            //binding.prLogo.setOnClickListener(view -> pickImage());
         }
         else{
             binding.prLogo.setOnClickListener(new View.OnClickListener() {
@@ -328,142 +321,142 @@ public class EditProject extends AppCompatActivity {
         );
     }
 
-    public void saveDescription(String description){
-        PostDatas post = new PostDatas();
-        if(mediaPath.isEmpty()){
-            post.postDataChangeProjectWithoutImageWithDescription("SaveChangesFromProjectWithoutImageAndDescription",
-                    binding.projectName.getText().toString(), description, id, mail, new CallBackInt() {
-                        @Override
-                        public void invoke(String res) {
-                            binding.blockMenu.setVisibility(View.VISIBLE);
-                            final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add3);
-                            binding.blockMenu.startAnimation(show);
-                        }
-                    });
-        } else{
-            File file = new File(mediaPath);
-            RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
-            post.postDataChangeProjectWithDescription("SaveChangesFromProjectWithImageAndDescription", binding.projectName.getText().toString(),
-                    requestBody, id, mail, description, new CallBackInt() {
-                        @Override
-                        public void invoke(String res) {
-                            deleteCache(EditProject.this);
-                            System.out.println("image");
-                            binding.blockMenu.setVisibility(View.VISIBLE);
-                            final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add3);
-                            binding.blockMenu.startAnimation(show);
-                        }
-                    });
-        }
-    }
-    public void saveLinks(String tg, String vk, String web){
-        PostDatas post = new PostDatas();
-        System.out.println(tg + " " + vk + " " + web);
-        if(mediaPath.isEmpty()){
-            post.postDataChangeProjectWithoutImageWithLink("SaveChangesFromProjectWithoutImageAndLinks",
-                    binding.projectName.getText().toString(), tg, vk, web, id, mail, new CallBackInt() {
-                        @Override
-                        public void invoke(String res) {
-                            binding.blockMenu.setVisibility(View.VISIBLE);
-                            final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add3);
-                            binding.blockMenu.startAnimation(show);
-                        }
-                    });
-        } else{
-            File file = new File(mediaPath);
-            RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
-            post.postDataChangeProjectWithLink("SaveChangesFromProjectWithImageAndLinks", binding.projectName.getText().toString(),
-                    requestBody, id, mail, tg, vk, web, new CallBackInt() {
-                        @Override
-                        public void invoke(String res) {
-                            deleteCache(EditProject.this);
-                            System.out.println("image");
-                            binding.blockMenu.setVisibility(View.VISIBLE);
-                            final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add3);
-                            binding.blockMenu.startAnimation(show);
-                        }
-                    });
-        }
-    }
-
-    public void saveOther(String open, String visible){
-        PostDatas post = new PostDatas();
-
-        if(mediaPath.isEmpty()){
-            post.postDataChangeProjectWithoutImageWithStatus("SaveChangesFromProjectWithoutImageAndIsOpenAndIsVisibile",
-                    binding.projectName.getText().toString(), open, visible, id, mail, new CallBackInt() {
-                        @Override
-                        public void invoke(String res) {
-                            binding.blockMenu.setVisibility(View.VISIBLE);
-                            final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add3);
-                            binding.blockMenu.startAnimation(show);
-                        }
-                    });
-        } else{
-            File file = new File(mediaPath);
-            RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
-            post.postDataChangeProjectWithStatus("SaveChangesFromProjectWithImageAndIsOpenAndIsVisibile", binding.projectName.getText().toString(),
-                    requestBody, id, mail, open, visible, new CallBackInt() {
-                        @Override
-                        public void invoke(String res) {
-                            deleteCache(EditProject.this);
-                            System.out.println("image");
-                            binding.blockMenu.setVisibility(View.VISIBLE);
-                            final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add3);
-                            binding.blockMenu.startAnimation(show);
-                        }
-                    });
-        }
-    }
-
-    public int description(){return score;}
-    public String getDescription(){
-        return description;
-    }
-    public int getScore(){return score;}
-    public String getMail(){return mail;}
-    public String getTgLink(){return tgLink;}
-    public String getVkLink(){return vkLink;}
-    public String getWebLink(){return webLink;}
-    public String getIsOpen(){return isOpen;}
-    public String getIsVisible(){return isVisible;}
-
-    private void pickImage(){
-        Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
-        resultLauncher.launch(intent);
-    }
-
-    public static void deleteCache(Context context) {
-        try {
-            File dir = context.getCacheDir();
-            deleteDir(dir);
-        } catch (Exception e) { e.printStackTrace();}
-    }
-
-    public static boolean deleteDir(File dir) {
-        if (dir != null && dir.isDirectory()) {
-            String[] children = dir.list();
-            for (int i = 0; i < children.length; i++) {
-                boolean success = deleteDir(new File(dir, children[i]));
-                if (!success) {
-                    return false;
-                }
-            }
-            return dir.delete();
-        } else if(dir!= null && dir.isFile()) {
-            return dir.delete();
-        } else {
-            return false;
-        }
-    }
-
-    public void endProject(){
-        Intent intent = new Intent(EditProject.this, EndProject.class);
-        intent.putExtra("projectTitle", title);
-        intent.putExtra("projectUrlPhoto", prPhoto);
-        intent.putExtra("projectId", id);
-        startActivity(intent);
-    }
+//    public void saveDescription(String description){
+//        PostDatas post = new PostDatas();
+//        if(mediaPath.isEmpty()){
+//            post.postDataChangeProjectWithoutImageWithDescription("SaveChangesFromProjectWithoutImageAndDescription",
+//                    binding.projectName.getText().toString(), description, id, mail, new CallBackInt() {
+//                        @Override
+//                        public void invoke(String res) {
+//                            binding.blockMenu.setVisibility(View.VISIBLE);
+//                            final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add3);
+//                            binding.blockMenu.startAnimation(show);
+//                        }
+//                    });
+//        } else{
+//            File file = new File(mediaPath);
+//            RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
+//            post.postDataChangeProjectWithDescription("SaveChangesFromProjectWithImageAndDescription", binding.projectName.getText().toString(),
+//                    requestBody, id, mail, description, new CallBackInt() {
+//                        @Override
+//                        public void invoke(String res) {
+//                            deleteCache(EditProject.this);
+//                            System.out.println("image");
+//                            binding.blockMenu.setVisibility(View.VISIBLE);
+//                            final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add3);
+//                            binding.blockMenu.startAnimation(show);
+//                        }
+//                    });
+//        }
+//    }
+//    public void saveLinks(String tg, String vk, String web){
+//        PostDatas post = new PostDatas();
+//        System.out.println(tg + " " + vk + " " + web);
+//        if(mediaPath.isEmpty()){
+//            post.postDataChangeProjectWithoutImageWithLink("SaveChangesFromProjectWithoutImageAndLinks",
+//                    binding.projectName.getText().toString(), tg, vk, web, id, mail, new CallBackInt() {
+//                        @Override
+//                        public void invoke(String res) {
+//                            binding.blockMenu.setVisibility(View.VISIBLE);
+//                            final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add3);
+//                            binding.blockMenu.startAnimation(show);
+//                        }
+//                    });
+//        } else{
+//            File file = new File(mediaPath);
+//            RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
+//            post.postDataChangeProjectWithLink("SaveChangesFromProjectWithImageAndLinks", binding.projectName.getText().toString(),
+//                    requestBody, id, mail, tg, vk, web, new CallBackInt() {
+//                        @Override
+//                        public void invoke(String res) {
+//                            deleteCache(EditProject.this);
+//                            System.out.println("image");
+//                            binding.blockMenu.setVisibility(View.VISIBLE);
+//                            final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add3);
+//                            binding.blockMenu.startAnimation(show);
+//                        }
+//                    });
+//        }
+//    }
+//
+//    public void saveOther(String open, String visible){
+//        PostDatas post = new PostDatas();
+//
+//        if(mediaPath.isEmpty()){
+//            post.postDataChangeProjectWithoutImageWithStatus("SaveChangesFromProjectWithoutImageAndIsOpenAndIsVisibile",
+//                    binding.projectName.getText().toString(), open, visible, id, mail, new CallBackInt() {
+//                        @Override
+//                        public void invoke(String res) {
+//                            binding.blockMenu.setVisibility(View.VISIBLE);
+//                            final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add3);
+//                            binding.blockMenu.startAnimation(show);
+//                        }
+//                    });
+//        } else{
+//            File file = new File(mediaPath);
+//            RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
+//            post.postDataChangeProjectWithStatus("SaveChangesFromProjectWithImageAndIsOpenAndIsVisibile", binding.projectName.getText().toString(),
+//                    requestBody, id, mail, open, visible, new CallBackInt() {
+//                        @Override
+//                        public void invoke(String res) {
+//                            deleteCache(EditProject.this);
+//                            System.out.println("image");
+//                            binding.blockMenu.setVisibility(View.VISIBLE);
+//                            final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add3);
+//                            binding.blockMenu.startAnimation(show);
+//                        }
+//                    });
+//        }
+//    }
+//
+//    public int description(){return score;}
+//    public String getDescription(){
+//        return description;
+//    }
+//    public int getScore(){return score;}
+//    public String getMail(){return mail;}
+//    public String getTgLink(){return tgLink;}
+//    public String getVkLink(){return vkLink;}
+//    public String getWebLink(){return webLink;}
+//    public String getIsOpen(){return isOpen;}
+//    public String getIsVisible(){return isVisible;}
+//
+//    private void pickImage(){
+//        Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
+//        resultLauncher.launch(intent);
+//    }
+//
+//    public static void deleteCache(Context context) {
+//        try {
+//            File dir = context.getCacheDir();
+//            deleteDir(dir);
+//        } catch (Exception e) { e.printStackTrace();}
+//    }
+//
+//    public static boolean deleteDir(File dir) {
+//        if (dir != null && dir.isDirectory()) {
+//            String[] children = dir.list();
+//            for (int i = 0; i < children.length; i++) {
+//                boolean success = deleteDir(new File(dir, children[i]));
+//                if (!success) {
+//                    return false;
+//                }
+//            }
+//            return dir.delete();
+//        } else if(dir!= null && dir.isFile()) {
+//            return dir.delete();
+//        } else {
+//            return false;
+//        }
+//    }
+//
+//    public void endProject(){
+//        Intent intent = new Intent(EditProject.this, EndProject.class);
+//        intent.putExtra("projectTitle", title);
+//        intent.putExtra("projectUrlPhoto", prPhoto);
+//        intent.putExtra("projectId", id);
+//        startActivity(intent);
+//    }
 
     public void setThemeActivity(){
         int themeType = UsersChosenTheme.getThemeNum();

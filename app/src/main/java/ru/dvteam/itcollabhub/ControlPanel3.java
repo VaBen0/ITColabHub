@@ -24,6 +24,9 @@ import java.util.Date;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt4;
 import ru.dvteam.itcollabhub.databinding.ActivityControlPanel3Binding;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.Problems;
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.ProjectFiles;
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.Purpose;
 
 public class ControlPanel3 extends AppCompatActivity {
 

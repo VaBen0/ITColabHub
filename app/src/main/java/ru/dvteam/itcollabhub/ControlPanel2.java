@@ -39,6 +39,9 @@ import ru.dvteam.itcollabhub.callbackclasses.CallBackInt4;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackTasksInfo;
 import ru.dvteam.itcollabhub.databinding.ActivityControlPanel2Binding;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.Problems;
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.ProjectFiles;
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.Purpose;
 
 public class ControlPanel2 extends AppCompatActivity {
 

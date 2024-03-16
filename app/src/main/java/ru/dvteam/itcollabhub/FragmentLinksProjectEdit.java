@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.EditProject;
+
 
 public class FragmentLinksProjectEdit extends Fragment {
 

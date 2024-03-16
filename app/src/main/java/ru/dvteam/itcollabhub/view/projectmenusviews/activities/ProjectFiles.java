@@ -1,4 +1,4 @@
-package ru.dvteam.itcollabhub;
+package ru.dvteam.itcollabhub.view.projectmenusviews.activities;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,13 +32,15 @@ import java.io.File;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import ru.dvteam.itcollabhub.EditFile;
+import ru.dvteam.itcollabhub.R;
+import ru.dvteam.itcollabhub.UsersChosenTheme;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
-import ru.dvteam.itcollabhub.databinding.ActivityProjectAdvertismentsBinding;
+import ru.dvteam.itcollabhub.databinding.ActivityProjectFilesBinding;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
 
-public class ProjectAdvertisments extends AppCompatActivity {
 
-    ActivityProjectAdvertismentsBinding binding;
+public class ProjectFiles extends AppCompatActivity {
 
     private static final int PICK_IMAGES_CODE = 0;
     private String mediaPath = "";
@@ -45,7 +48,11 @@ public class ProjectAdvertisments extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     ActivityResultLauncher<Intent> resultLauncher;
 
-    private String projectTitle, photoProject, prId, mail;
+    ActivityProjectFilesBinding binding;
+    private String prId, projectTitle, photoProject, mail;
+    private int fixedFiles = 0;
+
+    Drawable fixed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,80 +63,73 @@ public class ProjectAdvertisments extends AppCompatActivity {
         mail = sPref.getString("UserMail", "");
         int score = sPref.getInt("UserScore", 0);
 
-        binding = ActivityProjectAdvertismentsBinding.inflate(getLayoutInflater());
+        binding = ActivityProjectFilesBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
-        TypedValue typedValue = new TypedValue();
-        getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
-        int color = ContextCompat.getColor(ProjectAdvertisments.this, typedValue.resourceId);
-        getWindow().setStatusBarColor(color);
         registerResult();
 
-        /*Glide.with(this)
-                .load("https://serveritcollabhub.development-team.ru/project_image/moaiitcollabhub.png")
-                .into(binding.textView8);*/
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
+        int color = ContextCompat.getColor(ProjectFiles.this, typedValue.resourceId);
+        getWindow().setStatusBarColor(color);
 
         Bundle arguments = getIntent().getExtras();
 
         assert arguments != null;
-        String id = arguments.getString("projectId");
         prId = arguments.getString("projectId1");
         projectTitle = arguments.getString("projectTitle");
         photoProject = arguments.getString("projectUrlPhoto");
 
-
-
         binding.nameProject.setText(projectTitle);
+
         Glide
-                .with(ProjectAdvertisments.this)
+                .with(ProjectFiles.this)
                 .load(photoProject)
                 .into(binding.prLogo);
+
         Glide
-                .with(ProjectAdvertisments.this)
+                .with(ProjectFiles.this)
                 .load(photoProject)
                 .into(binding.fileImage);
 
-        getAdvertIds();
+        PostDatas post = new PostDatas();
 
-        binding.addAdvert.setOnClickListener(new View.OnClickListener() {
+        getIds();
+
+        binding.addFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(binding.advertName.getText().toString().isEmpty()){
-                    Toast.makeText(ProjectAdvertisments.this, "Нет названия", Toast.LENGTH_SHORT).show();
-                }
-                else if(binding.advert.getText().toString().isEmpty()){
-                    Toast.makeText(ProjectAdvertisments.this, "Нет описания", Toast.LENGTH_SHORT).show();
-                }
-                if(mediaPath.isEmpty()){
-                    PostDatas post = new PostDatas();
-                    post.postDataCreateAdvertWithoutImage("CreateAdWithoutImage", binding.advertName.getText().toString(),
-                            binding.advert.getText().toString(), prId, mail, new CallBackInt() {
+                if(binding.fileName.getText().toString().isEmpty()){
+                    Toast.makeText(ProjectFiles.this, "Нет названия", Toast.LENGTH_SHORT).show();
+                } else if(binding.fileLink.getText().toString().isEmpty()){
+                    Toast.makeText(ProjectFiles.this, "Нет ссылки", Toast.LENGTH_SHORT).show();
+                } else if(mediaPath.isEmpty()){
+                    post.postDataCreateFileWithoutImage("CreateFileWithoutImage", binding.fileName.getText().toString(),
+                            binding.fileLink.getText().toString(), prId, mail, new CallBackInt() {
                                 @Override
                                 public void invoke(String res) {
-                                    binding.advertName.setText("");
-                                    binding.advert.setText("");
-                                    binding.advertsPlace.removeAllViews();
-                                    getAdvertIds();
+                                    binding.fileName.setHint("");
+                                    binding.fileLink.setHint("");
+                                    binding.filesPlace.removeAllViews();
+                                    getIds();
                                 }
                             });
-                }
-                else{
-                    PostDatas post = new PostDatas();
+                } else{
                     File file = new File(mediaPath);
                     RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
-                    post.postDataCreateAdvert("CreateAd", binding.advertName.getText().toString(), requestBody,
-                            binding.advert.getText().toString(), prId, mail, new CallBackInt() {
+                    post.postDataCreateFile("CreateFile", binding.fileName.getText().toString(), requestBody,
+                            binding.fileLink.getText().toString(), prId, mail, new CallBackInt() {
                                 @Override
                                 public void invoke(String res) {
                                     mediaPath = "";
-                                    binding.advertName.setText("");
-                                    binding.advert.setText("");
+                                    binding.fileName.setText("");
+                                    binding.fileLink.setText("");
                                     Glide
-                                            .with(ProjectAdvertisments.this)
+                                            .with(ProjectFiles.this)
                                             .load(photoProject)
                                             .into(binding.fileImage);
-                                    binding.advertsPlace.removeAllViews();
-                                    getAdvertIds();
+                                    binding.filesPlace.removeAllViews();
+                                    getIds();
                                 }
                             });
                 }
@@ -143,9 +143,9 @@ public class ProjectAdvertisments extends AppCompatActivity {
             binding.addPhoto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (ContextCompat.checkSelfPermission(ProjectAdvertisments.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                    if (ContextCompat.checkSelfPermission(ProjectFiles.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
                             != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(ProjectAdvertisments.this,
+                        ActivityCompat.requestPermissions(ProjectFiles.this,
                                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                                 MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
                     } else {
@@ -157,6 +157,8 @@ public class ProjectAdvertisments extends AppCompatActivity {
                 }
             });
         }
+
+
     }
 
     private void pickImage(){
@@ -176,7 +178,7 @@ public class ProjectAdvertisments extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_PICK);
                 startActivityForResult(Intent.createChooser(intent, "Select Image(s)"), PICK_IMAGES_CODE);
             } else {
-                Toast.makeText(ProjectAdvertisments.this, "You loser", Toast.LENGTH_LONG).show();
+                Toast.makeText(ProjectFiles.this, "You loser", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -224,54 +226,103 @@ public class ProjectAdvertisments extends AppCompatActivity {
                             cursor.close();
                             acces = true;
                         }catch (Exception e){
-                            Toast.makeText(ProjectAdvertisments.this, "LOSER", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProjectFiles.this, "LOSER", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
         );
     }
-
-    public void getAdverts(String id1, String id2){
+    private void getFiles(String filesId){
         PostDatas post = new PostDatas();
-        post.postDataGetProjectAds("GetProjectAds", id1, new CallBackInt() {
+        post.postDataGetProjectFiles("GetProjectFiles", filesId, new CallBackInt() {
             @Override
             public void invoke(String res) {
+                //Toast.makeText(ProjectFiles.this, res, Toast.LENGTH_SHORT).show();
                 String[] inf = res.split("\uD83D\uDD70");
-                String[] idm = id1.split(",");
-                for(int i = 0; i < inf.length; i += 3){
-                    View custom = getLayoutInflater().inflate(R.layout.advertisment_panel, null);
-                    ImageView loadImg = custom.findViewById(R.id.advertismentImage);
+                String[] idm = filesId.split(",");
+                for(int i = 0; i < inf.length; i += 4){
+                    //Toast.makeText(ProjectFiles.this, inf[i] + " " + inf[i + 2] + " " + inf[i + 3], Toast.LENGTH_SHORT).show();
+                    View custom = getLayoutInflater().inflate(R.layout.gfile_panel, null);
+                    ImageView loadImg = custom.findViewById(R.id.fileImage);
                     TextView name = custom.findViewById(R.id.fileName);
+                    View back = custom.findViewById(R.id.backGround);
                     ImageView editBut = custom.findViewById(R.id.editBut);
                     ImageView deleteBut = custom.findViewById(R.id.deleteBut);
-
-                    int finalI = i;
-
+                    ImageView zakrepBut = custom.findViewById(R.id.zakrepBut);
+                    ImageView zakrepBut1 = custom.findViewById(R.id.zakrepBut1);
+                    //ImageView editBut = custom.findViewById(R.id.editProblem);
+                    int place = i / 4;
                     name.setText(inf[i]);
+
                     Glide
-                            .with(ProjectAdvertisments.this)
-                            .load(inf[i+2])
+                            .with(ProjectFiles.this)
+                            .load(inf[i+3])
                             .into(loadImg);
+
+                    if(inf[i + 2].equals("1")){
+                        back.setBackground(fixed);
+                        zakrepBut.setVisibility(View.GONE);
+                        zakrepBut1.setVisibility(View.VISIBLE);
+                        fixedFiles += 1;
+                    }
+                    int finalI = i;
 
                     custom.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            goToLink(inf[finalI + 1]);
+                        }
+                    });
 
+                    zakrepBut1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            PostDatas postDatas = new PostDatas();
+                                postDatas.postDataDetachFile("DetachedFile", prId, mail, idm[finalI / 4], new CallBackInt() {
+                                    @Override
+                                    public void invoke(String res) {
+                                        binding.filesPlace.removeView(custom);
+                                        back.setBackgroundResource(R.drawable.progress_panel_background);
+                                        zakrepBut1.setVisibility(View.GONE);
+                                        zakrepBut.setVisibility(View.VISIBLE);
+                                        fixedFiles -= 1;
+                                        binding.filesPlace.addView(custom, fixedFiles);
+
+                                        inf[finalI + 2] = "0";
+                                    }
+                                });
+                        }
+                    });
+                    zakrepBut.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            PostDatas postDatas = new PostDatas();
+                            postDatas.postDataFixFile("FixFile", prId, mail, idm[finalI / 4], new CallBackInt() {
+                                @Override
+                                public void invoke(String res) {
+                                    binding.filesPlace.removeView(custom);
+                                    zakrepBut.setVisibility(View.GONE);
+                                    zakrepBut1.setVisibility(View.VISIBLE);
+                                    back.setBackground(fixed);
+                                    fixedFiles += 1;
+                                    binding.filesPlace.addView(custom, 0);
+                                    inf[finalI + 2] = "1";
+                                }
+                            });
                         }
                     });
 
                     editBut.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(ProjectAdvertisments.this, EditAdvertisment.class);
-                            intent.putExtra("problemPhoto", inf[finalI+2]);
+                            Intent intent = new Intent(ProjectFiles.this, EditFile.class);
+                            intent.putExtra("filePhoto", inf[finalI+3]);
                             intent.putExtra("projectTitle", projectTitle);
                             intent.putExtra("projectUrlPhoto", photoProject);
                             intent.putExtra("projectId1", prId);
-                            intent.putExtra("problemName", inf[finalI]);
-                            intent.putExtra("problemDescription", inf[finalI + 1]);
-                            intent.putExtra("problemId", idm[finalI / 3]);
-                            //Toast.makeText(ProjectAdvertisments.this, idm[finalI / 3] + " " + prId, Toast.LENGTH_SHORT).show();
+                            intent.putExtra("fileName", inf[finalI]);
+                            intent.putExtra("fileLink", inf[finalI + 1]);
+                            intent.putExtra("fileId", idm[finalI / 4]);
                             startActivity(intent);
                         }
                     });
@@ -279,102 +330,95 @@ public class ProjectAdvertisments extends AppCompatActivity {
                     deleteBut.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            PostDatas post = new PostDatas();
-                            post.postDataDeleteAd("DeleteAd", prId, mail, idm[finalI / 3], new CallBackInt() {
+                            PostDatas postDatas = new PostDatas();
+                            postDatas.postDataDeleteFile("DeleteFile", prId, mail, idm[finalI / 4], new CallBackInt() {
                                 @Override
                                 public void invoke(String res) {
-                                    binding.advertsPlace.removeView(custom);
+                                    binding.filesPlace.removeView(custom);
                                 }
                             });
                         }
                     });
 
-                    binding.advertsPlace.addView(custom, 0);
-                }
-            }
-        });
-        post.postDataGetProjectAds("GetProjectAds", id2, new CallBackInt() {
-            @Override
-            public void invoke(String res) {
-                String[] inf = res.split("\uD83D\uDD70");
-                String[] idm = id2.split(",");
-                for(int i = 0; i < inf.length; i += 3){
-                    View custom = getLayoutInflater().inflate(R.layout.advertisment_panel, null);
-                    ImageView loadImg = custom.findViewById(R.id.advertismentImage);
-                    TextView name = custom.findViewById(R.id.fileName);
-                    ImageView editBut = custom.findViewById(R.id.editBut);
-                    ImageView deleteBut = custom.findViewById(R.id.deleteBut);
-
-                    int finalI = i;
-
-                    name.setText(inf[i]);
-                    Glide
-                            .with(ProjectAdvertisments.this)
-                            .load(inf[i+2])
-                            .into(loadImg);
-
-                    custom.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                        }
-                    });
-
-                    editBut.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(ProjectAdvertisments.this, EditAdvertisment.class);
-                            intent.putExtra("problemPhoto", inf[finalI+2]);
-                            intent.putExtra("projectTitle", projectTitle);
-                            intent.putExtra("projectUrlPhoto", photoProject);
-                            intent.putExtra("projectId1", prId);
-                            intent.putExtra("problemName", inf[finalI]);
-                            intent.putExtra("problemDescription", inf[finalI + 1]);
-                            intent.putExtra("problemId", idm[finalI / 3]);
-                            //Toast.makeText(ProjectAdvertisments.this, idm[finalI / 3] + " " + prId, Toast.LENGTH_SHORT).show();
-                            startActivity(intent);
-                        }
-                    });
-
-                    deleteBut.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            PostDatas post = new PostDatas();
-                            post.postDataDeleteAd("DeleteAd", prId, mail, idm[finalI / 3], new CallBackInt() {
-                                @Override
-                                public void invoke(String res) {
-                                    binding.advertsPlace.removeView(custom);
-                                }
-                            });
-                        }
-                    });
-
-                    binding.advertsPlace.addView(custom);
+                    if(inf[i + 2].equals("1")){
+                        binding.filesPlace.addView(custom, 0);
+                    } else{
+                        binding.filesPlace.addView(custom, 0);
+                    }
                 }
             }
         });
     }
-
-    public void getAdvertIds(){
+    private void getIds(){
         PostDatas post = new PostDatas();
-        post.postDataGetProjectAdsIds("GetProjectAdsIds", prId, new CallBackInt() {
+        post.postDataGetProjectFilesIds("GetProjectFilesIds", prId, new CallBackInt() {
             @Override
             public void invoke(String res) {
-                post.postDataGetProjectAdsIds("GetProjectAdsIds2", prId, new CallBackInt() {
-                    @Override
-                    public void invoke(String res2) {
-                        getAdverts(res, res2);
-                    }
-                });
+                //Toast.makeText(ProjectFiles.this, res, Toast.LENGTH_SHORT).show();
+                getFiles(res);
             }
         });
+    }
+
+    private void goToLink(String url){
+        Uri uriUrl = Uri.parse(url);
+        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+        startActivity(launchBrowser);
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        binding.advertsPlace.removeAllViews();
-        getAdvertIds();
+        binding.filesPlace.removeAllViews();
+        getIds();
+    }
+
+    private void setActivityFormat(int score){
+        if(score < 100){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_blue);
+            getWindow().setStatusBarColor(ContextCompat.getColor(ProjectFiles.this,R.color.blue));
+            fixed = getResources().getDrawable(R.drawable.blue_transperent);
+        }
+        else if(score < 300){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_green);
+            getWindow().setStatusBarColor(ContextCompat.getColor(ProjectFiles.this,R.color.green));
+            fixed = getResources().getDrawable(R.drawable.green_transperent);
+        }
+        else if(score < 1000){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_brown);
+            getWindow().setStatusBarColor(ContextCompat.getColor(ProjectFiles.this,R.color.brown));
+            fixed = getResources().getDrawable(R.drawable.brown_transperent);
+        }
+        else if(score < 2500){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_light_gray);
+            getWindow().setStatusBarColor(ContextCompat.getColor(ProjectFiles.this,R.color.light_gray));
+            fixed = getResources().getDrawable(R.drawable.light_gray_transperent);
+        }
+        else if(score < 7000){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_ohra);
+            getWindow().setStatusBarColor(ContextCompat.getColor(ProjectFiles.this,R.color.ohra));
+            fixed = getResources().getDrawable(R.drawable.ohra_transperent);
+        }
+        else if(score < 17000){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_red);
+            getWindow().setStatusBarColor(ContextCompat.getColor(ProjectFiles.this,R.color.red));
+            fixed = getResources().getDrawable(R.drawable.red_transperent);
+        }
+        else if(score < 30000){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_orange);
+            getWindow().setStatusBarColor(ContextCompat.getColor(ProjectFiles.this,R.color.orange));
+            fixed = getResources().getDrawable(R.drawable.orange_transperent);
+        }
+        else if(score < 50000){
+            binding.bguser.setBackgroundResource(R.drawable.gradient_violete);
+            getWindow().setStatusBarColor(ContextCompat.getColor(ProjectFiles.this,R.color.violete));
+            fixed = getResources().getDrawable(R.drawable.violete_transperent);
+        }
+        else{
+            binding.bguser.setBackgroundResource(R.drawable.gradient_blue_green);
+            getWindow().setStatusBarColor(ContextCompat.getColor(ProjectFiles.this,R.color.main_green));
+            fixed = getResources().getDrawable(R.drawable.main_green_transperent);
+        }
     }
 
     public void setThemeActivity(){

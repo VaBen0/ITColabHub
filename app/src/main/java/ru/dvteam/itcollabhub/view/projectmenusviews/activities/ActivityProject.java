@@ -1,28 +1,36 @@
-package ru.dvteam.itcollabhub;
+package ru.dvteam.itcollabhub.view.projectmenusviews.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 
-import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
-import ru.dvteam.itcollabhub.retrofit.PostDatas;
+import ru.dvteam.itcollabhub.CreateProject;
+import ru.dvteam.itcollabhub.EndProjects;
+import ru.dvteam.itcollabhub.Forum;
+import ru.dvteam.itcollabhub.view.projectmenusviews.fragments.MyProjects;
+import ru.dvteam.itcollabhub.ProjectRequests;
+import ru.dvteam.itcollabhub.R;
+import ru.dvteam.itcollabhub.UsersChosenTheme;
+import ru.dvteam.itcollabhub.UsersProjectDemo;
+import ru.dvteam.itcollabhub.databinding.ActivityProjectBinding;
+
 import ru.dvteam.itcollabhub.view.profileviews.activities.Profile;
+import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.ActivityProjectViewModel;
 
 public class ActivityProject extends AppCompatActivity {
 
+    ActivityProjectBinding binding;
     int selectedColor, score;
     //private NavController navController;
     String mail, titleDemo, descriptionDemo, problemsDemo, purposesDemo, uriDemo;
@@ -30,31 +38,35 @@ public class ActivityProject extends AppCompatActivity {
     private String[] wow = {"Хренос 2", "Кина не будет - электричество кончилось", "Ой, сломалось", "Караул!"};
     View back;
     ImageView dontWork;
-
+    ActivityProjectViewModel activityProjectViewModel;
     Fragment fragmentPrMy, fragmentPrEnd;
     Boolean demoProjects;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setThemeActivity();
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
+        /*SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         mail = sPref.getString("UserMail", "");
         score = sPref.getInt("UserScore", 0);
         demoProjects = sPref.getBoolean("DemoProject", false);
         titleDemo = sPref.getString("DemoProjectTitle", "");
         uriDemo = sPref.getString("UriPath", "");
-        projectEnd = sPref.getBoolean("IsEnd", false);
+        projectEnd = sPref.getBoolean("IsEnd", false);*/
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_project);
+
+        binding = ActivityProjectBinding.inflate(getLayoutInflater());
+
+        setContentView(binding.getRoot());
+
+        activityProjectViewModel = new ViewModelProvider(this).get(ActivityProjectViewModel.class);
 
         TypedValue typedValue = new TypedValue();
         getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
         int color = ContextCompat.getColor(ActivityProject.this, typedValue.resourceId);
         getWindow().setStatusBarColor(color);
-        //deleteCache(ActivityProject.this);
 
-        LinearLayout profileMenu = findViewById(R.id.profile_menu);
+        /*LinearLayout profileMenu = findViewById(R.id.profile_menu);
         LinearLayout forumMenu = findViewById(R.id.forum_menu);
         ImageView plus = findViewById(R.id.plus);
 
@@ -66,9 +78,9 @@ public class ActivityProject extends AppCompatActivity {
         View my_projects_lin = findViewById(R.id.linear_my_projects);
         View end_projects_lin = findViewById(R.id.linear_end_projects);
         back = findViewById(R.id.view3);
-        dontWork = findViewById(R.id.imageView12);
+        dontWork = findViewById(R.id.imageView12);*/
 
-        end_projects_lin.setVisibility(View.INVISIBLE);
+        binding.linearEndProjects.setVisibility(View.INVISIBLE);
 
         fragmentPrMy = Fragment.instantiate(this, MyProjects.class.getName());
         fragmentPrEnd = Fragment.instantiate(this, EndProjects.class.getName());
@@ -84,7 +96,7 @@ public class ActivityProject extends AppCompatActivity {
                 .hide(fragmentPrEnd)
                 .commit();
 
-        PostDatas post = new PostDatas();
+        /*PostDatas post = new PostDatas();
         post.postDataGetProjectReq("GRProjects", mail, new CallBackInt() {
             @Override
             public void invoke(String res) {
@@ -95,78 +107,14 @@ public class ActivityProject extends AppCompatActivity {
                     notif.setBackgroundResource(R.drawable.white_notification);
                 }
             }
-        });
-
-        /*if(score < 100){
-            bguser.setBackgroundResource(R.drawable.gradient_blue);
-            selectedColor = Color.parseColor("#B20000FF");
-            my_projects_lin.setBackgroundResource(R.drawable.blue_line);
-            getWindow().setStatusBarColor(ContextCompat.getColor(ActivityProject.this,R.color.blue));
-            plus.setBackgroundResource(R.drawable.ad);
-        }
-        else if(score < 300){
-            bguser.setBackgroundResource(R.drawable.gradient_green);
-            selectedColor = Color.parseColor("#B21AFF00");
-            my_projects_lin.setBackgroundResource(R.drawable.green_line);
-            getWindow().setStatusBarColor(ContextCompat.getColor(ActivityProject.this,R.color.green));
-            plus.setBackgroundResource(R.drawable.green_add);
-        }
-        else if(score < 1000){
-            bguser.setBackgroundResource(R.drawable.gradient_brown);
-            selectedColor = Color.parseColor("#FFCC7722");
-            my_projects_lin.setBackgroundResource(R.drawable.brown_line);
-            getWindow().setStatusBarColor(ContextCompat.getColor(ActivityProject.this,R.color.brown));
-            plus.setBackgroundResource(R.drawable.brown_add);
-        }
-        else if(score < 2500){
-            bguser.setBackgroundResource(R.drawable.gradient_light_gray);
-            selectedColor = Color.parseColor("#B2B5B5B5");
-            my_projects_lin.setBackgroundResource(R.drawable.light_gray_line);
-            getWindow().setStatusBarColor(ContextCompat.getColor(ActivityProject.this,R.color.light_gray));
-            plus.setBackgroundResource(R.drawable.light_gray_add);
-        }
-        else if(score < 7000){
-            bguser.setBackgroundResource(R.drawable.gradient_ohra);
-            selectedColor = Color.parseColor("#FFE8AA0E");
-            my_projects_lin.setBackgroundResource(R.drawable.ohra_line);
-            getWindow().setStatusBarColor(ContextCompat.getColor(ActivityProject.this,R.color.ohra));
-            plus.setBackgroundResource(R.drawable.ohra_add);        }
-        else if(score < 17000){
-            bguser.setBackgroundResource(R.drawable.gradient_red);
-            selectedColor = Color.parseColor("#FF0000");
-            my_projects_lin.setBackgroundResource(R.drawable.red_line);
-            getWindow().setStatusBarColor(ContextCompat.getColor(ActivityProject.this,R.color.red));
-            plus.setBackgroundResource(R.drawable.red_add);
-        }
-        else if(score < 30000){
-            bguser.setBackgroundResource(R.drawable.gradient_orange);
-            selectedColor = Color.parseColor("#FFCC7722");
-            my_projects_lin.setBackgroundResource(R.drawable.orange_line);
-            getWindow().setStatusBarColor(ContextCompat.getColor(ActivityProject.this,R.color.orange));
-            plus.setBackgroundResource(R.drawable.brown_add);
-        }
-        else if(score < 50000){
-            bguser.setBackgroundResource(R.drawable.gradient_violete);
-            selectedColor = Color.parseColor("#4F0070");
-            my_projects_lin.setBackgroundResource(R.drawable.violete_line);
-            getWindow().setStatusBarColor(ContextCompat.getColor(ActivityProject.this,R.color.violete));
-            plus.setBackgroundResource(R.drawable.violete_add);
-        }
-        else{
-            bguser.setBackgroundResource(R.drawable.gradient_blue_green);
-            selectedColor = Color.parseColor("#FF00C6A2");
-            my_projects_lin.setBackgroundResource(R.drawable.blue_green_line);
-            getWindow().setStatusBarColor(ContextCompat.getColor(ActivityProject.this,R.color.main_green));
-            plus.setBackgroundResource(R.drawable.blue_green_add);
-        }*/
-
-        endProjects.setOnClickListener(new View.OnClickListener() {
+        });*/
+        binding.endProjects.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fragmentMan = false;
 
-                my_projects_lin.setVisibility(View.INVISIBLE);
-                end_projects_lin.setVisibility(View.VISIBLE);
+                binding.linearMyProjects.setVisibility(View.INVISIBLE);
+                binding.linearEndProjects.setVisibility(View.VISIBLE);
 
                 getSupportFragmentManager().beginTransaction()
                         .hide(fragmentPrMy)
@@ -174,13 +122,13 @@ public class ActivityProject extends AppCompatActivity {
                         .commit();
             }
         });
-        myProjects.setOnClickListener(new View.OnClickListener() {
+        binding.myProjects.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fragmentMan = true;
 
-                end_projects_lin.setVisibility(View.INVISIBLE);
-                my_projects_lin.setVisibility(View.VISIBLE);
+                binding.linearEndProjects.setVisibility(View.INVISIBLE);
+                binding.linearMyProjects.setVisibility(View.VISIBLE);
 
                 getSupportFragmentManager().beginTransaction()
                         .hide(fragmentPrEnd)
@@ -188,7 +136,7 @@ public class ActivityProject extends AppCompatActivity {
                         .commit();
             }
         });
-        profileMenu.setOnClickListener(new View.OnClickListener() {
+        binding.profileMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityProject.this, Profile.class);
@@ -196,21 +144,21 @@ public class ActivityProject extends AppCompatActivity {
                 finish();
             }
         });
-        forumMenu.setOnClickListener(new View.OnClickListener() {
+        binding.forumMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityProject.this, Forum.class);
                 startActivity(intent);
             }
         });
-        plus.setOnClickListener(new View.OnClickListener() {
+        binding.plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityProject.this, CreateProject.class);
                 startActivity(intent);
             }
         });
-        notif.setOnClickListener(new View.OnClickListener() {
+        binding.notifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityProject.this, ProjectRequests.class);
@@ -303,7 +251,7 @@ public class ActivityProject extends AppCompatActivity {
             MyProjects frag;
             frag = (MyProjects) getSupportFragmentManager().findFragmentByTag("mainFragment");
             if (frag != null) {
-                frag.createProjects();
+                //frag.createProjects();
             }else{
                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
             }

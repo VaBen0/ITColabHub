@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 
-import ru.dvteam.itcollabhub.ActivityProject;
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.ActivityProject;
 import ru.dvteam.itcollabhub.Forum;
 import ru.dvteam.itcollabhub.view.profileviews.fragments.Friends;
 import ru.dvteam.itcollabhub.R;

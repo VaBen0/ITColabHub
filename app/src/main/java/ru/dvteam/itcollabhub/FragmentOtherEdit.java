@@ -12,6 +12,8 @@ import android.widget.Button;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.EditProject;
+
 
 public class FragmentOtherEdit extends Fragment {
     @Override

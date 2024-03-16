@@ -10,23 +10,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
-import java.io.File;
-
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import ru.dvteam.itcollabhub.databinding.ActivityCreateProject2Binding;
 import ru.dvteam.itcollabhub.databinding.ActivityCreateProject2DemoBinding;
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.ActivityProject;
 
 public class CreateProject2Demo extends AppCompatActivity {
 

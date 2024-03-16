@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/myProjects"
-        android:name="ru.dvteam.itcollabhub.MyProjects"
+        android:name="ru.dvteam.itcollabhub.view.projectmenusviews.fragments.MyProjects"
         android:label="fragment_my_projects"
         tools:layout="@layout/fragment_my_projects" >
         <action

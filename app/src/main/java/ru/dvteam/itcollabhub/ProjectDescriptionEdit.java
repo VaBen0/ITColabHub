@@ -1,6 +1,5 @@
 package ru.dvteam.itcollabhub;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.Objects;
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.EditProject;
 
 public class ProjectDescriptionEdit extends Fragment {
 

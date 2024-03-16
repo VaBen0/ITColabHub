@@ -9,7 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.EditProject;
 
 public class EditProjectFragment extends Fragment {
 

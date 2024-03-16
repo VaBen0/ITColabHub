@@ -165,7 +165,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ProjectAdvertisments"
+            android:name=".view.projectmenusviews.activities.ProjectAdvertisments"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -177,7 +177,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ProjectFiles"
+            android:name=".view.projectmenusviews.activities.ProjectFiles"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -193,11 +193,11 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Problems"
+            android:name=".view.projectmenusviews.activities.Problems"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Purpose"
+            android:name=".view.projectmenusviews.activities.Purpose"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -205,15 +205,15 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ControlPanel"
+            android:name=".view.projectmenusviews.activities.ControlPanel"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EditProject"
+            android:name=".view.projectmenusviews.activities.EditProject"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UsersProject"
+            android:name=".view.projectmenusviews.activities.UsersProject"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -229,7 +229,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityProject"
+            android:name=".view.projectmenusviews.activities.ActivityProject"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
