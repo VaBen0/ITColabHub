@@ -2,12 +2,15 @@ package ru.dvteam.itcollabhub.retrofit;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackDeadlineInfo;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt1;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt2;
@@ -1042,8 +1045,7 @@ public class PostDatas {
         call.enqueue(new Callback<Model>() {
             @Override
             public void onResponse(Call<Model> call, retrofit2.Response<Model> response) {
-                assert response.body() != null;
-                result.invoke(response.body().getReturn());
+
             }
 
             @Override
@@ -1375,14 +1377,32 @@ public class PostDatas {
 
         call.enqueue(new Callback<Model>() {
             @Override
-            public void onResponse(Call<Model> call, retrofit2.Response<Model> response) {
+            public void onResponse(@NonNull Call<Model> call, @NonNull retrofit2.Response<Model> response) {
                 assert response.body() != null;
                 result.invoke(response.body().getIds(), response.body().getNames(), response.body().getTexts(), response.body().getComplete());
             }
 
             @Override
-            public void onFailure(Call<Model> call, Throwable t) {
+            public void onFailure(@NonNull Call<Model> call, @NonNull Throwable t) {
                 //result.invoke("lol");
+            }
+        });
+    }
+
+    public void postDataGetProjectDeadlines(String req, String id, String mail, CallBackDeadlineInfo result){
+        Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
+        Call<Model> call = methods.getProjectTasks(req, id, mail);
+
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(@NonNull Call<Model> call, @NonNull retrofit2.Response<Model> response) {
+                result.invoke(response.body().getIds(), response.body().getNames(), response.body().getTexts(),
+                        response.body().getComplete(), response.body().getEndTime());
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Model> call, @NonNull Throwable t) {
+                System.out.println(t);
             }
         });
     }

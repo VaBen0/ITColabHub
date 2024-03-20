@@ -1,6 +1,6 @@
 package ru.dvteam.itcollabhub.model.profilemodels;
 
-import ru.dvteam.itcollabhub.InformationForChooseThemeForApp;
+import ru.dvteam.itcollabhub.classmodels.InformationForChooseThemeForApp;
 import ru.dvteam.itcollabhub.globaldata.GlobalDataScoreProfile;
 
 public class ChooseThemeForAppModel {

@@ -94,4 +94,12 @@ public class ProjectAdvertismentsViewModel extends ViewModel {
     public String getProjectPhoto(){
         return projectAdvertismentsModel.getProjectLog();
     }
+    public void onChangeClick(int position, CallBackBoolean callback){
+        projectAdvertismentsModel.changeAd(position, new CallBackBoolean() {
+            @Override
+            public void invoke(Boolean res) {
+                callback.invoke(true);
+            }
+        });
+    }
 }

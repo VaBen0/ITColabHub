@@ -76,6 +76,7 @@ public class CreateDedline2 extends AppCompatActivity {
         String linkBlock = Objects.requireNonNull(getIntent().getExtras()).getString("LinkBlock");
         String youtubeBlock = Objects.requireNonNull(getIntent().getExtras()).getString("YouTubeBlock");
         String imageBlock = Objects.requireNonNull(getIntent().getExtras()).getString("ImageBlock");
+        System.out.println(taskName);
 
         binding.nameProject.setText(title);
 
@@ -200,18 +201,19 @@ public class CreateDedline2 extends AppCompatActivity {
         binding.uploadTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println(id + mail + taskName + queue + idsArrStr);
                 if(click) {
                     binding.load.setVisibility(View.VISIBLE);
                     binding.back.setVisibility(View.VISIBLE);
                     click = false;
-                    /*if (!idsArr.isEmpty()) {
+                    if (!idsArr.isEmpty()) {
                         idsArrStr = String.join(",", idsArr);
                         createAllTextBlocks();
                     } else {
                         //Toast.makeText(PartisipantTasks.this, "Добавьте людей", Toast.LENGTH_SHORT).show();
                         idsArrStr = "";
                         createAllTextBlocks();
-                    }*/
+                    }
                 }
             }
         });
@@ -329,17 +331,12 @@ public class CreateDedline2 extends AppCompatActivity {
         }
 
         PostDatas post = new PostDatas();
-        post.postDataCreateDeadline("CreateDeadline", id, mail, taskName, queue, idsTextBlocksStr,
+
+        post.postDataCreateDeadline("CreateTask", id, mail, taskName, queue, idsTextBlocksStr,
                 idsLinkBlocksStr, idsArrStr, idsImageBlocksArr,
                 idsYouTubeBlocksArr, date, new CallBackInt() {
                     @Override
                     public void invoke(String res) {
-                        /*Intent intent = new Intent(PartisipantTasks.this, TasksActivityMain.class);
-                        intent.putExtra("projectId", id);
-                        intent.putExtra("projectTitle", title);
-                        intent.putExtra("projectUrlPhoto", prPhoto);
-                        startActivity(intent);
-                        finish();*/
                         CreateDeadline.fa.finish();
                         finish();
                     }

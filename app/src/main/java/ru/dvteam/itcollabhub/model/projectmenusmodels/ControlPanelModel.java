@@ -31,8 +31,8 @@ public class ControlPanelModel {
                         GlobalProjectInformation globalProjectInformation = GlobalProjectInformation.getInstance();
                         globalProjectInformation.setProjectTitle(name);
                         globalProjectInformation.setProjectLog(photo);
-                        globalProjectInformation.setProblemsIds(problemsids);
-                        globalProjectInformation.setPurposesIds(purposesids);
+                        globalProjectInformation.setWebLink(webs);
+                        globalProjectInformation.setDescription(description);
 
                         callback.ProjectInformation(new ProjectInformation(name, photo, description, isend, purposes, problems, peoples,
                                 time, time1, tg, vk, webs, purposesids, problemsids, isl, tasks, isOpen, isVisible));

@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel;
 import java.util.Objects;
 
 import ru.dvteam.itcollabhub.callbackclasses.CallBackProfileInformation;
-import ru.dvteam.itcollabhub.ProfileInformation;
+import ru.dvteam.itcollabhub.classmodels.ProfileInformation;
 import ru.dvteam.itcollabhub.model.profilemodels.ProfileModel;
 
 public class ProfileViewModel extends ViewModel {

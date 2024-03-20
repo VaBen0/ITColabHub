@@ -1,4 +1,4 @@
-package ru.dvteam.itcollabhub;
+package ru.dvteam.itcollabhub.classmodels;
 
 public class ProfileInformation {
     private String userName, userImageUrl, userStatus, userRfr, userMail;

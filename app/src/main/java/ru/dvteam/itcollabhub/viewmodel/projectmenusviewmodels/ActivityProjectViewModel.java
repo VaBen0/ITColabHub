@@ -38,6 +38,15 @@ public class ActivityProjectViewModel extends ViewModel {
         });
     }
 
+    public void setEndProjects(){
+        activityProjectModel.getArchiveProjects(new CallBackProjectsArray() {
+            @Override
+            public void invoke(ArrayList<ProjectClass> arrayList) {
+                endProjects.setValue(arrayList);
+            }
+        });
+    }
+
     public void setProjectId(String id){
         activityProjectModel.setProjectId(id);
     }

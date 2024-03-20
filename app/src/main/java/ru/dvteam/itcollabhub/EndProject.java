@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt5;
 import ru.dvteam.itcollabhub.databinding.ActivityEndProjectBinding;
+import ru.dvteam.itcollabhub.globaldata.GlobalProjectInformation;
+import ru.dvteam.itcollabhub.globaldata.ProjectId;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
 
 public class EndProject extends AppCompatActivity {
@@ -47,13 +49,10 @@ public class EndProject extends AppCompatActivity {
         int color = ContextCompat.getColor(EndProject.this, typedValue.resourceId);
         getWindow().setStatusBarColor(color);
 
-        Bundle arguments = getIntent().getExtras();
-
-        assert arguments != null;
-        id = arguments.getString("projectId");
-        title = arguments.getString("projectTitle");
-        prPhoto = arguments.getString("projectUrlPhoto");
-        description = arguments.getString("projectDescription");
+        id = ProjectId.getInstance().getProjectId();
+        title = GlobalProjectInformation.getInstance().getProjectTitle();
+        prPhoto = GlobalProjectInformation.getInstance().getProjectLog();
+        description = GlobalProjectInformation.getInstance().getDescription();
 
         ins = new ArrayList<>();
 

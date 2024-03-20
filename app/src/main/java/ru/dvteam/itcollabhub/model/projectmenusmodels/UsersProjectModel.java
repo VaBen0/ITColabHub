@@ -1,7 +1,5 @@
 package ru.dvteam.itcollabhub.model.projectmenusmodels;
 
-import ru.dvteam.itcollabhub.ProfileInformation;
-import ru.dvteam.itcollabhub.callbackclasses.CallBackActivityProject;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt4;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackProjectInformation;
 import ru.dvteam.itcollabhub.classmodels.ProjectInformation;

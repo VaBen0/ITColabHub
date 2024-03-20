@@ -344,10 +344,10 @@ public interface Methods {
     @FormUrlEncoded
     @POST("/")
     Call<Model> createDeadline(@Field("Request") String req, @Field("ProjectID") String id, @Field("UserMail") String mail,
-                           @Field("DeadlineName") String taskName, @Field("QueueBlocks") String queue, @Field("TextBlocks") String textBlocks,
+                           @Field("TaskName") String taskName, @Field("QueueBlocks") String queue, @Field("TextBlocks") String textBlocks,
                            @Field("LinkBlocks") String linkBlocks, @Field("PeoplesIds") String peoplesIds,
                            @Field("ImageBlocks") String imageBlocks, @Field("YouTubeBlocks") String youtubeBlocks,
-                           @Field("DateIsEnd") String date);
+                           @Field("EndTime") String date);
 
     @FormUrlEncoded
     @POST("/")

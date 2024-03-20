@@ -51,7 +51,7 @@ public class PurposeParticipiant extends AppCompatActivity {
             getWindow().setStatusBarColor(ContextCompat.getColor(PurposeParticipiant.this,R.color.brown));
         }
         else if(score < 2500){
-            binding.bguser.setBackgroundResource(R.drawable.gradient_light_gray);
+            binding.bguser.setBackgroundResource(R.drawable.gradient_pink_gold);
             getWindow().setStatusBarColor(ContextCompat.getColor(PurposeParticipiant.this,R.color.light_gray));
         }
         else if(score < 7000){

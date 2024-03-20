@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 
+import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackProblemInfo;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackPurpInfo;
 import ru.dvteam.itcollabhub.classmodels.ProblemInformation;
@@ -74,5 +75,14 @@ public class ProblemViewModel extends ViewModel {
     }
     public int getProblemsCnt(){
         return problemModel.getProblemsCnt();
+    }
+    public void onChange(int position, CallBackBoolean callback){
+        problemModel.onChange(position, new CallBackBoolean() {
+            @Override
+            public void invoke(Boolean res) {
+                callback.invoke(true);
+            }
+        });
+
     }
 }

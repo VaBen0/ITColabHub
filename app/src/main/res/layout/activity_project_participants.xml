@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:context=".ProjectParticipants">
+    tools:context=".view.projectmenusviews.activities.ProjectParticipants">
 
     <ImageView
         android:id="@+id/pr_logo"
@@ -182,8 +182,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lin_lay" />
 
-    <ScrollView
-        android:id="@+id/scrollView5"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/lin_main"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="15dp"
@@ -195,17 +195,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add"
-        tools:ignore="SpeakableTextPresentCheck">
-
-        <LinearLayout
-            android:id="@+id/lin_main"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="top"
-            android:orientation="vertical">
-
-        </LinearLayout>
-    </ScrollView>
+        tools:ignore="SpeakableTextPresentCheck"/>
 
     <TextView
         android:id="@+id/textView5"

@@ -16,6 +16,7 @@ import java.util.List;
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackActivityProject;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackDelOrChangeAd;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.classmodels.DataOfWatcher;
 import ru.dvteam.itcollabhub.classmodels.ProjectClass;
@@ -26,9 +27,9 @@ public class AdvertsAdapter extends RecyclerView.Adapter<AdvertsAdapter.AdvertsA
 
     List<DataOfWatcher> data = new ArrayList<>();
     Context context;
-    CallBackInt callback;
+    CallBackDelOrChangeAd callback;
 
-    public AdvertsAdapter(Context context, List<DataOfWatcher> dataA, CallBackInt callback){
+    public AdvertsAdapter(Context context, List<DataOfWatcher> dataA, CallBackDelOrChangeAd callback){
         data = dataA;
         this.context = context;
         this.callback = callback;
@@ -56,13 +57,14 @@ public class AdvertsAdapter extends RecyclerView.Adapter<AdvertsAdapter.AdvertsA
         public AdvertsAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
             binding = AdvertismentPanelBinding.bind(itemView);
-            binding.deleteBut.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    callback.invoke(data.get(getAdapterPosition()).getId());
-                    data.remove(getAdapterPosition());
-                    notifyItemRemoved(getAdapterPosition());
-                }
+            binding.deleteBut.setOnClickListener(v -> {
+                System.out.println(data.get(getAdapterPosition()).getId() + " Adapter");
+                callback.delete(data.get(getAdapterPosition()).getId());
+                data.remove(getAdapterPosition());
+                notifyItemRemoved(getAdapterPosition());
+            });
+            binding.editBut.setOnClickListener(v -> {
+                callback.change(getAdapterPosition());
             });
         }
         public void update(DataOfWatcher data1){

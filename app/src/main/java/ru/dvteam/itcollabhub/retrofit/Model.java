@@ -40,6 +40,7 @@ public class Model {
     private String isVisible;
     private String isOpen;
     private String photoLocalLinks;
+    private String endTime;
 
     private int activityProjects, archiveProjects;
 
@@ -48,7 +49,7 @@ public class Model {
                  String purposesids, String problemsids, String isl, int activityProjects, int archiveProjects, String names, String photos,
                  String ids, String texts, String queue_blocks, String text_blocks, String link_blocks_names, String link_blocks_links,
                  String image_blocks_names, String image_blocks_links, String youtube_blocks_names, String youtube_blocks_links, String tasks,
-                 String complete, String isVisible, String isOpen, String photoLocalLinks) {
+                 String complete, String isVisible, String isOpen, String photoLocalLinks, String endTime) {
         this.name = name;
         this.ret = ret;
         this.urlImg = urlImg;
@@ -81,6 +82,11 @@ public class Model {
         this.isVisible = isVisible;
         this.isOpen = isOpen;
         this.photoLocalLinks = photoLocalLinks;
+        this.endTime = endTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
     }
 
     public String getName() {

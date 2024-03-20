@@ -2,7 +2,7 @@ package ru.dvteam.itcollabhub.model.profilemodels;
 
 import android.content.SharedPreferences;
 
-import ru.dvteam.itcollabhub.InformationForChooseThemeForApp;
+import ru.dvteam.itcollabhub.classmodels.InformationForChooseThemeForApp;
 import ru.dvteam.itcollabhub.globaldata.GlobalDataScoreProfile;
 
 public class GetFriendModel {

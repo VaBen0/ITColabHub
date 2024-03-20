@@ -9,7 +9,9 @@ import okhttp3.RequestBody;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackWith2Data;
+import ru.dvteam.itcollabhub.classmodels.ClassForChangeInfo;
 import ru.dvteam.itcollabhub.classmodels.DataOfWatcher;
+import ru.dvteam.itcollabhub.classmodels.FileInformation;
 import ru.dvteam.itcollabhub.globaldata.GlobalProjectInformation;
 import ru.dvteam.itcollabhub.globaldata.MailGlobalInfo;
 import ru.dvteam.itcollabhub.globaldata.ProjectId;
@@ -21,7 +23,7 @@ public class ProjectAdvertismentsModel {
     private final String projectLog = GlobalProjectInformation.getInstance().getProjectLog();
     private final String projectId = ProjectId.getInstance().getProjectId();
     private final String userMail = MailGlobalInfo.getInstance().getUserMail();
-    private ArrayList<String> ids = new ArrayList<>();
+    private ArrayList<DataOfWatcher> arr = new ArrayList<>();
 
     public String getProjectTitle() {
         return projectTitle;
@@ -58,10 +60,11 @@ public class ProjectAdvertismentsModel {
     }
 
     public void deleteAds(String id){
+        System.out.println("projectId: " + projectId + " AdId: " + id + " userMail: " + userMail);
         postDatas.postDataDeleteAd("DeleteAd", projectId, userMail, id, new CallBackInt() {
             @Override
             public void invoke(String res) {
-                //binding.advertsPlace.removeView(custom);
+
             }
         });
     }
@@ -73,6 +76,7 @@ public class ProjectAdvertismentsModel {
                 postDatas.postDataGetProjectAdsIds("GetProjectAdsIds2", projectId, new CallBackInt() {
                     @Override
                     public void invoke(String res2) {
+                        ArrayList<String> ids = new ArrayList<>();
                         if(!res.isEmpty()) {
                             String[] res11 = res.split(",");
                             ids.addAll(Arrays.asList(res11));
@@ -81,6 +85,7 @@ public class ProjectAdvertismentsModel {
                             String[] res21 = res2.split(",");
                             ids.addAll(Arrays.asList(res21));
                         }
+
 
                         ArrayList<DataOfWatcher> data = new ArrayList<>();
                         if (!res.isEmpty() || !res2.isEmpty()) {
@@ -93,6 +98,7 @@ public class ProjectAdvertismentsModel {
                                         data.add(new DataOfWatcher(inf[i], inf[i+1], inf[i+2], false, ids.get(cnt)));
                                         cnt++;
                                     }
+                                    arr = data;
                                     callback.invoke(data);
                                 }
                             });
@@ -101,5 +107,15 @@ public class ProjectAdvertismentsModel {
                 });
             }
         });
+    }
+
+    public void changeAd(int position, CallBackBoolean callback){
+        DataOfWatcher data = arr.get(position);
+        ClassForChangeInfo classS = ClassForChangeInfo.getInstance();
+        classS.setId(data.getId());
+        classS.setName(data.getObjTitle());
+        classS.setPhoto(data.getObjImg());
+        classS.setText(data.getObjDesc());
+        callback.invoke(true);
     }
 }

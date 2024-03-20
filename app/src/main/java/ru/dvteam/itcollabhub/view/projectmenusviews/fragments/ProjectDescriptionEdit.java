@@ -1,4 +1,4 @@
-package ru.dvteam.itcollabhub;
+package ru.dvteam.itcollabhub.view.projectmenusviews.fragments;
 
 import android.os.Bundle;
 
@@ -6,18 +6,29 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import ru.dvteam.itcollabhub.R;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
+import ru.dvteam.itcollabhub.classmodels.ProjectInformation;
+import ru.dvteam.itcollabhub.databinding.FragmentProjectDescriptionEditBinding;
 import ru.dvteam.itcollabhub.view.projectmenusviews.activities.EditProject;
+import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.EditProjectViewModel;
 
 public class ProjectDescriptionEdit extends Fragment {
 
-    EditText projectDescription;
+    FragmentProjectDescriptionEditBinding binding;
+    EditProjectViewModel editProjectViewModel;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,32 +39,48 @@ public class ProjectDescriptionEdit extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_project_description_edit, container, false);
+        binding = FragmentProjectDescriptionEditBinding.inflate(inflater, container, false);
+        editProjectViewModel = new ViewModelProvider(requireActivity()).get(EditProjectViewModel.class);
+        initEditText();
 
-        EditProject editProject = (EditProject) getActivity();
-        assert editProject != null;
-        int score = editProject.getScore();
-        String description = editProject.getDescription();
+        editProjectViewModel.getPrInfo().observe(getViewLifecycleOwner(), projectInformation -> {
+            binding.descriptionProject.setText(projectInformation.getProjectDescription());
+        });
 
-        projectDescription = v.findViewById(R.id.descriptionProject);
-        projectDescription.setText(description);
-        Button save = v.findViewById(R.id.saveBtn);
-        save.setOnClickListener(new View.OnClickListener() {
+        binding.saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editProject.saveDescription(projectDescription.getText().toString());
+                editProjectViewModel.onSaveDescr(new CallBackBoolean() {
+                    @Override
+                    public void invoke(Boolean res) {
+                        EditProject editProject = (EditProject) getActivity();
+                        assert editProject != null;
+                        editProject.showPanel();
+                    }
+                });
             }
         });
 
-        return v;
+        return binding.getRoot();
     }
 
-    public String getChangedDescr(){
-        if(projectDescription.getText().toString().isEmpty()){
-            return "null";
-        }else{
-            return projectDescription.getText().toString();
-        }
+    public void initEditText(){
+        binding.descriptionProject.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                editProjectViewModel.setProjectDescr(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     public void setColor(int score, EditText prDesc, Button btn){

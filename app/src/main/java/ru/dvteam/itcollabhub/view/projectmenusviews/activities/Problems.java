@@ -8,14 +8,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -28,27 +26,17 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import java.io.File;
-import java.util.ArrayList;
-
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import ru.dvteam.itcollabhub.EditProblem;
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.UsersChosenTheme;
 import ru.dvteam.itcollabhub.adapter.ProblemAdapter;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackDelOrChangeAd;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
-import ru.dvteam.itcollabhub.classmodels.PurposeInformation;
 import ru.dvteam.itcollabhub.databinding.ActivityProblemsBinding;
-import ru.dvteam.itcollabhub.retrofit.PostDatas;
 import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.ProblemViewModel;
 
 public class Problems extends AppCompatActivity {
@@ -118,10 +106,18 @@ public class Problems extends AppCompatActivity {
         binding.problemsPlace.setLayoutManager(layoutManager);
 
         problemViewModel.getProblemsArray().observe(this, purposeInformations -> {
-            ProblemAdapter adapter = new ProblemAdapter(purposeInformations, this, new CallBackInt() {
+            ProblemAdapter adapter = new ProblemAdapter(purposeInformations, this, new CallBackDelOrChangeAd() {
                 @Override
-                public void invoke(String res) {
-                    problemViewModel.onCompleteClick(res);
+                public void delete(String id) {
+                    problemViewModel.onCompleteClick(id);
+                }
+
+                @Override
+                public void change(int position) {
+                    problemViewModel.onChange(position, res -> {
+                        Intent intent = new Intent(Problems.this, EditProblem.class);
+                        startActivity(intent);
+                    });
                 }
             });
             binding.problemsPlace.setAdapter(adapter);
@@ -375,6 +371,7 @@ public class Problems extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
+        problemViewModel.setProblems();
     }
 
     public void setThemeActivity(){

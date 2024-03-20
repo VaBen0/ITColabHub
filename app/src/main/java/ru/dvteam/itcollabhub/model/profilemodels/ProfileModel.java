@@ -7,7 +7,7 @@ import ru.dvteam.itcollabhub.callbackclasses.CallBackProfileInformation;
 import ru.dvteam.itcollabhub.globaldata.GlobalDataScoreProfile;
 import ru.dvteam.itcollabhub.globaldata.MailGlobalInfo;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
-import ru.dvteam.itcollabhub.ProfileInformation;
+import ru.dvteam.itcollabhub.classmodels.ProfileInformation;
 
 public class ProfileModel {
     private final PostDatas postDatas = new PostDatas();

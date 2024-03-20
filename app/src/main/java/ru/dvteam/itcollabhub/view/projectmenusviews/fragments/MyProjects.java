@@ -2,25 +2,22 @@ package ru.dvteam.itcollabhub.view.projectmenusviews.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import java.util.ArrayList;
 
-import ru.dvteam.itcollabhub.classmodels.ProjectClass;
-import ru.dvteam.itcollabhub.view.projectmenusviews.activities.UsersProject;
 import ru.dvteam.itcollabhub.adapter.ActivityProjectAdapter;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackActivityProject;
-import ru.dvteam.itcollabhub.callbackclasses.CallBackProjectsArray;
-
+import ru.dvteam.itcollabhub.classmodels.ProjectClass;
 import ru.dvteam.itcollabhub.databinding.FragmentMyProjectsBinding;
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.UsersProject;
 import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.ActivityProjectViewModel;
 
 public class MyProjects extends Fragment {
@@ -37,20 +34,17 @@ public class MyProjects extends Fragment {
 
         binding.activityProjects.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        activityProjectViewModel.getActivityProjects().observe(requireActivity(), new Observer<ArrayList<ProjectClass>>() {
-            @Override
-            public void onChanged(ArrayList<ProjectClass> arrayList) {
-                activityProjectAdapter = new ActivityProjectAdapter(getContext(), arrayList, new CallBackActivityProject() {
-                    @Override
-                    public void setActivity(String id) {
-                        activityProjectViewModel.setProjectId(id);
-                        Intent intent = new Intent(getContext(), UsersProject.class);
-                        startActivity(intent);
-                    }
-                });
+        activityProjectViewModel.getActivityProjects().observe(requireActivity(), arrayList -> {
+            activityProjectAdapter = new ActivityProjectAdapter(getContext(), arrayList, new CallBackActivityProject() {
+                @Override
+                public void setActivity(String id) {
+                    activityProjectViewModel.setProjectId(id);
+                    Intent intent = new Intent(getContext(), UsersProject.class);
+                    startActivity(intent);
+                }
+            });
 
-                binding.activityProjects.setAdapter(activityProjectAdapter);
-            }
+            binding.activityProjects.setAdapter(activityProjectAdapter);
         });
 
         activityProjectViewModel.setActivityProjects();

@@ -1,4 +1,4 @@
-package ru.dvteam.itcollabhub;
+package ru.dvteam.itcollabhub.view.projectmenusviews.activities;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.app.Activity;
@@ -19,6 +20,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Toast;
@@ -29,22 +32,23 @@ import java.io.File;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import ru.dvteam.itcollabhub.R;
+import ru.dvteam.itcollabhub.UsersChosenTheme;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.databinding.ActivityEditFileBinding;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
+import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.EditFileViewModel;
+import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.EditProjectViewModel;
 
 
 public class EditFile extends AppCompatActivity {
 
     ActivityEditFileBinding binding;
-    int countProblems = 0, countTicked = 0;
+    EditFileViewModel editProjectViewModel;
     private static final int PICK_IMAGES_CODE = 0;
-    private String mediaPath = "";
-    private Boolean acces = false, clicked = false;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     ActivityResultLauncher<Intent> resultLauncher;
-
-    String projectTitle, photoProject, prId, mail, filePhoto, fileName, fileLink, fileId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,82 +56,42 @@ public class EditFile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_file);
 
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        mail = sPref.getString("UserMail", "");
-        int score = sPref.getInt("UserScore", 0);
-
         binding = ActivityEditFileBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
+        editProjectViewModel = new ViewModelProvider(this).get(EditFileViewModel.class);
+        initEditText();
+
         TypedValue typedValue = new TypedValue();
         getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
         int color = ContextCompat.getColor(EditFile.this, typedValue.resourceId);
         getWindow().setStatusBarColor(color);
         registerResult();
 
-        Bundle arguments = getIntent().getExtras();
 
-        assert arguments != null;
-        prId = arguments.getString("projectId1");
-        projectTitle = arguments.getString("projectTitle");
-        photoProject = arguments.getString("projectUrlPhoto");
-        filePhoto = arguments.getString("filePhoto");
-        fileName = arguments.getString("fileName");
-        fileLink = arguments.getString("fileLink");
-        fileId = arguments.getString("fileId");
 
-        binding.nameProject.setText(projectTitle);
+        binding.nameProject.setText(editProjectViewModel.getProjectTitle());
 
         Glide
                 .with(EditFile.this)
-                .load(photoProject)
+                .load(editProjectViewModel.getProjectLog())
                 .into(binding.prLogo);
 
-        binding.fileName1.setHint(fileName);
-        binding.fileLink1.setHint(fileLink);
+        binding.fileName1.setText(editProjectViewModel.getFileName());
+        binding.fileLink1.setText(editProjectViewModel.getFileLink());
 
         Glide
                 .with(EditFile.this)
-                .load(filePhoto)
+                .load(editProjectViewModel.getFilePhoto())
                 .into(binding.fileImage);
 
-        binding.saveChanges1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String fileName5, fileLink5;
-                PostDatas post = new PostDatas();
-                if(binding.fileName1.getText().toString().isEmpty()){
-                    fileName5 = fileName;
-                } else{
-                    fileName5 = binding.fileName1.getText().toString();
+        binding.saveChanges1.setOnClickListener(v -> {
+            editProjectViewModel.onSaveClick(new CallBackBoolean() {
+                @Override
+                public void invoke(Boolean res) {
+                    finish();
                 }
-                if(binding.fileLink1.getText().toString().isEmpty()){
-                    fileLink5 = fileLink;
-                } else {
-                    fileLink5 = binding.fileLink1.getText().toString();
-                }
-
-                if(mediaPath.isEmpty()){
-                    post.postDataChangeFileWithoutImage("ChangeFileWithoutImage", fileName5,
-                            fileLink5, prId, mail, fileId, new CallBackInt() {
-                                @Override
-                                public void invoke(String res) {
-                                    finish();
-                                }
-                            });
-                } else{
-                    File file = new File(mediaPath);
-                    RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
-                    post.postDataChangeFile("ChangeFile", fileName5, requestBody,
-                            fileLink5, prId, mail, fileId, new CallBackInt() {
-                                @Override
-                                public void invoke(String res) {
-                                    Toast.makeText(EditFile.this, "Изменения скоро вступят в силу", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                }
-                            });
-                }
-            }
+            });
         });
 
         if(Build.VERSION.SDK_INT >= 33) {
@@ -151,6 +115,41 @@ public class EditFile extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void initEditText(){
+        binding.fileName1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                editProjectViewModel.setFileName(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        binding.fileLink1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                editProjectViewModel.setFileLink(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void pickImage(){
@@ -189,10 +188,9 @@ public class EditFile extends AppCompatActivity {
                 cursor.moveToFirst();
 
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                mediaPath = cursor.getString(columnIndex);
+                editProjectViewModel.setMediaPath(cursor.getString(columnIndex));
                 binding.fileImage.setImageURI(imageUri);
                 cursor.close();
-                acces = true;
             }
 
         }
@@ -213,10 +211,9 @@ public class EditFile extends AppCompatActivity {
                             cursor.moveToFirst();
 
                             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                            mediaPath = cursor.getString(columnIndex);
+                            editProjectViewModel.setMediaPath(cursor.getString(columnIndex));
                             binding.fileImage.setImageURI(imageUri);
                             cursor.close();
-                            acces = true;
                         }catch (Exception e){
                             Toast.makeText(EditFile.this, "LOSER", Toast.LENGTH_SHORT).show();
                         }

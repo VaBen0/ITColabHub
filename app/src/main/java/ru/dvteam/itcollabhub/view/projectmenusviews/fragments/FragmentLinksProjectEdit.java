@@ -1,20 +1,29 @@
-package ru.dvteam.itcollabhub;
+package ru.dvteam.itcollabhub.view.projectmenusviews.fragments;
 
 import android.os.Bundle;
-
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
+import ru.dvteam.itcollabhub.R;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
+import ru.dvteam.itcollabhub.databinding.FragmentLinksProjectEditBinding;
 import ru.dvteam.itcollabhub.view.projectmenusviews.activities.EditProject;
+import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.EditProjectViewModel;
 
 
 public class FragmentLinksProjectEdit extends Fragment {
+
+    FragmentLinksProjectEditBinding binding;
+    EditProjectViewModel editProjectViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,47 +34,81 @@ public class FragmentLinksProjectEdit extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_links_project_edit, container, false);
+        binding = FragmentLinksProjectEditBinding.inflate(inflater, container, false);
 
         EditProject editProject = (EditProject) getActivity();
-        assert editProject != null;
-        int score = editProject.getScore();
-        String tgLink = editProject.getTgLink();
-        String vkLink = editProject.getVkLink();
-        String webLink = editProject.getWebLink();
+        editProjectViewModel = new ViewModelProvider(requireActivity()).get(EditProjectViewModel.class);
+        initEditText();
+        editProjectViewModel.getPrInfo().observe(getViewLifecycleOwner(), projectInformation -> {
+            binding.tgLink.setText(projectInformation.getProjectTgLink());
+            binding.vkLink.setText(projectInformation.getProjectVkLink());
+            binding.webLink.setText(projectInformation.getProjectWebLink());
+        });
 
-        EditText tg = v.findViewById(R.id.tgLink);
-        EditText vk = v.findViewById(R.id.vkLink);
-        EditText web = v.findViewById(R.id.webLink);
-        tg.setText(tgLink);
-        vk.setText(vkLink);
-        web.setText(webLink);
-        Button btn = v.findViewById(R.id.saveBtn);
-
-        btn.setOnClickListener(new View.OnClickListener() {
+        binding.saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tgStr, vkStr, webStr;
-                if(tg.getText().toString().isEmpty()){
-                    tgStr = "Нет";
-                }else {
-                    tgStr = tg.getText().toString();
-                }
-                if(vk.getText().toString().isEmpty()){
-                    vkStr = "Нет";
-                }else{
-                    vkStr = vk.getText().toString();
-                }
-                if(web.getText().toString().isEmpty()){
-                    webStr = "Нет";
-                }else{
-                    webStr = web.getText().toString();
-                }
-                editProject.saveLinks(tgStr, vkStr, webStr);
+                editProjectViewModel.onSaveLinks(new CallBackBoolean() {
+                    @Override
+                    public void invoke(Boolean res) {
+                        editProject.showPanel();
+                    }
+                });
             }
         });
 
-        return v;
+        return binding.getRoot();
+    }
+
+    public void initEditText(){
+        binding.tgLink.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                editProjectViewModel.setProjectTgLink(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        binding.vkLink.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                editProjectViewModel.setProjectVkLink(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        binding.webLink.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                editProjectViewModel.setProjectWebLink(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     public void setColorEditText(int score, EditText prDesc){

@@ -200,7 +200,6 @@ public class CreateTask extends AppCompatActivity {
 
                     ImageView deli = custom.findViewById(R.id.deleteBut);
                     ImageView addImg = custom.findViewById(R.id.addImg);
-                    setButtonColor(score, addImg);
                     final ImageView chosenImg = custom.findViewById(R.id.chosen_img);
                     TextView clear = custom.findViewById(R.id.textAdd);
                     ImageView arr = custom.findViewById(R.id.arrow);

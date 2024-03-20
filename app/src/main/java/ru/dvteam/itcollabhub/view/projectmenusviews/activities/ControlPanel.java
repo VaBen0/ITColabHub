@@ -25,8 +25,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import ru.dvteam.itcollabhub.ProblemsParticip;
-import ru.dvteam.itcollabhub.ProjectPage;
-import ru.dvteam.itcollabhub.ProjectParticipants;
 import ru.dvteam.itcollabhub.PurposeParticipiant;
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.TasksActivityMain;

@@ -5,9 +5,12 @@ import java.util.ArrayList;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackProblemInfo;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackPurpInfo;
+import ru.dvteam.itcollabhub.classmodels.ClassForChangeInfo;
+import ru.dvteam.itcollabhub.classmodels.DataOfWatcher;
 import ru.dvteam.itcollabhub.classmodels.ProblemInformation;
 import ru.dvteam.itcollabhub.classmodels.PurposeInformation;
 import ru.dvteam.itcollabhub.globaldata.GlobalProjectInformation;
@@ -31,6 +34,7 @@ public class ProblemModel {
     private final String projectPhoto = GlobalProjectInformation.getInstance().getProjectLog();
     private final String mail = MailGlobalInfo.getInstance().getUserMail();
     private final PostDatas postDatas = new PostDatas();
+    private ArrayList<ProblemInformation> arr = new ArrayList<>();
 
     public void setProblems(CallBackProblemInfo callback){
         postDatas.postDataGetProjectProblems("GetProjectProblemsIDs", projectId, new CallBackInt() {
@@ -50,6 +54,7 @@ public class ProblemModel {
                             problems.add(new ProblemInformation(inf[i], inf[i + 3], inf[i + 1], inf[i + 2].equals("1"), ids[cnt]));
                             cnt++;
                         }
+                        arr = problems;
                         callback.invoke(problems);
                     }
                 });
@@ -92,5 +97,14 @@ public class ProblemModel {
     }
     public int getProblemsCnt(){
         return problemsCnt;
+    }
+    public void onChange(int position, CallBackBoolean callback){
+        ProblemInformation data = arr.get(position);
+        ClassForChangeInfo classS = ClassForChangeInfo.getInstance();
+        classS.setId(data.getProblemId());
+        classS.setName(data.getProblemName());
+        classS.setPhoto(data.getProblemImage());
+        classS.setText(data.getProblemDesc());
+        callback.invoke(true);
     }
 }

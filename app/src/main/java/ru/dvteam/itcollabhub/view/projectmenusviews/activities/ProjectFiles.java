@@ -8,11 +8,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -20,36 +21,32 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import java.io.File;
-
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import ru.dvteam.itcollabhub.EditFile;
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.UsersChosenTheme;
-import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
+import ru.dvteam.itcollabhub.adapter.FilesAdapter;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackInt1;
 import ru.dvteam.itcollabhub.databinding.ActivityProjectFilesBinding;
-import ru.dvteam.itcollabhub.retrofit.PostDatas;
+import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.ProjectFilesViewModel;
 
 
 public class ProjectFiles extends AppCompatActivity {
 
     private static final int PICK_IMAGES_CODE = 0;
-    private String mediaPath = "";
-    private Boolean acces = false, clicked = false;
+    private Boolean access = false, access2 = false;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     ActivityResultLauncher<Intent> resultLauncher;
 
     ActivityProjectFilesBinding binding;
-    private String prId, projectTitle, photoProject, mail;
+    ProjectFilesViewModel projectFilesViewModel;
     private int fixedFiles = 0;
 
     Drawable fixed;
@@ -59,80 +56,73 @@ public class ProjectFiles extends AppCompatActivity {
         setThemeActivity();
         super.onCreate(savedInstanceState);
 
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        mail = sPref.getString("UserMail", "");
-        int score = sPref.getInt("UserScore", 0);
-
         binding = ActivityProjectFilesBinding.inflate(getLayoutInflater());
+        projectFilesViewModel = new ViewModelProvider(this).get(ProjectFilesViewModel.class);
 
         setContentView(binding.getRoot());
         registerResult();
+        initEditText();
 
         TypedValue typedValue = new TypedValue();
         getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
         int color = ContextCompat.getColor(ProjectFiles.this, typedValue.resourceId);
         getWindow().setStatusBarColor(color);
 
-        Bundle arguments = getIntent().getExtras();
-
-        assert arguments != null;
-        prId = arguments.getString("projectId1");
-        projectTitle = arguments.getString("projectTitle");
-        photoProject = arguments.getString("projectUrlPhoto");
-
-        binding.nameProject.setText(projectTitle);
+        binding.nameProject.setText(projectFilesViewModel.getPrName());
 
         Glide
                 .with(ProjectFiles.this)
-                .load(photoProject)
+                .load(projectFilesViewModel.getPrLog())
                 .into(binding.prLogo);
 
         Glide
                 .with(ProjectFiles.this)
-                .load(photoProject)
+                .load(projectFilesViewModel.getPrLog())
                 .into(binding.fileImage);
 
-        PostDatas post = new PostDatas();
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        binding.filesPlace.setLayoutManager(layoutManager);
 
-        getIds();
-
-        binding.addFile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(binding.fileName.getText().toString().isEmpty()){
-                    Toast.makeText(ProjectFiles.this, "Нет названия", Toast.LENGTH_SHORT).show();
-                } else if(binding.fileLink.getText().toString().isEmpty()){
-                    Toast.makeText(ProjectFiles.this, "Нет ссылки", Toast.LENGTH_SHORT).show();
-                } else if(mediaPath.isEmpty()){
-                    post.postDataCreateFileWithoutImage("CreateFileWithoutImage", binding.fileName.getText().toString(),
-                            binding.fileLink.getText().toString(), prId, mail, new CallBackInt() {
-                                @Override
-                                public void invoke(String res) {
-                                    binding.fileName.setHint("");
-                                    binding.fileLink.setHint("");
-                                    binding.filesPlace.removeAllViews();
-                                    getIds();
-                                }
-                            });
-                } else{
-                    File file = new File(mediaPath);
-                    RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
-                    post.postDataCreateFile("CreateFile", binding.fileName.getText().toString(), requestBody,
-                            binding.fileLink.getText().toString(), prId, mail, new CallBackInt() {
-                                @Override
-                                public void invoke(String res) {
-                                    mediaPath = "";
-                                    binding.fileName.setText("");
-                                    binding.fileLink.setText("");
-                                    Glide
-                                            .with(ProjectFiles.this)
-                                            .load(photoProject)
-                                            .into(binding.fileImage);
-                                    binding.filesPlace.removeAllViews();
-                                    getIds();
-                                }
-                            });
+        projectFilesViewModel.getAllFiles().observe(this, fileInformations -> {
+            FilesAdapter adapter = new FilesAdapter(fileInformations, this, new CallBackInt1() {
+                @Override
+                public void invoke(String res, String name) {
+                    if(res.equals("1")){
+                        projectFilesViewModel.onFixClick(name);
+                    }else if(res.equals("2")){
+                        projectFilesViewModel.onDetachClick(name);
+                    }else if(res.equals("3")){
+                        projectFilesViewModel.onDeleteClick(name);
+                    }else if(res.equals("4")){
+                        projectFilesViewModel.onChangeClick(Integer.parseInt(name), new CallBackBoolean() {
+                            @Override
+                            public void invoke(Boolean res) {
+                                Intent intent = new Intent(ProjectFiles.this, EditFile.class);
+                                startActivity(intent);
+                            }
+                        });
+                    }
                 }
+            });
+            binding.filesPlace.setAdapter(adapter);
+        });
+
+        projectFilesViewModel.getFilesInfo();
+
+        projectFilesViewModel.getNotEmptyName().observe(this, aBoolean -> {
+            access = aBoolean;
+        });
+        projectFilesViewModel.getNotEmptyLink().observe(this, aBoolean -> {
+            access2 = aBoolean;
+        });
+
+        binding.addFile.setOnClickListener(v -> {
+            if(access2 && access){
+                projectFilesViewModel.onCreateClick();
+                Glide
+                        .with(this)
+                        .load(projectFilesViewModel.getPrLog())
+                        .into(binding.fileImage);
             }
         });
 
@@ -197,10 +187,9 @@ public class ProjectFiles extends AppCompatActivity {
                 cursor.moveToFirst();
 
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                mediaPath = cursor.getString(columnIndex);
+                projectFilesViewModel.setMediaPath(cursor.getString(columnIndex));
                 binding.fileImage.setImageURI(imageUri);
                 cursor.close();
-                acces = true;
             }
 
         }
@@ -215,16 +204,14 @@ public class ProjectFiles extends AppCompatActivity {
                         try{
                             Uri imageUri = result.getData().getData();
                             String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                            //imageUri.getPath();
                             Cursor cursor = getContentResolver().query(imageUri, filePathColumn, null, null, null);
                             assert cursor != null;
                             cursor.moveToFirst();
 
                             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                            mediaPath = cursor.getString(columnIndex);
+                            projectFilesViewModel.setMediaPath(cursor.getString(columnIndex));
                             binding.fileImage.setImageURI(imageUri);
                             cursor.close();
-                            acces = true;
                         }catch (Exception e){
                             Toast.makeText(ProjectFiles.this, "LOSER", Toast.LENGTH_SHORT).show();
                         }
@@ -232,133 +219,166 @@ public class ProjectFiles extends AppCompatActivity {
                 }
         );
     }
-    private void getFiles(String filesId){
-        PostDatas post = new PostDatas();
-        post.postDataGetProjectFiles("GetProjectFiles", filesId, new CallBackInt() {
+    public void initEditText(){
+        binding.fileName.addTextChangedListener(new TextWatcher() {
             @Override
-            public void invoke(String res) {
-                //Toast.makeText(ProjectFiles.this, res, Toast.LENGTH_SHORT).show();
-                String[] inf = res.split("\uD83D\uDD70");
-                String[] idm = filesId.split(",");
-                for(int i = 0; i < inf.length; i += 4){
-                    //Toast.makeText(ProjectFiles.this, inf[i] + " " + inf[i + 2] + " " + inf[i + 3], Toast.LENGTH_SHORT).show();
-                    View custom = getLayoutInflater().inflate(R.layout.gfile_panel, null);
-                    ImageView loadImg = custom.findViewById(R.id.fileImage);
-                    TextView name = custom.findViewById(R.id.fileName);
-                    View back = custom.findViewById(R.id.backGround);
-                    ImageView editBut = custom.findViewById(R.id.editBut);
-                    ImageView deleteBut = custom.findViewById(R.id.deleteBut);
-                    ImageView zakrepBut = custom.findViewById(R.id.zakrepBut);
-                    ImageView zakrepBut1 = custom.findViewById(R.id.zakrepBut1);
-                    //ImageView editBut = custom.findViewById(R.id.editProblem);
-                    int place = i / 4;
-                    name.setText(inf[i]);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                    Glide
-                            .with(ProjectFiles.this)
-                            .load(inf[i+3])
-                            .into(loadImg);
+            }
 
-                    if(inf[i + 2].equals("1")){
-                        back.setBackground(fixed);
-                        zakrepBut.setVisibility(View.GONE);
-                        zakrepBut1.setVisibility(View.VISIBLE);
-                        fixedFiles += 1;
-                    }
-                    int finalI = i;
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                projectFilesViewModel.setFileName(s.toString());
+            }
 
-                    custom.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            goToLink(inf[finalI + 1]);
-                        }
-                    });
+            @Override
+            public void afterTextChanged(Editable s) {
 
-                    zakrepBut1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            PostDatas postDatas = new PostDatas();
-                                postDatas.postDataDetachFile("DetachedFile", prId, mail, idm[finalI / 4], new CallBackInt() {
-                                    @Override
-                                    public void invoke(String res) {
-                                        binding.filesPlace.removeView(custom);
-                                        back.setBackgroundResource(R.drawable.progress_panel_background);
-                                        zakrepBut1.setVisibility(View.GONE);
-                                        zakrepBut.setVisibility(View.VISIBLE);
-                                        fixedFiles -= 1;
-                                        binding.filesPlace.addView(custom, fixedFiles);
+            }
+        });
+        binding.fileLink.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                                        inf[finalI + 2] = "0";
-                                    }
-                                });
-                        }
-                    });
-                    zakrepBut.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            PostDatas postDatas = new PostDatas();
-                            postDatas.postDataFixFile("FixFile", prId, mail, idm[finalI / 4], new CallBackInt() {
-                                @Override
-                                public void invoke(String res) {
-                                    binding.filesPlace.removeView(custom);
-                                    zakrepBut.setVisibility(View.GONE);
-                                    zakrepBut1.setVisibility(View.VISIBLE);
-                                    back.setBackground(fixed);
-                                    fixedFiles += 1;
-                                    binding.filesPlace.addView(custom, 0);
-                                    inf[finalI + 2] = "1";
-                                }
-                            });
-                        }
-                    });
+            }
 
-                    editBut.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(ProjectFiles.this, EditFile.class);
-                            intent.putExtra("filePhoto", inf[finalI+3]);
-                            intent.putExtra("projectTitle", projectTitle);
-                            intent.putExtra("projectUrlPhoto", photoProject);
-                            intent.putExtra("projectId1", prId);
-                            intent.putExtra("fileName", inf[finalI]);
-                            intent.putExtra("fileLink", inf[finalI + 1]);
-                            intent.putExtra("fileId", idm[finalI / 4]);
-                            startActivity(intent);
-                        }
-                    });
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                projectFilesViewModel.setFileLink(s.toString());
+            }
 
-                    deleteBut.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            PostDatas postDatas = new PostDatas();
-                            postDatas.postDataDeleteFile("DeleteFile", prId, mail, idm[finalI / 4], new CallBackInt() {
-                                @Override
-                                public void invoke(String res) {
-                                    binding.filesPlace.removeView(custom);
-                                }
-                            });
-                        }
-                    });
+            @Override
+            public void afterTextChanged(Editable s) {
 
-                    if(inf[i + 2].equals("1")){
-                        binding.filesPlace.addView(custom, 0);
-                    } else{
-                        binding.filesPlace.addView(custom, 0);
-                    }
-                }
             }
         });
     }
-    private void getIds(){
-        PostDatas post = new PostDatas();
-        post.postDataGetProjectFilesIds("GetProjectFilesIds", prId, new CallBackInt() {
-            @Override
-            public void invoke(String res) {
-                //Toast.makeText(ProjectFiles.this, res, Toast.LENGTH_SHORT).show();
-                getFiles(res);
-            }
-        });
-    }
+
+//    private void getFiles(String filesId){
+//        PostDatas post = new PostDatas();
+//        post.postDataGetProjectFiles("GetProjectFiles", filesId, new CallBackInt() {
+//            @Override
+//            public void invoke(String res) {
+//                //Toast.makeText(ProjectFiles.this, res, Toast.LENGTH_SHORT).show();
+//                String[] inf = res.split("\uD83D\uDD70");
+//                String[] idm = filesId.split(",");
+//                for(int i = 0; i < inf.length; i += 4){
+//                    //Toast.makeText(ProjectFiles.this, inf[i] + " " + inf[i + 2] + " " + inf[i + 3], Toast.LENGTH_SHORT).show();
+//                    View custom = getLayoutInflater().inflate(R.layout.gfile_panel, null);
+//                    ImageView loadImg = custom.findViewById(R.id.fileImage);
+//                    TextView name = custom.findViewById(R.id.fileName);
+//                    View back = custom.findViewById(R.id.backGround);
+//                    ImageView editBut = custom.findViewById(R.id.editBut);
+//                    ImageView deleteBut = custom.findViewById(R.id.deleteBut);
+//                    ImageView zakrepBut = custom.findViewById(R.id.zakrepBut);
+//                    ImageView zakrepBut1 = custom.findViewById(R.id.zakrepBut1);
+//
+//                    name.setText(inf[i]);
+//
+//                    Glide
+//                            .with(ProjectFiles.this)
+//                            .load(inf[i+3])
+//                            .into(loadImg);
+//
+//                    if(inf[i + 2].equals("1")){
+//                        back.setBackground(fixed);
+//                        zakrepBut.setVisibility(View.GONE);
+//                        zakrepBut1.setVisibility(View.VISIBLE);
+//                        fixedFiles += 1;
+//                    }
+//                    int finalI = i;
+//
+//                    custom.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            goToLink(inf[finalI + 1]);
+//                        }
+//                    });
+//
+//                    zakrepBut1.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            PostDatas postDatas = new PostDatas();
+//                                postDatas.postDataDetachFile("DetachedFile", prId, mail, idm[finalI / 4], new CallBackInt() {
+//                                    @Override
+//                                    public void invoke(String res) {
+//                                        binding.filesPlace.removeView(custom);
+//                                        back.setBackgroundResource(R.drawable.progress_panel_background);
+//                                        zakrepBut1.setVisibility(View.GONE);
+//                                        zakrepBut.setVisibility(View.VISIBLE);
+//                                        fixedFiles -= 1;
+//                                        binding.filesPlace.addView(custom, fixedFiles);
+//
+//                                        inf[finalI + 2] = "0";
+//                                    }
+//                                });
+//                        }
+//                    });
+//                    zakrepBut.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            PostDatas postDatas = new PostDatas();
+//                            postDatas.postDataFixFile("FixFile", prId, mail, idm[finalI / 4], new CallBackInt() {
+//                                @Override
+//                                public void invoke(String res) {
+//                                    binding.filesPlace.removeView(custom);
+//                                    zakrepBut.setVisibility(View.GONE);
+//                                    zakrepBut1.setVisibility(View.VISIBLE);
+//                                    back.setBackground(fixed);
+//                                    fixedFiles += 1;
+//                                    binding.filesPlace.addView(custom, 0);
+//                                    inf[finalI + 2] = "1";
+//                                }
+//                            });
+//                        }
+//                    });
+//
+//                    editBut.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(ProjectFiles.this, EditFile.class);
+//                            intent.putExtra("filePhoto", inf[finalI+3]);
+//                            intent.putExtra("projectTitle", projectTitle);
+//                            intent.putExtra("projectUrlPhoto", photoProject);
+//                            intent.putExtra("projectId1", prId);
+//                            intent.putExtra("fileName", inf[finalI]);
+//                            intent.putExtra("fileLink", inf[finalI + 1]);
+//                            intent.putExtra("fileId", idm[finalI / 4]);
+//                            startActivity(intent);
+//                        }
+//                    });
+//
+//                    deleteBut.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            PostDatas postDatas = new PostDatas();
+//                            postDatas.postDataDeleteFile("DeleteFile", prId, mail, idm[finalI / 4], new CallBackInt() {
+//                                @Override
+//                                public void invoke(String res) {
+//                                    binding.filesPlace.removeView(custom);
+//                                }
+//                            });
+//                        }
+//                    });
+//
+//                    if(inf[i + 2].equals("1")){
+//                        binding.filesPlace.addView(custom, 0);
+//                    } else{
+//                        binding.filesPlace.addView(custom, 0);
+//                    }
+//                }
+//            }
+//        });
+//    }
+//    private void getIds(){
+//        PostDatas post = new PostDatas();
+//        post.postDataGetProjectFilesIds("GetProjectFilesIds", prId, new CallBackInt() {
+//            @Override
+//            public void invoke(String res) {
+//                getFiles(res);
+//            }
+//        });
+//    }
 
     private void goToLink(String url){
         Uri uriUrl = Uri.parse(url);
@@ -369,8 +389,7 @@ public class ProjectFiles extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        binding.filesPlace.removeAllViews();
-        getIds();
+        projectFilesViewModel.getFilesInfo();
     }
 
     private void setActivityFormat(int score){

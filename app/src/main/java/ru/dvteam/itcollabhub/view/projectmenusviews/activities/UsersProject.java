@@ -15,10 +15,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import ru.dvteam.itcollabhub.ControlPanel2;
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.UsersChosenTheme;
 import ru.dvteam.itcollabhub.databinding.ActivityUsersProjectBinding;
+import ru.dvteam.itcollabhub.globaldata.ProjectId;
 import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.UsersProjectViewModel;
 
 public class UsersProject extends AppCompatActivity {
@@ -114,6 +114,7 @@ public class UsersProject extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(UsersProject.this, ControlPanel2.class);
+                        intent.putExtra("projectId", ProjectId.getInstance().getProjectId());
                         startActivity(intent);
                     }
                 });

@@ -2,15 +2,15 @@ package ru.dvteam.itcollabhub.view.projectmenusviews.activities;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -30,19 +30,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 
-import java.io.File;
-
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import ru.dvteam.itcollabhub.EndProject;
-import ru.dvteam.itcollabhub.FragmentLinksProjectEdit;
-import ru.dvteam.itcollabhub.FragmentOtherEdit;
-import ru.dvteam.itcollabhub.ProjectDescriptionEdit;
+import ru.dvteam.itcollabhub.view.projectmenusviews.fragments.FragmentLinksProjectEdit;
+import ru.dvteam.itcollabhub.view.projectmenusviews.fragments.FragmentOtherEdit;
+import ru.dvteam.itcollabhub.view.projectmenusviews.fragments.ProjectDescriptionEdit;
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.UsersChosenTheme;
-import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.databinding.ActivityEditProjectBinding;
-import ru.dvteam.itcollabhub.retrofit.PostDatas;
 import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.EditProjectViewModel;
 
 public class EditProject extends AppCompatActivity {
@@ -70,6 +63,17 @@ public class EditProject extends AppCompatActivity {
 
         setContentView(binding.getRoot());
         registerResult();
+        initEditText();
+
+        editProjectViewModel.getPrInfo().observe(this, projectInformation -> {
+            binding.projectName.setText(projectInformation.getProjectTitle());
+            Glide
+                    .with(EditProject.this)
+                    .load(projectInformation.getProjectLogo())
+                    .into(binding.prLogo);
+        });
+
+        editProjectViewModel.getAllProjectInfo();
 
         Fragment fragmentDescr = Fragment.instantiate(this, ProjectDescriptionEdit.class.getName());
         Fragment fragmentLink = Fragment.instantiate(this, FragmentLinksProjectEdit.class.getName());
@@ -77,27 +81,13 @@ public class EditProject extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.fragmentContainerView, fragmentDescr)
-                .add(R.id.fragmentContainerView, fragmentLink)
-                .add(R.id.fragmentContainerView, fragmentOther)
-                .commit();
-
-        getSupportFragmentManager().beginTransaction()
-                .show(fragmentDescr)
-                .hide(fragmentLink)
-                .hide(fragmentOther)
+                .replace(R.id.fragmentContainerView, fragmentDescr)
                 .commit();
 
         binding.linearDescription.setVisibility(View.VISIBLE);
         binding.linkLine.setVisibility(View.INVISIBLE);
         binding.otherLine.setVisibility(View.INVISIBLE);
 
-
-//        binding.projectName.setText(title);
-//        Glide
-//                .with(EditProject.this)
-//                .load(prPhoto)
-//                .into(binding.prLogo);
         binding.tint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,17 +102,10 @@ public class EditProject extends AppCompatActivity {
                 binding.linkLine.setVisibility(View.VISIBLE);
                 binding.linearDescription.setVisibility(View.INVISIBLE);
                 binding.otherLine.setVisibility(View.INVISIBLE);
-
-                if (binding.blockMenu.getVisibility() == View.VISIBLE) {
-                    binding.blockMenu.setVisibility(View.GONE);
-                    final Animation hide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_delete2);
-                    binding.blockMenu.startAnimation(hide);
-                }
+                hidePanel();
 
                 getSupportFragmentManager().beginTransaction()
-                        .show(fragmentLink)
-                        .hide(fragmentDescr)
-                        .hide(fragmentOther)
+                        .replace(R.id.fragmentContainerView, fragmentLink)
                         .commit();
             }
         });
@@ -132,17 +115,10 @@ public class EditProject extends AppCompatActivity {
                 binding.linearDescription.setVisibility(View.VISIBLE);
                 binding.linkLine.setVisibility(View.INVISIBLE);
                 binding.otherLine.setVisibility(View.INVISIBLE);
-
-                if (binding.blockMenu.getVisibility() == View.VISIBLE) {
-                    binding.blockMenu.setVisibility(View.GONE);
-                    final Animation hide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_delete2);
-                    binding.blockMenu.startAnimation(hide);
-                }
+                hidePanel();
 
                 getSupportFragmentManager().beginTransaction()
-                        .show(fragmentDescr)
-                        .hide(fragmentLink)
-                        .hide(fragmentOther)
+                        .replace(R.id.fragmentContainerView, fragmentDescr)
                         .commit();
             }
         });
@@ -152,17 +128,10 @@ public class EditProject extends AppCompatActivity {
                 binding.otherLine.setVisibility(View.VISIBLE);
                 binding.linkLine.setVisibility(View.INVISIBLE);
                 binding.linearDescription.setVisibility(View.INVISIBLE);
-
-                if (binding.blockMenu.getVisibility() == View.VISIBLE) {
-                    binding.blockMenu.setVisibility(View.GONE);
-                    final Animation hide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_delete2);
-                    binding.blockMenu.startAnimation(hide);
-                }
+                hidePanel();
 
                 getSupportFragmentManager().beginTransaction()
-                        .show(fragmentOther)
-                        .hide(fragmentDescr)
-                        .hide(fragmentLink)
+                        .replace(R.id.fragmentContainerView, fragmentOther)
                         .commit();
             }
         });
@@ -191,67 +160,24 @@ public class EditProject extends AppCompatActivity {
 
     }
 
-    public void confirm(){
-        binding.tint.setVisibility(View.VISIBLE);
-        binding.panel.setVisibility(View.VISIBLE);
-        binding.confirmationText.setVisibility(View.VISIBLE);
-        binding.yesBut.setVisibility(View.VISIBLE);
-        binding.noBut.setVisibility(View.VISIBLE);
-        binding.projectName.clearFocus();
-        binding.yesBut.setOnClickListener(new View.OnClickListener() {
+    private void initEditText(){
+        binding.projectName.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                binding.tint.setVisibility(View.GONE);
-                binding.panel.setVisibility(View.GONE);
-                binding.confirmationText.setVisibility(View.GONE);
-                binding.yesBut.setVisibility(View.GONE);
-                binding.noBut.setVisibility(View.GONE);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
-        });
-        binding.noBut.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View v) {
-                binding.tint.setVisibility(View.GONE);
-                binding.panel.setVisibility(View.GONE);
-                binding.confirmationText.setVisibility(View.GONE);
-                binding.yesBut.setVisibility(View.GONE);
-                binding.noBut.setVisibility(View.GONE);
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                editProjectViewModel.setProjectName(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }
-    /*public void saveChanges(String changedDescription, String tg, String vk, String web){
-        PostDatas post = new PostDatas();
-        String changedName = title;
-        if(!binding.projectName.getText().toString().isEmpty()){
-            changedName = binding.projectName.getText().toString();
-        }
-        if (mediaPath.isEmpty()) {
-            post.postDataChangeProjectWithoutImage("CreateNewProject", changedName, changedDescription, id, mail, tg, vk, web, new CallBackInt() {
-                        @Override
-                        public void invoke(String res) {
-                            Toast.makeText(EditProject.this, res, Toast.LENGTH_SHORT).show();
-                            if (res.equals("Успешно")) {
-                                Intent intent = new Intent(EditProject.this, ActivityProject.class);
-                                startActivity(intent);
-                            }
-                        }
-                    });
-        } else {
-            File file = new File(mediaPath);*/
-            //RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
-            /*post.postDataChangeProject("CreateNewProject", changedName, requestBody, id, mail,
-                    changedDescription, tg, vk, web, new CallBackInt() {
-                        @Override
-                        public void invoke(String res) {
-                            Toast.makeText(EditProject.this, res, Toast.LENGTH_SHORT).show();
-                            if (res.equals("Успешно")) {
-                                Intent intent = new Intent(EditProject.this, ActivityProject.class);
-                                startActivity(intent);
-                            }
-                        }
-                    });
-        }
-    }*/
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -285,7 +211,7 @@ public class EditProject extends AppCompatActivity {
                 cursor.moveToFirst();
 
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                mediaPath = cursor.getString(columnIndex);
+                editProjectViewModel.setProjectImage(cursor.getString(columnIndex));
                 binding.prLogo.setImageURI(imageUri);
                 cursor.close();
                 acces = true;
@@ -296,29 +222,43 @@ public class EditProject extends AppCompatActivity {
 
     private void registerResult(){
         resultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        try{
-                            Uri imageUri = result.getData().getData();
-                            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    try{
+                        Uri imageUri = result.getData().getData();
+                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-                            Cursor cursor = getContentResolver().query(imageUri, filePathColumn, null, null, null);
-                            assert cursor != null;
-                            cursor.moveToFirst();
+                        Cursor cursor = getContentResolver().query(imageUri, filePathColumn, null, null, null);
+                        assert cursor != null;
+                        cursor.moveToFirst();
 
-                            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                            mediaPath = cursor.getString(columnIndex);
-                            binding.prLogo.setImageURI(imageUri);
-                            cursor.close();
-                            acces = true;
-                        }catch (Exception e){
-                            Toast.makeText(EditProject.this, "LOSER", Toast.LENGTH_SHORT).show();
-                        }
+                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                        editProjectViewModel.setProjectImage(cursor.getString(columnIndex));
+                        binding.prLogo.setImageURI(imageUri);
+                        cursor.close();
+                        acces = true;
+                    }catch (Exception e){
+                        Toast.makeText(EditProject.this, "LOSER", Toast.LENGTH_SHORT).show();
                     }
                 }
+            }
         );
+    }
+
+    public void showPanel(){
+        editProjectViewModel.getAllProjectInfo();
+        binding.blockMenu.setVisibility(View.VISIBLE);
+        final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add3);
+        binding.blockMenu.startAnimation(show);
+    }
+    public void hidePanel(){
+        if (binding.blockMenu.getVisibility() == View.VISIBLE) {
+            binding.blockMenu.setVisibility(View.GONE);
+            final Animation hide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_delete2);
+            binding.blockMenu.startAnimation(hide);
+        }
     }
 
 //    public void saveDescription(String description){
@@ -401,9 +341,7 @@ public class EditProject extends AppCompatActivity {
 //                        public void invoke(String res) {
 //                            deleteCache(EditProject.this);
 //                            System.out.println("image");
-//                            binding.blockMenu.setVisibility(View.VISIBLE);
-//                            final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add3);
-//                            binding.blockMenu.startAnimation(show);
+//
 //                        }
 //                    });
 //        }

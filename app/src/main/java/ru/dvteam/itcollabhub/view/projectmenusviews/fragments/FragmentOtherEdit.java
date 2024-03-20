@@ -1,21 +1,35 @@
-package ru.dvteam.itcollabhub;
+package ru.dvteam.itcollabhub.view.projectmenusviews.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import ru.dvteam.itcollabhub.EndProject;
+import ru.dvteam.itcollabhub.R;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
+import ru.dvteam.itcollabhub.classmodels.ProjectInformation;
+import ru.dvteam.itcollabhub.databinding.FragmentOtherEditBinding;
+
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import ru.dvteam.itcollabhub.view.projectmenusviews.activities.EditProject;
+import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.EditProjectViewModel;
 
 
 public class FragmentOtherEdit extends Fragment {
+
+    FragmentOtherEditBinding binding;
+    EditProjectViewModel editProjectViewModel;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,38 +38,40 @@ public class FragmentOtherEdit extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_other_edit, container, false);
+        binding = FragmentOtherEditBinding.inflate(inflater, container, false);
 
         EditProject editProject = (EditProject) getActivity();
-        assert editProject != null;
-        int score = editProject.getScore();
-        String isOpen = editProject.getIsOpen();
-        String isVisible = editProject.getIsVisible();
+        editProjectViewModel = new ViewModelProvider(requireActivity()).get(EditProjectViewModel.class);
+        init();
 
-        Button btn = v.findViewById(R.id.saveBtn);
-        Button end = v.findViewById(R.id.endBtn);
-        SwitchMaterial open = v.findViewById(R.id.open);
-        SwitchMaterial visible = v.findViewById(R.id.visible);
-
-        open.setChecked(isOpen.equals("1"));
-        visible.setChecked(isVisible.equals("1"));
-
-        end.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editProject.endProject();
-            }
-        });
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int myInt1 = open.isChecked() ? 1 : 0;
-                int myInt2 = visible.isChecked() ? 1 : 0;
-                editProject.saveOther(myInt1 + "", myInt2 + "");
-            }
+        editProjectViewModel.getPrInfo().observe(getViewLifecycleOwner(), projectInformation -> {
+            binding.open.setChecked(projectInformation.getProjectIsOpen().equals("1"));
+            binding.visible.setChecked(projectInformation.getProjectIsVisible().equals("1"));
         });
 
-        return v;
+        binding.endBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), EndProject.class);
+            startActivity(intent);
+        });
+        binding.saveBtn.setOnClickListener(v -> {
+            editProjectViewModel.onSaveOther(new CallBackBoolean() {
+                @Override
+                public void invoke(Boolean res) {
+                    editProject.showPanel();
+                }
+            });
+        });
+
+        return binding.getRoot();
+    }
+
+    public void init(){
+        binding.open.setOnClickListener(v -> {
+            editProjectViewModel.setIsOpen(binding.open.isChecked());
+        });
+        binding.visible.setOnClickListener(v -> {
+            editProjectViewModel.setIsVisible(binding.visible.isChecked());
+        });
     }
 
     public void setColorBtn(int score, Button btn){

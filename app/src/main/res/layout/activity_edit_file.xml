@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditFile">
+    tools:context=".view.projectmenusviews.activities.EditFile">
 
     <ImageView
         android:id="@+id/bguser"
@@ -149,6 +149,7 @@
             android:paddingTop="-5dp"
             android:paddingBottom="-5dp"
             android:textColor="@color/white"
+            android:inputType="textUri"
             android:textColorHint="@color/white"
             android:textSize="9sp"
             android:textStyle="bold|italic"

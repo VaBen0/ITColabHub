@@ -196,7 +196,6 @@ public class CreateDeadline extends AppCompatActivity {
                     binding.viewHideBut.setVisibility(View.GONE);
                     final Animation hide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_delete);
                     binding.blockMenu.startAnimation(hide);
-                    final int cnt = type.size();
                     final int importInt = imgCnt;
 
                     View custom = getLayoutInflater().inflate(R.layout.gblock_image, null);

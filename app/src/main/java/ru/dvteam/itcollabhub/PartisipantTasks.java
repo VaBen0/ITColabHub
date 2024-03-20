@@ -1,8 +1,5 @@
 package ru.dvteam.itcollabhub;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +7,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 
@@ -114,6 +114,7 @@ public class PartisipantTasks extends AppCompatActivity {
 
                     userCircle.setVisibility(View.GONE);
                     project1.setVisibility(View.GONE);
+
                     setButtonColor(score, messege);
 
                     Glide
@@ -128,6 +129,7 @@ public class PartisipantTasks extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             idsArr.add(ids[finalI]);
+                            System.out.println(ids[finalI]);
                             messege.setVisibility(View.GONE);
                         }
                     });
@@ -141,6 +143,7 @@ public class PartisipantTasks extends AppCompatActivity {
         binding.uploadTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println(idsArr + " " + mail);
                 if(click) {
                     binding.load.setVisibility(View.VISIBLE);
                     binding.back.setVisibility(View.VISIBLE);
@@ -168,12 +171,14 @@ public class PartisipantTasks extends AppCompatActivity {
                 public void invoke(String res) {
                     idsTextBlocks.add(res);
                     if(finalI == textBlockArr.length - 1){
+                        System.out.println("Text ok");
                         createAllLinksBlocks();
                     }
                 }
             });
         }
         if(textBlockArr.length == 0){
+            System.out.println("Text ok");
             createAllLinksBlocks();
         }
     }
@@ -188,12 +193,14 @@ public class PartisipantTasks extends AppCompatActivity {
                 public void invoke(String res) {
                     idsLinkBlocks.add(res);
                     if(finalI == linkBlockArr.length - 1){
+                        System.out.println("Links ok");
                         createAllYoutubeBlocks();
                     }
                 }
             });
         }
         if(linkBlockArr.length == 0){
+            System.out.println("Links ok");
             createAllYoutubeBlocks();
         }
     }
@@ -208,12 +215,14 @@ public class PartisipantTasks extends AppCompatActivity {
                 public void invoke(String res) {
                     idsYouTubeBlocks.add(res);
                     if(finalI == youtubeBlockArr.length - 1){
+                        System.out.println("YouTube ok");
                         createAllImageBlocks(0);
                     }
                 }
             });
         }
         if(youtubeBlockArr.length == 0){
+            System.out.println("YouTube ok");
             createAllImageBlocks(0);
         }
     }
@@ -221,6 +230,7 @@ public class PartisipantTasks extends AppCompatActivity {
     public void createAllImageBlocks(int i){
         PostDatas post = new PostDatas();
         if(imageBlockArr.length == 0){
+            System.out.println("Imgs ok");
             createTask();
         }else{
             String[] s = imageBlockArr[i].split("\uD83D\uDD70");
@@ -274,12 +284,6 @@ public class PartisipantTasks extends AppCompatActivity {
                 idsYouTubeBlocksArr, new CallBackInt() {
                     @Override
                     public void invoke(String res) {
-                        /*Intent intent = new Intent(PartisipantTasks.this, TasksActivityMain.class);
-                        intent.putExtra("projectId", id);
-                        intent.putExtra("projectTitle", title);
-                        intent.putExtra("projectUrlPhoto", prPhoto);
-                        startActivity(intent);
-                        finish();*/
                         CreateTask.fa.finish();
                         finish();
                     }
@@ -359,28 +363,31 @@ public class PartisipantTasks extends AppCompatActivity {
         int themeType = UsersChosenTheme.getThemeNum();
 
         switch (themeType){
-            case(1):
+            case (1):
                 setTheme(R.style.Theme_ITCollabHub_Blue);
                 break;
-            case(2):
+            case (2):
                 setTheme(R.style.Theme_ITCollabHub_Green);
                 break;
-            case(3):
+            case (3):
+                setTheme(R.style.Theme_ITCollabHub_Brown);
+                break;
+            case (4):
                 setTheme(R.style.Theme_ITCollabHub_PinkGold);
                 break;
-            case(4):
+            case (5):
                 setTheme(R.style.Theme_ITCollabHub_Ohra);
                 break;
-            case(5):
+            case (6):
                 setTheme(R.style.Theme_ITCollabHub_Red);
                 break;
-            case(6):
+            case (7):
                 setTheme(R.style.Theme_ITCollabHub_Orange);
                 break;
-            case(7):
+            case (8):
                 setTheme(R.style.Theme_ITCollabHub_Violete);
                 break;
-            case(8):
+            case (9):
                 setTheme(R.style.Theme_ITCollabHub_BlueGreen);
                 break;
         }

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.dvteam.itcollabhub.R;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackDelOrChangeAd;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.classmodels.ProblemInformation;
 import ru.dvteam.itcollabhub.classmodels.PurposeInformation;
@@ -22,9 +23,9 @@ import ru.dvteam.itcollabhub.databinding.ProblemPanelBinding;
 public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemViewHolder> {
     List<ProblemInformation> data;
     Context context;
-    CallBackInt callback;
+    CallBackDelOrChangeAd callback;
 
-    public ProblemAdapter(ArrayList<ProblemInformation> data1, Context context1, CallBackInt callback1){
+    public ProblemAdapter(ArrayList<ProblemInformation> data1, Context context1, CallBackDelOrChangeAd callback1){
         data = data1;
         context = context1;
         callback = callback1;
@@ -59,7 +60,7 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemV
                     binding.descriptionPurpose.setVisibility(View.GONE);
                     binding.yesOrNo.setVisibility(View.VISIBLE);
                     binding.yes.setOnClickListener(v1 -> {
-                        callback.invoke(data.get(getAdapterPosition()).getProblemId());
+                        callback.delete(data.get(getAdapterPosition()).getProblemId());
                         binding.view8.setBackgroundResource(R.drawable.green_transperent);
                         binding.yesOrNo.setVisibility(View.GONE);
                         binding.descriptionPurpose.setVisibility(View.VISIBLE);
@@ -71,6 +72,9 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ProblemV
                     });
                 }
 
+            });
+            binding.editProblem.setOnClickListener(v -> {
+                callback.change(getAdapterPosition());
             });
         }
 

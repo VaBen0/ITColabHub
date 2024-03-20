@@ -15,13 +15,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 
 import ru.dvteam.itcollabhub.FriendProfile;
-import ru.dvteam.itcollabhub.InformationForChooseThemeForApp;
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.UsersChosenTheme;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;

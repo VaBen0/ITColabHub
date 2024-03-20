@@ -6,14 +6,13 @@ import java.io.File;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import ru.dvteam.itcollabhub.ProfileInformation;
+import ru.dvteam.itcollabhub.classmodels.ProfileInformation;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt2;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt5;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackProfileInformation;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
-import ru.dvteam.itcollabhub.view.profileviews.activities.EditProfile;
 
 public class EditProfileModel {
     private final PostDatas postDatas = new PostDatas();

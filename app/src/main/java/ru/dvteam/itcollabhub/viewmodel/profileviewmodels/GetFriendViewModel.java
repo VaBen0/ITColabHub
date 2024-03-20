@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import ru.dvteam.itcollabhub.InformationForChooseThemeForApp;
+import ru.dvteam.itcollabhub.classmodels.InformationForChooseThemeForApp;
 import ru.dvteam.itcollabhub.model.profilemodels.GetFriendModel;
 
 public class GetFriendViewModel extends ViewModel {

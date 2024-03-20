@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/endProjects2"
-        android:name="ru.dvteam.itcollabhub.EndProjects"
+        android:name="ru.dvteam.itcollabhub.view.projectmenusviews.fragments.EndProjects"
         android:label="fragment_end_projects"
         tools:layout="@layout/fragment_end_projects" >
         <action

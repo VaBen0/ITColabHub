@@ -61,7 +61,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ProjectPage"
+            android:name=".view.projectmenusviews.activities.ProjectPage"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -97,7 +97,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ProjectParticipants"
+            android:name=".view.projectmenusviews.activities.ProjectParticipants"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -161,7 +161,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EditAdvertisment"
+            android:name=".view.projectmenusviews.activities.EditAdvertisment"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -169,11 +169,11 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ControlPanel2"
+            android:name=".view.projectmenusviews.activities.ControlPanel2"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EditFile"
+            android:name=".view.projectmenusviews.activities.EditFile"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -181,7 +181,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EditProblem"
+            android:name=".view.projectmenusviews.activities.EditProblem"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentLinksProjectEdit"
-        android:name="ru.dvteam.itcollabhub.FragmentLinksProjectEdit"
+        android:name="ru.dvteam.itcollabhub.view.projectmenusviews.fragments.FragmentLinksProjectEdit"
         android:label="fragment_links_project_edit"
         tools:layout="@layout/fragment_links_project_edit" >
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/projectDescriptionEdit2"
-        android:name="ru.dvteam.itcollabhub.ProjectDescriptionEdit"
+        android:name="ru.dvteam.itcollabhub.view.projectmenusviews.fragments.ProjectDescriptionEdit"
         android:label="fragment_project_description_edit"
         tools:layout="@layout/fragment_project_description_edit" >
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentOtherEdit"
-        android:name="ru.dvteam.itcollabhub.FragmentOtherEdit"
+        android:name="ru.dvteam.itcollabhub.view.projectmenusviews.fragments.FragmentOtherEdit"
         android:label="fragment_other_edit"
         tools:layout="@layout/fragment_other_edit" >
         <action

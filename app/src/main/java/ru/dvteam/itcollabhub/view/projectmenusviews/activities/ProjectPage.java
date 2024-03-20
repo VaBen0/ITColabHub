@@ -1,4 +1,4 @@
-package ru.dvteam.itcollabhub;
+package ru.dvteam.itcollabhub.view.projectmenusviews.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -6,16 +6,18 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 
 import ru.dvteam.itcollabhub.databinding.ActivityProjectPageBinding;
+import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.ProjectPageViewModel;
 
 public class ProjectPage extends AppCompatActivity {
 
     ActivityProjectPageBinding binding;
+    ProjectPageViewModel projectPageViewModel;
 
-    private String id, title, description, prPhoto, mail, tgLink, vkLink, webLink, isOpen, isVisible;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,27 +27,21 @@ public class ProjectPage extends AppCompatActivity {
         setContentView(binding.getRoot());
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        projectPageViewModel = new ViewModelProvider(this).get(ProjectPageViewModel.class);
 
-        Bundle arguments = getIntent().getExtras();
-        assert arguments != null;
-        title = arguments.getString("projectTitle");
-        prPhoto = arguments.getString("projectUrlPhoto");
-        description = arguments.getString("projectDescription");
-        webLink = arguments.getString("webLink");
-
-        binding.projectName.setText(title);
-        binding.description.setText(description);
-        binding.webLink.setText(webLink);
+        binding.projectName.setText(projectPageViewModel.getProjectTitle());
+        binding.description.setText(projectPageViewModel.getProjectDescription());
+        binding.webLink.setText(projectPageViewModel.getProjectWebLink());
         Glide
                 .with(ProjectPage.this)
-                .load(prPhoto)
+                .load(projectPageViewModel.getProjectLog())
                 .into(binding.prLogo);
         Glide
                 .with(ProjectPage.this)
-                .load(prPhoto)
+                .load(projectPageViewModel.getProjectLog())
                 .into(binding.log);
 
-        binding.webLink.setOnClickListener(view -> goToLink(webLink));
+        binding.webLink.setOnClickListener(view -> goToLink(projectPageViewModel.getProjectWebLink()));
     }
 
     private void goToLink(String url){

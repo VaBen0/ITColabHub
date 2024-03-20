@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/aboutApp"
-        android:name="ru.dvteam.itcollabhub.AboutApp"
+        android:name="ru.dvteam.itcollabhub.view.profileviews.fragments.AboutApp"
         android:label="fragment_about_app"
         tools:layout="@layout/fragment_about_app" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/accountLinks"
-        android:name="ru.dvteam.itcollabhub.AccountLinks"
+        android:name="ru.dvteam.itcollabhub.view.profileviews.fragments.AccountLinks"
         android:label="AccountLinks" >
         <action
             android:id="@+id/action_accountLinks_to_aboutApp"

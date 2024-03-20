@@ -8,8 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -26,23 +24,17 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
-
-import ru.dvteam.itcollabhub.EditAdvertisment;
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.UsersChosenTheme;
 import ru.dvteam.itcollabhub.adapter.AdvertsAdapter;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackDelOrChangeAd;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
-import ru.dvteam.itcollabhub.classmodels.DataOfWatcher;
 import ru.dvteam.itcollabhub.databinding.ActivityProjectAdvertismentsBinding;
-import ru.dvteam.itcollabhub.retrofit.PostDatas;
 import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.ProjectAdvertismentsViewModel;
 
 public class ProjectAdvertisments extends AppCompatActivity {
@@ -50,11 +42,9 @@ public class ProjectAdvertisments extends AppCompatActivity {
     ActivityProjectAdvertismentsBinding binding;
 
     private static final int PICK_IMAGES_CODE = 0;
-    private String mediaPath = "";
     private Boolean acces = false, acces2 = false;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     ActivityResultLauncher<Intent> resultLauncher;
-    private String projectTitle, photoProject, prId, mail;
     ProjectAdvertismentsViewModel projectAdvertismentsViewModel;
 
     @Override
@@ -94,10 +84,21 @@ public class ProjectAdvertisments extends AppCompatActivity {
         binding.ads.setLayoutManager(new LinearLayoutManager(this));
 
         projectAdvertismentsViewModel.getAdds1().observe(this, dataOfWatchers -> {
-            AdvertsAdapter adapter = new AdvertsAdapter(this, dataOfWatchers, new CallBackInt() {
+            AdvertsAdapter adapter = new AdvertsAdapter(this, dataOfWatchers, new CallBackDelOrChangeAd() {
                 @Override
-                public void invoke(String res) {
-                    projectAdvertismentsViewModel.deleteAd(res);
+                public void delete(String id) {
+                    projectAdvertismentsViewModel.deleteAd(id);
+                }
+
+                @Override
+                public void change(int position) {
+                    projectAdvertismentsViewModel.onChangeClick(position, new CallBackBoolean() {
+                        @Override
+                        public void invoke(Boolean res) {
+                            Intent intent = new Intent(ProjectAdvertisments.this, EditAdvertisment.class);
+                            startActivity(intent);
+                        }
+                    });
                 }
             });
 
@@ -116,6 +117,11 @@ public class ProjectAdvertisments extends AppCompatActivity {
                     projectAdvertismentsViewModel.setAdverts();
                     binding.advert.setText("");
                     binding.advertName.setText("");
+                    Glide
+                            .with(ProjectAdvertisments.this)
+                            .load(projectAdvertismentsViewModel.getProjectPhoto())
+                            .into(binding.fileImage);
+                    projectAdvertismentsViewModel.setAdverts();
                 }else{
                     Toast.makeText(ProjectAdvertisments.this, "Не все поля заполнены", Toast.LENGTH_SHORT).show();
                 }
@@ -219,6 +225,7 @@ public class ProjectAdvertisments extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
+        projectAdvertismentsViewModel.setAdverts();
     }
 
     private void initEditTexts(){

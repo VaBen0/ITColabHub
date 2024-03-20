@@ -1,4 +1,4 @@
-package ru.dvteam.itcollabhub;
+package ru.dvteam.itcollabhub.view.projectmenusviews.activities;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
@@ -34,20 +34,26 @@ import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 
+import ru.dvteam.itcollabhub.Advertisment;
+import ru.dvteam.itcollabhub.ProblemsParticip;
+import ru.dvteam.itcollabhub.PurposeParticipiant;
+import ru.dvteam.itcollabhub.R;
+import ru.dvteam.itcollabhub.TaskActivityWatch;
+import ru.dvteam.itcollabhub.TasksActivityMain;
+import ru.dvteam.itcollabhub.UsersChosenTheme;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt4;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackTasksInfo;
 import ru.dvteam.itcollabhub.databinding.ActivityControlPanel2Binding;
+import ru.dvteam.itcollabhub.globaldata.ProjectId;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
-import ru.dvteam.itcollabhub.view.projectmenusviews.activities.Problems;
-import ru.dvteam.itcollabhub.view.projectmenusviews.activities.ProjectFiles;
-import ru.dvteam.itcollabhub.view.projectmenusviews.activities.Purpose;
 
 public class ControlPanel2 extends AppCompatActivity {
 
     private static final String TAG = "MyApp";
 
     ActivityControlPanel2Binding binding;
+
     String title, urlPhoto;
     String mail, islead;
     String purposesidss, problemss, id;
@@ -70,10 +76,8 @@ public class ControlPanel2 extends AppCompatActivity {
         int color = ContextCompat.getColor(ControlPanel2.this, typedValue.resourceId);
         getWindow().setStatusBarColor(color);
 
-        Bundle arguments = getIntent().getExtras();
 
-        assert arguments != null;
-        id = arguments.getString("projectId");
+        id = ProjectId.getInstance().getProjectId();
 
         getMainInfo();
 
@@ -192,7 +196,6 @@ public class ControlPanel2 extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
     private void getMainInfo(){
         PostDatas postDatas = new PostDatas();
@@ -355,7 +358,6 @@ public class ControlPanel2 extends AppCompatActivity {
                                 })
                                 .into(loadImg);
                     }
-
                     setTasks();
                 }
             });
@@ -461,6 +463,7 @@ public class ControlPanel2 extends AppCompatActivity {
 
     private void setTasks(){
         PostDatas post = new PostDatas();
+        System.out.println(mail);
         post.postDataGetProjectTasks("GetTasksFromProject", id, mail, new CallBackTasksInfo()  {
             @Override
             public void invoke(String s1, String s2, String s3, String s4) {

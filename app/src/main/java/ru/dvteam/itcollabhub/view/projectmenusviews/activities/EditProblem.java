@@ -1,4 +1,4 @@
-package ru.dvteam.itcollabhub;
+package ru.dvteam.itcollabhub.view.projectmenusviews.activities;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.app.Activity;
@@ -19,6 +20,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -29,13 +32,16 @@ import java.io.File;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.databinding.ActivityEditProblemBinding;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
+import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.EditProblemViewModel;
 
 public class EditProblem extends AppCompatActivity {
 
     ActivityEditProblemBinding binding;
+    EditProblemViewModel editProblemViewModel;
 
     private static final int PICK_IMAGES_CODE = 0;
     private String mediaPath = "";
@@ -47,91 +53,41 @@ public class EditProblem extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        String mail = sPref.getString("UserMail", "");
-        int score = sPref.getInt("UserScore", 0);
-
         binding = ActivityEditProblemBinding.inflate(getLayoutInflater());
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         setContentView(binding.getRoot());
-
+        editProblemViewModel = new ViewModelProvider(this).get(EditProblemViewModel.class);
         registerResult();
-        Bundle arguments = getIntent().getExtras();
+        initEditText();
 
-        assert arguments != null;
-        String problemPhoto = arguments.getString("problemPhoto");
-        String projectTitle = arguments.getString("projectTitle");
-        String projectPhoto = arguments.getString("projectUrlPhoto");
-        String projectId = arguments.getString("projectId1");
-        String problemId = arguments.getString("problemId");
-        String problemName = arguments.getString("problemName");
-        String problemDescription = arguments.getString("problemDescription");
-
-        binding.nameProject.setText(projectTitle);
+        binding.nameProject.setText(editProblemViewModel.getProjectTitle());
         Glide
                 .with(EditProblem.this)
-                .load(projectPhoto)
+                .load(editProblemViewModel.getProjectLog())
                 .into(binding.prLogo);
         Glide
                 .with(EditProblem.this)
-                .load(problemPhoto)
+                .load(editProblemViewModel.getProjectLog())
                 .into(binding.problemPhoto);
-        binding.problemTitle.setHint(problemName);
-        binding.problemDescription.setHint(problemDescription);
+        binding.problemTitle.setHint(editProblemViewModel.getName());
+        binding.problemDescription.setHint(editProblemViewModel.getDescription());
 
-        PostDatas post = new PostDatas();
-        binding.deleteProblem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                post.postDataDeleteProblem("DeleteProblem", problemId, mail, projectId, new CallBackInt() {
-                    @Override
-                    public void invoke(String res) {
-                        if(res.equals("Okey")){
-                            finish();
-                        }
-                    }
-                });
-            }
+        binding.deleteProblem.setOnClickListener(v -> {
+            editProblemViewModel.onDelete(new CallBackBoolean() {
+                @Override
+                public void invoke(Boolean res) {
+                    finish();
+                }
+            });
         });
-        binding.saveChanges.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name;
-                String description;
-                if(binding.problemTitle.getText().toString().isEmpty()){
-                    name = problemName;
-                }else{
-                    name = binding.problemTitle.getText().toString();
+        binding.saveChanges.setOnClickListener(v -> {
+            editProblemViewModel.onChangeClick(new CallBackBoolean() {
+                @Override
+                public void invoke(Boolean res) {
+                    finish();
                 }
-                if(binding.problemDescription.getText().toString().isEmpty()){
-                    description = problemDescription;
-                }else{
-                    description = binding.problemDescription.getText().toString();
-                }
-
-
-                if(mediaPath.isEmpty()){
-                        post.postDataChangeProblemWithoutImage("ChangeProblemWithoutImage", name, description, projectId, mail,
-                            problemId, new CallBackInt() {
-                                @Override
-                                public void invoke(String res) {
-                                    finish();
-                                }
-                            });
-                }else{
-                    File file = new File(mediaPath);
-                    RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
-                    post.postDataChangeProblem("ChangeProblem", name, requestBody, description, projectId, mail,
-                            problemId, new CallBackInt() {
-                                @Override
-                                public void invoke(String res) {
-                                    Toast.makeText(EditProblem.this, "Изменения скоро вступят в силу", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                }
-                            });
-                }
-            }
+            });
         });
 
         if(Build.VERSION.SDK_INT >= 33) {
@@ -155,6 +111,41 @@ public class EditProblem extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void initEditText(){
+        binding.problemTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                editProblemViewModel.setName(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        binding.problemDescription.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                editProblemViewModel.setDescription(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void pickImage(){
@@ -193,7 +184,7 @@ public class EditProblem extends AppCompatActivity {
                 cursor.moveToFirst();
 
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                mediaPath = cursor.getString(columnIndex);
+                editProblemViewModel.setMediaPath(cursor.getString(columnIndex));
                 binding.problemPhoto.setImageURI(imageUri);
                 cursor.close();
                 acces = true;
@@ -217,7 +208,7 @@ public class EditProblem extends AppCompatActivity {
                             cursor.moveToFirst();
 
                             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                            mediaPath = cursor.getString(columnIndex);
+                            editProblemViewModel.setMediaPath(cursor.getString(columnIndex));
                             binding.problemPhoto.setImageURI(imageUri);
                             cursor.close();
                             acces = true;

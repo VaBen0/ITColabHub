@@ -13,9 +13,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import ru.dvteam.itcollabhub.callbackclasses.CallBackDeadlineInfo;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackTasksInfo;
 import ru.dvteam.itcollabhub.databinding.ActivityTasksMainBinding;
+import ru.dvteam.itcollabhub.globaldata.GlobalProjectInformation;
+import ru.dvteam.itcollabhub.globaldata.ProjectId;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
 
 public class TasksActivityMain extends AppCompatActivity {
@@ -37,12 +40,10 @@ public class TasksActivityMain extends AppCompatActivity {
 
         setContentView(binding.getRoot());
 
-        Bundle arguments = getIntent().getExtras();
-        assert arguments != null;
-        id = arguments.getString("projectId");
-        title = arguments.getString("projectTitle");
-        prPhoto = arguments.getString("projectUrlPhoto");
-        status = arguments.getInt("status", 0);
+        id = ProjectId.getInstance().getProjectId();
+        title = GlobalProjectInformation.getInstance().getProjectTitle();
+        prPhoto = GlobalProjectInformation.getInstance().getProjectLog();
+        status = 1;
 
         TypedValue typedValue = new TypedValue();
         getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
@@ -84,7 +85,7 @@ public class TasksActivityMain extends AppCompatActivity {
         });
 
         setTasks();
-
+        setDeadlines();
     }
 
     private void setTasks(){
@@ -219,6 +220,149 @@ public class TasksActivityMain extends AppCompatActivity {
 
                                 binding.tasksPlace.addView(custom);
                             }
+                        //});
+                    }
+
+                }else{
+                    binding.noTasks.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    private void setDeadlines(){
+        PostDatas post = new PostDatas();
+        System.out.println(id + " " + mail);
+        post.postDataGetProjectDeadlines("GetDeadlinesFromProject", id, mail, new CallBackDeadlineInfo()  {
+            @Override
+            public void invoke(String s1, String s2, String s3, String s4, String s5) {
+
+                if(!s1.equals("Ошибка")){
+                    binding.noTasks.setVisibility(View.GONE);
+                    String[] idsArr = s1.split("\uD83D\uDD70");
+                    String[] namesArr = s2.split("\uD83D\uDD70");
+                    String[] textsArr = s3.split("\uD83D\uDD70");
+                    String[] completeArr = s4.split("\uD83D\uDD70");
+
+                    if(status == 1){
+                        for (int i = 0; i < namesArr.length; i++) {
+                            int finalI = i;
+                            int finalI1 = i;
+                            int finalI2 = i;
+                            post.postDataGetCompletedWorks("CheckCountOfReadyWorksFromTask", id, mail, idsArr[i], new CallBackInt() {
+                                @Override
+                                public void invoke(String res) {
+                                    View custom = getLayoutInflater().inflate(R.layout.tasks_panel, null);
+                                    View view = custom.findViewById(R.id.view8);
+                                    if(completeArr[finalI2].equals("1")){
+                                        view.setBackgroundResource(R.color.green_transperent);
+                                    }
+                                    TextView nameu = (TextView) custom.findViewById(R.id.taskTitle);
+                                    TextView text = (TextView) custom.findViewById(R.id.taskText);
+                                    ImageView prImg = (ImageView) custom.findViewById(R.id.loadImg);
+                                    View circleStatus = custom.findViewById(R.id.circle);
+
+                                    Glide
+                                            .with(TasksActivityMain.this)
+                                            .load(prPhoto)
+                                            .into(prImg);
+
+                                    nameu.setText(namesArr[finalI]);
+                                    if (!textsArr[finalI].isEmpty() && textsArr.length > finalI1) {
+                                        text.setText(textsArr[finalI]);
+                                    } else {
+                                        text.setText("");
+                                    }
+
+                                    if (Integer.parseInt(res) == 0) {
+                                        circleStatus.setBackgroundResource(R.drawable.black_line);
+                                    } else {
+                                        circleStatus.setBackgroundResource(R.drawable.red_line);
+                                    }
+                                    int finalI1 = finalI;
+                                    custom.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+//                                            Intent intent;
+//                                            if(status == 1){
+//                                                intent = new Intent(TasksActivityMain.this, ActivityTaskMenuForLeader.class);
+//                                            }else{
+//                                                intent = new Intent(TasksActivityMain.this, TaskMenuActivity.class);
+//                                            }
+//                                            intent.putExtra("projectId", id);
+//                                            intent.putExtra("projectTitle", title);
+//                                            intent.putExtra("projectUrlPhoto", prPhoto);
+//                                            intent.putExtra("taskTitle", namesArr[finalI1]);
+//                                            intent.putExtra("taskId", idsArr[finalI1]);
+//                                            intent.putExtra("isComplete", completeArr[finalI2]);
+//                                            intent.putExtra("completedWorks", Integer.parseInt(res));
+//                                            startActivity(intent);
+                                        }
+                                    });
+
+                                    binding.reminderPlace1.addView(custom);
+                                }
+                            });
+                        }
+                    }else{
+                        for (int i = 0; i < namesArr.length; i++) {
+                            int finalI = i;
+                            int finalI1 = i;
+                            int finalI2 = i;
+                            //post.postDataGetCompletedWorks("CheckCountOfReadyWorksFromTask", id, mail, idsArr[i], new CallBackInt() {
+                            //@Override
+                            //public void invoke(String res) {
+                            View custom = getLayoutInflater().inflate(R.layout.tasks_panel, null);
+                            View view = custom.findViewById(R.id.view8);
+                            if(completeArr[finalI2].equals("1")){
+                                view.setBackgroundResource(R.color.green_transperent);
+                            }
+                            TextView nameu = (TextView) custom.findViewById(R.id.taskTitle);
+                            TextView text = (TextView) custom.findViewById(R.id.taskText);
+                            ImageView prImg = (ImageView) custom.findViewById(R.id.loadImg);
+                            View circleStatus = custom.findViewById(R.id.circle);
+                            circleStatus.setVisibility(View.GONE);
+
+                            Glide
+                                    .with(TasksActivityMain.this)
+                                    .load(prPhoto)
+                                    .into(prImg);
+
+                            nameu.setText(namesArr[finalI]);
+                            if (!textsArr[finalI].isEmpty() && textsArr.length > finalI1) {
+                                text.setText(textsArr[finalI]);
+                            } else {
+                                text.setText("");
+                            }
+
+                                /*if (Integer.parseInt(res) == 0) {
+                                    circleStatus.setBackgroundResource(R.drawable.black_line);
+                                } else {
+                                    circleStatus.setBackgroundResource(R.drawable.red_line);
+                                }*/
+
+                            //int finalI1 = finalI;
+//                            custom.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    Intent intent;
+//                                    if(status == 1){
+//                                        intent = new Intent(TasksActivityMain.this, ActivityTaskMenuForLeader.class);
+//                                    }else{
+//                                        intent = new Intent(TasksActivityMain.this, TaskMenuActivity.class);
+//                                    }
+//                                    intent.putExtra("projectId", id);
+//                                    intent.putExtra("projectTitle", title);
+//                                    intent.putExtra("projectUrlPhoto", prPhoto);
+//                                    intent.putExtra("taskTitle", namesArr[finalI1]);
+//                                    intent.putExtra("taskId", idsArr[finalI1]);
+//                                    intent.putExtra("isComplete", completeArr[finalI2]);
+//                                    startActivity(intent);
+//                                }
+//                            });
+
+                            binding.reminderPlace1.addView(custom);
+                        }
                         //});
                     }
 

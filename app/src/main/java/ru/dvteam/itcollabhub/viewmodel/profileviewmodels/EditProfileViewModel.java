@@ -8,11 +8,11 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.Objects;
 
-import ru.dvteam.itcollabhub.ProfileInformation;
+import ru.dvteam.itcollabhub.classmodels.ProfileInformation;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt5;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackProfileInformation;
-import ru.dvteam.itcollabhub.UserLinks;
+import ru.dvteam.itcollabhub.classmodels.UserLinks;
 import ru.dvteam.itcollabhub.model.profilemodels.EditProfileModel;
 
 public class EditProfileViewModel extends ViewModel {

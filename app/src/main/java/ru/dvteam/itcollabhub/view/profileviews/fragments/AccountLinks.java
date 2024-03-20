@@ -1,4 +1,4 @@
-package ru.dvteam.itcollabhub;
+package ru.dvteam.itcollabhub.view.profileviews.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;

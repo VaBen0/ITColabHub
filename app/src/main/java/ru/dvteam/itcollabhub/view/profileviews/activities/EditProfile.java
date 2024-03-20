@@ -29,8 +29,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 
-import ru.dvteam.itcollabhub.AboutApp;
-import ru.dvteam.itcollabhub.AccountLinks;
+import ru.dvteam.itcollabhub.view.profileviews.fragments.AboutApp;
+import ru.dvteam.itcollabhub.view.profileviews.fragments.AccountLinks;
 import ru.dvteam.itcollabhub.MainActivity;
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.UsersChosenTheme;
@@ -117,6 +117,7 @@ public class EditProfile extends AppCompatActivity {
                 SharedPreferences.Editor ed = sPref.edit();
                 ed.clear();
                 ed.apply();
+                UsersChosenTheme.setThemeNum(0);
                 startActivity(intent);
                 finish();
             }

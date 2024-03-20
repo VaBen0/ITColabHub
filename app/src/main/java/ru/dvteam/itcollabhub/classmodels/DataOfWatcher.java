@@ -23,6 +23,7 @@ public class DataOfWatcher {
         this.objDesc = objDesc;
         this.objImg = objImg;
         this.type = type;
+        this.id = id;
     }
 
     public String getObjTitle() {

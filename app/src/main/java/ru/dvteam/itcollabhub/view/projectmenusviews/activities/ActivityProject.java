@@ -16,7 +16,7 @@ import android.widget.Toast;
 import java.io.File;
 
 import ru.dvteam.itcollabhub.CreateProject;
-import ru.dvteam.itcollabhub.EndProjects;
+import ru.dvteam.itcollabhub.view.projectmenusviews.fragments.EndProjects;
 import ru.dvteam.itcollabhub.Forum;
 import ru.dvteam.itcollabhub.view.projectmenusviews.fragments.MyProjects;
 import ru.dvteam.itcollabhub.ProjectRequests;
@@ -247,23 +247,7 @@ public class ActivityProject extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
 
-        if(fragmentMan){
-            MyProjects frag;
-            frag = (MyProjects) getSupportFragmentManager().findFragmentByTag("mainFragment");
-            if (frag != null) {
-                //frag.createProjects();
-            }else{
-                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
-            }
-        }else{
-            EndProjects frag;
-            frag = (EndProjects) getSupportFragmentManager().findFragmentByTag("secondFragment");
-            if (frag != null) {
-                frag.createProjects();
-            }else{
-                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
-            }
-        }
+
 
     }
 

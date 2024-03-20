@@ -1,4 +1,4 @@
-package ru.dvteam.itcollabhub;
+package ru.dvteam.itcollabhub.view.projectmenusviews.activities;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.app.Activity;
@@ -19,6 +20,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -29,18 +32,17 @@ import java.io.File;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.databinding.ActivityEditAdvertismentBinding;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
+import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.EditAdvertismentViewModel;
 
 public class EditAdvertisment extends AppCompatActivity {
 
     ActivityEditAdvertismentBinding binding;
-    private String projectTitle, photoProject, prId, mail;
-
+    EditAdvertismentViewModel editAdvertismentViewModel;
     private static final int PICK_IMAGES_CODE = 0;
-    private String mediaPath = "";
-    private Boolean acces = false, clicked = false;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     ActivityResultLauncher<Intent> resultLauncher;
 
@@ -48,92 +50,43 @@ public class EditAdvertisment extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        mail = sPref.getString("UserMail", "");
-        int score = sPref.getInt("UserScore", 0);
-
         binding = ActivityEditAdvertismentBinding.inflate(getLayoutInflater());
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         setContentView(binding.getRoot());
+        editAdvertismentViewModel = new ViewModelProvider(this).get(EditAdvertismentViewModel.class);
         registerResult();
+        initEditTexts();
 
-        Bundle arguments = getIntent().getExtras();
-
-        assert arguments != null;
-        String id = arguments.getString("problemId");
-        prId = arguments.getString("projectId1");
-        projectTitle = arguments.getString("projectTitle");
-        photoProject = arguments.getString("projectUrlPhoto");
-        String problemPhoto = arguments.getString("problemPhoto");
-        String problemName = arguments.getString("problemName");
-        String problemDescription = arguments.getString("problemDescription");
-
-
-        binding.nameProject.setText(projectTitle);
-        binding.problemTitle.setHint(problemName);
-        binding.problemDescription.setHint(problemDescription);
+        binding.nameProject.setText(editAdvertismentViewModel.getProjectTitle());
+        binding.problemTitle.setHint(editAdvertismentViewModel.getName());
+        binding.problemDescription.setHint(editAdvertismentViewModel.getDescription());
         Glide
                 .with(EditAdvertisment.this)
-                .load(photoProject)
+                .load(editAdvertismentViewModel.getProjectLog())
                 .into(binding.prLogo);
         Glide
                 .with(EditAdvertisment.this)
-                .load(problemPhoto)
+                .load(editAdvertismentViewModel.getAdPhoto())
                 .into(binding.problemPhoto);
 
-        binding.saveChanges.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name;
-                String description;
-                if(binding.problemTitle.getText().toString().isEmpty()){
-                    name = problemName;
-                }else{
-                    name = binding.problemTitle.getText().toString();
+        binding.saveChanges.setOnClickListener(v -> {
+            editAdvertismentViewModel.onChangeClick(new CallBackBoolean() {
+                @Override
+                public void invoke(Boolean res) {
+                    finish();
                 }
-                if(binding.problemDescription.getText().toString().isEmpty()){
-                    description = problemDescription;
-                }else{
-                    description = binding.problemDescription.getText().toString();
-                }
-
-                PostDatas post = new PostDatas();
-                if(mediaPath.isEmpty()){
-                    post.postDataChangeAdvertWithoutImage("ChangeAdWithoutImage", name,
-                            description, prId, mail, id, new CallBackInt() {
-                                @Override
-                                public void invoke(String res) {
-                                    finish();
-                                }
-                            });
-                }
-                else{
-                    File file = new File(mediaPath);
-                    RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
-                    post.postDataChangeAdvert("ChangeAd", name, requestBody,
-                            description, prId, mail, id, new CallBackInt() {
-                                @Override
-                                public void invoke(String res) {
-                                    Toast.makeText(EditAdvertisment.this, "Изменения скоро вступят в силу", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                }
-                            });
-                }
-            }
+            });
         });
 
-        binding.deleteProblem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PostDatas post = new PostDatas();
-                post.postDataDeleteAd("DeleteAd", prId, mail, id, new CallBackInt() {
-                    @Override
-                    public void invoke(String res) {
-                        finish();
-                    }
-                });
-            }
+        binding.deleteProblem.setOnClickListener(v -> {
+            editAdvertismentViewModel.onDelete(new CallBackBoolean() {
+                @Override
+                public void invoke(Boolean res) {
+
+                }
+            });
+            finish();
         });
 
         if(Build.VERSION.SDK_INT >= 33) {
@@ -157,6 +110,41 @@ public class EditAdvertisment extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void initEditTexts(){
+        binding.problemTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                editAdvertismentViewModel.setName(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        binding.problemDescription.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                editAdvertismentViewModel.setDescription(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void pickImage(){
@@ -195,10 +183,9 @@ public class EditAdvertisment extends AppCompatActivity {
                 cursor.moveToFirst();
 
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                mediaPath = cursor.getString(columnIndex);
+                editAdvertismentViewModel.setMediaPath(cursor.getString(columnIndex));
                 binding.problemPhoto.setImageURI(imageUri);
                 cursor.close();
-                acces = true;
             }
 
         }
@@ -219,10 +206,9 @@ public class EditAdvertisment extends AppCompatActivity {
                             cursor.moveToFirst();
 
                             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                            mediaPath = cursor.getString(columnIndex);
+                            editAdvertismentViewModel.setMediaPath(cursor.getString(columnIndex));
                             binding.problemPhoto.setImageURI(imageUri);
                             cursor.close();
-                            acces = true;
                         }catch (Exception e){
                             Toast.makeText(EditAdvertisment.this, "LOSER", Toast.LENGTH_SHORT).show();
                         }
