@@ -11,54 +11,50 @@ import android.view.WindowManager;
 import com.bumptech.glide.Glide;
 
 import ru.dvteam.itcollabhub.databinding.ActivityAdvertismentBinding;
+import ru.dvteam.itcollabhub.globaldata.GlobalProjectInformation;
+import ru.dvteam.itcollabhub.globaldata.Information;
+import ru.dvteam.itcollabhub.globaldata.MailGlobalInfo;
+import ru.dvteam.itcollabhub.globaldata.ProjectId;
 
 public class Advertisment extends AppCompatActivity {
 
     ActivityAdvertismentBinding binding;
-    String prId, projectTitle, mail, photoProject;
+    String prId, projectTitle, photoProject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        mail = sPref.getString("UserMail", "");
-        int score = sPref.getInt("UserScore", 0);
-
         binding = ActivityAdvertismentBinding.inflate(getLayoutInflater());
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         setContentView(binding.getRoot());
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
-        Bundle arguments = getIntent().getExtras();
+        prId = ProjectId.getInstance().getProjectId();
+        projectTitle = GlobalProjectInformation.getInstance().getProjectTitle();
+        photoProject = GlobalProjectInformation.getInstance().getProjectLog();
+        String problemPhoto = Information.getInstance().getObjImage();
+        String problemName = Information.getInstance().getObjTitle();
+        String problemDescription = Information.getInstance().getObjText();
 
-        assert arguments != null;
-        String id = arguments.getString("problemId");
-        prId = arguments.getString("projectId1");
-        projectTitle = arguments.getString("projectTitle");
-        photoProject = arguments.getString("projectUrlPhoto");
-        String problemPhoto = arguments.getString("problemPhoto");
-        String problemName = arguments.getString("problemName");
-        String problemDescription = arguments.getString("problemDescription");
-
-        long millis = 259200000;
-
-        new CountDownTimer(millis, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-                long allSeconds = millisUntilFinished / 1000;
-                long seconds = allSeconds % 60;
-                long minutes = (allSeconds / 60) % 60;
-                long hours = (allSeconds / 3600) % 24;
-                long days = (allSeconds / 3600) / 24;
-                binding.timer.setText(String.format("%02d:%02d:%02d:%02d", days, hours, minutes, seconds));
-            }
-
-            public void onFinish() {
-                binding.timer.setText("А всё)");
-            }
-
-        }.start();
+//        long millis = 259200000;
+//
+//        new CountDownTimer(millis, 1000) {
+//
+//            public void onTick(long millisUntilFinished) {
+//                long allSeconds = millisUntilFinished / 1000;
+//                long seconds = allSeconds % 60;
+//                long minutes = (allSeconds / 60) % 60;
+//                long hours = (allSeconds / 3600) % 24;
+//                long days = (allSeconds / 3600) / 24;
+//                binding.timer.setText(String.format("%02d:%02d:%02d:%02d", days, hours, minutes, seconds));
+//            }
+//
+//            public void onFinish() {
+//                binding.timer.setText("А всё)");
+//            }
+//
+//        }.start();
 
         binding.nameProject.setText(projectTitle);
         binding.problemTitle.setText(problemName);

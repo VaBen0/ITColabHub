@@ -6,6 +6,7 @@ public class GlobalProjectInformation {
     private String projectLog;
     private String webLink;
     private String description;
+    private Boolean isLead;
 
     public String getProjectTitle() {
 
@@ -30,9 +31,15 @@ public class GlobalProjectInformation {
     }
 
     public void setProjectTitle(String projectTitle) {
-
-        System.out.println(projectTitle);
         this.projectTitle = projectTitle;
+    }
+
+    public void setLead(Boolean lead) {
+        isLead = lead;
+    }
+
+    public Boolean getLead() {
+        return isLead;
     }
 
     public String getProjectLog() {

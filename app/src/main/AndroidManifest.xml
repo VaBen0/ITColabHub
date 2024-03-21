@@ -21,6 +21,9 @@
         android:theme="@style/Theme.ITCollabHub"
         tools:targetApi="26">
         <activity
+            android:name=".view.projectmenusviews.activities.ProjectFilesEndProject"
+            android:exported="false" />
+        <activity
             android:name=".view.profileviews.activities.ChooseThemeForApp"
             android:exported="false"
             android:screenOrientation="portrait" />
@@ -65,11 +68,11 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ControlPanel3"
+            android:name=".view.projectmenusviews.activities.ControlPanel3"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UsersProject3"
+            android:name=".view.projectmenusviews.activities.UsersProject3"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -121,7 +124,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TaskMenuActivity"
+            android:name=".view.projectmenusviews.activities.TaskMenuActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -137,7 +140,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TasksActivityMain"
+            android:name=".view.projectmenusviews.activities.TasksActivityMain"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -189,7 +192,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PurposeParticipiant"
+            android:name=".view.projectmenusviews.activities.PurposeParticipiant"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

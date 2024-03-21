@@ -28,6 +28,7 @@ public class ProjectParticipantsModel {
     private final String userMail = MailGlobalInfo.getInstance().getUserMail();
     private ArrayList<UserInformation> usersFromProject = new ArrayList<>();
     private String nameOfFindParticipant = "";
+    private final Boolean isl = GlobalProjectInformation.getInstance().getLead();
 
     public void getProjectUsers(CallBackUserInformation callback){
         postDatas.postDataGetProjectParticipant("GetPeoplesFromProjects", projectId, userMail, new CallBackInt5() {
@@ -66,6 +67,10 @@ public class ProjectParticipantsModel {
         }
 
         return array;
+    }
+
+    public Boolean getIsl() {
+        return isl;
     }
 
     public void setNameOfFindParticipant(String nameOfFindParticipant) {

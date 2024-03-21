@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
@@ -49,6 +50,7 @@ public class EditProfile extends AppCompatActivity {
     View back;
     ImageView dontWork;
     Fragment frgmentAccountLinks, fragmentAboutApp;
+    Boolean access = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,12 @@ public class EditProfile extends AppCompatActivity {
                     .load(profileInformation.getUserImageUrl())
                     .into(binding.loadImg);
             binding.nameu.setText(profileInformation.getUserName());
+            editProfileViewModel.isbanned();
+        });
+
+        editProfileViewModel.getBanned().observe(this, aBoolean -> {
+            access = !aBoolean;
+            binding.nameu.setClickable(!aBoolean);
         });
 
         editProfileViewModel.getProfileInformation(sPref);
@@ -130,17 +138,19 @@ public class EditProfile extends AppCompatActivity {
             binding.loadImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (ContextCompat.checkSelfPermission(EditProfile.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(EditProfile.this,
-                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                                MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-                    } else {
-                        Intent intent = new Intent();
-                        intent.setType("image/*");
-                        intent.setAction(Intent.ACTION_PICK);
-                        startActivityForResult(Intent.createChooser(intent, "Select Image(s)"), PICK_IMAGES_CODE);
-                    }
+                    if(access) {
+                        if (ContextCompat.checkSelfPermission(EditProfile.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                                != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(EditProfile.this,
+                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                    MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                        } else {
+                            Intent intent = new Intent();
+                            intent.setType("image/*");
+                            intent.setAction(Intent.ACTION_PICK);
+                            startActivityForResult(Intent.createChooser(intent, "Select Image(s)"), PICK_IMAGES_CODE);
+                        }
+                    }else Toast.makeText(EditProfile.this, "Вы заблокированны", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -170,8 +180,10 @@ public class EditProfile extends AppCompatActivity {
     }
 
     private void pickImage(){
-        Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
-        resultLauncher.launch(intent);
+        if(access) {
+            Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
+            resultLauncher.launch(intent);
+        }else Toast.makeText(this, "Вы заблокированны", Toast.LENGTH_SHORT).show();
     }
 
     @Override

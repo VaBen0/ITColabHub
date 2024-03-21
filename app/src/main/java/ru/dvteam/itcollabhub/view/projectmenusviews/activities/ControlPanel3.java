@@ -4,7 +4,6 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -13,28 +12,19 @@ import android.widget.ProgressBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
-import java.util.Date;
-
-import ru.dvteam.itcollabhub.Advertisment;
 import ru.dvteam.itcollabhub.ProblemsParticip;
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.UsersChosenTheme;
-import ru.dvteam.itcollabhub.adapter.ReminderAdapter;
-import ru.dvteam.itcollabhub.callbackclasses.CallBackActivityProject;
-import ru.dvteam.itcollabhub.databinding.ActivityControlPanelBinding;
+import ru.dvteam.itcollabhub.databinding.ActivityControlPanel3Binding;
+import ru.dvteam.itcollabhub.globaldata.GlobalProjectInformation;
 import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.ControlPanelViewModel;
 
-public class ControlPanel extends AppCompatActivity {
-    ActivityControlPanelBinding binding;
+public class ControlPanel3 extends AppCompatActivity {
+
+    ActivityControlPanel3Binding binding;
     ControlPanelViewModel controlPanelViewModel;
 
     @Override
@@ -42,7 +32,7 @@ public class ControlPanel extends AppCompatActivity {
         setThemeActivity();
         super.onCreate(savedInstanceState);
 
-        binding = ActivityControlPanelBinding.inflate(getLayoutInflater());
+        binding = ActivityControlPanel3Binding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
 
@@ -52,7 +42,7 @@ public class ControlPanel extends AppCompatActivity {
 
             binding.nameProject.setText(projectInformation.getProjectTitle());
             Glide
-                    .with(ControlPanel.this)
+                    .with(ControlPanel3.this)
                     .load(projectInformation.getProjectLogo())
                     .into(binding.prLogo);
 
@@ -112,53 +102,13 @@ public class ControlPanel extends AppCompatActivity {
 
         TypedValue typedValue = new TypedValue();
         getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
-        int color = ContextCompat.getColor(ControlPanel.this, typedValue.resourceId);
+        int color = ContextCompat.getColor(ControlPanel3.this, typedValue.resourceId);
         getWindow().setStatusBarColor(color);
-
-        fillReminderPlace();
-
-        Date date = new Date();
-        LocalTime current = null;
-        long millis = 0;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            current = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()).toLocalTime();
-            millis = ChronoUnit.MILLIS.between(current, LocalTime.MAX);
-        }
-        else {
-            Calendar c = Calendar.getInstance();
-            c.add(Calendar.DAY_OF_MONTH, 1);
-            c.set(Calendar.HOUR_OF_DAY, 0);
-            c.set(Calendar.MINUTE, 0);
-            c.set(Calendar.SECOND, 0);
-            c.set(Calendar.MILLISECOND, 0);
-            millis = (c.getTimeInMillis() - System.currentTimeMillis());
-        }
-        new CountDownTimer(millis, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-                long allSeconds = millisUntilFinished / 1000;
-                long seconds = allSeconds % 60;
-                long minutes = (allSeconds / 60) % 60;
-                long hours = (allSeconds / 3600) % 24;
-                binding.timer.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
-            }
-
-            public void onFinish() {
-                binding.timer.setText("А всё)");
-            }
-
-        }.start();
 
         binding.purpProgress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent;
-                if(controlPanelViewModel.getIsl().equals("0")){
-                    intent = new Intent(ControlPanel.this, PurposeParticipiant.class);
-                }
-                else {
-                    intent = new Intent(ControlPanel.this, Purpose.class);
-                }
+                Intent intent = new Intent(ControlPanel3.this, PurposeParticipiant.class);
                 startActivity(intent);
             }
         });
@@ -166,21 +116,7 @@ public class ControlPanel extends AppCompatActivity {
         binding.problemsProgress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent;
-                if(controlPanelViewModel.getIsl().equals("0")){
-                    intent = new Intent(ControlPanel.this, ProblemsParticip.class);
-                }
-                else {
-                    intent = new Intent(ControlPanel.this, Problems.class);
-                }
-                startActivity(intent);
-            }
-        });
-
-        binding.advertisments.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ControlPanel.this, ProjectAdvertisments.class);
+                Intent intent = new Intent(ControlPanel3.this, ProblemsParticip.class);
                 startActivity(intent);
             }
         });
@@ -188,7 +124,7 @@ public class ControlPanel extends AppCompatActivity {
         binding.projectFiles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ControlPanel.this, ProjectFiles.class);
+                Intent intent = new Intent(ControlPanel3.this, ProjectFilesEndProject.class);
                 startActivity(intent);
             }
         });
@@ -196,7 +132,7 @@ public class ControlPanel extends AppCompatActivity {
         binding.editProject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ControlPanel.this, EditProject.class);
+                Intent intent = new Intent(ControlPanel3.this, EditProject.class);
                 startActivity(intent);
             }
         });
@@ -204,23 +140,18 @@ public class ControlPanel extends AppCompatActivity {
         binding.projectParticipants.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ControlPanel.this, ProjectParticipants.class);
+                Intent intent = new Intent(ControlPanel3.this, ProjectParticipants.class);
                 startActivity(intent);
+                GlobalProjectInformation.getInstance().setLead(false);
             }
         });
 
         binding.progressOfTasks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ControlPanel.this, TasksActivityMain.class);
+                Intent intent = new Intent(ControlPanel3.this, TasksActivityMain.class);
                 startActivity(intent);
-            }
-        });
-        binding.projectPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ControlPanel.this, ProjectPage.class);
-                startActivity(intent);
+                GlobalProjectInformation.getInstance().setLead(false);
             }
         });
     }
@@ -237,26 +168,6 @@ public class ControlPanel extends AppCompatActivity {
     protected void onRestart() {
         controlPanelViewModel.setProjectInformation();
         super.onRestart();
-    }
-
-    public void fillReminderPlace(){
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        binding.reminderPlace.setLayoutManager(layoutManager);
-
-        controlPanelViewModel.getAdds1().observe(this, dataOfWatchers -> {
-            ReminderAdapter adapter;
-            adapter = new ReminderAdapter(dataOfWatchers, this, new CallBackActivityProject() {
-                @Override
-                public void setActivity(String id) {
-                    Intent intent = new Intent(ControlPanel.this, Advertisment.class);
-                    startActivity(intent);
-                }
-            });
-            binding.reminderPlace.setAdapter(adapter);
-        });
-
-        controlPanelViewModel.setAdverts();
     }
 
 //    private void setTasks(){

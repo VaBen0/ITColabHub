@@ -3,6 +3,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="black">#000000</color>
     <color name="black_transperent">#4D000000</color>
+    <color name="black_transperent_for_tasks">#8D000000</color>
     <color name="black_transperent_max">#0F000000</color>
     <color name="black_transperent2">#66000000</color>
     <color name="black_transperent3">#80000000</color>

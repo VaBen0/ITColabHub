@@ -15,6 +15,7 @@ import ru.dvteam.itcollabhub.model.profilemodels.ProfileModel;
 public class ProfileViewModel extends ViewModel {
     private MutableLiveData<ProfileInformation> profileInformation;
     private final ProfileModel profileModel = new ProfileModel();
+    private MutableLiveData<Boolean> banned;
 
     public LiveData<ProfileInformation> getUserAllInfo(){
         if(profileInformation == null){
@@ -31,8 +32,18 @@ public class ProfileViewModel extends ViewModel {
             }
         });
     }
+    public LiveData<Boolean> getBanned(){
+        if(banned == null){
+            banned = new MutableLiveData<>();
+        }
+        return banned;
+    }
 
     public void setDataForChooseTheme(int themeNum){
         profileModel.setDataForChooseThemeActivity(themeNum, Objects.requireNonNull(profileInformation.getValue()));
+    }
+
+    public void isbanned(){
+        banned.setValue(profileModel.isbanned());
     }
 }

@@ -1,4 +1,4 @@
-package ru.dvteam.itcollabhub;
+package ru.dvteam.itcollabhub.view.projectmenusviews.activities;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +24,9 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
+import ru.dvteam.itcollabhub.AnswerForTask;
+import ru.dvteam.itcollabhub.R;
+import ru.dvteam.itcollabhub.UsersChosenTheme;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackTaskInfo;
 import ru.dvteam.itcollabhub.databinding.ActivityTaskMenuBinding;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;

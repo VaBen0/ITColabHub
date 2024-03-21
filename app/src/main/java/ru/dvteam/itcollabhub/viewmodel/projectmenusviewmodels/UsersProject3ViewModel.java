@@ -8,7 +8,7 @@ import ru.dvteam.itcollabhub.callbackclasses.CallBackProjectInformation;
 import ru.dvteam.itcollabhub.classmodels.ProjectInformation;
 import ru.dvteam.itcollabhub.model.projectmenusmodels.UsersProjectModel;
 
-public class UsersProjectViewModel extends ViewModel {
+public class UsersProject3ViewModel extends ViewModel {
     private MutableLiveData<ProjectInformation> projectInformation;
     private final UsersProjectModel usersProjectModel = new UsersProjectModel();
 

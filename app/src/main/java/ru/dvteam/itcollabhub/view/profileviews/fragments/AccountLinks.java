@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt5;
@@ -27,6 +28,7 @@ public class AccountLinks extends Fragment {
 
     FragmentAccountLinksBinding binding;
     EditProfileViewModel editProfileViewModel;
+    private Boolean access = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,23 +38,36 @@ public class AccountLinks extends Fragment {
         initEditTexts();
 
         editProfileViewModel.getUserLinks().observe(getViewLifecycleOwner(), userLinks -> {
-            binding.tg.setText(userLinks.getTgLink());
-            binding.vk.setText(userLinks.getVkLink());
-            binding.web.setText(userLinks.getWebLink());
+            if(access){
+                binding.tg.setText(userLinks.getTgLink());
+                binding.vk.setText(userLinks.getVkLink());
+                binding.web.setText(userLinks.getWebLink());
+            }else{
+                binding.tg.setText("Вы заблокированны");
+                binding.vk.setText("Вы заблокированны");
+                binding.web.setText("Вы заблокированны");
+            }
+        });
+
+        editProfileViewModel.getBanned().observe(getViewLifecycleOwner(), aBoolean -> {
+            access = !aBoolean;
+            binding.tg.setClickable(!aBoolean);
         });
 
         binding.save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editProfileViewModel.onClickSaveChanges(new CallBackBoolean() {
-                    @Override
-                    public void invoke(Boolean res) {
-                        Intent intent = new Intent(getContext(), Profile.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    }
-                });
+                if(access) {
+                    editProfileViewModel.onClickSaveChanges(new CallBackBoolean() {
+                        @Override
+                        public void invoke(Boolean res) {
+                            Intent intent = new Intent(getContext(), Profile.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
+                    });
+                }else Toast.makeText(getContext(), "Вы заблокированны", Toast.LENGTH_SHORT).show();
             }
         });
 

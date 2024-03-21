@@ -18,6 +18,7 @@ public class EditProfileModel {
     private final PostDatas postDatas = new PostDatas();
     private String userTgLink, userVkLink, userWebLink, userName, urlPhoto;
     public int userScore;
+    private Boolean banned = false;
 
     public EditProfileModel(String userTgLink, String userVkLink, String userWebLink, String userName, String urlPhoto){
         this.userTgLink = userTgLink;
@@ -42,6 +43,7 @@ public class EditProfileModel {
                                int archiveProjects) {
                 userName = name;
                 urlPhoto = urlImage;
+                banned = topStatus.equals("Заблокирован");
                 callback.invoke(new ProfileInformation(name, urlImage, topScore, topStatus,
                         rfr, activityProjects, archiveProjects, mail));
             }
@@ -81,5 +83,9 @@ public class EditProfileModel {
                 callback.invoke(res.equals("Сохранено"));
             }
         });
+    }
+
+    public Boolean isbanned(){
+        return banned;
     }
 }

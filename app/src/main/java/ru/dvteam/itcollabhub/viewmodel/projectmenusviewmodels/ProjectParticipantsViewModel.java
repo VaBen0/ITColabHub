@@ -45,4 +45,8 @@ public class ProjectParticipantsViewModel extends ViewModel {
         projectParticipantsModel.setNameOfFindParticipant(s);
     }
 
+    public Boolean getIsl() {
+        return projectParticipantsModel.getIsl();
+    }
+
 }

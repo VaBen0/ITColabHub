@@ -22,12 +22,19 @@ public class EditProfileViewModel extends ViewModel {
     private MutableLiveData<UserLinks> linksData;
     private final EditProfileModel profileModel = new EditProfileModel();
     private SharedPreferences shPref;
+    private MutableLiveData<Boolean> banned;
 
     public LiveData<UserLinks> getUserLinks(){
         if(linksData == null){
             linksData = new MutableLiveData<>();
         }
         return linksData;
+    }
+    public LiveData<Boolean> getBanned(){
+        if(banned == null){
+            banned = new MutableLiveData<>();
+        }
+        return banned;
     }
 
     public void setShPref(SharedPreferences shPref) {
@@ -108,5 +115,8 @@ public class EditProfileViewModel extends ViewModel {
                 }
             });
         }
+    }
+    public void isbanned(){
+        banned.setValue(profileModel.isbanned());
     }
 }

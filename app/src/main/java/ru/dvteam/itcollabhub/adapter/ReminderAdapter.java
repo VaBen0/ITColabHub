@@ -19,6 +19,7 @@ import ru.dvteam.itcollabhub.callbackclasses.CallBackProjectsArray;
 import ru.dvteam.itcollabhub.classmodels.DataOfWatcher;
 import ru.dvteam.itcollabhub.classmodels.ProjectClass;
 import ru.dvteam.itcollabhub.databinding.ReminderBinding;
+import ru.dvteam.itcollabhub.globaldata.Information;
 
 public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ReminderAdapterViewHolder> {
 
@@ -57,7 +58,11 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
             binding = ReminderBinding.bind(itemView);
 
             binding.getRoot().setOnClickListener(v -> {
-
+                Information inf = Information.getInstance();
+                inf.setObjImage(data.get(getAdapterPosition()).getObjImg());
+                inf.setObjText(data.get(getAdapterPosition()).getObjDesc());
+                inf.setObjTitle(data.get(getAdapterPosition()).getObjTitle());
+                callback.setActivity("1");
             });
         }
 

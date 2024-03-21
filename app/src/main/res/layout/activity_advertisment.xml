@@ -94,7 +94,7 @@
         android:layout_height="match_parent"
         android:layout_marginStart="10dp"
         android:gravity="center|left"
-        android:text="06:23:25"
+        android:text=""
         android:textColor="@color/s_gray"
         android:textSize="18sp"
         android:textStyle="bold|italic"

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
@@ -35,6 +36,7 @@ public class Profile extends AppCompatActivity {
     Fragment fragmentRating, fragmentAwards, fragmentFriends;
     ProfileViewModel profileViewModel;
     public static Activity ma;
+    private Boolean access = true;
     private int themeNum;
 
     @Override
@@ -71,6 +73,11 @@ public class Profile extends AppCompatActivity {
                     .with(this)
                     .load(profileInformation.getUserImageUrl())
                     .into(binding.log);
+            profileViewModel.isbanned();
+        });
+
+        profileViewModel.getBanned().observe(this, aBoolean -> {
+            access = !aBoolean;
         });
 
 
@@ -103,35 +110,47 @@ public class Profile extends AppCompatActivity {
         binding.friends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.linearRating.setVisibility(View.INVISIBLE);
-                binding.linearProjects.setVisibility(View.INVISIBLE);
-                binding.linearFriends.setVisibility(View.VISIBLE);
+                if(access) {
+                    binding.linearRating.setVisibility(View.INVISIBLE);
+                    binding.linearProjects.setVisibility(View.INVISIBLE);
+                    binding.linearFriends.setVisibility(View.VISIBLE);
 
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.profileMenus, fragmentFriends)
-                        .commit();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.profileMenus, fragmentFriends)
+                            .commit();
+                }else{
+                    Toast.makeText(Profile.this, "Вы заблокированы", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         binding.rating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.linearRating.setVisibility(View.VISIBLE);
-                binding.linearProjects.setVisibility(View.INVISIBLE);
-                binding.linearFriends.setVisibility(View.INVISIBLE);
+                if(access) {
+                    binding.linearRating.setVisibility(View.VISIBLE);
+                    binding.linearProjects.setVisibility(View.INVISIBLE);
+                    binding.linearFriends.setVisibility(View.INVISIBLE);
 
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.profileMenus, fragmentRating)
-                        .commit();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.profileMenus, fragmentRating)
+                            .commit();
+                }else{
+                    Toast.makeText(Profile.this, "Вы заблокированы", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         binding.themes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Profile.this, ChooseThemeForApp.class);
-                profileViewModel.setDataForChooseTheme(themeNum);
-                startActivity(intent);
+                if(access) {
+                    Intent intent = new Intent(Profile.this, ChooseThemeForApp.class);
+                    profileViewModel.setDataForChooseTheme(themeNum);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(Profile.this, "Вы заблокированы", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -145,16 +164,24 @@ public class Profile extends AppCompatActivity {
         binding.projectMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Profile.this, ActivityProject.class);
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                finish();
+                if(access) {
+                    Intent intent = new Intent(Profile.this, ActivityProject.class);
+                    startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                    finish();
+                }else{
+                    Toast.makeText(Profile.this, "Вы заблокированы", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         binding.forumMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Profile.this, Forum.class);
-                startActivity(intent);
+                if(access) {
+                    Intent intent = new Intent(Profile.this, Forum.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(Profile.this, "Вы заблокированы", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         binding.notifications.setOnClickListener(new View.OnClickListener() {

@@ -49,6 +49,9 @@ public class ProjectParticipants extends AppCompatActivity {
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        if(!projectParticipantsViewModel.getIsl()){
+            binding.add.setVisibility(View.GONE);
+        }
 
         binding.projectName.setText(projectParticipantsViewModel.getProjectTitle());
         Glide

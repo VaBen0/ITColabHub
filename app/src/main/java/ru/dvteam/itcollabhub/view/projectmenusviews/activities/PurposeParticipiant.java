@@ -1,4 +1,4 @@
-package ru.dvteam.itcollabhub;
+package ru.dvteam.itcollabhub.view.projectmenusviews.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,52 +20,56 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import ru.dvteam.itcollabhub.adapter.ProblemAdapter;
-import ru.dvteam.itcollabhub.adapter.ProblemsParticipAdapter;
-import ru.dvteam.itcollabhub.callbackclasses.CallBackDelOrChangeAd;
+import ru.dvteam.itcollabhub.R;
+import ru.dvteam.itcollabhub.UsersChosenTheme;
+import ru.dvteam.itcollabhub.adapter.PurposeParticipantAdapter;
+import ru.dvteam.itcollabhub.adapter.PurposesAdapter;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
-import ru.dvteam.itcollabhub.databinding.ActivityProblemsBinding;
-import ru.dvteam.itcollabhub.databinding.ActivityProblemsParticipBinding;
+import ru.dvteam.itcollabhub.databinding.ActivityPurposeLeadBinding;
+import ru.dvteam.itcollabhub.databinding.ActivityPurposeParticipiantBinding;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
-import ru.dvteam.itcollabhub.view.projectmenusviews.activities.EditProblem;
-import ru.dvteam.itcollabhub.view.projectmenusviews.activities.Problems;
-import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.ProblemViewModel;
+import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.PurposeViewModle;
 
-public class ProblemsParticip extends AppCompatActivity {
+public class PurposeParticipiant extends AppCompatActivity {
 
-    ActivityProblemsParticipBinding binding;
-    ProblemViewModel problemViewModel;
+    ActivityPurposeParticipiantBinding binding;
+    PurposeViewModle purposeViewModle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setThemeActivity();
         super.onCreate(savedInstanceState);
 
-        binding = ActivityProblemsParticipBinding.inflate(getLayoutInflater());
+        binding = ActivityPurposeParticipiantBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
-        problemViewModel = new ViewModelProvider(this).get(ProblemViewModel.class);
+        purposeViewModle = new ViewModelProvider(this).get(PurposeViewModle.class);
 
         TypedValue typedValue = new TypedValue();
         getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
-        int color = ContextCompat.getColor(ProblemsParticip.this, typedValue.resourceId);
+        int color = ContextCompat.getColor(PurposeParticipiant.this, typedValue.resourceId);
         getWindow().setStatusBarColor(color);
 
-        binding.nameProject.setText(problemViewModel.getProjectTitle());
+
+
+        binding.nameProject.setText(purposeViewModle.getProjectTitle());
         Glide
-                .with(ProblemsParticip.this)
-                .load(problemViewModel.getProjectLog())
+                .with(PurposeParticipiant.this)
+                .load(purposeViewModle.getProjectLog())
                 .into(binding.prLogo);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        binding.problemsPlace.setLayoutManager(layoutManager);
 
-        problemViewModel.getProblemsArray().observe(this, purposeInformations -> {
-            ProblemsParticipAdapter adapter = new ProblemsParticipAdapter(purposeInformations, this);
-            binding.problemsPlace.setAdapter(adapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        binding.purposePlace.setLayoutManager(linearLayoutManager);
+
+        purposeViewModle.getPurpsArray().observe(this, purposeInformations -> {
+            PurposeParticipantAdapter adapter = new PurposeParticipantAdapter(purposeInformations, this);
+            binding.purposePlace.setAdapter(adapter);
         });
 
-        problemViewModel.setProblems();
+        purposeViewModle.setPurposes();
+
     }
 
     public void setThemeActivity(){

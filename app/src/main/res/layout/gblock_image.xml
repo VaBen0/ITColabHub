@@ -35,7 +35,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/title"
         app:layout_constraintEnd_toStartOf="@+id/deleteBut"
         app:layout_constraintTop_toTopOf="@+id/title"
-        app:srcCompat="?addButtonColor" />
+        android:src="?addButtonColor" />
 
     <TextView
         android:id="@+id/textAdd"

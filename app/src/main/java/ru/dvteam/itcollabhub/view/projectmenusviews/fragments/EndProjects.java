@@ -1,6 +1,6 @@
 package ru.dvteam.itcollabhub.view.projectmenusviews.fragments;
 
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,23 +13,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.UsersProject3;
 import ru.dvteam.itcollabhub.adapter.EndProjectAdapter;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackActivityProject;
-import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.classmodels.ProjectClass;
 import ru.dvteam.itcollabhub.databinding.FragmentEndProjectsBinding;
-import ru.dvteam.itcollabhub.retrofit.PostDatas;
-import ru.dvteam.itcollabhub.view.projectmenusviews.activities.ActivityProject;
+import ru.dvteam.itcollabhub.globaldata.ProjectId;
 import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.ActivityProjectViewModel;
 
 public class EndProjects extends Fragment {
@@ -65,7 +58,9 @@ public class EndProjects extends Fragment {
                 EndProjectAdapter endProjectAdapter = new EndProjectAdapter(getContext(), projectClasses, new CallBackActivityProject() {
                     @Override
                     public void setActivity(String id) {
-
+                        ProjectId.getInstance().setProjectId(id);
+                        Intent intent = new Intent(getContext(), UsersProject3.class);
+                        startActivity(intent);
                     }
                 });
                 binding.mainLayout.setAdapter(endProjectAdapter);

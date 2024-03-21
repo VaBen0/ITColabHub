@@ -11,6 +11,7 @@ import ru.dvteam.itcollabhub.classmodels.ProfileInformation;
 
 public class ProfileModel {
     private final PostDatas postDatas = new PostDatas();
+    private Boolean banned = false;
     public void getUserProfileInformation(SharedPreferences sPref, CallBackProfileInformation callback){
         String mail = sPref.getString("UserMail", "");
 
@@ -22,6 +23,8 @@ public class ProfileModel {
             public void invoke(String name, String urlImage, int topScore,
                                String topStatus, String rfr, int activityProjects,
                                int archiveProjects) {
+                banned = topStatus.equals("Заблокирован");
+                System.out.println(topStatus);
                 callback.invoke(new ProfileInformation(name, urlImage, topScore, topStatus,
                         rfr, activityProjects, archiveProjects, mail));
             }
@@ -34,5 +37,8 @@ public class ProfileModel {
         globalDataScoreProfile.setName(profileInformation.getUserName());
         globalDataScoreProfile.setThemeNum(themeNum);
         globalDataScoreProfile.setUrlPhoto(profileInformation.getUserImageUrl());
+    }
+    public Boolean isbanned(){
+        return banned;
     }
 }

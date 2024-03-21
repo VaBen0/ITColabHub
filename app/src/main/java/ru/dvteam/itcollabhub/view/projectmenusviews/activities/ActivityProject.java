@@ -113,6 +113,7 @@ public class ActivityProject extends AppCompatActivity {
             public void onClick(View v) {
                 fragmentMan = false;
 
+                binding.plus.setVisibility(View.GONE);
                 binding.linearMyProjects.setVisibility(View.INVISIBLE);
                 binding.linearEndProjects.setVisibility(View.VISIBLE);
 
@@ -127,6 +128,7 @@ public class ActivityProject extends AppCompatActivity {
             public void onClick(View v) {
                 fragmentMan = true;
 
+                binding.plus.setVisibility(View.VISIBLE);
                 binding.linearEndProjects.setVisibility(View.INVISIBLE);
                 binding.linearMyProjects.setVisibility(View.VISIBLE);
 

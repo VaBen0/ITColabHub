@@ -128,7 +128,6 @@ public class CreateDedline2 extends AppCompatActivity {
 
                     userCircle.setVisibility(View.GONE);
                     project1.setVisibility(View.GONE);
-                    setButtonColor(score, messege);
 
                     Glide
                             .with(CreateDedline2.this)

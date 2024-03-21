@@ -36,10 +36,8 @@ import java.util.Date;
 
 import ru.dvteam.itcollabhub.Advertisment;
 import ru.dvteam.itcollabhub.ProblemsParticip;
-import ru.dvteam.itcollabhub.PurposeParticipiant;
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.TaskActivityWatch;
-import ru.dvteam.itcollabhub.TasksActivityMain;
 import ru.dvteam.itcollabhub.UsersChosenTheme;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt4;

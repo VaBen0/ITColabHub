@@ -33,6 +33,7 @@ public class ControlPanelModel {
                         globalProjectInformation.setProjectLog(photo);
                         globalProjectInformation.setWebLink(webs);
                         globalProjectInformation.setDescription(description);
+                        globalProjectInformation.setLead(isl.equals("1"));
 
                         callback.ProjectInformation(new ProjectInformation(name, photo, description, isend, purposes, problems, peoples,
                                 time, time1, tg, vk, webs, purposesids, problemsids, isl, tasks, isOpen, isVisible));
