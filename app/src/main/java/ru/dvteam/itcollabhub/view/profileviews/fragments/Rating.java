@@ -33,6 +33,8 @@ public class Rating extends Fragment {
         profileViewModel.getUserAllInfo().observe(getViewLifecycleOwner(), profileInformation -> {
             binding.activeProjects.setText("Активных проектов: " + profileInformation.getUserActivityProjects());
             binding.endProjects.setText("Завершённых проектов: " + profileInformation.getUserArchiveProjects());
+            binding.lvl.setProgress(0);
+            binding.percents.setText("0%");
 
             String status;
             String chast;

@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -13,15 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import ru.dvteam.itcollabhub.EndProject;
+import ru.dvteam.itcollabhub.databinding.FragmentOtherEditBinding;
+import ru.dvteam.itcollabhub.globaldata.GlobalProjectInformation;
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.projectMenu.EndProject;
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
-import ru.dvteam.itcollabhub.classmodels.ProjectInformation;
-import ru.dvteam.itcollabhub.databinding.FragmentOtherEditBinding;
 
-import com.google.android.material.switchmaterial.SwitchMaterial;
-
-import ru.dvteam.itcollabhub.view.projectmenusviews.activities.EditProject;
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.projectMenu.EditProject;
 import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.EditProjectViewModel;
 
 
@@ -43,6 +40,9 @@ public class FragmentOtherEdit extends Fragment {
         EditProject editProject = (EditProject) getActivity();
         editProjectViewModel = new ViewModelProvider(requireActivity()).get(EditProjectViewModel.class);
         init();
+        if(GlobalProjectInformation.getInstance().getEnd()){
+            binding.endBtn.setVisibility(View.GONE);
+        }
 
         editProjectViewModel.getPrInfo().observe(getViewLifecycleOwner(), projectInformation -> {
             binding.open.setChecked(projectInformation.getProjectIsOpen().equals("1"));

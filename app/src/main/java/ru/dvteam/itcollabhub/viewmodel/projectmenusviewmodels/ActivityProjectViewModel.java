@@ -1,5 +1,7 @@
 package ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels;
 
+import android.content.SharedPreferences;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -29,8 +31,8 @@ public class ActivityProjectViewModel extends ViewModel {
         return endProjects;
     }
 
-    public void setActivityProjects(){
-        activityProjectModel.getActivityProjects(new CallBackProjectsArray() {
+    public void setActivityProjects(SharedPreferences sPref){
+        activityProjectModel.getActivityProjects(sPref, new CallBackProjectsArray() {
             @Override
             public void invoke(ArrayList<ProjectClass> arrayList) {
                 activityProjects.setValue(arrayList);

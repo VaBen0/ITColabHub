@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.text.Editable;
@@ -19,9 +18,8 @@ import android.widget.EditText;
 
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
-import ru.dvteam.itcollabhub.classmodels.ProjectInformation;
 import ru.dvteam.itcollabhub.databinding.FragmentProjectDescriptionEditBinding;
-import ru.dvteam.itcollabhub.view.projectmenusviews.activities.EditProject;
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.projectMenu.EditProject;
 import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.EditProjectViewModel;
 
 public class ProjectDescriptionEdit extends Fragment {

@@ -26,9 +26,9 @@ public class EditProblemModel {
 
 
     public void onSaveChanges(CallBackBoolean callback){
-        System.out.println(name + " " + description);
+        System.out.println(name + " " + description +  " " + projectId + " " + userMail + " " + adId);
         if(mediaPath.isEmpty()){
-            postDatas.postDataChangeAdvertWithoutImage("ChangeProblemWithoutImage", name,
+            postDatas.postDataChangeProblemWithoutImage("ChangeProblemWithoutImage", name,
                     description, projectId, userMail, adId, new CallBackInt() {
                         @Override
                         public void invoke(String res) {
@@ -39,7 +39,7 @@ public class EditProblemModel {
         else {
             File file = new File(mediaPath);
             RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
-            postDatas.postDataChangeAdvert("ChangeProblem", name, requestBody,
+            postDatas.postDataChangeProblem("ChangeProblem", name, requestBody,
                     description, projectId, userMail, adId, new CallBackInt() {
                         @Override
                         public void invoke(String res) {
@@ -50,7 +50,7 @@ public class EditProblemModel {
     }
 
     public void onDelete(CallBackBoolean callback){
-        postDatas.postDataDeleteAd("DeleteProblem", projectId, userMail, adId, new CallBackInt() {
+        postDatas.postDataDeleteProblem("DeleteProblem", projectId, userMail, adId, new CallBackInt() {
             @Override
             public void invoke(String res) {
                 callback.invoke(true);

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.projectmenusviews.activities.EditAdvertisment">
+    tools:context=".view.projectmenusviews.activities.advertisments.EditAdvertisment">
 
     <ImageView
         android:id="@+id/problemPhoto"
@@ -22,7 +22,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black_transperent2"
+        android:background="@color/black_transperent_for_tasks"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -122,9 +122,10 @@
     <EditText
         android:id="@+id/problemDescription"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="0dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="-10dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginEnd="10dp"
         android:backgroundTint="@color/transparent"
         android:gravity="top"
@@ -133,6 +134,7 @@
         android:textColorHint="@color/white"
         android:textSize="18sp"
         android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView29" />
@@ -142,19 +144,19 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/gray_line"
+        app:layout_constraintBottom_toTopOf="@+id/changePhoto"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/problemDescription" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/changePhoto"
         android:layout_width="140dp"
         android:layout_height="45dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="@color/violete"
         android:paddingStart="-1dp"
         android:paddingTop="-1dp"
@@ -164,15 +166,14 @@
         android:textColor="@color/white"
         android:textSize="11sp"
         app:cornerRadius="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        app:layout_constraintBottom_toTopOf="@+id/textView35"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/deleteProblem"
         android:layout_width="140dp"
         android:layout_height="45dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
         android:backgroundTint="@color/red"
         android:paddingStart="-1dp"
         android:paddingTop="-1dp"
@@ -182,8 +183,9 @@
         android:textColor="@color/white"
         android:textSize="11sp"
         app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/changePhoto"
         app:layout_constraintStart_toEndOf="@+id/changePhoto"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        app:layout_constraintTop_toTopOf="@+id/changePhoto" />
 
     <TextView
         android:id="@+id/textView35"
@@ -192,7 +194,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginBottom="20dp"
         android:text="@string/description_adverb1"
-        android:textColor="@color/white_transparent"
+        android:textColor="@color/s_gray"
         android:textSize="16sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/saveChanges"

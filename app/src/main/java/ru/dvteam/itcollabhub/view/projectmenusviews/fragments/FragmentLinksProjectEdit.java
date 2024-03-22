@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
 import ru.dvteam.itcollabhub.databinding.FragmentLinksProjectEditBinding;
-import ru.dvteam.itcollabhub.view.projectmenusviews.activities.EditProject;
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.projectMenu.EditProject;
 import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.EditProjectViewModel;
 
 

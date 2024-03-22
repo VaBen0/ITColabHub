@@ -17,11 +17,11 @@ import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
-import ru.dvteam.itcollabhub.view.projectmenusviews.activities.UsersProject3;
-import ru.dvteam.itcollabhub.adapter.EndProjectAdapter;
+import ru.dvteam.itcollabhub.databinding.FragmentEndProjectsBinding;
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.projectMenu.UsersProject3;
+import ru.dvteam.itcollabhub.view.adapter.EndProjectAdapter;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackActivityProject;
 import ru.dvteam.itcollabhub.classmodels.ProjectClass;
-import ru.dvteam.itcollabhub.databinding.FragmentEndProjectsBinding;
 import ru.dvteam.itcollabhub.globaldata.ProjectId;
 import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.ActivityProjectViewModel;
 

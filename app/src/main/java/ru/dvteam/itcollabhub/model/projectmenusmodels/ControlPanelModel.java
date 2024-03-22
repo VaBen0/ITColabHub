@@ -3,9 +3,11 @@ package ru.dvteam.itcollabhub.model.projectmenusmodels;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import ru.dvteam.itcollabhub.callbackclasses.CallBackDeadlineInfo;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt4;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackProjectInformation;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackTasksInfo;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackWith2Data;
 import ru.dvteam.itcollabhub.classmodels.DataOfWatcher;
 import ru.dvteam.itcollabhub.classmodels.ProjectInformation;
@@ -19,6 +21,8 @@ public class ControlPanelModel {
     private final String projectId = ProjectId.getInstance().getProjectId();
     private final PostDatas postDatas = new PostDatas();
     private ArrayList<String> ids = new ArrayList<>();
+    private ArrayList<DataOfWatcher> tasks = new ArrayList<>();
+    private String projectLog = "";
     public void getAllProjectInfo(CallBackProjectInformation callback){
         postDatas.postDataGetProjectInformation("GetProjectMainInformation", projectId,
                 userMail, new CallBackInt4() {
@@ -34,6 +38,7 @@ public class ControlPanelModel {
                         globalProjectInformation.setWebLink(webs);
                         globalProjectInformation.setDescription(description);
                         globalProjectInformation.setLead(isl.equals("1"));
+                        projectLog = photo;
 
                         callback.ProjectInformation(new ProjectInformation(name, photo, description, isend, purposes, problems, peoples,
                                 time, time1, tg, vk, webs, purposesids, problemsids, isl, tasks, isOpen, isVisible));
@@ -48,6 +53,7 @@ public class ControlPanelModel {
                 postDatas.postDataGetProjectAdsIds("GetProjectAdsIds2", projectId, new CallBackInt() {
                     @Override
                     public void invoke(String res2) {
+                        ids = new ArrayList<>();
                         if(!res.isEmpty()) {
                             String[] res11 = res.split(",");
                             ids.addAll(Arrays.asList(res11));
@@ -66,13 +72,54 @@ public class ControlPanelModel {
                                     for(int i = 0; i < inf.length; i += 3) {
                                         data.add(new DataOfWatcher(inf[i], inf[i+1], inf[i+2], false));
                                     }
-                                    callback.invoke(data);
+                                    setTasks(data, callback);
                                 }
                             });
+                        }else {
+                            setTasks(data, callback);
                         }
+
                     }
                 });
             }
         });
     }
+
+    public void setTasks(ArrayList<DataOfWatcher> data, CallBackWith2Data callback){
+        postDatas.postDataGetProjectTasks("GetTasksFromProject", projectId, userMail, new CallBackTasksInfo()  {
+            @Override
+            public void invoke(String s1, String s2, String s3, String s4) {
+                if(!s1.equals("Ошибка")) {
+                    String[] idsArr = s1.split("\uD83D\uDD70");
+                    String[] namesArr = s2.split("\uD83D\uDD70");
+                    String[] textsArr = s3.split("\uD83D\uDD70");
+                    String[] completeArr = s4.split("\uD83D\uDD70");
+                    ArrayList<DataOfWatcher> tasksDataMini = new ArrayList<>();
+                    for (int i = 0; i < namesArr.length; i++) {
+                        data.add(new DataOfWatcher(namesArr[i], textsArr[i], projectLog, true));
+                    }
+                    callback.invoke(data);
+                }
+            }
+        });
+    }
+    public void setDeadlines(ArrayList<DataOfWatcher> data, CallBackWith2Data callback){
+        postDatas.postDataGetProjectDeadlines("GetTasksFromProject", projectId, userMail, new CallBackDeadlineInfo()  {
+            @Override
+            public void invoke(String s1, String s2, String s3, String s4, String s5) {
+                if(!s1.equals("Ошибка")) {
+                    String[] idsArr = s1.split("\uD83D\uDD70");
+                    String[] namesArr = s2.split("\uD83D\uDD70");
+                    String[] textsArr = s3.split("\uD83D\uDD70");
+                    String[] completeArr = s4.split("\uD83D\uDD70");
+                    ArrayList<DataOfWatcher> tasksDataMini = new ArrayList<>();
+                    for (int i = 0; i < namesArr.length; i++) {
+                        data.add(new DataOfWatcher(namesArr[i], textsArr[i], projectLog, true));
+                    }
+                    callback.invoke(data);
+                }
+            }
+        });
+    }
+
 }

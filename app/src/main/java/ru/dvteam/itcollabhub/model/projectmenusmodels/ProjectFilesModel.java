@@ -50,11 +50,14 @@ public class ProjectFilesModel {
 
     public void updateFilesInfo(CallBackBoolean callback){
         postDatas.postDataGetProjectFilesIds("GetProjectFilesIds", projectId, new CallBackInt() {
+
             @Override
             public void invoke(String res) {
+                System.out.println(projectId + " need");
                 postDatas.postDataGetProjectFiles("GetProjectFiles", res, new CallBackInt() {
                     @Override
                     public void invoke(String res1) {
+                        System.out.println(res + " res");
                         FileInformation.cntFixed = 0;
                         String[] inf = res1.split("\uD83D\uDD70");
                         String[] idm = res.split(",");

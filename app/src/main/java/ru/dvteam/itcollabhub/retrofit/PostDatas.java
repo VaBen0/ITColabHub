@@ -873,7 +873,7 @@ public class PostDatas {
 
             @Override
             public void onFailure(Call<Model> call, Throwable t) {
-                //result.invoke("lol");
+                System.out.println(t);
             }
         });
     }
@@ -1496,7 +1496,7 @@ public class PostDatas {
 
             @Override
             public void onFailure(Call<Model> call, Throwable t) {
-                //result.invoke("lol");
+                System.out.println(t);
             }
         });
     }

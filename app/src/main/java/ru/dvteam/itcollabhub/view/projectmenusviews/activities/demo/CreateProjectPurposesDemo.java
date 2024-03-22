@@ -1,0 +1,174 @@
+package ru.dvteam.itcollabhub.view.projectmenusviews.activities.demo;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.transition.Fade;
+import android.transition.Transition;
+import android.transition.TransitionManager;
+import android.transition.Visibility;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import ru.dvteam.itcollabhub.R;
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.create.EditProblemPurpose;
+
+public class CreateProjectPurposesDemo extends Fragment {
+
+    private int countPurposes = 0;
+    String purp_name, purp;
+
+    private static final int RESULT_OK = 1;
+    LinearLayout purposePanel;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_create_project_purposes_demo, container, false);
+
+        ImageView addPurp = v.findViewById(R.id.add_but);
+        EditText purp1 = v.findViewById(R.id.name_friend);
+        EditText purp2 = v.findViewById(R.id.name_friend2);
+        purposePanel = v.findViewById(R.id.purpose_place);
+
+        CreateProject2Demo createProject = (CreateProject2Demo) getActivity();
+        int score = createProject.getScore();
+        purp_name = createProject.getPurposes_name();
+        purp = createProject.getPurposes();
+
+        create();
+
+        addPurp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String purpName = purp1.getText().toString();
+                String purp = purp2.getText().toString();
+                if(countPurposes == 3){
+                    Toast.makeText(createProject, "Вы достигли предела", Toast.LENGTH_SHORT).show();
+                }
+                else if(purpName.isEmpty()){
+                    Toast.makeText(createProject, "Нет названия", Toast.LENGTH_SHORT).show();
+                }
+                else if(purp.isEmpty()){
+                    Toast.makeText(createProject, "Нет описания", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    CreateProject2Demo createProject = (CreateProject2Demo) getActivity();
+                    purp1.setText("");
+                    purp2.setText("");
+                    Toast.makeText(v.getContext(), "Цель добавлена", Toast.LENGTH_SHORT).show();
+                    createProject.setPurp(purpName, purp);
+                    countPurposes++;
+
+                    View custom = inflater.inflate(R.layout.problem_panel, null);
+                    TextView name = custom.findViewById(R.id.problemName);
+                    TextView main = custom.findViewById(R.id.textView20);
+                    TextView descr = custom.findViewById(R.id.problemDescription);
+                    ImageView edit = custom.findViewById(R.id.editProblem);
+                    ImageView mainv = custom.findViewById(R.id.problemImage);
+
+                    Uri uri = Uri.parse(createProject.getUriPath());
+
+                    mainv.setImageURI(uri);
+
+                    main.setText("Описание цели");
+
+                    descr.setText(purp);
+
+                    edit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent i = new Intent(getActivity(), EditProblemPurpose.class);
+                            i.putExtra("names", createProject.getPurposes_name());
+                            i.putExtra("descriptions", createProject.getPurposes());
+                            i.putExtra("uriPath", createProject.getUriPath());
+                            i.putExtra("prTitle", createProject.getPrName());
+                            i.putExtra("id", countPurposes - 1);
+                            startActivityForResult(i, 1);
+                        }
+                    });
+
+                    name.setText(purpName);
+
+                    Transition t = null;
+                    t = new Fade(Visibility.MODE_IN);
+                    t.setDuration(200);
+
+                    TransitionManager.beginDelayedTransition(purposePanel, t);
+
+                    purposePanel.addView(custom, 0);
+                }
+            }
+        });
+
+
+        return v;
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            purp = data.getStringExtra("descriptions");
+            purp_name = data.getStringExtra("names");
+            CreateProject2Demo createProject2 = (CreateProject2Demo) getActivity();
+            createProject2.setEdit1(purp_name, purp);
+            purposePanel.removeAllViews();
+            countPurposes = 0;
+            Toast.makeText(createProject2, purp + " | " + purp_name, Toast.LENGTH_SHORT).show();
+            create();
+        }
+    }
+
+    private void create(){
+        CreateProject2Demo createProject = (CreateProject2Demo) getActivity();
+        if(!purp_name.isEmpty()){
+            String[] purpName = purp_name.split("✴\uFE0F");
+            String[] purps = purp.split("✴\uFE0F");
+            for(int i = 0; i < purpName.length; i++){
+                View custom = getLayoutInflater().inflate(R.layout.problem_panel, null);
+                TextView name = custom.findViewById(R.id.problemName);
+                TextView descr = custom.findViewById(R.id.problemDescription);
+                ImageView edit = custom.findViewById(R.id.editProblem);
+                ImageView main = custom.findViewById(R.id.problemImage);
+                countPurposes += 1;
+
+                Uri uri = Uri.parse(createProject.getUriPath());
+
+                main.setImageURI(uri);
+                descr.setText(purps[i]);
+
+                edit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(getActivity(), EditProblemPurpose.class);
+                        i.putExtra("names", createProject.getPurposes_name());
+                        i.putExtra("descriptions", createProject.getPurposes());
+                        i.putExtra("uriPath", createProject.getUriPath());
+                        i.putExtra("prTitle", createProject.getPrName());
+                        i.putExtra("id", countPurposes - 1);
+                        startActivityForResult(i, 1);
+                    }
+                });
+
+                name.setText(purpName[i]);
+
+                purposePanel.addView(custom, 0);
+            }
+        }
+    }
+}

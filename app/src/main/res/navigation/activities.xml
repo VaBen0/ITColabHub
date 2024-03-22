@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/clop1"
-        android:name="ru.dvteam.itcollabhub.Purposes"
+        android:name="ru.dvteam.itcollabhub.view.projectmenusviews.fragments.Purposes"
         android:label="Purposes" >
         <action
             android:id="@+id/action_purposes_to_tasks"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/clop3"
-        android:name="ru.dvteam.itcollabhub.Tasks"
+        android:name="ru.dvteam.itcollabhub.view.projectmenusviews.fragments.Tasks"
         android:label="Tasks" >
         <action
             android:id="@+id/action_tasks_to_purposes"

@@ -1,5 +1,8 @@
 package ru.dvteam.itcollabhub.model.projectmenusmodels;
 
+import android.content.SharedPreferences;
+import android.net.Uri;
+
 import java.util.ArrayList;
 
 import ru.dvteam.itcollabhub.classmodels.ProjectClass;
@@ -11,7 +14,7 @@ import ru.dvteam.itcollabhub.retrofit.PostDatas;
 
 public class ActivityProjectModel {
     private final PostDatas postDatas = new PostDatas();
-    public void getActivityProjects(CallBackProjectsArray callback){
+    public void getActivityProjects(SharedPreferences sPref, CallBackProjectsArray callback){
         MailGlobalInfo mailGlobalInfo = MailGlobalInfo.getInstance();
         String mail = mailGlobalInfo.getUserMail();
 
@@ -34,6 +37,15 @@ public class ActivityProjectModel {
                                 userImg[i], Integer.parseInt(percents[i]), id[i]));
                     }
                 }
+
+                if(sPref.getBoolean("DemoProject", false)){
+                    String titleDemo = sPref.getString("DemoProjectTitle", "");
+                    String uriDemo = sPref.getString("UriPath", "");
+
+                    arrayList.add(new ProjectClass(titleDemo, uriDemo, "Demo", 0,
+                            "Demo", 0, "Demo"));
+                }
+
                 callback.invoke(arrayList);
             }
         });

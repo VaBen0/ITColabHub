@@ -1,23 +1,21 @@
 package ru.dvteam.itcollabhub.view.projectmenusviews.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import java.util.ArrayList;
-
-import ru.dvteam.itcollabhub.adapter.ActivityProjectAdapter;
-import ru.dvteam.itcollabhub.callbackclasses.CallBackActivityProject;
-import ru.dvteam.itcollabhub.classmodels.ProjectClass;
 import ru.dvteam.itcollabhub.databinding.FragmentMyProjectsBinding;
-import ru.dvteam.itcollabhub.view.projectmenusviews.activities.UsersProject;
+import ru.dvteam.itcollabhub.view.adapter.ActivityProjectAdapter;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackActivityProject;
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.demo.UsersProjectDemo;
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.projectMenu.UsersProject;
 import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.ActivityProjectViewModel;
 
 public class MyProjects extends Fragment {
@@ -38,16 +36,19 @@ public class MyProjects extends Fragment {
             activityProjectAdapter = new ActivityProjectAdapter(getContext(), arrayList, new CallBackActivityProject() {
                 @Override
                 public void setActivity(String id) {
-                    activityProjectViewModel.setProjectId(id);
-                    Intent intent = new Intent(getContext(), UsersProject.class);
-                    startActivity(intent);
+                    if(id.equals("Demo")){
+                        Intent intent = new Intent(getContext(), UsersProjectDemo.class);
+                        startActivity(intent);
+                    }else {
+                        activityProjectViewModel.setProjectId(id);
+                        Intent intent = new Intent(getContext(), UsersProject.class);
+                        startActivity(intent);
+                    }
                 }
             });
 
             binding.activityProjects.setAdapter(activityProjectAdapter);
         });
-
-        activityProjectViewModel.setActivityProjects();
 
         return binding.getRoot();
     }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:context=".CreateProjectTasksDemo">
+    tools:context=".view.projectmenusviews.activities.demo.CreateProjectTasksDemo">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/lin_lay"

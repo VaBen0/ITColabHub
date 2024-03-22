@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.bumptech.glide.Glide;
 
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
-import ru.dvteam.itcollabhub.FriendProfile;
+import ru.dvteam.itcollabhub.view.profileviews.activities.FriendProfile;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.databinding.FragmentFriendsBinding;
@@ -60,7 +60,8 @@ public class Friends extends Fragment {
                             ImageView userCircle = (ImageView) custom.findViewById(R.id.user_circle);
                             TextView project1 = (TextView) custom.findViewById(R.id.projects1);
                             ImageView messege = (ImageView) custom.findViewById(R.id.notban);
-                            messege.setBackgroundResource(R.drawable.message);
+                            messege.setVisibility(View.GONE);
+                            project1.setVisibility(View.GONE);
 
                             Glide
                                     .with(Friends.this)
@@ -126,9 +127,7 @@ public class Friends extends Fragment {
                             messege.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Profile profile = (Profile) getActivity();
-                                    assert profile != null;
-                                    profile.error();
+
                                 }
                             });
                             binding.linMain.addView(custom);
@@ -184,6 +183,7 @@ public class Friends extends Fragment {
                                         TextView project1 = (TextView) custom.findViewById(R.id.projects1);
                                         ImageView messege = (ImageView) custom.findViewById(R.id.notban);
                                         messege.setBackgroundResource(R.drawable.ad);
+                                        project1.setVisibility(View.GONE);
 
                                         Glide
                                                 .with(Friends.this)

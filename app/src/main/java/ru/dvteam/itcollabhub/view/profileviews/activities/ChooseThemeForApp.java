@@ -20,10 +20,10 @@ import androidx.viewpager.widget.ViewPager;
 import com.bumptech.glide.Glide;
 
 import ru.dvteam.itcollabhub.R;
-import ru.dvteam.itcollabhub.adapter.SlideAdapter;
-import ru.dvteam.itcollabhub.adapter.SlideAdapterBg;
-import ru.dvteam.itcollabhub.SyncScrollOnTouchListener;
-import ru.dvteam.itcollabhub.UsersChosenTheme;
+import ru.dvteam.itcollabhub.view.adapter.SlideAdapter;
+import ru.dvteam.itcollabhub.view.adapter.SlideAdapterBg;
+import ru.dvteam.itcollabhub.view.adapter.classForViewPager.SyncScrollOnTouchListener;
+import ru.dvteam.itcollabhub.view.UsersChosenTheme;
 import ru.dvteam.itcollabhub.databinding.ActivityChooseThemeForAppBinding;
 import ru.dvteam.itcollabhub.viewmodel.profileviewmodels.ChooseThemeForAppViewModel;
 

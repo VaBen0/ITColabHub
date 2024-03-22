@@ -13,17 +13,16 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 
-import ru.dvteam.itcollabhub.view.projectmenusviews.activities.ActivityProject;
-import ru.dvteam.itcollabhub.Forum;
+import ru.dvteam.itcollabhub.view.projectmenusviews.activities.projectMenu.ActivityProject;
+import ru.dvteam.itcollabhub.view.forum.Forum;
 import ru.dvteam.itcollabhub.view.profileviews.fragments.Friends;
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.view.profileviews.fragments.Rating;
-import ru.dvteam.itcollabhub.UsersChosenTheme;
+import ru.dvteam.itcollabhub.view.UsersChosenTheme;
 
 import ru.dvteam.itcollabhub.databinding.ActivityProfileBinding;
 import ru.dvteam.itcollabhub.viewmodel.profileviewmodels.ProfileViewModel;

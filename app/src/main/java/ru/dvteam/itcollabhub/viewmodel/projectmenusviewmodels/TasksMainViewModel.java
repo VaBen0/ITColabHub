@@ -11,10 +11,10 @@ import ru.dvteam.itcollabhub.classmodels.TasksClass;
 import ru.dvteam.itcollabhub.model.projectmenusmodels.TasksMainModel;
 
 public class TasksMainViewModel extends ViewModel {
-    private TasksMainModel tasksMainModel = new TasksMainModel();
+    private final TasksMainModel tasksMainModel = new TasksMainModel();
     private MutableLiveData<ArrayList<TasksClass>> tasksData;
     private MutableLiveData<ArrayList<TasksClass>> deadlinesData;
-    private MutableLiveData<String> tasksNum;
+    private MutableLiveData<Long> tasksNum;
     private MutableLiveData<String> deadlinesNum;
     public String getProjectTitle(){
         return tasksMainModel.getProjectTitle();
@@ -34,28 +34,29 @@ public class TasksMainViewModel extends ViewModel {
         }
         return deadlinesData;
     }
-    public LiveData<String> getTasksNum(){
-        if(deadlinesNum == null){
-            deadlinesNum = new MutableLiveData<>();
-        }
-        return deadlinesNum;
-    }
-    public LiveData<String> getDeadlinesNum(){
+    public LiveData<Long> getTasksNum(){
         if(tasksNum == null){
             tasksNum = new MutableLiveData<>();
         }
         return tasksNum;
     }
+    public LiveData<String> getDeadlinesNum(){
+        if(deadlinesNum == null){
+            deadlinesNum = new MutableLiveData<>();
+        }
+        return deadlinesNum;
+    }
     public void setTasks(){
         tasksMainModel.getTasks(() -> {
             tasksData.setValue(tasksMainModel.getTasksArray());
-            tasksNum.setValue(tasksMainModel.getTasksNum());
+
         });
     }
     public void setDeadlines(){
         tasksMainModel.getDeadlines(() -> {
             deadlinesData.setValue(tasksMainModel.getDeadlinesArray());
-            tasksNum.setValue(tasksMainModel.getDeadlinesNum());
+            deadlinesNum.setValue(tasksMainModel.getDeadlinesNum());
+            tasksNum.setValue(tasksMainModel.getMinMillis());
         });
     }
     public String getId(){

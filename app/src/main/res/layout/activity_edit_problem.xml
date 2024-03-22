@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.projectmenusviews.activities.EditProblem">
+    tools:context=".view.projectmenusviews.activities.problems.EditProblem">
 
     <ImageView
         android:id="@+id/problemPhoto"
@@ -22,7 +22,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black_transperent2"
+        android:background="@color/black_transperent_for_tasks"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -160,7 +160,7 @@
         android:text="@string/problems"
         android:textSize="16sp"
         android:textStyle="italic"
-        android:textColor="@color/white_transparent"
+        android:textColor="@color/s_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
@@ -209,7 +209,7 @@
         android:layout_marginTop="5dp"
         android:textSize="16sp"
         android:textStyle="italic"
-        android:textColor="@color/white_transparent"
+        android:textColor="@color/s_gray"
         android:text="@string/description_problem"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/deleteProblem" />

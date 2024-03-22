@@ -1,7 +1,5 @@
 package ru.dvteam.itcollabhub.model.projectmenusmodels;
 
-import android.widget.Toast;
-
 import java.io.File;
 
 import okhttp3.MediaType;
@@ -13,7 +11,6 @@ import ru.dvteam.itcollabhub.globaldata.GlobalProjectInformation;
 import ru.dvteam.itcollabhub.globaldata.MailGlobalInfo;
 import ru.dvteam.itcollabhub.globaldata.ProjectId;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
-import ru.dvteam.itcollabhub.view.projectmenusviews.activities.EditAdvertisment;
 
 public class EditAdvertismentModel {
     private PostDatas postDatas = new PostDatas();

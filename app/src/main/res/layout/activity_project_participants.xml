@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:context=".view.projectmenusviews.activities.ProjectParticipants">
+    tools:context=".view.projectmenusviews.activities.projectMenu.ProjectParticipants">
 
     <ImageView
         android:id="@+id/pr_logo"

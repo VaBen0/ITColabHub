@@ -21,6 +21,8 @@ public class TasksMainModel {
     private ArrayList<TasksClass> deadlinesMain = new ArrayList<>();
     private int tasksNum = 0, completedTasksNum = 0, deadlinesNum = 0, completedDeadlinesNum = 0;
     private final Boolean isl = GlobalProjectInformation.getInstance().getLead();
+    private final Boolean isEnd = GlobalProjectInformation.getInstance().getEnd();
+    private long minMillis = 999999999;
 
 
     public void getTasks(CallBack callBack){
@@ -34,7 +36,12 @@ public class TasksMainModel {
                     String[] textsArr = s3.split("\uD83D\uDD70");
                     String[] completeArr = s4.split("\uD83D\uDD70");
                     ArrayList<TasksClass> tasks = new ArrayList<>();
+                    tasksNum = 0;
+                    completedTasksNum = 0;
                     for (int i = 0; i < namesArr.length; i++) {
+                        if(isEnd){
+                            completeArr[i] = "1";
+                        }
                         tasks.add(new TasksClass(namesArr[i], textsArr[i], idsArr[i], completeArr[i],0));
                         tasksNum += 1;
                         if(completeArr[i].equals("1")) completedTasksNum += 1;
@@ -54,6 +61,8 @@ public class TasksMainModel {
                 System.out.println(dates);
 
                 if (!ids.equals("Ошибка")) {
+                    deadlinesNum = 0;
+                    completedDeadlinesNum = 0;
                     String[] idsArr = ids.split("\uD83D\uDD70");
                     String[] namesArr = names.split("\uD83D\uDD70");
                     String[] textsArr = taxts.split("\uD83D\uDD70");
@@ -61,9 +70,20 @@ public class TasksMainModel {
                     String[] date = dates.split("\uD83D\uDD70");
                     ArrayList<TasksClass> deadlines = new ArrayList<>();
                     for (int i = 0; i < namesArr.length; i++) {
+                        if(isEnd){
+                            completeArr[i] = "1";
+                            date[i] = "0";
+                        }
                         deadlines.add(new TasksClass(namesArr[i], textsArr[i], idsArr[i], completeArr[i], 0, date[i]));
+                        System.out.println(idsArr[i]);
                         deadlinesNum += 1;
+                        if(!date[i].equals("0")) {
+                            minMillis = Math.min(minMillis, Long.parseLong(date[i]));
+                        }
                         if(completeArr[i].equals("1")) completedDeadlinesNum += 1;
+                    }
+                    if(minMillis == 999999999){
+                        minMillis = 0;
                     }
                     deadlinesMain = deadlines;
                     callBack.invoke();
@@ -98,6 +118,9 @@ public class TasksMainModel {
     }
 
     public String getDeadlinesNum() {
+        if(deadlinesNum == 0){
+            return "0";
+        }
         return completedDeadlinesNum + "/" + deadlinesNum;
     }
 
@@ -109,6 +132,10 @@ public class TasksMainModel {
         return tasksMain.get(Integer.parseInt(position));
     }
     public TasksClass getOneDeadline(String position){
-        return tasksMain.get(Integer.parseInt(position));
+        return deadlinesMain.get(Integer.parseInt(position));
+    }
+
+    public long getMinMillis() {
+        return minMillis;
     }
 }

@@ -25,16 +25,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 
 import ru.dvteam.itcollabhub.view.profileviews.fragments.AboutApp;
 import ru.dvteam.itcollabhub.view.profileviews.fragments.AccountLinks;
-import ru.dvteam.itcollabhub.MainActivity;
+import ru.dvteam.itcollabhub.view.MainActivity;
 import ru.dvteam.itcollabhub.R;
-import ru.dvteam.itcollabhub.UsersChosenTheme;
+import ru.dvteam.itcollabhub.view.UsersChosenTheme;
 import ru.dvteam.itcollabhub.databinding.ActivityEditProfileBinding;
 import ru.dvteam.itcollabhub.viewmodel.profileviewmodels.EditProfileViewModel;
 

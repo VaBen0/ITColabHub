@@ -21,58 +21,62 @@
         android:theme="@style/Theme.ITCollabHub"
         tools:targetApi="26">
         <activity
-            android:name=".view.projectmenusviews.activities.ProjectFilesEndProject"
+            android:name=".view.projectmenusviews.activities.projectMenu.UsersProject2"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.projectmenusviews.activities.files.ProjectFilesEndProject"
             android:exported="false" />
         <activity
             android:name=".view.profileviews.activities.ChooseThemeForApp"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".DemoProjectPage"
+            android:name=".view.projectmenusviews.activities.demo.DemoProjectPage"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ProjectProblemsDemo"
+            android:name=".view.projectmenusviews.activities.demo.ProjectProblemsDemo"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ProjectPurposesDemo"
+            android:name=".view.projectmenusviews.activities.demo.ProjectPurposesDemo"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EditProjectDemo"
+            android:name=".view.projectmenusviews.activities.demo.EditProjectDemo"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ControlPanelDemo"
+            android:name=".view.projectmenusviews.activities.demo.ControlPanelDemo"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UsersProjectDemo"
+            android:name=".view.projectmenusviews.activities.demo.UsersProjectDemo"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CreateProjectTasksDemo"
+            android:name=".view.projectmenusviews.activities.demo.CreateProjectTasksDemo"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CreateProjectPurposesDemo"
+            android:name=".view.projectmenusviews.activities.demo.CreateProjectPurposesDemo"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CreateProject2Demo"
+            android:name=".view.projectmenusviews.activities.demo.CreateProject2Demo"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.projectmenusviews.activities.ProjectPage"
+            android:name=".view.projectmenusviews.activities.projectMenu.ProjectPage"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.projectmenusviews.activities.ControlPanel3"
+            android:name=".view.projectmenusviews.activities.projectMenu.ControlPanel3"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.projectmenusviews.activities.UsersProject3"
+            android:name=".view.projectmenusviews.activities.projectMenu.UsersProject3"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -80,71 +84,71 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CreateArticle"
+            android:name=".view.forum.CreateArticle"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CreateDedline2"
+            android:name=".view.projectmenusviews.activities.tasks.CreateDedline2"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CreateDeadline"
+            android:name=".view.projectmenusviews.activities.tasks.CreateDeadline"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".NotifyInParticipants"
+            android:name=".view.projectmenusviews.activities.projectMenu.NotifyInParticipants"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EndProject"
+            android:name=".view.projectmenusviews.activities.projectMenu.EndProject"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.projectmenusviews.activities.ProjectParticipants"
+            android:name=".view.projectmenusviews.activities.projectMenu.ProjectParticipants"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TaskActivityWatch"
+            android:name=".view.projectmenusviews.activities.tasks.TaskActivityWatch"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityWork"
+            android:name=".view.projectmenusviews.activities.tasks.ActivityWork"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CompltedTasksByParticipants"
+            android:name=".view.projectmenusviews.activities.tasks.CompltedTasksByParticipants"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityTaskMenuForLeader"
+            android:name=".view.projectmenusviews.activities.tasks.ActivityTaskMenuForLeader"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AnswerForTask"
+            android:name=".view.projectmenusviews.activities.tasks.AnswerForTask"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.projectmenusviews.activities.TaskMenuActivity"
+            android:name=".view.projectmenusviews.activities.tasks.TaskMenuActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PartisipantTasks"
+            android:name=".view.projectmenusviews.activities.tasks.PartisipantTasks"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CreateTask"
+            android:name=".view.projectmenusviews.activities.tasks.CreateTask"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Forum"
+            android:name=".view.forum.Forum"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.projectmenusviews.activities.TasksActivityMain"
+            android:name=".view.projectmenusviews.activities.tasks.TasksActivityMain"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AddParticipant"
+            android:name=".view.projectmenusviews.activities.projectMenu.AddParticipant"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -152,75 +156,71 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EditProblemPurpose"
+            android:name=".view.projectmenusviews.activities.create.EditProblemPurpose"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CreateProject2"
+            android:name=".view.projectmenusviews.activities.create.CreateProject2"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Advertisment"
+            android:name=".view.projectmenusviews.activities.advertisments.Advertisment"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.projectmenusviews.activities.EditAdvertisment"
+            android:name=".view.projectmenusviews.activities.advertisments.EditAdvertisment"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.projectmenusviews.activities.ProjectAdvertisments"
+            android:name=".view.projectmenusviews.activities.advertisments.ProjectAdvertisments"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.projectmenusviews.activities.ControlPanel2"
+            android:name=".view.projectmenusviews.activities.projectMenu.ControlPanel2"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.projectmenusviews.activities.EditFile"
+            android:name=".view.projectmenusviews.activities.files.EditFile"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.projectmenusviews.activities.ProjectFiles"
+            android:name=".view.projectmenusviews.activities.files.ProjectFiles"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.projectmenusviews.activities.EditProblem"
+            android:name=".view.projectmenusviews.activities.problems.EditProblem"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ProblemsParticip"
+            android:name=".view.projectmenusviews.activities.problems.ProblemsParticip"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.projectmenusviews.activities.PurposeParticipiant"
+            android:name=".view.projectmenusviews.activities.purposes.PurposeParticipiant"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.projectmenusviews.activities.Problems"
+            android:name=".view.projectmenusviews.activities.problems.Problems"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.projectmenusviews.activities.Purpose"
+            android:name=".view.projectmenusviews.activities.purposes.Purpose"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ProjectRequests"
+            android:name=".view.projectmenusviews.activities.projectMenu.ProjectRequests"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.projectmenusviews.activities.ControlPanel"
+            android:name=".view.projectmenusviews.activities.projectMenu.ControlPanel"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.projectmenusviews.activities.EditProject"
+            android:name=".view.projectmenusviews.activities.projectMenu.EditProject"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.projectmenusviews.activities.UsersProject"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".UsersProject2"
+            android:name=".view.projectmenusviews.activities.projectMenu.UsersProject"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -228,11 +228,11 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CreateProject"
+            android:name=".view.projectmenusviews.activities.create.CreateProject"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.projectmenusviews.activities.ActivityProject"
+            android:name=".view.projectmenusviews.activities.projectMenu.ActivityProject"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -240,7 +240,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".FriendProfile"
+            android:name=".view.profileviews.activities.FriendProfile"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -277,7 +277,7 @@
             android:resource="@drawable/rounded" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:exported="true"
             android:noHistory="true">
             <intent-filter>

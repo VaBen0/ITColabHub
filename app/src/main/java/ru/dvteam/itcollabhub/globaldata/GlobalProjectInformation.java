@@ -7,6 +7,7 @@ public class GlobalProjectInformation {
     private String webLink;
     private String description;
     private Boolean isLead;
+    private Boolean isEnd = false;
 
     public String getProjectTitle() {
 
@@ -44,6 +45,14 @@ public class GlobalProjectInformation {
 
     public String getProjectLog() {
         return projectLog;
+    }
+
+    public void setEnd(Boolean end) {
+        isEnd = end;
+    }
+
+    public Boolean getEnd() {
+        return isEnd;
     }
 
     public void setProjectLog(String projectLog) {

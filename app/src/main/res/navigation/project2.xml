@@ -6,7 +6,7 @@
     app:startDestination="@id/differentActivity">
     <fragment
         android:id="@+id/differentActivity"
-        android:name="ru.dvteam.itcollabhub.DifferentActivity"
+        android:name="ru.dvteam.itcollabhub.view.projectmenusviews.fragments.DifferentActivity"
         android:label="fragment_different_activity"
         tools:layout="@layout/fragment_different_activity" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/createProjectParticipantPartEmpty"
-        android:name="ru.dvteam.itcollabhub.CreateProjectParticipantPartEmpty"
+        android:name="ru.dvteam.itcollabhub.view.projectmenusviews.activities.demo.CreateProjectParticipantPartEmpty"
         android:label="fragment_create_project_participant_part_empty"
         tools:layout="@layout/fragment_create_project_participant_part_empty" >
         <action

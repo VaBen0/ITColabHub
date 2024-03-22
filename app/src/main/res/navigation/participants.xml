@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/friendAsPartisipant"
-        android:name="ru.dvteam.itcollabhub.FriendAsPartisipant"
+        android:name="ru.dvteam.itcollabhub.view.projectmenusviews.fragments.FriendAsPartisipant"
         android:label="fragment_friend_as_partisipant"
         tools:layout="@layout/fragment_friend_as_partisipant" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/addedParticipants"
-        android:name="ru.dvteam.itcollabhub.AddedParticipants"
+        android:name="ru.dvteam.itcollabhub.view.projectmenusviews.fragments.AddedParticipants"
         android:label="fragment_added_participants"
         tools:layout="@layout/fragment_added_participants" >
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/addParticipantCreateProject"
-        android:name="ru.dvteam.itcollabhub.AddParticipantCreateProject"
+        android:name="ru.dvteam.itcollabhub.view.projectmenusviews.fragments.AddParticipantCreateProject"
         android:label="fragment_add_participant_create_project"
         tools:layout="@layout/fragment_add_participant_create_project" >
         <action

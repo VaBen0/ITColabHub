@@ -1,14 +1,7 @@
 package ru.dvteam.itcollabhub.model.projectmenusmodels;
 
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-
 import java.util.ArrayList;
 
-import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt5;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackUserInformation;
 import ru.dvteam.itcollabhub.classmodels.UserInformation;
@@ -16,8 +9,6 @@ import ru.dvteam.itcollabhub.globaldata.GlobalProjectInformation;
 import ru.dvteam.itcollabhub.globaldata.MailGlobalInfo;
 import ru.dvteam.itcollabhub.globaldata.ProjectId;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
-import ru.dvteam.itcollabhub.view.projectmenusviews.activities.ProjectParticipants;
-import ru.dvteam.itcollabhub.view.projectmenusviews.activities.UsersProject;
 
 public class ProjectParticipantsModel {
     private final PostDatas postDatas = new PostDatas();

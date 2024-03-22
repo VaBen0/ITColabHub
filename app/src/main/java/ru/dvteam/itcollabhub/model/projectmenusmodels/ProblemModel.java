@@ -51,6 +51,9 @@ public class ProblemModel {
                         int cnt = 0;
                         for(int i = 0; i < inf.length; i += 4){
                             if(inf[i + 2].equals("1")) ProblemInformation.countTicked += 1;
+                            if(GlobalProjectInformation.getInstance().getEnd()){
+                                inf[i + 2] = "1";
+                            }
                             problems.add(new ProblemInformation(inf[i], inf[i + 3], inf[i + 1], inf[i + 2].equals("1"), ids[cnt]));
                             cnt++;
                         }

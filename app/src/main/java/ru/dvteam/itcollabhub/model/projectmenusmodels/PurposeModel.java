@@ -1,20 +1,10 @@
 package ru.dvteam.itcollabhub.model.projectmenusmodels;
 
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-
 import java.io.File;
 import java.util.ArrayList;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackPurpInfo;
 import ru.dvteam.itcollabhub.classmodels.PurposeInformation;
@@ -22,7 +12,6 @@ import ru.dvteam.itcollabhub.globaldata.GlobalProjectInformation;
 import ru.dvteam.itcollabhub.globaldata.MailGlobalInfo;
 import ru.dvteam.itcollabhub.globaldata.ProjectId;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
-import ru.dvteam.itcollabhub.view.projectmenusviews.activities.Purpose;
 
 public class PurposeModel {
     private final String projectId = ProjectId.getInstance().getProjectId();
@@ -54,8 +43,12 @@ public class PurposeModel {
                         ArrayList<PurposeInformation> purposes = new ArrayList<>();
                         purpsCnt = ids.length;
                         int cnt = 0;
+
                         for(int i = 0; i < inf.length; i += 4){
                             if(inf[i + 2].equals("1")) PurposeInformation.countTicked += 1;
+                            if(GlobalProjectInformation.getInstance().getEnd()){
+                                inf[i+2] = "1";
+                            }
                             purposes.add(new PurposeInformation(inf[i], inf[i + 3], inf[i + 1], inf[i + 2].equals("1"), ids[cnt]));
                             cnt++;
                         }
