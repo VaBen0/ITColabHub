@@ -192,8 +192,6 @@ public class TasksActivityMain extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
 
 ////    private void setTasks(){
