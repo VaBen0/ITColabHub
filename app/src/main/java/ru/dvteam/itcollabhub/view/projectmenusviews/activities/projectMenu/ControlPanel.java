@@ -83,6 +83,7 @@ public class ControlPanel extends AppCompatActivity {
 
             if(projectInformation.getProjectIsLeader().equals("0")){
                 binding.main.removeView(binding.editProjectConst);
+                binding.main.removeView(binding.participants);
             }
 
             ProgressBar purposesProgress = findViewById(R.id.purp_progress);

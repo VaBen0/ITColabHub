@@ -70,6 +70,7 @@ public class ControlPanelModel {
                                 public void invoke(String res) {
                                     String[] inf = res.split("\uD83D\uDD70");
                                     for(int i = 0; i < inf.length; i += 3) {
+
                                         data.add(new DataOfWatcher(inf[i], inf[i+1], inf[i+2], false));
                                     }
                                     setTasks(data, callback);

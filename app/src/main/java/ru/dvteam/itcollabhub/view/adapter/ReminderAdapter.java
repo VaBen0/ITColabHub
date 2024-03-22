@@ -74,7 +74,25 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
         }
 
         public void update(DataOfWatcher data){
-            binding.textView33.setText(data.getObjTitle());
+            String[] nameArr = data.getObjTitle().split(" ");
+            int len = 0;
+            String itog = "";
+            for(int j = 0; j < nameArr.length; j++){
+                len += nameArr[j].length();
+                if(len + 3 < 22){
+                    if(j == 0){
+                        itog += nameArr[j];
+                    }
+                    else{
+                        itog += " " + nameArr[j];
+                    }
+                }
+                else{
+                    itog += "...";
+                    break;
+                }
+            }
+            binding.textView33.setText(itog);
             if(data.isType()) binding.textView32.setText("Задание");
             else binding.textView32.setText("Объявление");
             Glide
