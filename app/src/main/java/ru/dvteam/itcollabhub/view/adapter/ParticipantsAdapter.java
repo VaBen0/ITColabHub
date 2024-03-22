@@ -53,6 +53,7 @@ public class ParticipantsAdapter extends RecyclerView.Adapter<ParticipantsAdapte
         public void update(UserInformation userInformation){
             binding.projects1.setVisibility(View.GONE);
             binding.userCircle.setVisibility(View.GONE);
+            binding.notban.setVisibility(View.GONE);
             binding.notban.setImageResource(R.drawable.delete_black);
             binding.textView3.setText(userInformation.getUserName());
             Glide

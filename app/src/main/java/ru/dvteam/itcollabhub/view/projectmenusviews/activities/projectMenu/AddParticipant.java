@@ -131,7 +131,7 @@ public class AddParticipant extends AppCompatActivity {
                                     messege.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            post.postDataAddFriend("SendRequestToAddFriend", mail, id[finalI], new CallBackInt() {
+                                            post.postDataAddFriend("SendRequestToAddParticipant", mail, id[finalI], new CallBackInt() {
                                                 @Override
                                                 public void invoke(String res) {
                                                     Toast.makeText(v.getContext(), res, Toast.LENGTH_SHORT).show();
