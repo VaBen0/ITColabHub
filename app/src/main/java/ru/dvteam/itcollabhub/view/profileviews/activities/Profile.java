@@ -266,5 +266,6 @@ public class Profile extends AppCompatActivity {
         super.onRestart();
         SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
         profileViewModel.getProfileInformation(sPref);
+        profileViewModel.setFriends();
     }
 }

@@ -6,9 +6,13 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
+import ru.dvteam.itcollabhub.callbackclasses.CallBack;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackProfileInformation;
+import ru.dvteam.itcollabhub.classmodels.FriendInformation;
 import ru.dvteam.itcollabhub.classmodels.ProfileInformation;
 import ru.dvteam.itcollabhub.model.profilemodels.ProfileModel;
 
@@ -16,6 +20,7 @@ public class ProfileViewModel extends ViewModel {
     private MutableLiveData<ProfileInformation> profileInformation;
     private final ProfileModel profileModel = new ProfileModel();
     private MutableLiveData<Boolean> banned;
+    private MutableLiveData<ArrayList<FriendInformation>> friends;
 
     public LiveData<ProfileInformation> getUserAllInfo(){
         if(profileInformation == null){
@@ -38,12 +43,50 @@ public class ProfileViewModel extends ViewModel {
         }
         return banned;
     }
+    public LiveData<ArrayList<FriendInformation>> getFriendList(){
+        if(friends == null){
+            friends = new MutableLiveData<>();
+        }
+        return friends;
+    }
 
     public void setDataForChooseTheme(int themeNum){
         profileModel.setDataForChooseThemeActivity(themeNum, Objects.requireNonNull(profileInformation.getValue()));
     }
 
+    public void setFriends(){
+        profileModel.setUserFriends(new CallBack() {
+            @Override
+            public void invoke() {
+                getFriends();
+            }
+        });
+    }
+
+    public void adFriend(String id){
+        profileModel.adFriend(id);
+    }
+
+    public void findFriend(CallBack callBack){
+        profileModel.findUsers(new CallBackBoolean() {
+            @Override
+            public void invoke(Boolean res) {
+                if(res){
+                    getFriends();
+                    callBack.invoke();
+                }
+            }
+        });
+    }
+
+    public void getFriends(){
+        friends.setValue(profileModel.getFriendsArray());
+    }
+
     public void isbanned(){
         banned.setValue(profileModel.isbanned());
+    }
+    public void setUserName(String userName) {
+        profileModel.setUserName(userName);
     }
 }

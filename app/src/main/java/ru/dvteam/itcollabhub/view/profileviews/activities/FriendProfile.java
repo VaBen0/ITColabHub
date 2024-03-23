@@ -41,9 +41,8 @@ public class FriendProfile extends AppCompatActivity {
             String id = arguments.getString("id");
             String name = arguments.getString("name");
             String urlImage = arguments.getString("image_url");
-            String scoreStr = arguments.getString("score");
+            int score = arguments.getInt("score");
             String project = arguments.getString("project");
-            int score = Integer.parseInt(scoreStr);
 
             PostDatas post = new PostDatas();
             post.postDataGetFriendLinks("GetFriendAllLinks", id, new CallBackInt5() {
