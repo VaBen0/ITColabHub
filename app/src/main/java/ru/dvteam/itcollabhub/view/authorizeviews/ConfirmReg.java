@@ -13,9 +13,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import javax.inject.Inject;
+
 import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.databinding.ActivityConfirmRegBinding;
+import ru.dvteam.itcollabhub.di.component.AppComponent;
+import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
+import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 import ru.dvteam.itcollabhub.viewmodel.authorizeviewmodels.ConfirmRegViewModel;
 
 
@@ -24,6 +29,9 @@ public class ConfirmReg extends AppCompatActivity {
     ActivityConfirmRegBinding binding;
     ConfirmRegViewModel confirmRegViewModel;
     private Boolean correctlyCode = false;
+    private AppComponent appComponent;
+    @Inject
+    SharedPreferences sPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +42,11 @@ public class ConfirmReg extends AppCompatActivity {
 
         setContentView(binding.getRoot());
         confirmRegViewModel = new ViewModelProvider(this).get(ConfirmRegViewModel.class);
+
+        appComponent = DaggerAppComponent.builder().sharedPreferencesModule(
+                new SharedPreferencesModule(this)).build();
+
+        appComponent.inject(this);
 
         Typeface face=Typeface.createFromAsset(getAssets(),"font/ArchitectsDaughter-Regular.ttf");
         binding.it.setTypeface(face);
@@ -55,7 +68,6 @@ public class ConfirmReg extends AppCompatActivity {
 
         binding.confirmBut.setOnClickListener(v -> {
             if(correctlyCode){
-                SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
                 confirmRegViewModel.onConfirmClick(sPref, new CallBackBoolean() {
                     @Override
                     public void invoke(Boolean res) {

@@ -29,6 +29,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 
+import javax.inject.Inject;
+
+import ru.dvteam.itcollabhub.di.component.AppComponent;
+import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
+import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 import ru.dvteam.itcollabhub.view.profileviews.fragments.AboutApp;
 import ru.dvteam.itcollabhub.view.profileviews.fragments.AccountLinks;
 import ru.dvteam.itcollabhub.view.MainActivity;
@@ -46,6 +51,9 @@ public class EditProfile extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     ActivityResultLauncher<Intent> resultLauncher;
     private final String[] wow = {"Хренос 2", "Кина не будет - электричество кончилось", "Ой, сломалось", "Караул!"};
+    private AppComponent sharedPreferenceComponent;
+    @Inject
+    SharedPreferences sharedPreferences;
     View back;
     ImageView dontWork;
     Fragment frgmentAccountLinks, fragmentAboutApp;
@@ -54,7 +62,10 @@ public class EditProfile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setThemeActivity();
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
+        sharedPreferenceComponent = DaggerAppComponent.builder().sharedPreferencesModule(
+                new SharedPreferencesModule(this)).build();
+
+        sharedPreferenceComponent.inject(this);
 
         super.onCreate(savedInstanceState);
 
@@ -63,7 +74,7 @@ public class EditProfile extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         editProfileViewModel = new ViewModelProvider(this).get(EditProfileViewModel.class);
-        editProfileViewModel.setShPref(sPref);
+        editProfileViewModel.setShPref(sharedPreferences);
 
         registerResult();
         initEditText();
@@ -90,8 +101,8 @@ public class EditProfile extends AppCompatActivity {
             binding.nameu.setClickable(!aBoolean);
         });
 
-        editProfileViewModel.getProfileInformation(sPref);
-        editProfileViewModel.getUserAllLinks(sPref);
+        editProfileViewModel.getProfileInformation(sharedPreferences);
+        editProfileViewModel.getUserAllLinks(sharedPreferences);
 
         back = findViewById(R.id.view3);
         dontWork = findViewById(R.id.imageView12);
@@ -120,8 +131,7 @@ public class EditProfile extends AppCompatActivity {
                 Intent intent = new Intent(EditProfile.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-                SharedPreferences.Editor ed = sPref.edit();
+                SharedPreferences.Editor ed = sharedPreferences.edit();
                 ed.clear();
                 ed.apply();
                 UsersChosenTheme.setThemeNum(0);
@@ -367,5 +377,14 @@ public class EditProfile extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onRestart() {
+        sharedPreferenceComponent = DaggerAppComponent.builder().sharedPreferencesModule(
+                new SharedPreferencesModule(this)).build();
+
+        sharedPreferenceComponent.inject(this);
+        super.onRestart();
     }
 }

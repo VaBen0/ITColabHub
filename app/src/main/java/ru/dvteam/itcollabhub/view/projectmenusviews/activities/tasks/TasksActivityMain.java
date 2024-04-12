@@ -541,7 +541,9 @@ public class TasksActivityMain extends AppCompatActivity {
         super.onRestart();
         tasksMainViewModel.setTasks();
         tasksMainViewModel.setDeadlines();
-        cdt.cancel();
+        if(cdt != null){
+            cdt.cancel();
+        }
     }
 
     public void setThemeActivity(){

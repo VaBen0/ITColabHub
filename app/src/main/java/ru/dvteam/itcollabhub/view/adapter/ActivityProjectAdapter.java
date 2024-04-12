@@ -67,6 +67,11 @@ public class ActivityProjectAdapter extends RecyclerView.Adapter<ActivityProject
 
             binding.lvl.setMax(100);
             binding.lvl.setProgress(projectClass.getProjectProgress());
+            if(projectClass.getProjectTitle().equals("ITCollabHub")){
+                binding.lvl.setProgress(85);
+                binding.textView16.setText(85 + "%");
+            }
+
 
             if(projectClass.getProjectCreatorScore() < 100){
                 binding.userCircle.setBackgroundResource(R.drawable.circle_blue2);

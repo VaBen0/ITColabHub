@@ -16,6 +16,7 @@ import android.widget.Toast;
 import java.io.File;
 
 import ru.dvteam.itcollabhub.databinding.ActivityProjectBinding;
+import ru.dvteam.itcollabhub.view.aimenu.AiActivity;
 import ru.dvteam.itcollabhub.view.projectmenusviews.activities.create.CreateProject;
 import ru.dvteam.itcollabhub.view.projectmenusviews.fragments.EndProjects;
 import ru.dvteam.itcollabhub.view.forum.Forum;
@@ -44,13 +45,6 @@ public class ActivityProject extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setThemeActivity();
-        /*SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        mail = sPref.getString("UserMail", "");
-        score = sPref.getInt("UserScore", 0);
-        demoProjects = sPref.getBoolean("DemoProject", false);
-        titleDemo = sPref.getString("DemoProjectTitle", "");
-        uriDemo = sPref.getString("UriPath", "");
-        projectEnd = sPref.getBoolean("IsEnd", false);*/
 
         super.onCreate(savedInstanceState);
 
@@ -64,20 +58,6 @@ public class ActivityProject extends AppCompatActivity {
         getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
         int color = ContextCompat.getColor(ActivityProject.this, typedValue.resourceId);
         getWindow().setStatusBarColor(color);
-
-        /*LinearLayout profileMenu = findViewById(R.id.profile_menu);
-        LinearLayout forumMenu = findViewById(R.id.forum_menu);
-        ImageView plus = findViewById(R.id.plus);
-
-        ImageView bguser = findViewById(R.id.bguser);
-        TextView myProjects = findViewById(R.id.my_projects);
-        TextView endProjects = findViewById(R.id.end_projects);
-        LinearLayout projectMenu = findViewById(R.id.project_menu);
-        ImageView notif = findViewById(R.id.notifications);
-        View my_projects_lin = findViewById(R.id.linear_my_projects);
-        View end_projects_lin = findViewById(R.id.linear_end_projects);
-        back = findViewById(R.id.view3);
-        dontWork = findViewById(R.id.imageView12);*/
 
         binding.linearEndProjects.setVisibility(View.INVISIBLE);
 
@@ -95,18 +75,6 @@ public class ActivityProject extends AppCompatActivity {
                 .hide(fragmentPrEnd)
                 .commit();
 
-        /*PostDatas post = new PostDatas();
-        post.postDataGetProjectReq("GRProjects", mail, new CallBackInt() {
-            @Override
-            public void invoke(String res) {
-                if(res.equals("1")){
-                    notif.setBackgroundResource(R.drawable.red_notify);
-                }
-                else{
-                    notif.setBackgroundResource(R.drawable.white_notification);
-                }
-            }
-        });*/
         binding.endProjects.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,6 +131,13 @@ public class ActivityProject extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityProject.this, ProjectRequests.class);
+                startActivity(intent);
+            }
+        });
+        binding.aiMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityProject.this, AiActivity.class);
                 startActivity(intent);
             }
         });

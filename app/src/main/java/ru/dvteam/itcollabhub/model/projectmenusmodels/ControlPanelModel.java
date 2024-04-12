@@ -97,8 +97,9 @@ public class ControlPanelModel {
                     String[] completeArr = s4.split("\uD83D\uDD70");
                     ArrayList<DataOfWatcher> tasksDataMini = new ArrayList<>();
                     for (int i = 0; i < namesArr.length; i++) {
-                        data.add(new DataOfWatcher(namesArr[i], textsArr[i], projectLog, true));
+                        tasksDataMini.add(0, new DataOfWatcher(namesArr[i], textsArr[i], projectLog, true));
                     }
+                    data.addAll(tasksDataMini);
                     callback.invoke(data);
                 }
             }

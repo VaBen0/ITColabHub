@@ -403,5 +403,7 @@ public interface Methods {
     @POST("/")
     Call<Model> getPeoplesAdded(@Field("Request")String req, @Field("IDs")String id);
 
-
+    @FormUrlEncoded
+    @POST("/lol1.php")
+    Call<Model> getAiCheck(@Field("SomnitelniyTekst")String txt);
 }

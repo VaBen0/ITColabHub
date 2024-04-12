@@ -17,6 +17,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 
+import javax.inject.Inject;
+
+import dagger.internal.DaggerCollections;
+import ru.dvteam.itcollabhub.di.component.AppComponent;
+import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
+import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 import ru.dvteam.itcollabhub.view.projectmenusviews.activities.projectMenu.ActivityProject;
 import ru.dvteam.itcollabhub.view.forum.Forum;
 import ru.dvteam.itcollabhub.view.profileviews.fragments.Friends;
@@ -33,17 +39,24 @@ public class Profile extends AppCompatActivity {
     ImageView dontWork;
     ActivityProfileBinding binding;
     Fragment fragmentRating, fragmentAwards, fragmentFriends;
+    private AppComponent sharedPreferenceComponent;
+    @Inject
+    SharedPreferences sharedPreferences;
     ProfileViewModel profileViewModel;
     public static Activity ma;
     private Boolean access = true;
     private int themeNum;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        themeNum = sPref.getInt("ThemeNum", 1);
+        sharedPreferenceComponent = DaggerAppComponent.builder().sharedPreferencesModule(
+                new SharedPreferencesModule(this)).build();
+
+        sharedPreferenceComponent.inject(this);
+        themeNum = sharedPreferences.getInt("ThemeNum", 1);
 
         UsersChosenTheme.setThemeNum(themeNum);
         UsersChosenTheme.setThemeActivity(this);
@@ -61,13 +74,14 @@ public class Profile extends AppCompatActivity {
 
         ma = this;
 
-        profileViewModel.getProfileInformation(sPref);
+        profileViewModel.getProfileInformation(sharedPreferences);
 
         profileViewModel.getUserAllInfo().observe(this, profileInformation -> {
             String s = "Ваши очки: " + profileInformation.getUserScore();
 
             binding.nameu.setText(profileInformation.getUserName());
             binding.score.setText(s);
+            System.out.println(s);
             Glide
                     .with(this)
                     .load(profileInformation.getUserImageUrl())
@@ -264,8 +278,6 @@ public class Profile extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        profileViewModel.getProfileInformation(sPref);
-        profileViewModel.setFriends();
+        sharedPreferenceComponent.inject(this);
     }
 }

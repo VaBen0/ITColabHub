@@ -3,6 +3,7 @@
     <style name="Base.Theme.ITCollabHub" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/darkColorPrimary</item> -->
+        <item name="android:navigationBarColor">@color/dark_theme</item>
         <item name="colorPrimary">@color/dark_theme</item>
         <item name="colorPrimaryVariant">@color/green</item>
         <item name="colorOnPrimary">@color/white</item>

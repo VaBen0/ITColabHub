@@ -46,13 +46,14 @@ public class PostDatas {
         call.enqueue(new Callback<Model>() {
             @Override
             public void onResponse(Call<Model> call, retrofit2.Response<Model> response) {
+                System.out.println("Ok");
                 assert response.body() != null;
                 result.invoke(response.body().getReturn());
             }
 
             @Override
             public void onFailure(Call<Model> call, Throwable t) {
-                result.invoke("Ошибка сервера");
+                System.out.println("Error");
             }
         });
     }
@@ -1570,6 +1571,24 @@ public class PostDatas {
             @Override
             public void onFailure(Call<Model> call, Throwable t) {
                 result.invoke("Ошибка сервера", "");
+            }
+        });
+    }
+
+    public void postDataGetAiCheck(String txt, CallBackInt result){
+        Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
+        Call<Model> call = methods.getAiCheck(txt);
+
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, Response<Model> response) {
+                assert response.body() != null;
+                result.invoke(response.body().getReturn());
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+                result.invoke("Ошибка сервера");
             }
         });
     }

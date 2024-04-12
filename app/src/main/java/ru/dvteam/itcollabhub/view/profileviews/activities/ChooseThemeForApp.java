@@ -19,7 +19,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 
+import javax.inject.Inject;
+
 import ru.dvteam.itcollabhub.R;
+import ru.dvteam.itcollabhub.di.component.AppComponent;
+import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
+import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 import ru.dvteam.itcollabhub.view.adapter.SlideAdapter;
 import ru.dvteam.itcollabhub.view.adapter.SlideAdapterBg;
 import ru.dvteam.itcollabhub.view.adapter.classForViewPager.SyncScrollOnTouchListener;
@@ -33,10 +38,18 @@ public class ChooseThemeForApp extends AppCompatActivity {
     private SlideAdapter adapter;
     private SlideAdapterBg adapterBg;
     ChooseThemeForAppViewModel chooseThemeForAppViewModel;
+    private AppComponent sharedPreferenceComponent;
+    @Inject
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sharedPreferenceComponent = DaggerAppComponent.builder().sharedPreferencesModule(
+                new SharedPreferencesModule(this)).build();
+
+        sharedPreferenceComponent.inject(this);
 
         binding = ActivityChooseThemeForAppBinding.inflate(getLayoutInflater());
 
@@ -84,7 +97,7 @@ public class ChooseThemeForApp extends AppCompatActivity {
                 @Override
                 public void onPageScrolled(int position, float positionOffset,
                                            int positionOffsetPixels) {
-                    //no-op
+
                 }
 
                 @Override
@@ -113,7 +126,7 @@ public class ChooseThemeForApp extends AppCompatActivity {
 
                 @Override
                 public void onPageScrollStateChanged(int state) {
-                    //no-op
+
                 }
             });
 
@@ -152,8 +165,7 @@ public class ChooseThemeForApp extends AppCompatActivity {
                     }
                     if(score > scoreC){
                         UsersChosenTheme.setThemeNum(binding.viewPager.getCurrentItem() + 1);
-                        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-                        SharedPreferences.Editor ed = sPref.edit();
+                        SharedPreferences.Editor ed = sharedPreferences.edit();
                         ed.putInt("ThemeNum", binding.viewPager.getCurrentItem() + 1);
                         ed.apply();
                         Profile.ma.finish();

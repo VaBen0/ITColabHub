@@ -48,7 +48,7 @@ public class AddParticipantCreateProject extends Fragment {
                     String UserName = name.getText().toString();
 
                     PostDatas post = new PostDatas();
-                    post.postDataGetFindFriend("GetUsersToProject", UserName, mail, new CallBackInt() {
+                    post.postDataGetFindFriend("GetUsers", UserName, mail, new CallBackInt() {
                         @Override
                         public void invoke(String info) {
                             String[] inf = info.split(";");

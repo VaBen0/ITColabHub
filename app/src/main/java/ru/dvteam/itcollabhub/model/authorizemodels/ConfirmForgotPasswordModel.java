@@ -19,7 +19,7 @@ public class ConfirmForgotPasswordModel {
 
     public void confirmForgotPass(CallBackBoolean callback){
         GlobalForgotData globalForgotData = GlobalForgotData.getInstance();
-        System.out.println(globalForgotData.getEmailAddress());
+        System.out.println(globalForgotData.getEmailAddress() + " " + code);
 
         postDatas.postDataConfirm("UserLogInMai2l", globalForgotData.getEmailAddress(), code, new CallBackInt() {
             @Override

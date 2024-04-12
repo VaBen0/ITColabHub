@@ -9,13 +9,20 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import javax.inject.Inject;
+
 import ru.dvteam.itcollabhub.databinding.ActivityMainBinding;
+import ru.dvteam.itcollabhub.di.component.AppComponent;
+import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
+import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 import ru.dvteam.itcollabhub.view.authorizeviews.LogIn;
 import ru.dvteam.itcollabhub.view.profileviews.activities.Profile;
 
 public class MainActivity extends AppCompatActivity {
 
-    ActivityMainBinding binding;
+    ActivityMainBinding binding;private AppComponent sharedPreferenceComponent;
+    @Inject
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +31,12 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
 
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        String savedText = sPref.getString("UserReg", "");
+        sharedPreferenceComponent = DaggerAppComponent.builder().sharedPreferencesModule(
+                new SharedPreferencesModule(this)).build();
+
+        sharedPreferenceComponent.inject(this);
+
+        String savedText = sharedPreferences.getString("UserReg", "");
 
         if(savedText.equals("true")){
             Intent intent;

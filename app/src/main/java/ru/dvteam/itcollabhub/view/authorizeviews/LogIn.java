@@ -14,8 +14,13 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
+import javax.inject.Inject;
+
 import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
 import ru.dvteam.itcollabhub.databinding.ActivityLogInBinding;
+import ru.dvteam.itcollabhub.di.component.AppComponent;
+import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
+import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 import ru.dvteam.itcollabhub.view.profileviews.activities.Profile;
 import ru.dvteam.itcollabhub.viewmodel.authorizeviewmodels.LoginViewModel;
 
@@ -24,9 +29,13 @@ public class LogIn extends AppCompatActivity {
     ActivityLogInBinding binding;
 
     LoginViewModel viewModel;
+    private AppComponent sharedPreferenceComponent;
+    @Inject
+    SharedPreferences sharedPreferences;
 
     private Boolean correctEmail = false;
     private Boolean emptyPass = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +45,11 @@ public class LogIn extends AppCompatActivity {
         binding = ActivityLogInBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
+
+        sharedPreferenceComponent = DaggerAppComponent.builder().sharedPreferencesModule(
+                new SharedPreferencesModule(this)).build();
+
+        sharedPreferenceComponent.inject(this);
 
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
@@ -63,13 +77,13 @@ public class LogIn extends AppCompatActivity {
         binding.enterBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
+
                 if(!correctEmail){
                     Toast.makeText(LogIn.this, "Вы ввели не почту", Toast.LENGTH_SHORT).show();
                 }else if(!emptyPass){
                     Toast.makeText(LogIn.this, "Длина пароля слишком маленькая", Toast.LENGTH_SHORT).show();
                 }else {
-                    viewModel.onLoginClick(sPref, new CallBackBoolean() {
+                    viewModel.onLoginClick(sharedPreferences, new CallBackBoolean() {
                         @Override
                         public void invoke(Boolean res) {
                             if (res) {
