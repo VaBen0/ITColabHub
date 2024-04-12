@@ -15,8 +15,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import javax.inject.Inject;
+
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.databinding.ActivityCreateProject2DemoBinding;
+import ru.dvteam.itcollabhub.di.component.AppComponent;
+import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
+import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 import ru.dvteam.itcollabhub.view.UsersChosenTheme;
 import ru.dvteam.itcollabhub.view.projectmenusviews.activities.projectMenu.ActivityProject;
 
@@ -37,6 +42,9 @@ public class CreateProject2Demo extends AppCompatActivity {
     int score;
     String title, description1;
     Fragment fragmentDifferentActivityDemo, fragmentParticipantDemo;
+    private AppComponent sharedPreferenceComponent;
+    @Inject
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +60,12 @@ public class CreateProject2Demo extends AppCompatActivity {
         int color = ContextCompat.getColor(CreateProject2Demo.this, typedValue.resourceId);
         getWindow().setStatusBarColor(color);
 
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        mail = sPref.getString("UserMail", "");
-        score = sPref.getInt("UserScore", 0);
+        sharedPreferenceComponent = DaggerAppComponent.builder().sharedPreferencesModule(
+                new SharedPreferencesModule(this)).build();
+
+        sharedPreferenceComponent.inject(this);
+        mail = sharedPreferences.getString("UserMail", "");
+        score = sharedPreferences.getInt("UserScore", 0);
 
         Bundle arguments = getIntent().getExtras();
 
@@ -113,18 +124,12 @@ public class CreateProject2Demo extends AppCompatActivity {
             public void onClick(View v) {
                 String purposeMain = "";
                 String taskMain = "";
-                String mainId;
 
                 String[] purpose1 = purposes_name.split("✴\uFE0F");
                 String[] purpose2 = purposes.split("✴\uFE0F");
                 String[] task1 = tasks_name.split("✴\uFE0F");
                 String[] task2 = tasks.split("✴\uFE0F");
 
-                if (id1.isEmpty()) {
-                    mainId = "Пользователи были не выбраны";
-                } else {
-                    mainId = id1;
-                }
                 if (purposes_name.isEmpty()) {
                     Toast.makeText(CreateProject2Demo.this, "Нет целей", Toast.LENGTH_SHORT).show();
                 } else if (tasks_name.isEmpty()) {
@@ -146,8 +151,7 @@ public class CreateProject2Demo extends AppCompatActivity {
                     }
 
                     if (mediaPath.isEmpty()) {
-                        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-                        SharedPreferences.Editor ed = sPref.edit();
+                        SharedPreferences.Editor ed = sharedPreferences.edit();
                         ed.putBoolean("DemoProject", true);
                         ed.putString("DemoProjectTitle", title);
                         ed.putString("DemoProjectDescription", description1);
@@ -160,8 +164,7 @@ public class CreateProject2Demo extends AppCompatActivity {
                         Intent intent = new Intent(CreateProject2Demo.this, ActivityProject.class);
                         startActivity(intent);
                     } else {
-                        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-                        SharedPreferences.Editor ed = sPref.edit();
+                        SharedPreferences.Editor ed = sharedPreferences.edit();
                         ed.putBoolean("DemoProject", true);
                         ed.putString("DemoProjectTitle", title);
                         ed.putString("DemoProjectDescription", description1);

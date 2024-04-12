@@ -11,7 +11,7 @@
         android:id="@+id/textView61"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Вы не имеете завершённые проекты"
+        android:text="У вас нет завершённых проектов"
         android:textSize="20sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"

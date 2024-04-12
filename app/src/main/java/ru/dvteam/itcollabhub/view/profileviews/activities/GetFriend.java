@@ -19,7 +19,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 
+import javax.inject.Inject;
+
 import ru.dvteam.itcollabhub.R;
+import ru.dvteam.itcollabhub.di.component.AppComponent;
+import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
+import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 import ru.dvteam.itcollabhub.view.UsersChosenTheme;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
@@ -30,6 +35,9 @@ public class GetFriend extends AppCompatActivity {
 
     ActivityGetFriendBinding binding;
     GetFriendViewModel getFriendViewModel;
+    private AppComponent sharedPreferenceComponent;
+    @Inject
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +50,15 @@ public class GetFriend extends AppCompatActivity {
         setContentView(binding.getRoot());
         getFriendViewModel = new ViewModelProvider(this).get(GetFriendViewModel.class);
 
+        sharedPreferenceComponent = DaggerAppComponent.builder().sharedPreferencesModule(
+                new SharedPreferencesModule(this)).build();
+
+        sharedPreferenceComponent.inject(this);
+
         TypedValue typedValue = new TypedValue();
         getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
         int color = ContextCompat.getColor(GetFriend.this, typedValue.resourceId);
         getWindow().setStatusBarColor(color);
-
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
 
         getFriendViewModel.getInfo().observe(this, informationForChooseThemeForApp -> {
             int score = informationForChooseThemeForApp.getScore();
@@ -66,7 +77,7 @@ public class GetFriend extends AppCompatActivity {
             nameu.setText(informationForChooseThemeForApp.getName());
 
             PostDatas post = new PostDatas();
-            post.postDataGetFriends("GetUserFriendsR", getFriendViewModel.getMail(sPref), new CallBackInt() {
+            post.postDataGetFriends("GetUserFriendsR", getFriendViewModel.getMail(sharedPreferences), new CallBackInt() {
                 @Override
                 public void invoke(String info) {
                     String[] inf = info.split(";");
@@ -154,7 +165,7 @@ public class GetFriend extends AppCompatActivity {
                             plus.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    post.postDataAddFriend("AddFriend", getFriendViewModel.getMail(sPref), id[finalI], new CallBackInt() {
+                                    post.postDataAddFriend("AddFriend", getFriendViewModel.getMail(sharedPreferences), id[finalI], new CallBackInt() {
                                         @Override
                                         public void invoke(String res) {
                                             Toast.makeText(v.getContext(), res, Toast.LENGTH_SHORT).show();

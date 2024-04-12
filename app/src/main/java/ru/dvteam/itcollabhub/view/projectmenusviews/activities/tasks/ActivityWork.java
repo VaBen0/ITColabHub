@@ -21,9 +21,14 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
+import javax.inject.Inject;
+
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackWorkInfo;
 import ru.dvteam.itcollabhub.databinding.ActivityWorkBinding;
+import ru.dvteam.itcollabhub.di.component.AppComponent;
+import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
+import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
 import ru.dvteam.itcollabhub.view.UsersChosenTheme;
 
@@ -31,6 +36,9 @@ public class ActivityWork extends AppCompatActivity {
 
     ActivityWorkBinding binding;
     private String mail, id, title, prPhoto, taskTitle, workId;
+    private AppComponent sharedPreferenceComponent;
+    @Inject
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setThemeActivity();
@@ -41,9 +49,12 @@ public class ActivityWork extends AppCompatActivity {
         setContentView(binding.getRoot());
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        mail = sPref.getString("UserMail", "");
-        int score = sPref.getInt("UserScore", 0);
+        sharedPreferenceComponent = DaggerAppComponent.builder().sharedPreferencesModule(
+                new SharedPreferencesModule(this)).build();
+
+        sharedPreferenceComponent.inject(this);
+
+        mail = sharedPreferences.getString("UserMail", "");
 
         Bundle arguments = getIntent().getExtras();
         assert arguments != null;

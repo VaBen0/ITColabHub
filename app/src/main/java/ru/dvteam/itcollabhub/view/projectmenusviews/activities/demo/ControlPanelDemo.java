@@ -17,14 +17,22 @@ import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.inject.Inject;
+
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.databinding.ActivityControlPanelDemoBinding;
+import ru.dvteam.itcollabhub.di.component.AppComponent;
+import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
+import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 import ru.dvteam.itcollabhub.view.UsersChosenTheme;
 
 public class ControlPanelDemo extends AppCompatActivity {
 
     ActivityControlPanelDemoBinding binding;
     String demoTitle;
+    private AppComponent sharedPreferenceComponent;
+    @Inject
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +43,12 @@ public class ControlPanelDemo extends AppCompatActivity {
 
         setContentView(binding.getRoot());
 
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        demoTitle = sPref.getString("DemoProjectTitle", "");
-        int score = sPref.getInt("UserScore", 0);
+        sharedPreferenceComponent = DaggerAppComponent.builder().sharedPreferencesModule(
+                new SharedPreferencesModule(this)).build();
+
+        sharedPreferenceComponent.inject(this);
+
+        demoTitle = sharedPreferences.getString("DemoProjectTitle", "");
 
         TypedValue typedValue = new TypedValue();
         getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);

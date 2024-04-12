@@ -15,14 +15,22 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import javax.inject.Inject;
+
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
+import ru.dvteam.itcollabhub.di.component.AppComponent;
+import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
+import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
 import ru.dvteam.itcollabhub.view.UsersChosenTheme;
 
 public class ProjectRequests extends AppCompatActivity {
 
     int selectedColor;
+    private AppComponent sharedPreferenceComponent;
+    @Inject
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +42,11 @@ public class ProjectRequests extends AppCompatActivity {
         getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
         int color = ContextCompat.getColor(ProjectRequests.this, typedValue.resourceId);
         getWindow().setStatusBarColor(color);
+        sharedPreferenceComponent = DaggerAppComponent.builder().sharedPreferencesModule(
+                new SharedPreferencesModule(this)).build();
 
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        String mail = sPref.getString("UserMail", "");
+        sharedPreferenceComponent.inject(this);
+        String mail = sharedPreferences.getString("UserMail", "");
 
         ImageView bguser = findViewById(R.id.bguser);
 

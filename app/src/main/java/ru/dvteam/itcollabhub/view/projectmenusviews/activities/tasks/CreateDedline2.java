@@ -25,12 +25,17 @@ import java.util.Calendar;
 import java.util.Objects;
 import java.util.TimeZone;
 
+import javax.inject.Inject;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt5;
 import ru.dvteam.itcollabhub.databinding.ActivityCreateDedline2Binding;
+import ru.dvteam.itcollabhub.di.component.AppComponent;
+import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
+import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
 import ru.dvteam.itcollabhub.view.UsersChosenTheme;
 
@@ -43,6 +48,9 @@ public class CreateDedline2 extends AppCompatActivity {
     String[] textBlockArr, linkBlockArr, youtubeBlockArr, imageBlockArr;
     private Boolean click = true;
     public static Activity fa;
+    private AppComponent sharedPreferenceComponent;
+    @Inject
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +61,12 @@ public class CreateDedline2 extends AppCompatActivity {
 
         setContentView(binding.getRoot());
 
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        mail = sPref.getString("UserMail", "");
-        int score = sPref.getInt("UserScore", 0);
+        sharedPreferenceComponent = DaggerAppComponent.builder().sharedPreferencesModule(
+                new SharedPreferencesModule(this)).build();
+
+        sharedPreferenceComponent.inject(this);
+
+        mail = sharedPreferences.getString("UserMail", "");
 
         TypedValue typedValue = new TypedValue();
         getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
@@ -121,7 +132,7 @@ public class CreateDedline2 extends AppCompatActivity {
                 String[] photos = s3.split("\uD83D\uDD70");
 
                 for (int i = 0; i < ids.length; i++) {
-                    View custom = getLayoutInflater().inflate(R.layout.friend_window, null);
+                    View custom = getLayoutInflater().inflate(R.layout.friend_window3, null);
                     TextView nameu = (TextView) custom.findViewById(R.id.textView3);
                     ImageView loadImage = (ImageView) custom.findViewById(R.id.log);
                     ImageView userCircle = (ImageView) custom.findViewById(R.id.user_circle);

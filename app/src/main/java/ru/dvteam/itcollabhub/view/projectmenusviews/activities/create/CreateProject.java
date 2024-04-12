@@ -34,6 +34,9 @@ import android.widget.Toast;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
+import javax.inject.Inject;
+
+import ru.dvteam.itcollabhub.di.component.AppComponent;
 import ru.dvteam.itcollabhub.view.projectmenusviews.activities.demo.CreateProject2Demo;
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.view.UsersChosenTheme;
@@ -55,9 +58,6 @@ public class CreateProject extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setThemeActivity();
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        String mail = sPref.getString("UserMail", "");
-        score = sPref.getInt("UserScore", 0);
 
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);

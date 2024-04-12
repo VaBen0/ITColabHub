@@ -24,7 +24,12 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
+import javax.inject.Inject;
+
 import ru.dvteam.itcollabhub.R;
+import ru.dvteam.itcollabhub.di.component.AppComponent;
+import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
+import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 import ru.dvteam.itcollabhub.view.UsersChosenTheme;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackTaskInfo;
 import ru.dvteam.itcollabhub.databinding.ActivityTaskMenuBinding;
@@ -34,6 +39,9 @@ public class TaskMenuActivity extends AppCompatActivity {
 
     ActivityTaskMenuBinding binding;
     private String mail, id, title, prPhoto, taskTitle, taskId;
+    private AppComponent sharedPreferenceComponent;
+    @Inject
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +52,11 @@ public class TaskMenuActivity extends AppCompatActivity {
 
         setContentView(binding.getRoot());
 
+        sharedPreferenceComponent = DaggerAppComponent.builder().sharedPreferencesModule(
+                new SharedPreferencesModule(this)).build();
+
+        sharedPreferenceComponent.inject(this);
+
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         binding.blockMenu.setVisibility(View.GONE);
@@ -52,8 +65,7 @@ public class TaskMenuActivity extends AppCompatActivity {
         final Animation show = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.block_menu_add2);
         binding.blockMenu.startAnimation(show);
 
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        mail = sPref.getString("UserMail", "");
+        mail = sharedPreferences.getString("UserMail", "");
 
         Bundle arguments = getIntent().getExtras();
         assert arguments != null;

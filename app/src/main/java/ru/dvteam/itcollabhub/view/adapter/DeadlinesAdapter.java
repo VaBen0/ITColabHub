@@ -65,7 +65,7 @@ public class DeadlinesAdapter extends RecyclerView.Adapter<DeadlinesAdapter.Dead
                     .with(context)
                     .load(prPhoto)
                     .into(binding.loadImg);
-            if(tasksClass.getTaskComplete().equals("1")) binding.view8.setImageResource(R.drawable.green_transperent);
+            if(tasksClass.getTaskComplete().equals("1") || Long.parseLong(tasksClass.getDate()) <= 0) binding.view8.setImageResource(R.drawable.green_transperent);
             new CountDownTimer(Long.parseLong(tasksClass.getDate()), 1000) {
 
                 public void onTick(long millisUntilFinished) {

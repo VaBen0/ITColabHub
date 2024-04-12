@@ -38,7 +38,7 @@ import ru.dvteam.itcollabhub.view.UsersChosenTheme;
 public class CreateDeadline extends AppCompatActivity {
 
     ActivityCreateDeadlineBinding binding;
-    private String mail, id, title, prPhoto, description;
+    private String id, title, prPhoto, description;
     ImageView Img;
     private static final int PICK_IMAGES_CODE = 0;
     private Boolean enter = true;
@@ -62,10 +62,6 @@ public class CreateDeadline extends AppCompatActivity {
         fa = this;
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         registerResult();
-
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        mail = sPref.getString("UserMail", "");
-        int score = sPref.getInt("UserScore", 0);
 
         View empty = getLayoutInflater().inflate(R.layout.emty_obj, null);
         binding.main.addView(empty);
@@ -201,7 +197,6 @@ public class CreateDeadline extends AppCompatActivity {
 
                     ImageView deli = custom.findViewById(R.id.deleteBut);
                     ImageView addImg = custom.findViewById(R.id.addImg);
-                    setButtonColor(score, addImg);
                     final ImageView chosenImg = custom.findViewById(R.id.chosen_img);
                     TextView clear = custom.findViewById(R.id.textAdd);
                     ImageView arr = custom.findViewById(R.id.arrow);

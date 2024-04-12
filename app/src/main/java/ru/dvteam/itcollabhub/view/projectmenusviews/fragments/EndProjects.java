@@ -55,6 +55,7 @@ public class EndProjects extends Fragment {
         activityProjectViewModel.getEndProjects().observe(getViewLifecycleOwner(), new Observer<ArrayList<ProjectClass>>() {
             @Override
             public void onChanged(ArrayList<ProjectClass> projectClasses) {
+                if(!projectClasses.isEmpty()){binding.textView61.setVisibility(View.GONE);}
                 EndProjectAdapter endProjectAdapter = new EndProjectAdapter(getContext(), projectClasses, new CallBackActivityProject() {
                     @Override
                     public void setActivity(String id) {

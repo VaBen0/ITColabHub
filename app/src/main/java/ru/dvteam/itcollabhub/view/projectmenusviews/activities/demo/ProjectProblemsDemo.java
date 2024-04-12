@@ -16,8 +16,13 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import javax.inject.Inject;
+
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.databinding.ActivityProjectProblemsDemoBinding;
+import ru.dvteam.itcollabhub.di.component.AppComponent;
+import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
+import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 import ru.dvteam.itcollabhub.view.UsersChosenTheme;
 
 public class ProjectProblemsDemo extends AppCompatActivity {
@@ -34,6 +39,9 @@ public class ProjectProblemsDemo extends AppCompatActivity {
     int countPurposes = 0, countTicked = 0;
 
     String problems;
+    private AppComponent sharedPreferenceComponent;
+    @Inject
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +57,12 @@ public class ProjectProblemsDemo extends AppCompatActivity {
         int color = ContextCompat.getColor(ProjectProblemsDemo.this, typedValue.resourceId);
         getWindow().setStatusBarColor(color);
 
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        int score = sPref.getInt("UserScore", 0);
-        problems = sPref.getString("DemoProjectProblems", "");
+        sharedPreferenceComponent = DaggerAppComponent.builder().sharedPreferencesModule(
+                new SharedPreferencesModule(this)).build();
+
+        sharedPreferenceComponent.inject(this);
+
+        problems = sharedPreferences.getString("DemoProjectProblems", "");
 
         binding.blockMenu.setVisibility(View.GONE);
 
@@ -70,8 +81,7 @@ public class ProjectProblemsDemo extends AppCompatActivity {
                     binding.name.setText("");
                     binding.description1.setText("");
 
-                    SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-                    SharedPreferences.Editor ed = sPref.edit();
+                    SharedPreferences.Editor ed = sharedPreferences.edit();
                     ed.putBoolean("DemoProject", true);
                     ed.putString("DemoProjectPurposes", problems);
                     ed.apply();

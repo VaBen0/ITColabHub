@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
@@ -15,7 +16,12 @@ import android.widget.Toast;
 
 import java.io.File;
 
+import javax.inject.Inject;
+
 import ru.dvteam.itcollabhub.databinding.ActivityProjectBinding;
+import ru.dvteam.itcollabhub.di.component.AppComponent;
+import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
+import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 import ru.dvteam.itcollabhub.view.aimenu.AiActivity;
 import ru.dvteam.itcollabhub.view.projectmenusviews.activities.create.CreateProject;
 import ru.dvteam.itcollabhub.view.projectmenusviews.fragments.EndProjects;
@@ -41,6 +47,9 @@ public class ActivityProject extends AppCompatActivity {
     ActivityProjectViewModel activityProjectViewModel;
     Fragment fragmentPrMy, fragmentPrEnd;
     Boolean demoProjects;
+    private AppComponent sharedPreferenceComponent;
+    @Inject
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +62,11 @@ public class ActivityProject extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         activityProjectViewModel = new ViewModelProvider(this).get(ActivityProjectViewModel.class);
+
+        sharedPreferenceComponent = DaggerAppComponent.builder().sharedPreferencesModule(
+                new SharedPreferencesModule(this)).build();
+
+        sharedPreferenceComponent.inject(this);
 
         TypedValue typedValue = new TypedValue();
         getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
@@ -141,7 +155,7 @@ public class ActivityProject extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        activityProjectViewModel.setActivityProjects(getSharedPreferences("MyPref", MODE_PRIVATE));
+        activityProjectViewModel.setActivityProjects(sharedPreferences);
     }
     public String getMail(){
         return mail;
@@ -223,7 +237,7 @@ public class ActivityProject extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        activityProjectViewModel.setActivityProjects(getSharedPreferences("MyPref", MODE_PRIVATE));
+        activityProjectViewModel.setActivityProjects(sharedPreferences);
     }
 
     private void changeLine(View firstLine, View line){

@@ -20,11 +20,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.inject.Inject;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.databinding.ActivityCreateProject2Binding;
+import ru.dvteam.itcollabhub.di.component.AppComponent;
+import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
+import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
 import ru.dvteam.itcollabhub.view.UsersChosenTheme;
 import ru.dvteam.itcollabhub.view.projectmenusviews.activities.projectMenu.ActivityProject;
@@ -46,15 +51,22 @@ public class CreateProject2 extends AppCompatActivity {
     ActivityResultLauncher<Intent> resultLauncher;
     int score;
     String title, description1;
+    private AppComponent sharedPreferenceComponent;
+    @Inject
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setThemeActivity();
         super.onCreate(savedInstanceState);
 
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        mail = sPref.getString("UserMail", "");
-        score = sPref.getInt("UserScore", 0);
+        sharedPreferenceComponent = DaggerAppComponent.builder().sharedPreferencesModule(
+                new SharedPreferencesModule(this)).build();
+
+        sharedPreferenceComponent.inject(this);
+
+        mail = sharedPreferences.getString("UserMail", "");
+        score = sharedPreferences.getInt("UserScore", 0);
 
         binding = ActivityCreateProject2Binding.inflate(getLayoutInflater());
 

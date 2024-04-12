@@ -10,12 +10,20 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import javax.inject.Inject;
+
 import ru.dvteam.itcollabhub.databinding.ActivityDemoProjectPageBinding;
+import ru.dvteam.itcollabhub.di.component.AppComponent;
+import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
+import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 
 public class DemoProjectPage extends AppCompatActivity {
 
     ActivityDemoProjectPageBinding binding;
     String demoTitle, demoDescription;
+    private AppComponent sharedPreferenceComponent;
+    @Inject
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +35,13 @@ public class DemoProjectPage extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        demoTitle = sPref.getString("DemoProjectTitle", "");
-        demoDescription = sPref.getString("DemoProjectDescription", "");
-        int score = sPref.getInt("UserScore", 0);
+        sharedPreferenceComponent = DaggerAppComponent.builder().sharedPreferencesModule(
+                new SharedPreferencesModule(this)).build();
+
+        sharedPreferenceComponent.inject(this);
+
+        demoTitle = sharedPreferences.getString("DemoProjectTitle", "");
+        demoDescription = sharedPreferences.getString("DemoProjectDescription", "");
 
         binding.projectName.setText(demoTitle);
         binding.description.setText(demoDescription);

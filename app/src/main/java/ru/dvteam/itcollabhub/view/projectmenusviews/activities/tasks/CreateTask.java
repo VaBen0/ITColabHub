@@ -37,7 +37,7 @@ import ru.dvteam.itcollabhub.view.UsersChosenTheme;
 
 public class CreateTask extends AppCompatActivity {
 
-    private String mail, id, title, prPhoto, description;
+    private String id, title, prPhoto, description;
     ActivityCreateTaskBinding binding;
     ImageView Img;
     private static final int PICK_IMAGES_CODE = 0;
@@ -61,10 +61,6 @@ public class CreateTask extends AppCompatActivity {
         fa = this;
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         registerResult();
-
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        mail = sPref.getString("UserMail", "");
-        int score = sPref.getInt("UserScore", 0);
 
         View empty = getLayoutInflater().inflate(R.layout.emty_obj, null);
         binding.main.addView(empty);
@@ -421,7 +417,6 @@ public class CreateTask extends AppCompatActivity {
                         String youtubeBlockStr;
                         String imageBlockStr;
 
-                        Toast.makeText(CreateTask.this, typeString, Toast.LENGTH_SHORT).show();
 
                         if (stringBlock.size() == 0) {
                             stringBlockStr = "Empty";

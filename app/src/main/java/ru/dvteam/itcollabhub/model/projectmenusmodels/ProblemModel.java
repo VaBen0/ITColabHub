@@ -69,7 +69,7 @@ public class ProblemModel {
         postDatas.postDatasetProblemIsEnd("SetProblemComplete", purpId, projectId, mail, new CallBackInt() {
             @Override
             public void invoke(String res) {
-                PurposeInformation.countTicked += 1;
+                ProblemInformation.countTicked += 1;
             }
         });
     }

@@ -17,8 +17,13 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import javax.inject.Inject;
+
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.databinding.ActivityProjectPurposesDemoBinding;
+import ru.dvteam.itcollabhub.di.component.AppComponent;
+import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
+import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 import ru.dvteam.itcollabhub.view.UsersChosenTheme;
 
 public class ProjectPurposesDemo extends AppCompatActivity {
@@ -34,6 +39,9 @@ public class ProjectPurposesDemo extends AppCompatActivity {
     int score;
     String prId, mail;
     int countPurposes = 0, countTicked = 0;
+    private AppComponent sharedPreferenceComponent;
+    @Inject
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +57,14 @@ public class ProjectPurposesDemo extends AppCompatActivity {
         int color = ContextCompat.getColor(ProjectPurposesDemo.this, typedValue.resourceId);
         getWindow().setStatusBarColor(color);
 
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        mail = sPref.getString("UserMail", "");
-        score = sPref.getInt("UserScore", 0);
-        purposes = sPref.getString("DemoProjectPurposes", "");
+        sharedPreferenceComponent = DaggerAppComponent.builder().sharedPreferencesModule(
+                new SharedPreferencesModule(this)).build();
+
+        sharedPreferenceComponent.inject(this);
+
+        mail = sharedPreferences.getString("UserMail", "");
+        score = sharedPreferences.getInt("UserScore", 0);
+        purposes = sharedPreferences.getString("DemoProjectPurposes", "");
 
         binding.blockMenu.setVisibility(View.GONE);
 
@@ -71,8 +83,7 @@ public class ProjectPurposesDemo extends AppCompatActivity {
                     binding.name.setText("");
                     binding.description1.setText("");
 
-                    SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-                    SharedPreferences.Editor ed = sPref.edit();
+                    SharedPreferences.Editor ed = sharedPreferences.edit();
                     ed.putBoolean("DemoProject", true);
                     ed.putString("DemoProjectPurposes", purposes);
                     ed.apply();

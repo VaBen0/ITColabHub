@@ -10,8 +10,13 @@ import android.view.animation.AnimationUtils;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import javax.inject.Inject;
+
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.databinding.ActivityEditProjectDemoBinding;
+import ru.dvteam.itcollabhub.di.component.AppComponent;
+import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
+import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 import ru.dvteam.itcollabhub.view.UsersChosenTheme;
 
 public class EditProjectDemo extends AppCompatActivity {
@@ -20,6 +25,10 @@ public class EditProjectDemo extends AppCompatActivity {
     String demoTitle, demoDescription;
 
     Fragment fragmentDescriptionDemo, fragmentOtherDemo, fragmentLinkDemo;
+
+    private AppComponent sharedPreferenceComponent;
+    @Inject
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +41,14 @@ public class EditProjectDemo extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        demoTitle = sPref.getString("DemoProjectTitle", "");
-        demoDescription = sPref.getString("DemoProjectDescription", "");
-        int score = sPref.getInt("UserScore", 0);
+        sharedPreferenceComponent = DaggerAppComponent.builder().sharedPreferencesModule(
+                new SharedPreferencesModule(this)).build();
 
+        sharedPreferenceComponent.inject(this);
+
+
+        demoTitle = sharedPreferences.getString("DemoProjectTitle", "");
+        demoDescription = sharedPreferences.getString("DemoProjectDescription", "");
         binding.projectName.setText(demoTitle);
 
         fragmentDescriptionDemo = Fragment.instantiate(this, EditProjectDescriptionDemo.class.getName());
@@ -99,8 +111,7 @@ public class EditProjectDemo extends AppCompatActivity {
 
     public String getDemoDescription(){return demoDescription;}
     public void editDescription(String description){
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        SharedPreferences.Editor ed = sPref.edit();
+        SharedPreferences.Editor ed = sharedPreferences.edit();
         ed.putString("UserReg", "true");
         ed.putString("DemoProjectDescription", description);
         ed.putString("DemoProjectTitle", binding.projectName.getText().toString());
@@ -108,8 +119,7 @@ public class EditProjectDemo extends AppCompatActivity {
     }
 
     public void endProject(){
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        SharedPreferences.Editor ed = sPref.edit();
+        SharedPreferences.Editor ed = sharedPreferences.edit();
         ed.putString("UserReg", "true");
         ed.putBoolean("DemoProjectIsEnd", true);
         ed.apply();

@@ -34,7 +34,7 @@ public class Rating extends Fragment {
             binding.activeProjects.setText("Активных проектов: " + profileInformation.getUserActivityProjects());
             binding.endProjects.setText("Завершённых проектов: " + profileInformation.getUserArchiveProjects());
             binding.lvl.setProgress(0);
-            binding.percents.setText("0%");
+            binding.percents.setText("0.0%");
 
             String status;
             String chast;

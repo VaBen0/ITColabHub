@@ -11,14 +11,22 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import javax.inject.Inject;
+
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.databinding.ActivityUsersProjectDemoBinding;
+import ru.dvteam.itcollabhub.di.component.AppComponent;
+import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
+import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 import ru.dvteam.itcollabhub.view.UsersChosenTheme;
 
 public class UsersProjectDemo extends AppCompatActivity {
 
     ActivityUsersProjectDemoBinding binding;
     String descriptionDemo, titleDemo;
+    private AppComponent sharedPreferenceComponent;
+    @Inject
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +42,13 @@ public class UsersProjectDemo extends AppCompatActivity {
         int color = ContextCompat.getColor(UsersProjectDemo.this, typedValue.resourceId);
         getWindow().setStatusBarColor(color);
 
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        titleDemo = sPref.getString("DemoProjectTitle", "");
-        descriptionDemo = sPref.getString("DemoProjectDescription", "");
-        int score = sPref.getInt("UserScore", 0);
+        sharedPreferenceComponent = DaggerAppComponent.builder().sharedPreferencesModule(
+                new SharedPreferencesModule(this)).build();
+
+        sharedPreferenceComponent.inject(this);
+
+        titleDemo = sharedPreferences.getString("DemoProjectTitle", "");
+        descriptionDemo = sharedPreferences.getString("DemoProjectDescription", "");
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
