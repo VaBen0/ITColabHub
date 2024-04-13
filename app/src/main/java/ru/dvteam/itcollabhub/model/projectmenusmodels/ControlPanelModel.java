@@ -102,8 +102,8 @@ public class ControlPanelModel {
                         }
                     }
                     data.addAll(tasksDataMini);
-                    setDeadlines(data, callback);
                 }
+                setDeadlines(data, callback);
             }
         });
     }
@@ -123,8 +123,8 @@ public class ControlPanelModel {
                             data1.add(new DataOfWatcher(namesArr[i], textsArr[i], projectLog, true));
                         }
                     }
-                    callback.invoke(data1);
                 }
+                callback.invoke(data1);
             }
         });
     }

@@ -516,7 +516,6 @@
         android:id="@+id/noReminder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:textColor="@color/s_gray"
         android:text="Напоминаний нет"
         android:textSize="20sp"
