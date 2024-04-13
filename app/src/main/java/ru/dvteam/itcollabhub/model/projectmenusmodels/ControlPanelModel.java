@@ -97,16 +97,18 @@ public class ControlPanelModel {
                     String[] completeArr = s4.split("\uD83D\uDD70");
                     ArrayList<DataOfWatcher> tasksDataMini = new ArrayList<>();
                     for (int i = 0; i < namesArr.length; i++) {
-                        tasksDataMini.add(0, new DataOfWatcher(namesArr[i], textsArr[i], projectLog, true));
+                        if(completeArr[i].equals("0")) {
+                            tasksDataMini.add(0, new DataOfWatcher(namesArr[i], textsArr[i], projectLog, true));
+                        }
                     }
                     data.addAll(tasksDataMini);
-                    callback.invoke(data);
+                    setDeadlines(data, callback);
                 }
             }
         });
     }
-    public void setDeadlines(ArrayList<DataOfWatcher> data, CallBackWith2Data callback){
-        postDatas.postDataGetProjectDeadlines("GetTasksFromProject", projectId, userMail, new CallBackDeadlineInfo()  {
+    public void setDeadlines(ArrayList<DataOfWatcher> data1, CallBackWith2Data callback){
+        postDatas.postDataGetProjectDeadlines("GetDeadlinesFromProject", projectId, userMail, new CallBackDeadlineInfo()  {
             @Override
             public void invoke(String s1, String s2, String s3, String s4, String s5) {
                 if(!s1.equals("Ошибка")) {
@@ -114,11 +116,14 @@ public class ControlPanelModel {
                     String[] namesArr = s2.split("\uD83D\uDD70");
                     String[] textsArr = s3.split("\uD83D\uDD70");
                     String[] completeArr = s4.split("\uD83D\uDD70");
+                    String[] date = s5.split("\uD83D\uDD70");
                     ArrayList<DataOfWatcher> tasksDataMini = new ArrayList<>();
                     for (int i = 0; i < namesArr.length; i++) {
-                        data.add(new DataOfWatcher(namesArr[i], textsArr[i], projectLog, true));
+                        if(Long.parseLong(date[i]) <= 86400000 && completeArr[i].equals("0")) {
+                            data1.add(new DataOfWatcher(namesArr[i], textsArr[i], projectLog, true));
+                        }
                     }
-                    callback.invoke(data);
+                    callback.invoke(data1);
                 }
             }
         });

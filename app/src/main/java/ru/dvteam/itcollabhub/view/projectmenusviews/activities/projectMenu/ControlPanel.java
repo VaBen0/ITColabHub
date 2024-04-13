@@ -256,6 +256,11 @@ public class ControlPanel extends AppCompatActivity {
         binding.reminderPlace.setLayoutManager(layoutManager);
 
         controlPanelViewModel.getAdds1().observe(this, dataOfWatchers -> {
+            if(dataOfWatchers.isEmpty()){
+                binding.noReminder.setVisibility(View.VISIBLE);
+            }else{
+                binding.noReminder.setVisibility(View.GONE);
+            }
             ReminderAdapter adapter;
             adapter = new ReminderAdapter(dataOfWatchers, this, new CallBackActivityProject() {
                 @Override

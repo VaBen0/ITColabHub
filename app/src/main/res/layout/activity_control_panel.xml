@@ -108,6 +108,7 @@
             android:scrollbars="none">
 
         </androidx.recyclerview.widget.RecyclerView>
+
     </LinearLayout>
 
     <TextView
@@ -510,5 +511,18 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/noReminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:textColor="@color/s_gray"
+        android:text="Напоминаний нет"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bguser" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

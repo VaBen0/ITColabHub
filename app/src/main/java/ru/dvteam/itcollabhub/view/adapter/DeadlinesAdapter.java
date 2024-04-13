@@ -75,7 +75,10 @@ public class DeadlinesAdapter extends RecyclerView.Adapter<DeadlinesAdapter.Dead
                     long hours = (allSeconds / 3600) % 24;
                     long days = (allSeconds / 3600) / 24;
                     String s;
-                    if(days < 10) {
+                    if(days == 0){
+                        s = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+                    }
+                    else if(days < 10) {
                         switch ((int) days % 10) {
                             case 1:
                                 s = String.format("%2d день %02d:%02d:%02d", days, hours, minutes, seconds);
