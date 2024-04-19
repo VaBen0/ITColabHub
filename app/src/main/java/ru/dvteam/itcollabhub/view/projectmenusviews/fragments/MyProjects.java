@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import ru.dvteam.itcollabhub.databinding.FragmentMyProjectsBinding;
+import ru.dvteam.itcollabhub.globaldata.GlobalProjectInformation;
 import ru.dvteam.itcollabhub.view.adapter.ActivityProjectAdapter;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackActivityProject;
 import ru.dvteam.itcollabhub.view.projectmenusviews.activities.demo.UsersProjectDemo;
@@ -41,6 +42,7 @@ public class MyProjects extends Fragment {
                         startActivity(intent);
                     }else {
                         activityProjectViewModel.setProjectId(id);
+                        GlobalProjectInformation.getInstance().setEnd(false);
                         Intent intent = new Intent(getContext(), UsersProject.class);
                         startActivity(intent);
                     }
