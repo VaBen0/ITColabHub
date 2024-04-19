@@ -406,4 +406,5 @@ public interface Methods {
     @FormUrlEncoded
     @POST("/lol1.php")
     Call<Model> getAiCheck(@Field("SomnitelniyTekst")String txt);
+
 }

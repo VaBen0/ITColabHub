@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 
 import ru.dvteam.itcollabhub.databinding.FragmentEndProjectsBinding;
+import ru.dvteam.itcollabhub.globaldata.GlobalProjectInformation;
 import ru.dvteam.itcollabhub.view.projectmenusviews.activities.projectMenu.UsersProject3;
 import ru.dvteam.itcollabhub.view.adapter.EndProjectAdapter;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackActivityProject;
@@ -60,6 +61,7 @@ public class EndProjects extends Fragment {
                     @Override
                     public void setActivity(String id) {
                         ProjectId.getInstance().setProjectId(id);
+                        GlobalProjectInformation.getInstance().setEnd(true);
                         Intent intent = new Intent(getContext(), UsersProject3.class);
                         startActivity(intent);
                     }

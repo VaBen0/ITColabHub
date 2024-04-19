@@ -136,7 +136,7 @@ public class ChooseThemeForApp extends AppCompatActivity {
                     int scoreC = 0;
                     switch (binding.viewPager.getCurrentItem()){
                         case(0):
-                            scoreC = 0;
+                            scoreC = -1;
                             break;
                         case(1):
                             scoreC = 101;
