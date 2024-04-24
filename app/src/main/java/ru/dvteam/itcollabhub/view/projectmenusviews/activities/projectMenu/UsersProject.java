@@ -113,8 +113,9 @@ public class UsersProject extends AppCompatActivity {
                 binding.controlPanelMove.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(UsersProject.this, ControlPanel.class);
+                        Intent intent = new Intent(UsersProject.this, ParticipControlPanel.class);
                         intent.putExtra("projectId", ProjectId.getInstance().getProjectId());
+                        System.out.println("lox");
                         startActivity(intent);
                     }
                 });

@@ -188,7 +188,6 @@ public class AnswerForTask extends AppCompatActivity {
                 @Override
                 public void invoke(String res) {
                     text = res;
-                    Toast.makeText(AnswerForTask.this, text, Toast.LENGTH_SHORT).show();
                     createAllLinksBlocks();
                 }
             });
@@ -209,7 +208,6 @@ public class AnswerForTask extends AppCompatActivity {
                     public void invoke(String res) {
                         idsImageBlocks.add(res);
                         if (finalI2 == mediaPaths.size() - 1) {
-                            Toast.makeText(AnswerForTask.this, idsImageBlocks.toString() + " " + finalI2 + " " + (mediaPaths.size() - 1), Toast.LENGTH_SHORT).show();
                             createWork();
                         } else {
                             createAllImageBlocks(finalI2 + 1);
@@ -231,7 +229,6 @@ public class AnswerForTask extends AppCompatActivity {
                     public void invoke(String res) {
                         idsLinkBlocks.add(res);
                         if (finalI == linkName.size() - 1) {
-                            Toast.makeText(AnswerForTask.this, idsLinkBlocks.toString(), Toast.LENGTH_SHORT).show();
                             createAllImageBlocks(0);
                         }
                     }
@@ -261,7 +258,6 @@ public class AnswerForTask extends AppCompatActivity {
                 idsImageBlocksStr, new CallBackInt() {
             @Override
             public void invoke(String res) {
-                Toast.makeText(AnswerForTask.this, res, Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
