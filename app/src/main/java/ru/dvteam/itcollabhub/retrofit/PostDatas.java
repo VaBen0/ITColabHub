@@ -1592,4 +1592,58 @@ public class PostDatas {
             }
         });
     }
+
+    public void postDataSendInfoWithQR(String login, CallBackInt result){
+        Methods methods = RetrofitClient2.getRetrofitInstance().create(Methods.class);
+        Call<Model> call = methods.sendInfoWithQR("GetSession", login);
+
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, Response<Model> response) {
+                assert response.body() != null;
+                result.invoke(response.body().getReturn());
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+                result.invoke("Ошибка сервера");
+            }
+        });
+    }
+
+    public void postDataCreateProjectCode(String req, CallBackInt result){
+        Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
+        Call<Model> call = methods.createProjectCode(req);
+
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, Response<Model> response) {
+                assert response.body() != null;
+                result.invoke(response.body().getReturn());
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+                result.invoke("Ошибка сервера");
+            }
+        });
+    }
+
+    public void postDataGetProjectCode(String req, CallBackInt result){
+        Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
+        Call<Model> call = methods.getProjectCode(req);
+
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, Response<Model> response) {
+                assert response.body() != null;
+                result.invoke(response.body().getReturn());
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+                result.invoke("Ошибка сервера");
+            }
+        });
+    }
 }

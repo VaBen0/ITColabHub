@@ -3,12 +3,14 @@ package ru.dvteam.itcollabhub.view.projectmenusviews.activities.projectMenu;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -16,6 +18,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -24,8 +30,10 @@ import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 
+import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.databinding.ActivityControlPanelBinding;
 import ru.dvteam.itcollabhub.globaldata.GlobalProjectInformation;
+import ru.dvteam.itcollabhub.retrofit.PostDatas;
 import ru.dvteam.itcollabhub.view.projectmenusviews.activities.problems.ProblemsParticip;
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.view.UsersChosenTheme;
@@ -233,6 +241,32 @@ public class ControlPanel extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        binding.lol.setOnClickListener(v -> {
+            IntentIntegrator intentIntegrator = new IntentIntegrator(this);
+            intentIntegrator.setPrompt("");
+            intentIntegrator.setBeepEnabled(false);
+            intentIntegrator.initiateScan();
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (intentResult != null) {
+            if (intentResult.getContents() != null) {
+                System.out.println(intentResult.getContents());
+                PostDatas post = new PostDatas();
+                post.postDataSendInfoWithQR(intentResult.getContents(), new CallBackInt() {
+                    @Override
+                    public void invoke(String res) {
+                        Toast.makeText(ControlPanel.this, "ok", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
     double parse(String ratio) {
         if (ratio.contains("/")) {

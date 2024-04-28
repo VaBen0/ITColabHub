@@ -21,6 +21,11 @@
         android:theme="@style/Theme.ITCollabHub"
         tools:targetApi="26">
         <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="portrait"
+            tools:replace="android:screenOrientation"
+            android:stateNotNeeded="true"/>
+        <activity
             android:name=".view.projectmenusviews.activities.projectMenu.ParticipControlPanel"
             android:exported="false" />
         <activity

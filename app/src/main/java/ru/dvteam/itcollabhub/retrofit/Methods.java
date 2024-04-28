@@ -407,4 +407,15 @@ public interface Methods {
     @POST("/lol1.php")
     Call<Model> getAiCheck(@Field("SomnitelniyTekst")String txt);
 
+    @FormUrlEncoded
+    @POST("/iDontKnow")
+    Call<Model> createProjectCode(@Field("Request")String req);
+
+    @FormUrlEncoded
+    @POST("/sessions/lol.php")
+    Call<Model> sendInfoWithQR(@Field("Request")String req, @Field("login")String login);
+
+    @FormUrlEncoded
+    @POST("/")
+    Call<Model> getProjectCode(@Field("Request")String req);
 }
