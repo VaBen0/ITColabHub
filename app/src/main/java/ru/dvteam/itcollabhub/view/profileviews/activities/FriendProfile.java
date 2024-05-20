@@ -15,15 +15,23 @@ import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 
+import javax.inject.Inject;
+
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt5;
+import ru.dvteam.itcollabhub.di.component.AppComponent;
+import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
+import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
 
 public class FriendProfile extends AppCompatActivity {
 
     private int selectedColor;
     private String tgl, vkl, webl;
+    private AppComponent sharedPreferenceComponent;
+    @Inject
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +39,12 @@ public class FriendProfile extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         setContentView(R.layout.activity_friend_profile);
 
-        SharedPreferences sPref = getSharedPreferences("MyPref", MODE_PRIVATE);
-        String mail = sPref.getString("UserMail", "");
+        sharedPreferenceComponent = DaggerAppComponent.builder().sharedPreferencesModule(
+                new SharedPreferencesModule(this)).build();
+
+        sharedPreferenceComponent.inject(this);
+
+        String mail = sharedPreferences.getString("UserMail", "");
 
         Bundle arguments = getIntent().getExtras();
 
@@ -207,6 +219,7 @@ public class FriendProfile extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     PostDatas post = new PostDatas();
+                    System.out.println(mail + " " + id);
                     post.postDataAddFriend("DeleteFriend", mail, id, new CallBackInt() {
                         @Override
                         public void invoke(String res) {

@@ -9,6 +9,7 @@ import ru.dvteam.itcollabhub.view.authorizeviews.ConfirmReg;
 import ru.dvteam.itcollabhub.view.authorizeviews.LogIn;
 import ru.dvteam.itcollabhub.view.profileviews.activities.ChooseThemeForApp;
 import ru.dvteam.itcollabhub.view.profileviews.activities.EditProfile;
+import ru.dvteam.itcollabhub.view.profileviews.activities.FriendProfile;
 import ru.dvteam.itcollabhub.view.profileviews.activities.GetFriend;
 import ru.dvteam.itcollabhub.view.profileviews.activities.Profile;
 import ru.dvteam.itcollabhub.view.projectmenusviews.activities.create.CreateProject2;
@@ -60,4 +61,5 @@ public interface AppComponent {
     void inject(ProjectPurposesDemo projectPurposesDemo);
     void inject(UsersProjectDemo usersProjectDemo);
     void inject(ActivityProject activityProject);
+    void inject(FriendProfile friendProfile);
 }

@@ -134,10 +134,10 @@
 
             <View
                 android:id="@+id/linear_projects"
-                android:background="?fragmentLines"
                 android:layout_width="85dp"
                 android:layout_height="3dp"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:background="?fragmentLines" />
         </LinearLayout>
 
         <LinearLayout
@@ -232,18 +232,19 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="28dp"
-                    android:src="@drawable/forum"/>
+                    android:src="@drawable/forum" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Форум"
-                    android:textSize="11sp"/>
+                    android:textSize="11sp" />
 
             </LinearLayout>
 

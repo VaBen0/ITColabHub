@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="210dp"
+    android:layout_height="160dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/loadImg"
+        android:layout_width="200dp"
+        android:layout_height="160dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/CornerCut" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/view8"
+        android:layout_width="200dp"
+        android:layout_height="160dp"
+        android:background="@drawable/progress_panel_background3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/CornerCut" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginBottom="10dp"
+        android:text="Описание статьи"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/loadImg"
+        app:layout_constraintEnd_toEndOf="@+id/loadImg"
+        app:layout_constraintStart_toStartOf="@+id/loadImg"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="8dp"
+        android:text="Название статьи"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/loadImg"
+        app:layout_constraintStart_toStartOf="@+id/loadImg"
+        app:layout_constraintTop_toTopOf="@+id/loadImg" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

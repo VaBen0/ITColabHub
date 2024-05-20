@@ -39,9 +39,21 @@ public class AccountLinks extends Fragment {
 
         editProfileViewModel.getUserLinks().observe(getViewLifecycleOwner(), userLinks -> {
             if(access){
-                binding.tg.setText(userLinks.getTgLink());
-                binding.vk.setText(userLinks.getVkLink());
-                binding.web.setText(userLinks.getWebLink());
+                if(userLinks.getTgLink().equals("null")){
+                    binding.tg.setText("Нет ссылки на тг");
+                }else{
+                    binding.tg.setText(userLinks.getTgLink());
+                }
+                if(userLinks.getVkLink().equals("null")){
+                    binding.vk.setText("Нет ссылки на вк");
+                }else{
+                    binding.vk.setText(userLinks.getVkLink());
+                }
+                if(userLinks.getWebLink().equals("null")){
+                    binding.web.setText("Нет ссылки на сайт");
+                }else{
+                    binding.web.setText(userLinks.getWebLink());
+                }
             }else{
                 binding.tg.setText("Вы заблокированны");
                 binding.vk.setText("Вы заблокированны");

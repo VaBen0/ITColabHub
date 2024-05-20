@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +26,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
     List<DataOfWatcher> data = new ArrayList<>();
     private final Context context;
     private final CallBackActivityProject callback;
+    private int lastPosition = -1;
 
     public ReminderAdapter(ArrayList<DataOfWatcher> data, Context context, CallBackActivityProject callback){
         this.data = data;
@@ -41,6 +44,9 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
     @Override
     public void onBindViewHolder(@NonNull ReminderAdapterViewHolder holder, int position) {
         holder.update(data.get(position));
+        if (position < 5) {
+            setAnimation(holder.itemView, position);
+        }
     }
 
 
@@ -99,6 +105,17 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
                     .with(context)
                     .load(data.getObjImg())
                     .into(binding.loadImg);
+        }
+    }
+    private void setAnimation(View viewToAnimate, int position)
+    {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition)
+        {
+            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
+            animation.setDuration(800);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
         }
     }
 }

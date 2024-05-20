@@ -241,7 +241,7 @@ public class ControlPanel extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        binding.lol.setOnClickListener(v -> {
+        binding.qrBut.setOnClickListener(v -> {
             IntentIntegrator intentIntegrator = new IntentIntegrator(this);
             intentIntegrator.setPrompt("");
             intentIntegrator.setBeepEnabled(false);
@@ -256,13 +256,7 @@ public class ControlPanel extends AppCompatActivity {
         if (intentResult != null) {
             if (intentResult.getContents() != null) {
                 System.out.println(intentResult.getContents());
-                PostDatas post = new PostDatas();
-                post.postDataSendInfoWithQR(intentResult.getContents(), new CallBackInt() {
-                    @Override
-                    public void invoke(String res) {
-                        Toast.makeText(ControlPanel.this, "ok", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                Toast.makeText(this, "Успешный вход", Toast.LENGTH_SHORT).show();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

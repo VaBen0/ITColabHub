@@ -7,6 +7,7 @@
     tools:context=".view.forum.Forum">
 
     <ScrollView
+        android:id="@+id/scrollView7"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_menu"
@@ -104,32 +105,28 @@
                 app:layout_constraintStart_toEndOf="@+id/linearLayout10"
                 app:layout_constraintTop_toTopOf="@+id/linearLayout10" />
 
-            <HorizontalScrollView
-                android:id="@+id/horizontalScrollView"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/states"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout10">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" />
-            </HorizontalScrollView>
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout10" />
 
             <TextView
                 android:id="@+id/textView49"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:text="Вопросы"
                 android:textSize="17sp"
                 android:textStyle="bold|italic"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
+                app:layout_constraintTop_toBottomOf="@+id/states" />
 
             <ImageView
                 android:id="@+id/imageView14"
@@ -184,47 +181,39 @@
                 app:layout_constraintStart_toEndOf="@+id/linearLayout11"
                 app:layout_constraintTop_toTopOf="@+id/linearLayout11" />
 
-            <HorizontalScrollView
-                android:id="@+id/horizontalScrollView2"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/answers"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout11">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" />
-            </HorizontalScrollView>
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout11" />
 
             <TextView
                 android:id="@+id/projects"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:text="Проекты"
                 android:textSize="17sp"
                 android:textStyle="bold|italic"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView2" />
+                app:layout_constraintTop_toBottomOf="@+id/answers" />
 
-            <HorizontalScrollView
-                android:id="@+id/horizontalScrollView3"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/projectsPlace"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="180dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/projects">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" />
-            </HorizontalScrollView>
+                app:layout_constraintTop_toBottomOf="@+id/projects" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -323,32 +312,3 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
