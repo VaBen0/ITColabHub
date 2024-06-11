@@ -53,12 +53,14 @@
             android:id="@+id/mailu"
             android:layout_width="232dp"
             android:layout_height="58dp"
+            android:inputType="textEmailAddress"
             android:hint="Почта" />
 
         <EditText
             android:id="@+id/passu"
             android:layout_width="232dp"
             android:layout_height="58dp"
+            android:inputType="textPassword"
             android:hint="Пароль" />
 
         <TextView

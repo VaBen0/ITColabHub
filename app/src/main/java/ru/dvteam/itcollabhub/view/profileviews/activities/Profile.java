@@ -279,5 +279,6 @@ public class Profile extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         sharedPreferenceComponent.inject(this);
+        profileViewModel.getProfileInformation(sharedPreferences);
     }
 }

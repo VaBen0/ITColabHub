@@ -74,13 +74,17 @@ public class TasksMainModel {
                             completeArr[i] = "1";
                             date[i] = "0";
                         }
+                        if(completeArr[i].equals("1")) {
+                            completedDeadlinesNum += 1;
+                            date[i] = "0";
+                        }
                         deadlines.add(new TasksClass(namesArr[i], textsArr[i], idsArr[i], completeArr[i], 0, date[i]));
                         System.out.println(idsArr[i]);
                         deadlinesNum += 1;
                         if(!date[i].equals("0") && Long.parseLong(date[i]) > 0) {
                             minMillis = Math.min(minMillis, Long.parseLong(date[i]));
                         }
-                        if(completeArr[i].equals("1")) completedDeadlinesNum += 1;
+
                     }
                     if(minMillis == 999999999){
                         minMillis = 0;

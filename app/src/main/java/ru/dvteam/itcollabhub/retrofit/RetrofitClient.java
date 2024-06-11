@@ -7,7 +7,10 @@ public class RetrofitClient {
     private static String BASE_URL = "https://serveritcollabhub.development-team.ru";
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
-            retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
         }
         return retrofit;
     }

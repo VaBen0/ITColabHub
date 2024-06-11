@@ -92,7 +92,9 @@ public class DeadlinesAdapter extends RecyclerView.Adapter<DeadlinesAdapter.Dead
                                 s = String.format("%2d дней %02d:%02d:%02d", days, hours, minutes, seconds);
                                 break;
                         }
-                    } else{
+                    } else if(days < 20){
+                        s = String.format("%2d дней %02d:%02d:%02d", days, hours, minutes, seconds);
+                    }else{
                         switch ((int) days % 10) {
                             case 1:
                                 s = String.format("%02d день %02d:%02d:%02d", days, hours, minutes, seconds);

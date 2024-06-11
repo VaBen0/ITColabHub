@@ -54,6 +54,7 @@
             android:id="@+id/mailu"
             android:layout_width="236dp"
             android:layout_height="58dp"
+            android:inputType="textWebEmailAddress"
             android:hint="Почта" />
 
         <TextView
@@ -66,6 +67,7 @@
             android:id="@+id/passu"
             android:layout_width="236dp"
             android:layout_height="58dp"
+            android:inputType="textPassword"
             android:hint="Пароль" />
         <TextView
             android:id="@+id/rightPass"
@@ -77,6 +79,7 @@
             android:id="@+id/passuagain"
             android:layout_width="236dp"
             android:layout_height="58dp"
+            android:inputType="textPassword"
             android:hint="Повторите пароль"/>
 
         <TextView
