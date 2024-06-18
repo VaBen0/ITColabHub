@@ -30,6 +30,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 
+import ru.dvteam.itcollabhub.RolesActivity;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.databinding.ActivityControlPanelBinding;
 import ru.dvteam.itcollabhub.globaldata.GlobalProjectInformation;
@@ -246,6 +247,10 @@ public class ControlPanel extends AppCompatActivity {
             intentIntegrator.setPrompt("");
             intentIntegrator.setBeepEnabled(false);
             intentIntegrator.initiateScan();
+        });
+        binding.rolesButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ControlPanel.this, RolesActivity.class);
+            startActivity(intent);
         });
     }
 

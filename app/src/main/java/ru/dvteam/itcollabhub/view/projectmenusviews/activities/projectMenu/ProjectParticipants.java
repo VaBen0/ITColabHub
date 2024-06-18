@@ -1,25 +1,32 @@
 package ru.dvteam.itcollabhub.view.projectmenusviews.activities.projectMenu;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
 
 import com.bumptech.glide.Glide;
+import com.jaredrummler.android.colorpicker.ColorPickerDialog;
+import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
+import com.jaredrummler.android.colorpicker.ColorShape;
 
 import ru.dvteam.itcollabhub.R;
 import ru.dvteam.itcollabhub.view.UsersChosenTheme;
 import ru.dvteam.itcollabhub.view.adapter.ParticipantsAdapter;
 import ru.dvteam.itcollabhub.databinding.ActivityProjectParticipantsBinding;
+import ru.dvteam.itcollabhub.view.profileviews.activities.Profile;
 import ru.dvteam.itcollabhub.viewmodel.projectmenusviewmodels.ProjectParticipantsViewModel;
 
-public class ProjectParticipants extends AppCompatActivity {
+public class ProjectParticipants extends AppCompatActivity implements ColorPickerDialogListener {
 
     ActivityProjectParticipantsBinding binding;
     ProjectParticipantsViewModel projectParticipantsViewModel;
@@ -36,13 +43,12 @@ public class ProjectParticipants extends AppCompatActivity {
         projectParticipantsViewModel = new ViewModelProvider(this).get(ProjectParticipantsViewModel.class);
 
         initEditText();
-        binding.add.setVisibility(View.GONE);
+        //binding.add.setVisibility(View.GONE);
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
+        int color = ContextCompat.getColor(ProjectParticipants.this, typedValue.resourceId);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        if(!projectParticipantsViewModel.getIsl()){
-            binding.add.setVisibility(View.GONE);
-        }
+        getWindow().setStatusBarColor(color);
 
         binding.projectName.setText(projectParticipantsViewModel.getProjectTitle());
         Glide
@@ -53,19 +59,22 @@ public class ProjectParticipants extends AppCompatActivity {
         binding.linMain.setLayoutManager(new LinearLayoutManager(this));
 
         projectParticipantsViewModel.getUsersFromProject().observe(this, userInformations -> {
-            adapter = new ParticipantsAdapter(userInformations, this);
+            adapter = new ParticipantsAdapter(userInformations, this, color);
             binding.linMain.setAdapter(adapter);
         });
 
         projectParticipantsViewModel.getProjectUsers();
 
-        binding.add.setOnClickListener(v -> {
-            Intent intent = new Intent(ProjectParticipants.this, AddParticipant.class);
-            startActivity(intent);
-        });
         binding.notification.setOnClickListener(v -> {
-
+            ColorPickerDialog.newBuilder()
+                    .setColor(Color.RED)
+                    .setDialogType(ColorPickerDialog.TYPE_PRESETS)
+                    .setAllowCustom(true)
+                    .setAllowPresets(true)
+                    .setColorShape(ColorShape.SQUARE)
+                    .show(this);
         });
+
         binding.find.setOnClickListener(v -> {
             projectParticipantsViewModel.findParticipant();
             binding.cancel.setVisibility(View.VISIBLE);
@@ -80,47 +89,6 @@ public class ProjectParticipants extends AppCompatActivity {
                 projectParticipantsViewModel.getProjectUsers();
             }
         });
-
-//        PostDatas post = new PostDatas();
-//        post.postDataGetProjectParticipant("GetPeoplesFromProjects", id, mail, new CallBackInt5() {
-//            @Override
-//            public void invoke(String ids, String names, String photos) {
-//                binding.linMain.removeAllViews();
-//                String[] idsArr = ids.split("\uD83D\uDD70");
-//                String[] namesArr = names.split("\uD83D\uDD70");
-//                String[] photosArr = photos.split("\uD83D\uDD70");
-//
-//                for (int i = 0; i < idsArr.length; i++) {
-//                    View custom = getLayoutInflater().inflate(R.layout.friend_window, null);
-//                    TextView nameu = (TextView) custom.findViewById(R.id.textView3);
-//                    ImageView loadImage = (ImageView) custom.findViewById(R.id.log);
-//                    ImageView userCircle = (ImageView) custom.findViewById(R.id.user_circle);
-//                    TextView project1 = (TextView) custom.findViewById(R.id.projects1);
-//                    project1.setVisibility(View.GONE);
-//                    ImageView messege = (ImageView) custom.findViewById(R.id.notban);
-//                    messege.setImageResource(R.drawable.delete_black);
-//                    userCircle.setVisibility(View.GONE);
-//                    System.out.println(photosArr[i]);
-//
-//                    Glide
-//                            .with(ProjectParticipants.this)
-//                            .load(photosArr[i])
-//                            .into(loadImage);
-//                    nameu.setText(namesArr[i]);
-//
-//                    messege.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//
-//                        }
-//                    });
-//
-//                    binding.linMain.addView(custom);
-//                }
-//                View empty = getLayoutInflater().inflate(R.layout.emty_obj, null);
-//                binding.linMain.addView(empty);
-//            }
-//        });
 
 
     }
@@ -176,6 +144,17 @@ public class ProjectParticipants extends AppCompatActivity {
                 setTheme(R.style.Theme_ITCollabHub_BlueGreen);
                 break;
         }
+
+    }
+
+    @Override
+    public void onColorSelected(int dialogId, int color) {
+        binding.textView.setTextColor(color);
+        System.out.printf("#%06X%n", (0xFFFFFF & color));
+    }
+
+    @Override
+    public void onDialogDismissed(int dialogId) {
 
     }
 }

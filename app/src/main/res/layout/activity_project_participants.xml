@@ -7,45 +7,45 @@
     tools:context=".view.projectmenusviews.activities.projectMenu.ProjectParticipants">
 
     <ImageView
-        android:id="@+id/pr_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="250dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_second_type" />
-
-    <ImageView
-        android:id="@+id/imageView6"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="-10dp"
-        android:layout_marginBottom="-20dp"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/pr_logo"
+        android:layout_marginBottom="-100dp"
+        android:background="?userBackgroundColor"
+        app:layout_constraintBottom_toBottomOf="@+id/textView64"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/projectName"
-        app:srcCompat="@drawable/bacground_for_photo" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/pr_logo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_second_type"
+        app:shapeAppearance="@style/CornerCutForMini"/>
+
 
     <TextView
         android:id="@+id/projectName"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="3dp"
-        android:text="Имя проекта"
         android:backgroundTint="@color/transparent"
+        android:text="Имя проекта"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:textStyle="italic|bold"
+
         app:layout_constraintBottom_toBottomOf="@+id/pr_logo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/pr_logo"
+        app:layout_constraintTop_toTopOf="@+id/pr_logo" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/lin_lay"
@@ -150,7 +150,6 @@
             android:clickable="true"
             android:elevation="2dp"
             android:focusable="true"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/view9"
             app:layout_constraintTop_toTopOf="parent"
@@ -169,47 +168,30 @@
             app:srcCompat="@drawable/red_cancel" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="?buttonColor"
-        android:text="Добавить участников"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:textStyle="bold|italic"
-        app:cornerRadius="10dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lin_lay" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lin_main"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="6dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add"
-        tools:ignore="SpeakableTextPresentCheck"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView64"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
-        android:id="@+id/textView5"
-        android:layout_width="0dp"
+        android:id="@+id/textView64"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:gravity="center"
-        android:text="Вы один в этом проекте :("
-        android:textSize="20sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/scrollView5"
-        app:layout_constraintEnd_toEndOf="@+id/scrollView5"
-        app:layout_constraintStart_toStartOf="@+id/scrollView5"
-        app:layout_constraintTop_toBottomOf="@+id/add" />
+        android:layout_marginTop="6dp"
+        android:text="Все участники проекта"
+        android:textStyle="bold|italic"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lin_lay" />
 </androidx.constraintlayout.widget.ConstraintLayout>

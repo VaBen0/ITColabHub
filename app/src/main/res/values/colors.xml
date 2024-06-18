@@ -48,5 +48,6 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="white_transparent">#66FFFFFF</color>
     <color name="light_black">#2C2C2C</color>
+    <color name="text_border_color">#303030</color>
     <color name="pink_gold">#B76E79</color>
 </resources>
