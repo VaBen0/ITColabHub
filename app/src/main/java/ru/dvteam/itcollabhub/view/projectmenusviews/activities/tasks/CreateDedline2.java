@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.datepicker.CalendarConstraints;
@@ -38,6 +39,10 @@ import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
 import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
 import ru.dvteam.itcollabhub.view.UsersChosenTheme;
+import ru.dvteam.itcollabhub.view.projectmenusviews.fragments.AddDeadlineForParticipant;
+import ru.dvteam.itcollabhub.view.projectmenusviews.fragments.AddDeadlineForRole;
+import ru.dvteam.itcollabhub.view.projectmenusviews.fragments.AddTaskForParticipant;
+import ru.dvteam.itcollabhub.view.projectmenusviews.fragments.AddTaskForRole;
 
 public class CreateDedline2 extends AppCompatActivity {
 
@@ -51,6 +56,7 @@ public class CreateDedline2 extends AppCompatActivity {
     private AppComponent sharedPreferenceComponent;
     @Inject
     SharedPreferences sharedPreferences;
+    Fragment addTaskForParticipant, addTaskForRole;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +79,8 @@ public class CreateDedline2 extends AppCompatActivity {
         int color = ContextCompat.getColor(CreateDedline2.this, typedValue.resourceId);
         getWindow().setStatusBarColor(color);
 
+        addTaskForParticipant = Fragment.instantiate(this, AddDeadlineForParticipant.class.getName());
+        addTaskForRole = Fragment.instantiate(this, AddDeadlineForRole.class.getName());
 
         idsArr = new ArrayList<String>();
         idsTextBlocks = new ArrayList<String>();
@@ -91,7 +99,22 @@ public class CreateDedline2 extends AppCompatActivity {
         String imageBlock = Objects.requireNonNull(getIntent().getExtras()).getString("ImageBlock");
         System.out.println(taskName);
 
+        getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragmentContainerView2, addTaskForParticipant)
+                                .commit();
+
         binding.nameProject.setText(title);
+
+        binding.addParticipant.setOnClickListener(v -> {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainerView2, addTaskForParticipant)
+                    .commit();
+        });
+        binding.addRole.setOnClickListener(v -> {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainerView2, addTaskForParticipant)
+                    .commit();
+        });
 
         Glide
                 .with(this)
@@ -123,46 +146,7 @@ public class CreateDedline2 extends AppCompatActivity {
             imageBlockArr = imageBlock.split("_/-");
         }
 
-        PostDatas post = new PostDatas();
-        post.postDataGetProjectParticipants("GetPeoplesFromProjects", id, mail, new CallBackInt5() {
-            @Override
-            public void invoke(String s1, String s2, String s3) {
-                String[] ids = s1.split("\uD83D\uDD70");
-                String[] names = s2.split("\uD83D\uDD70");
-                String[] photos = s3.split("\uD83D\uDD70");
 
-                for (int i = 0; i < ids.length; i++) {
-                    View custom = getLayoutInflater().inflate(R.layout.friend_window3, null);
-                    TextView nameu = (TextView) custom.findViewById(R.id.textView3);
-                    ImageView loadImage = (ImageView) custom.findViewById(R.id.log);
-                    ImageView userCircle = (ImageView) custom.findViewById(R.id.user_circle);
-                    TextView project1 = (TextView) custom.findViewById(R.id.projects1);
-                    ImageView messege = (ImageView) custom.findViewById(R.id.notban);
-
-                    userCircle.setVisibility(View.GONE);
-                    project1.setVisibility(View.GONE);
-
-                    Glide
-                            .with(CreateDedline2.this)
-                            .load(photos[i])
-                            .into(loadImage);
-                    nameu.setText(names[i]);
-
-                    int finalI = i;
-
-                    messege.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            idsArr.add(ids[finalI]);
-                            messege.setVisibility(View.GONE);
-                        }
-                    });
-                    binding.main.addView(custom);
-                }
-                View empty = getLayoutInflater().inflate(R.layout.emty_obj, null);
-                binding.main.addView(empty);
-            }
-        });
 
         int i = Calendar.getInstance().get(Calendar.YEAR);
 
@@ -353,6 +337,16 @@ public class CreateDedline2 extends AppCompatActivity {
                         finish();
                     }
                 });
+    }
+
+    public String getMail(){
+        return mail;
+    }
+    public String getId(){
+        return id;
+    }
+    public void addId(String id){
+        idsArr.add(id);
     }
 
     private void setActivityFormat(int score){

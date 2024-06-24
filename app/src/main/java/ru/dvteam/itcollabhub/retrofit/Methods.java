@@ -418,4 +418,8 @@ public interface Methods {
     @FormUrlEncoded
     @POST("/")
     Call<Model> getProjectCode(@Field("Request")String req);
+
+    @FormUrlEncoded
+    @POST("/")
+    Call<Model> getAllNotifications(@Field("Request")String req, @Field("UserMail")String mail);
 }

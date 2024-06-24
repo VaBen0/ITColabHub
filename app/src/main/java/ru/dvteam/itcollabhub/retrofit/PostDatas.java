@@ -1646,4 +1646,41 @@ public class PostDatas {
             }
         });
     }
+
+    public void postDataGetAllNotifications(String req, String mail, CallBackTasksInfo result){
+        Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
+        Call<Model> call = methods.getAllNotifications(req, mail);
+
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, Response<Model> response) {
+                assert response.body() != null;
+                result.invoke(response.body().getName(), response.body().getName1(), response.body().getUrlImg(),
+                        response.body().getUrl());
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void postDataSetNotificationRead(String req, String mail){
+        Methods methods = RetrofitClient.getRetrofitInstance().create(Methods.class);
+        Call<Model> call = methods.getAllNotifications(req, mail);
+
+        call.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, Response<Model> response) {
+                assert response.body() != null;
+
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+
+            }
+        });
+    }
 }

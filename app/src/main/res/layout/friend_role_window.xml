@@ -16,10 +16,22 @@
         app:shapeAppearance="@style/CornerCut2"/>
 
     <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/view13"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/s_gray_transparent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/CornerCut2"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/log"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="17dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="10dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,9 +40,9 @@
 
     <ImageView
         android:id="@+id/user_circle"
-        android:layout_width="34dp"
-        android:layout_height="34dp"
-        android:background="@drawable/circle_blue2"
+        android:layout_width="39dp"
+        android:layout_height="39dp"
+        android:src="?userCircleColor2"
         app:layout_constraintBottom_toBottomOf="@+id/log"
         app:layout_constraintEnd_toEndOf="@+id/log"
         app:layout_constraintStart_toStartOf="@+id/log"
@@ -47,7 +59,7 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:orientation="vertical"
@@ -65,14 +77,14 @@
             android:shadowColor="#000000"
             android:shadowDx="0"
             android:shadowDy="0"
-            android:shadowRadius="2"
+            android:shadowRadius="4"
             android:text="Василий Сергеевич"
             android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textSize="18sp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="14dp">
+            android:layout_height="16dp">
 
             <ImageView
                 android:id="@+id/imageView23"
@@ -88,11 +100,11 @@
                 android:id="@+id/role"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="1dp"
-                android:layout_marginEnd="3dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
                 android:text="Менеджер"
                 android:textColor="@color/white"
-                android:textSize="7sp"
+                android:textSize="8sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/role_circle"
@@ -100,8 +112,8 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/role_circle"
-                android:layout_width="6dp"
-                android:layout_height="6dp"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
                 android:layout_marginStart="3dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

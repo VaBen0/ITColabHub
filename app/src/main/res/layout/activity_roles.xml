@@ -5,15 +5,145 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RolesActivity">
+    tools:context=".view.projectmenusviews.activities.roles.RolesActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/roles_list"
+    <ImageView
+        android:id="@+id/imageView26"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="-100dp"
+        android:background="?userBackgroundColor"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/pr_logo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_second_type"
+        app:shapeAppearance="@style/CornerCutForMini"/>
+
+
+    <TextView
+        android:id="@+id/projectName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@color/transparent"
+        android:text="Имя проекта"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="25sp"
+        android:textStyle="italic|bold"
+
+        app:layout_constraintBottom_toBottomOf="@+id/pr_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pr_logo"
+        app:layout_constraintTop_toTopOf="@+id/pr_logo" />
+
+    <TextView
+        android:id="@+id/textView68"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:text="Роли участников проекта"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="italic|bold"
+        app:layout_constraintStart_toStartOf="@+id/imageView26"
+        app:layout_constraintTop_toBottomOf="@+id/pr_logo" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView68">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/allRoles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:textStyle="bold|italic"
+                android:clickable="true"
+                android:gravity="right"
+                android:paddingEnd="20dp"
+                android:text="Все роли"
+                android:textSize="16sp"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <View
+                android:id="@+id/allRolesLine"
+                android:layout_width="85dp"
+                android:layout_height="3dp"
+                android:layout_gravity="right"
+                android:layout_marginEnd="12dp"
+                android:background="?fragmentLines" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/createRole"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:textStyle="bold|italic"
+                android:clickable="true"
+                android:gravity="left"
+                android:paddingStart="20dp"
+                android:text="Добавить роль"
+                android:textSize="16sp"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <View
+                android:id="@+id/createRoleLine"
+                android:background="?fragmentLines"
+                android:layout_width="85dp"
+                android:layout_height="3dp"
+                android:gravity="left"
+                android:visibility="gone"
+                android:layout_marginStart="29dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/rolesPlace"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:defaultNavHost="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

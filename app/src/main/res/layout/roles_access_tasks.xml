@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ProgressBar
+        android:id="@+id/purposes"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:progressDrawable="@drawable/custom_progress_bar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/CornerCut" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/mainImg"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:elevation="2dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/purposes"
+        android:scaleType="centerCrop"
+        app:shapeAppearance="@style/CornerCutForMini"/>
+
+    <ImageView
+        android:id="@+id/user_circle"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/circle_white"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/mainImg"
+        app:layout_constraintEnd_toEndOf="@+id/mainImg"
+        app:layout_constraintStart_toStartOf="@+id/mainImg"
+        app:layout_constraintTop_toTopOf="@+id/mainImg" />
+
+    <TextView
+        android:id="@+id/main_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="Цели"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/mainImg"
+        app:layout_constraintStart_toEndOf="@+id/mainImg"
+        app:layout_constraintTop_toTopOf="@+id/mainImg" />
+
+    <ImageView
+        android:id="@+id/purposesButtonWatch"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/not_checked_radio_icon"
+        app:layout_constraintStart_toEndOf="@+id/mainImg"
+        app:layout_constraintTop_toBottomOf="@+id/mainImg" />
+
+    <TextView
+        android:id="@+id/purposesButtonWatchText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="Просмотр"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/purposesButtonWatch"
+        app:layout_constraintStart_toEndOf="@+id/purposesButtonWatch"
+        app:layout_constraintTop_toTopOf="@+id/purposesButtonWatch" />
+
+    <ImageView
+        android:id="@+id/purposesButtonEdit"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/not_checked_radio_icon"
+        app:layout_constraintStart_toStartOf="@+id/purposesButtonWatch"
+        app:layout_constraintTop_toBottomOf="@+id/purposesButtonWatch" />
+
+    <TextView
+        android:id="@+id/purposesButtonEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="Выполнение заданий"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/purposesButtonEdit"
+        app:layout_constraintStart_toEndOf="@+id/purposesButtonEdit"
+        app:layout_constraintTop_toTopOf="@+id/purposesButtonEdit" />
+
+    <TextView
+        android:id="@+id/tickedCountPurps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:text="0/2"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/purposes"
+        app:layout_constraintEnd_toEndOf="@+id/purposes"
+        app:layout_constraintTop_toTopOf="@+id/purposes" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

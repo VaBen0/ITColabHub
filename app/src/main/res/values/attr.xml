@@ -29,6 +29,7 @@
     <attr name="userBackgroundColor" format="reference"/>
     <attr name="secondTextColor" format="color"/>
     <attr name="userCircleColor" format="reference"/>
+    <attr name="userCircleColor2" format="reference"/>
     <attr name="circleProgressDrawable" format="reference"/>
     <attr name="circleProgressBackground" format="reference"/>
     <attr name="circleProgressDrawable2" format="reference"/>
@@ -40,4 +41,6 @@
     <attr name="editTextColorRounded" format="reference"/>
     <attr name="lineProgressDrawable2" format="reference"/>
     <attr name="lineProgressBackground2" format="reference"/>
+    <attr name="mainColor" format="color"/>
+    <attr name="pen" format="reference"/>
 </resources>

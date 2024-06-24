@@ -14,12 +14,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 
 import javax.inject.Inject;
 
-import dagger.internal.DaggerCollections;
 import ru.dvteam.itcollabhub.di.component.AppComponent;
 import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
 import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
@@ -89,10 +89,19 @@ public class Profile extends AppCompatActivity {
             profileViewModel.isbanned();
         });
 
+        profileViewModel.getNotificationsIsNot();
+
+        profileViewModel.getNotifications().observe(this, aBoolean -> {
+            if(aBoolean){
+                binding.notificationsActivity.setImageResource(R.drawable.red_notify);
+            }else{
+                binding.notificationsActivity.setImageResource(R.drawable.white_notification);
+            }
+        });
+
         profileViewModel.getBanned().observe(this, aBoolean -> {
             access = !aBoolean;
         });
-
 
         TypedValue typedValue = new TypedValue();
         getTheme().resolveAttribute(R.attr.statusBarColor, typedValue, true);
@@ -107,7 +116,16 @@ public class Profile extends AppCompatActivity {
                 .replace(R.id.profileMenus, fragmentRating)
                 .commit();
 
-
+        binding.refreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        startActivity(getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                        finish();
+                        binding.refreshLayout.setRefreshing(false);
+                    }
+                }
+        );
 
         binding.projects.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,11 +185,11 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-        binding.restart.setOnClickListener(new View.OnClickListener() {
+        binding.notificationsActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                finish();
+                Intent intent = new Intent(Profile.this, NotificationsActivity.class);
+                startActivity(intent);
             }
         });
         binding.projectMenu.setOnClickListener(new View.OnClickListener() {
@@ -280,5 +298,6 @@ public class Profile extends AppCompatActivity {
         super.onRestart();
         sharedPreferenceComponent.inject(this);
         profileViewModel.getProfileInformation(sharedPreferences);
+        profileViewModel.getNotificationsIsNot();
     }
 }

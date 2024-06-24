@@ -10,7 +10,6 @@ public class GlobalProjectInformation {
     private Boolean isEnd = false;
 
     public String getProjectTitle() {
-
         System.out.println(projectTitle);
         return projectTitle;
     }

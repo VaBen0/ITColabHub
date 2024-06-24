@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/view15"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="5dp"
+        android:elevation="2dp"
+        android:background="@color/gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/CornerCut2"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/log"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:elevation="2dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerCrop"
+        app:shapeAppearance="@style/CornerCutForMini"/>
+
+    <ImageView
+        android:id="@+id/user_circle"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/circle_white"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/log"
+        app:layout_constraintEnd_toEndOf="@+id/log"
+        app:layout_constraintStart_toStartOf="@+id/log"
+        app:layout_constraintTop_toTopOf="@+id/log" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="20dp"
+        android:layout_toEndOf="@+id/log"
+        android:elevation="2dp"
+        android:text="Мэнеджер"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tickButton"
+        app:layout_constraintStart_toEndOf="@+id/log"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/tickButton"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
+        android:elevation="2dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/not_checked_radio_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

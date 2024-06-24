@@ -85,24 +85,71 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameProject" />
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date">
 
         <LinearLayout
-            android:id="@+id/main"
-            android:layout_width="match_parent"
+            android:id="@+id/addParticipant"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Участники"
+                android:textSize="16sp"
+                android:textStyle="bold|italic"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <View
+                android:id="@+id/addedParticipantLine"
+                android:layout_width="85dp"
+                android:layout_height="3dp"
+                android:layout_gravity="center"
+                android:background="?fragmentLines"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/addRole"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Роли"
+                android:textSize="16sp"
+                android:textStyle="bold|italic"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <View
+                android:id="@+id/withRolesLine"
+                android:layout_width="85dp"
+                android:layout_height="3dp"
+                android:layout_gravity="center"
+                android:background="?fragmentLines"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <View
         android:id="@+id/view_hide_but"
@@ -170,5 +217,14 @@
         app:layout_constraintStart_toEndOf="@+id/textView60"
         app:layout_constraintTop_toTopOf="@+id/textView60"
         app:srcCompat="?calendar_icon" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

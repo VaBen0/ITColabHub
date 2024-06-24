@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 
@@ -30,6 +31,8 @@ import ru.dvteam.itcollabhub.di.component.DaggerAppComponent;
 import ru.dvteam.itcollabhub.di.modules.SharedPreferencesModule;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
 import ru.dvteam.itcollabhub.view.UsersChosenTheme;
+import ru.dvteam.itcollabhub.view.projectmenusviews.fragments.AddTaskForParticipant;
+import ru.dvteam.itcollabhub.view.projectmenusviews.fragments.AddTaskForRole;
 
 public class PartisipantTasks extends AppCompatActivity {
 
@@ -40,6 +43,8 @@ public class PartisipantTasks extends AppCompatActivity {
     private Boolean click = true;
     public static Activity fa;
     private AppComponent sharedPreferenceComponent;
+    Fragment addTaskForParticipant, addTaskForRole;
+
     @Inject
     SharedPreferences sharedPreferences;
     @Override
@@ -56,16 +61,23 @@ public class PartisipantTasks extends AppCompatActivity {
 
         sharedPreferenceComponent.inject(this);
 
+        addTaskForParticipant = Fragment.instantiate(this, AddTaskForParticipant.class.getName());
+        addTaskForRole = Fragment.instantiate(this, AddTaskForRole.class.getName());
+
         fa = this;
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         mail = sharedPreferences.getString("UserMail", "");
 
-        idsArr = new ArrayList<String>();
-        idsTextBlocks = new ArrayList<String>();
-        idsLinkBlocks = new ArrayList<String>();
-        idsYouTubeBlocks = new ArrayList<String>();
-        idsImageBlocks = new ArrayList<String>();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainerView4, addTaskForParticipant)
+                .commit();
+
+        idsArr = new ArrayList<>();
+        idsTextBlocks = new ArrayList<>();
+        idsLinkBlocks = new ArrayList<>();
+        idsYouTubeBlocks = new ArrayList<>();
+        idsImageBlocks = new ArrayList<>();
 
         id = Objects.requireNonNull(getIntent().getExtras()).getString("projectId");
         title = Objects.requireNonNull(getIntent().getExtras()).getString("projectTitle");
@@ -109,48 +121,6 @@ public class PartisipantTasks extends AppCompatActivity {
             imageBlockArr = imageBlock.split("_/-");
         }
 
-        PostDatas post = new PostDatas();
-        post.postDataGetProjectParticipants("GetPeoplesFromProjects", id, mail, new CallBackInt5() {
-            @Override
-            public void invoke(String s1, String s2, String s3) {
-                String[] ids = s1.split("\uD83D\uDD70");
-                String[] names = s2.split("\uD83D\uDD70");
-                String[] photos = s3.split("\uD83D\uDD70");
-
-                for (int i = 0; i < ids.length; i++) {
-                    View custom = getLayoutInflater().inflate(R.layout.friend_window3, null);
-                    TextView nameu = (TextView) custom.findViewById(R.id.textView3);
-                    ImageView loadImage = (ImageView) custom.findViewById(R.id.log);
-                    ImageView userCircle = (ImageView) custom.findViewById(R.id.user_circle);
-                    TextView project1 = (TextView) custom.findViewById(R.id.projects1);
-                    ImageView messege = (ImageView) custom.findViewById(R.id.notban);
-
-                    userCircle.setVisibility(View.GONE);
-                    project1.setVisibility(View.GONE);
-
-                    Glide
-                            .with(PartisipantTasks.this)
-                            .load(photos[i])
-                            .into(loadImage);
-                    nameu.setText(names[i]);
-
-                    int finalI = i;
-
-                    messege.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            idsArr.add(ids[finalI]);
-                            System.out.println(ids[finalI]);
-                            messege.setVisibility(View.GONE);
-                        }
-                    });
-                    binding.main.addView(custom);
-                }
-                View empty = getLayoutInflater().inflate(R.layout.emty_obj, null);
-                binding.main.addView(empty);
-            }
-        });
-
         binding.uploadTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,6 +141,27 @@ public class PartisipantTasks extends AppCompatActivity {
             }
         });
 
+        binding.addParticipant.setOnClickListener(v -> {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainerView4, addTaskForParticipant)
+                    .commit();
+        });
+
+        binding.addRole.setOnClickListener(v -> {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainerView4, addTaskForRole)
+                    .commit();
+        });
+    }
+
+    public String getMail(){
+        return mail;
+    }
+    public String getId(){
+        return id;
+    }
+    public void addId(String id){
+        idsArr.add(id);
     }
 
     public void createAllTextBlocks(){

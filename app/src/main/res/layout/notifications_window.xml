@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/view14"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/project_friend_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/photoLog"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="13dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/logo_second_type"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/CornerCutALittle" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgLogoOfHub"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="12dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/app_logo"
+        app:layout_constraintBottom_toBottomOf="@+id/photoLog"
+        app:layout_constraintStart_toEndOf="@+id/photoLog"
+        app:shapeAppearance="@style/CornerCutForMini" />
+
+    <ImageView
+        android:id="@+id/user_circle"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/circle_blue2"
+        app:layout_constraintBottom_toBottomOf="@+id/imgLogoOfHub"
+        app:layout_constraintEnd_toEndOf="@+id/imgLogoOfHub"
+        app:layout_constraintStart_toStartOf="@+id/imgLogoOfHub"
+        app:layout_constraintTop_toTopOf="@+id/imgLogoOfHub" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center|left"
+        android:autoSizeMaxTextSize="11sp"
+        android:autoSizeMinTextSize="8sp"
+        android:autoSizeTextType="uniform"
+        android:text="Админус ITCollabHub"
+        android:textColor="@color/black"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgLogoOfHub"
+        app:layout_constraintEnd_toStartOf="@+id/nextButtun"
+        app:layout_constraintStart_toEndOf="@+id/imgLogoOfHub"
+        app:layout_constraintTop_toTopOf="@+id/imgLogoOfHub" />
+
+    <TextView
+        android:id="@+id/notificationName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp"
+        android:text="Nofication Name"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/photoLog"
+        app:layout_constraintTop_toTopOf="@+id/photoLog" />
+
+    <TextView
+        android:id="@+id/notificationsText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="top"
+        android:textSize="15sp"
+        android:text="Some text, which would be place here"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/user_circle"
+        app:layout_constraintEnd_toEndOf="@+id/view14"
+        app:layout_constraintStart_toEndOf="@+id/photoLog"
+        app:layout_constraintTop_toBottomOf="@+id/notificationName" />
+
+    <Button
+        android:id="@+id/nextButtun"
+        android:layout_width="60dp"
+        android:layout_height="27dp"
+        android:backgroundTint="@color/s_gray2"
+        app:cornerRadius="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView13"
+        app:layout_constraintEnd_toEndOf="@+id/notificationsText"
+        app:layout_constraintTop_toTopOf="@+id/textView13" />
+
+    <TextView
+        android:id="@+id/nextText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Перейти"
+        android:textSize="9sp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/nextButtun"
+        app:layout_constraintEnd_toEndOf="@+id/nextButtun"
+        app:layout_constraintStart_toStartOf="@+id/nextButtun"
+        app:layout_constraintTop_toTopOf="@+id/nextButtun" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

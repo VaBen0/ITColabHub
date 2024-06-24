@@ -8,8 +8,11 @@ import ru.dvteam.itcollabhub.callbackclasses.CallBack;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackInt2;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackNotificationsInfo;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackProfileInformation;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackTasksInfo;
 import ru.dvteam.itcollabhub.classmodels.FriendInformation;
+import ru.dvteam.itcollabhub.classmodels.NotificationsInfo;
 import ru.dvteam.itcollabhub.globaldata.GlobalDataScoreProfile;
 import ru.dvteam.itcollabhub.globaldata.MailGlobalInfo;
 import ru.dvteam.itcollabhub.retrofit.PostDatas;
@@ -119,6 +122,21 @@ public class ProfileModel {
             @Override
             public void invoke(String res) {
 
+            }
+        });
+    }
+
+    public void getAllNotifications(CallBackInt callBack){
+        MailGlobalInfo mailGlobalInfo = MailGlobalInfo.getInstance();
+        String mail = mailGlobalInfo.getUserMail();
+        postDatas.postDataGetAllNotifications("GetNotification", mail, new CallBackTasksInfo() {
+            @Override
+            public void invoke(String name, String text, String urlImg, String url) {
+                if(name.equals("Нет")){
+                    callBack.invoke("0");
+                }else{
+                    callBack.invoke("1");
+                }
             }
         });
     }

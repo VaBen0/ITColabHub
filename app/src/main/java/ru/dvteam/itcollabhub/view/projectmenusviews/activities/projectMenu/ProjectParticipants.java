@@ -66,13 +66,7 @@ public class ProjectParticipants extends AppCompatActivity implements ColorPicke
         projectParticipantsViewModel.getProjectUsers();
 
         binding.notification.setOnClickListener(v -> {
-            ColorPickerDialog.newBuilder()
-                    .setColor(Color.RED)
-                    .setDialogType(ColorPickerDialog.TYPE_PRESETS)
-                    .setAllowCustom(true)
-                    .setAllowPresets(true)
-                    .setColorShape(ColorShape.SQUARE)
-                    .show(this);
+
         });
 
         binding.find.setOnClickListener(v -> {

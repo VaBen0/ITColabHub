@@ -21,8 +21,19 @@
         android:theme="@style/Theme.ITCollabHub"
         tools:targetApi="26">
         <activity
-            android:name=".RolesActivity"
+            android:name=".view.projectmenusviews.activities.editRole.EditRoleActivity"
             android:exported="false" />
+        <activity
+            android:name=".view.projectmenusviews.activities.roles.AddPeoplesInRoleFragment"
+            android:exported="false" />
+        <activity
+            android:name=".view.profileviews.activities.NotificationsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.projectmenusviews.activities.roles.RolesActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="portrait"
@@ -95,10 +106,6 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityEndedProject"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".view.forum.CreateArticle"
             android:exported="false"
             android:screenOrientation="portrait" />
@@ -164,10 +171,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.projectmenusviews.activities.projectMenu.AddParticipant"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".TasksActivityProject"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

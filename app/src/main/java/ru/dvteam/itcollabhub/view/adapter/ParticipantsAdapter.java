@@ -60,13 +60,12 @@ public class ParticipantsAdapter extends RecyclerView.Adapter<ParticipantsAdapte
             binding = FriendRoleWindowBinding.bind(itemView);
         }
         public void update(UserInformation userInformation){
-            int h = binding.view12.getHeight();
             int[] colors = {color,Color.parseColor("#00C6A2"), Color.parseColor("#00C6A2")};
             GradientDrawable gd = new GradientDrawable(
                     GradientDrawable.Orientation.TOP_BOTTOM, colors);
             binding.view12.setBackground(gd);
             binding.roleCircle.setBackground(gd);
-            binding.userCircle.setVisibility(View.GONE);
+            //binding.userCircle.setVisibility(View.GONE);
             binding.notban.setVisibility(View.GONE);
             binding.notban.setImageResource(R.drawable.delete_black);
             binding.textView3.setText(userInformation.getUserName());

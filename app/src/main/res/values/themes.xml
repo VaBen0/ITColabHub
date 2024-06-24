@@ -28,6 +28,8 @@
         <item name="logo_type">@drawable/day_app_logo</item>
         <item name="time_icon">@drawable/time</item>
         <item name="calendar_icon">@drawable/calendar</item>
+        <item name="mainColor">@color/black</item>
+        <item name="pen">@drawable/pen_black</item>
     </style>
 
     <style name="Theme.ITCollabHub.New" parent="Base.Theme.ITCollabHub">
@@ -43,6 +45,7 @@
         <item name="userBackgroundColor">@drawable/gradient_blue</item>
         <item name="secondTextColor">@color/blue</item>
         <item name="userCircleColor">@drawable/circle_blue</item>
+        <item name="userCircleColor2">@drawable/circle_blue2</item>
         <item name="circleProgressBackground">@drawable/progress_circle_blue</item>
         <item name="circleProgressDrawable">@drawable/circular_progress_bar_green</item>
         <item name="fragmentLines">@drawable/blue_line</item>
@@ -57,8 +60,9 @@
     <style name="Theme.ITCollabHub.Green" parent="Base.Theme.ITCollabHub">
         <item name="statusBarColor">@color/green</item>
         <item name="userBackgroundColor">@drawable/gradient_green</item>
-        <item name="secondTextColor">@color/green</item>
+        <item name="secondTextColor">@color/green_dark</item>
         <item name="userCircleColor">@drawable/circle_green</item>
+        <item name="userCircleColor2">@drawable/circle_green2</item>
         <item name="circleProgressBackground">@drawable/progress_circle_green</item>
         <item name="circleProgressDrawable">@drawable/circular_progress_bar_brown</item>
         <item name="fragmentLines">@drawable/green_line</item>
@@ -75,6 +79,7 @@
         <item name="userBackgroundColor">@drawable/gradient_brown</item>
         <item name="secondTextColor">@color/brown</item>
         <item name="userCircleColor">@drawable/circle_brown</item>
+        <item name="userCircleColor2">@drawable/circle_brown2</item>
         <item name="circleProgressBackground">@drawable/progress_circle_brown</item>
         <item name="circleProgressDrawable">@drawable/circular_progress_bar_light_gray</item>
         <item name="fragmentLines">@drawable/brown_line</item>
@@ -91,6 +96,7 @@
         <item name="userBackgroundColor">@drawable/gradient_pink_gold</item>
         <item name="secondTextColor">@color/pink_gold</item>
         <item name="userCircleColor">@drawable/circle_pink_gold</item>
+        <item name="userCircleColor2">@drawable/circle_pink_gold2</item>
         <item name="circleProgressBackground">@drawable/progress_circle_light_gray</item>
         <item name="circleProgressDrawable">@drawable/circular_progress_bar_ohra</item>
         <item name="fragmentLines">@drawable/pink_gold_line</item>
@@ -107,6 +113,7 @@
         <item name="userBackgroundColor">@drawable/gradient_ohra</item>
         <item name="secondTextColor">@color/ohra</item>
         <item name="userCircleColor">@drawable/circle_ohra</item>
+        <item name="userCircleColor2">@drawable/circle_ohra2</item>
         <item name="circleProgressBackground">@drawable/progress_circle_ohra</item>
         <item name="circleProgressDrawable">@drawable/circular_progress_bar_red</item>
         <item name="fragmentLines">@drawable/ohra_line</item>
@@ -123,6 +130,7 @@
         <item name="userBackgroundColor">@drawable/gradient_red</item>
         <item name="secondTextColor">@color/red</item>
         <item name="userCircleColor">@drawable/circle_red</item>
+        <item name="userCircleColor2">@drawable/circle_red2</item>
         <item name="circleProgressBackground">@drawable/progress_circle_red</item>
         <item name="circleProgressDrawable">@drawable/circular_progress_bar_orange</item>
         <item name="fragmentLines">@drawable/red_line</item>
@@ -139,6 +147,7 @@
         <item name="userBackgroundColor">@drawable/gradient_orange</item>
         <item name="secondTextColor">@color/orange</item>
         <item name="userCircleColor">@drawable/circle_orange</item>
+        <item name="userCircleColor2">@drawable/circle_orange2</item>
         <item name="circleProgressBackground">@drawable/progress_circle_orange</item>
         <item name="circleProgressDrawable">@drawable/circular_progress_bar_violete</item>
         <item name="fragmentLines">@drawable/orange_line</item>
@@ -155,6 +164,7 @@
         <item name="userBackgroundColor">@drawable/gradient_violete</item>
         <item name="secondTextColor">@color/violete_light</item>
         <item name="userCircleColor">@drawable/circle_violete</item>
+        <item name="userCircleColor2">@drawable/circle_violete2</item>
         <item name="circleProgressBackground">@drawable/progress_circle_violete</item>
         <item name="circleProgressDrawable">@drawable/circular_progress_bar_blue_green</item>
         <item name="fragmentLines">@drawable/violete_line</item>
@@ -171,6 +181,7 @@
         <item name="userBackgroundColor">@drawable/gradient_blue_green</item>
         <item name="secondTextColor">@color/main_green</item>
         <item name="userCircleColor">@drawable/circle_blue_green</item>
+        <item name="userCircleColor2">@drawable/circle_blue_green2</item>
         <item name="circleProgressBackground">@drawable/progress_circle_blue_green</item>
         <item name="circleProgressDrawable">@drawable/circular_progress_bar_blue_green</item>
         <item name="fragmentLines">@drawable/blue_green_line</item>

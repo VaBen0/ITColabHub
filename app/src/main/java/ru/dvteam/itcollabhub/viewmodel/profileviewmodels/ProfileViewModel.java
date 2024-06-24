@@ -11,6 +11,7 @@ import java.util.Objects;
 
 import ru.dvteam.itcollabhub.callbackclasses.CallBack;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
+import ru.dvteam.itcollabhub.callbackclasses.CallBackInt;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackProfileInformation;
 import ru.dvteam.itcollabhub.classmodels.FriendInformation;
 import ru.dvteam.itcollabhub.classmodels.ProfileInformation;
@@ -21,6 +22,7 @@ public class ProfileViewModel extends ViewModel {
     private final ProfileModel profileModel = new ProfileModel();
     private MutableLiveData<Boolean> banned;
     private MutableLiveData<ArrayList<FriendInformation>> friends;
+    private MutableLiveData<Boolean> notifications;
 
     public LiveData<ProfileInformation> getUserAllInfo(){
         if(profileInformation == null){
@@ -29,11 +31,26 @@ public class ProfileViewModel extends ViewModel {
         return profileInformation;
     }
 
+    public LiveData<Boolean> getNotifications(){
+        if(notifications == null){
+            notifications = new MutableLiveData<>();
+        }
+        return notifications;
+    }
+
     public void getProfileInformation(SharedPreferences sPref){
         profileModel.getUserProfileInformation(sPref, new CallBackProfileInformation() {
             @Override
             public void invoke(ProfileInformation profileInform) {
                 profileInformation.setValue(profileInform);
+            }
+        });
+    }
+    public void getNotificationsIsNot(){
+        profileModel.getAllNotifications(new CallBackInt() {
+            @Override
+            public void invoke(String res) {
+                notifications.setValue(res.equals("1"));
             }
         });
     }

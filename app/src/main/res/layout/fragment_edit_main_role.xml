@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.projectmenusviews.activities.editRole.EditMainRoleFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView30"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/shapeableImageView"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="@style/CornerCut" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/shapeableImageView2"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/s_gray_transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="@style/CornerCut" />
+
+            <EditText
+                android:id="@+id/textView65"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="7dp"
+                android:backgroundTint="@color/transparent"
+                android:hint="Название роли"
+                android:paddingTop="0dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="22sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintStart_toStartOf="@+id/shapeableImageView"
+                app:layout_constraintTop_toTopOf="@+id/shapeableImageView" />
+
+            <ImageView
+                android:id="@+id/imageView28"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/pen"
+                app:layout_constraintBottom_toBottomOf="@+id/textView65"
+                app:layout_constraintEnd_toEndOf="@+id/shapeableImageView"
+                app:layout_constraintTop_toTopOf="@+id/textView65" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="3dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/white_line"
+                app:layout_constraintEnd_toEndOf="@+id/shapeableImageView"
+                app:layout_constraintStart_toStartOf="@+id/shapeableImageView"
+                app:layout_constraintTop_toBottomOf="@+id/textView65" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView"
+                app:layout_constraintStart_toStartOf="@+id/shapeableImageView">
+
+                <TextView
+                    android:id="@+id/textView66"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Выбор цвета"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold|italic" />
+
+                <TextView
+                    android:id="@+id/colorCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="#FF0000"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold|italic" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/chooseColor"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/pen"
+                app:layout_constraintBottom_toBottomOf="@+id/linearLayout13"
+                app:layout_constraintEnd_toEndOf="@+id/shapeableImageView"
+                app:layout_constraintTop_toTopOf="@+id/linearLayout13" />
+
+            <ProgressBar
+                android:id="@+id/purposes"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:progressDrawable="@drawable/custom_progress_bar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/shapeableImageView"
+                app:shapeAppearance="@style/CornerCut" />
+
+            <ImageView
+                android:id="@+id/purposesButtonMain"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/not_checked_radio_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/purposes" />
+
+            <TextView
+                android:id="@+id/purposesButtonMainText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Цели"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/purposesButtonMain"
+                app:layout_constraintStart_toEndOf="@+id/purposesButtonMain"
+                app:layout_constraintTop_toTopOf="@+id/purposesButtonMain" />
+
+            <ImageView
+                android:id="@+id/purposesButtonWatch"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/not_checked_radio_icon"
+                app:layout_constraintStart_toEndOf="@+id/purposesButtonMain"
+                app:layout_constraintTop_toBottomOf="@+id/purposesButtonMain" />
+
+            <TextView
+                android:id="@+id/purposesButtonWatchText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Просмотр"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/purposesButtonWatch"
+                app:layout_constraintStart_toEndOf="@+id/purposesButtonWatch"
+                app:layout_constraintTop_toTopOf="@+id/purposesButtonWatch" />
+
+            <ImageView
+                android:id="@+id/purposesButtonEdit"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/not_checked_radio_icon"
+                app:layout_constraintStart_toStartOf="@+id/purposesButtonWatch"
+                app:layout_constraintTop_toBottomOf="@+id/purposesButtonWatch" />
+
+            <TextView
+                android:id="@+id/purposesButtonEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Редактирование"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/purposesButtonEdit"
+                app:layout_constraintStart_toEndOf="@+id/purposesButtonEdit"
+                app:layout_constraintTop_toTopOf="@+id/purposesButtonEdit" />
+
+            <TextView
+                android:id="@+id/tickedCountPurps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="40dp"
+                android:text="0/2"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="@+id/purposes"
+                app:layout_constraintEnd_toEndOf="@+id/purposes"
+                app:layout_constraintTop_toTopOf="@+id/purposes" />
+
+            <ProgressBar
+                android:id="@+id/problems"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:progressDrawable="@drawable/custom_progress_bar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/purposes"
+                app:shapeAppearance="@style/CornerCut" />
+
+            <TextView
+                android:id="@+id/tickedCountProblems"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="40dp"
+                android:text="0/2"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="@+id/problems"
+                app:layout_constraintEnd_toEndOf="@+id/problems"
+                app:layout_constraintTop_toTopOf="@+id/problems" />
+
+            <ImageView
+                android:id="@+id/problemsButtonMain"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/not_checked_radio_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/problems" />
+
+            <TextView
+                android:id="@+id/problemsButtonMainText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:text="Задачи"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/problemsButtonMain"
+                app:layout_constraintStart_toEndOf="@+id/problemsButtonMain"
+                app:layout_constraintTop_toTopOf="@+id/problemsButtonMain" />
+
+            <ImageView
+                android:id="@+id/problemsButtonWatch"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/not_checked_radio_icon"
+                app:layout_constraintStart_toEndOf="@+id/problemsButtonMain"
+                app:layout_constraintTop_toBottomOf="@+id/problemsButtonMain" />
+
+            <TextView
+                android:id="@+id/problemsButtonWatchText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Просмотр"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/problemsButtonWatch"
+                app:layout_constraintStart_toEndOf="@+id/problemsButtonWatch"
+                app:layout_constraintTop_toTopOf="@+id/problemsButtonWatch" />
+
+            <ImageView
+                android:id="@+id/problemsButtonEdit"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/not_checked_radio_icon"
+                app:layout_constraintStart_toStartOf="@+id/problemsButtonWatch"
+                app:layout_constraintTop_toBottomOf="@+id/problemsButtonWatch" />
+
+            <TextView
+                android:id="@+id/problemsButtonEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Редактирование"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/problemsButtonEdit"
+                app:layout_constraintStart_toEndOf="@+id/problemsButtonEdit"
+                app:layout_constraintTop_toTopOf="@+id/problemsButtonEdit" />
+
+            <ProgressBar
+                android:id="@+id/files"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:progressDrawable="@drawable/custom_progress_bar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/problems"
+                app:shapeAppearance="@style/CornerCut" />
+
+            <ImageView
+                android:id="@+id/filesMainButton"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/not_checked_radio_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/files" />
+
+            <TextView
+                android:id="@+id/filesButtonMainText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Файлы проекта"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/filesMainButton"
+                app:layout_constraintStart_toEndOf="@+id/filesMainButton"
+                app:layout_constraintTop_toTopOf="@+id/filesMainButton" />
+
+            <ImageView
+                android:id="@+id/filesWatchButton"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/not_checked_radio_icon"
+                app:layout_constraintStart_toEndOf="@+id/filesMainButton"
+                app:layout_constraintTop_toBottomOf="@+id/filesMainButton" />
+
+            <TextView
+                android:id="@+id/filesButtonWatchText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Просмотр"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/filesWatchButton"
+                app:layout_constraintStart_toEndOf="@+id/filesWatchButton"
+                app:layout_constraintTop_toTopOf="@+id/filesWatchButton" />
+
+            <ImageView
+                android:id="@+id/filesEditButton"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/not_checked_radio_icon"
+                app:layout_constraintStart_toEndOf="@+id/filesMainButton"
+                app:layout_constraintTop_toBottomOf="@+id/filesWatchButton" />
+
+            <TextView
+                android:id="@+id/filesButtonEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Редактирование"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/filesEditButton"
+                app:layout_constraintStart_toEndOf="@+id/filesEditButton"
+                app:layout_constraintTop_toTopOf="@+id/filesEditButton" />
+
+            <TextView
+                android:id="@+id/tickedCountFiles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="40dp"
+                android:text="0/2"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="@+id/files"
+                app:layout_constraintEnd_toEndOf="@+id/files"
+                app:layout_constraintTop_toTopOf="@+id/files" />
+
+            <ProgressBar
+                android:id="@+id/adverts"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:progressDrawable="@drawable/custom_progress_bar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/files"
+                app:shapeAppearance="@style/CornerCut" />
+
+            <ImageView
+                android:id="@+id/advertsMainButton"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/not_checked_radio_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/adverts" />
+
+            <TextView
+                android:id="@+id/advertsButtonMainText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Объявления"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/advertsMainButton"
+                app:layout_constraintStart_toEndOf="@+id/advertsMainButton"
+                app:layout_constraintTop_toTopOf="@+id/advertsMainButton" />
+
+            <ImageView
+                android:id="@+id/advertsWatchButton"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/not_checked_radio_icon"
+                app:layout_constraintStart_toEndOf="@+id/advertsMainButton"
+                app:layout_constraintTop_toBottomOf="@+id/advertsMainButton" />
+
+            <TextView
+                android:id="@+id/advertsButtonWatchText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Просмотр"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/advertsWatchButton"
+                app:layout_constraintStart_toEndOf="@+id/advertsWatchButton"
+                app:layout_constraintTop_toTopOf="@+id/advertsWatchButton" />
+
+            <ImageView
+                android:id="@+id/advertsEditButton"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/not_checked_radio_icon"
+                app:layout_constraintStart_toStartOf="@+id/advertsWatchButton"
+                app:layout_constraintTop_toBottomOf="@+id/advertsWatchButton" />
+
+            <TextView
+                android:id="@+id/advertsButtonEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Просмотр"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/advertsEditButton"
+                app:layout_constraintStart_toEndOf="@+id/advertsEditButton"
+                app:layout_constraintTop_toTopOf="@+id/advertsEditButton" />
+
+            <TextView
+                android:id="@+id/tickedCountAdverts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="40dp"
+                android:text="0/2"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="@+id/adverts"
+                app:layout_constraintEnd_toEndOf="@+id/adverts"
+                app:layout_constraintTop_toTopOf="@+id/adverts" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/shapeableImageView7"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/adverts"
+                app:shapeAppearance="@style/CornerCut" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/next"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/next_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView74"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:text="Далее"
+        android:textSize="25sp"
+        android:textStyle="italic|bold"
+        app:layout_constraintBottom_toBottomOf="@+id/next"
+        app:layout_constraintEnd_toStartOf="@+id/next"
+        app:layout_constraintTop_toTopOf="@+id/next" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/view12"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/gradient_orange"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/CornerCut2" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/view18"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="-8dp"
+        android:visibility="invisible"
+        android:background="@drawable/gradient_orange"
+        app:layout_constraintBottom_toBottomOf="@+id/mainUserName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/CornerCut2" />
+
+    <TextView
+        android:id="@+id/roleName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:text="Участник проекта"
+        android:textStyle="italic|bold"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/view12"
+        app:layout_constraintTop_toTopOf="@+id/view12" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/log"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toEndOf="@+id/view13"
+        app:layout_constraintTop_toBottomOf="@+id/roleName"
+        app:shapeAppearance="@style/CornerCutForMini"
+        app:srcCompat="@drawable/logo" />
+
+    <ImageView
+        android:id="@+id/user_circle"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
+        android:src="@drawable/circle_orange2"
+        app:layout_constraintBottom_toBottomOf="@+id/log"
+        app:layout_constraintEnd_toEndOf="@+id/log"
+        app:layout_constraintStart_toStartOf="@+id/log"
+        app:layout_constraintTop_toTopOf="@+id/log" />
+
+    <View
+        android:id="@+id/view13"
+        android:layout_width="3dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/white_line_shadow"
+        app:layout_constraintBottom_toBottomOf="@+id/log2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/user_circle" />
+
+    <TextView
+        android:id="@+id/mainUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="Василий Сергеевич"
+        android:textSize="17sp"
+        android:shadowColor="@color/text_border_color"
+        android:shadowRadius="3"
+        android:textColor="@color/white"
+        android:textStyle="italic|bold"
+        app:layout_constraintBottom_toBottomOf="@+id/log"
+        app:layout_constraintStart_toEndOf="@+id/user_circle"
+        app:layout_constraintTop_toTopOf="@+id/log" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/log4"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="10dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/log3"
+        app:layout_constraintStart_toStartOf="@+id/log3"
+        app:layout_constraintTop_toTopOf="@+id/log3"
+        app:shapeAppearance="@style/CornerCutForMini"
+        app:srcCompat="@drawable/logo" />
+
+    <ImageView
+        android:id="@+id/user_circle4"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/circle_violete3"
+        app:layout_constraintBottom_toBottomOf="@+id/log4"
+        app:layout_constraintEnd_toEndOf="@+id/log4"
+        app:layout_constraintStart_toStartOf="@+id/log4"
+        app:layout_constraintTop_toTopOf="@+id/log4" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/log3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="10dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/log2"
+        app:layout_constraintStart_toStartOf="@+id/log2"
+        app:layout_constraintTop_toTopOf="@+id/log2"
+        app:shapeAppearance="@style/CornerCutForMini"
+        app:srcCompat="@drawable/logo" />
+
+    <ImageView
+        android:id="@+id/user_circle3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/circle_blue_green3"
+        app:layout_constraintBottom_toBottomOf="@+id/log3"
+        app:layout_constraintEnd_toEndOf="@+id/log3"
+        app:layout_constraintStart_toStartOf="@+id/log3"
+        app:layout_constraintTop_toTopOf="@+id/log3" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/log2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/view12"
+        app:layout_constraintEnd_toEndOf="@+id/log"
+        app:layout_constraintStart_toStartOf="@+id/log"
+        app:layout_constraintTop_toBottomOf="@+id/log"
+        app:shapeAppearance="@style/CornerCutForMini"
+        app:srcCompat="@drawable/logo" />
+
+    <ImageView
+        android:id="@+id/user_circle2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/circle_orange3"
+        app:layout_constraintBottom_toBottomOf="@+id/log2"
+        app:layout_constraintEnd_toEndOf="@+id/log2"
+        app:layout_constraintStart_toStartOf="@+id/log2"
+        app:layout_constraintTop_toTopOf="@+id/log2" />
+
+    <TextView
+        android:id="@+id/countUsers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:shadowColor="@color/text_border_color"
+        android:shadowRadius="3"
+        android:text="И ещё 4 пользователя"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:textStyle="italic|bold"
+        app:layout_constraintBottom_toBottomOf="@+id/log2"
+        app:layout_constraintStart_toStartOf="@+id/log4"
+        app:layout_constraintTop_toTopOf="@+id/log2" />
+
+    <ImageView
+        android:id="@+id/imageView27"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintEnd_toEndOf="@+id/view12"
+        app:layout_constraintTop_toTopOf="@+id/view12"
+        app:srcCompat="@drawable/redaktirovat" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
