@@ -52,4 +52,12 @@
     <color name="light_black">#2C2C2C</color>
     <color name="text_border_color">#303030</color>
     <color name="pink_gold">#D38591</color>
+    <color name="gray_main_activity_pages">#D9D9D9</color>
+    <color name="lol1">#A703CD</color>
+    <color name="lol2">#AD00A1</color>
+    <color name="lol3">#B8147A</color>
+    <color name="lol4">#C32556</color>
+    <color name="lol5">#CA1316</color>
+    <color name="lol6">#D3370E</color>
+
 </resources>

@@ -21,6 +21,10 @@
         android:theme="@style/Theme.ITCollabHub"
         tools:targetApi="26">
         <activity
+            android:name=".MainActivitySecondMenu"
+            android:exported="false"
+            android:theme="@style/Theme.ITCollabHub" />
+        <activity
             android:name=".view.projectmenusviews.activities.editRole.EditRoleActivity"
             android:exported="false" />
         <activity

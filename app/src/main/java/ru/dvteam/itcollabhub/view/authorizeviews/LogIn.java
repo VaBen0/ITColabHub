@@ -1,21 +1,31 @@
 package ru.dvteam.itcollabhub.view.authorizeviews;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import javax.inject.Inject;
 
+import ru.dvteam.itcollabhub.LoginFragment;
+import ru.dvteam.itcollabhub.R;
+import ru.dvteam.itcollabhub.RegisterFragment;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
 import ru.dvteam.itcollabhub.databinding.ActivityLogInBinding;
 import ru.dvteam.itcollabhub.di.component.AppComponent;
@@ -33,9 +43,8 @@ public class LogIn extends AppCompatActivity {
     @Inject
     SharedPreferences sharedPreferences;
 
-    private Boolean correctEmail = false;
-    private Boolean emptyPass = false;
-
+    Fragment registerFragment;
+    Fragment logInFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +54,7 @@ public class LogIn extends AppCompatActivity {
         binding = ActivityLogInBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
-
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         sharedPreferenceComponent = DaggerAppComponent.builder().sharedPreferencesModule(
                 new SharedPreferencesModule(this)).build();
 
@@ -53,95 +62,57 @@ public class LogIn extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
-        Typeface face=Typeface.createFromAsset(getAssets(),"font/ArchitectsDaughter-Regular.ttf");
-        binding.it.setTypeface(face);
-        binding.hub.setTypeface(face);
-        binding.collaborotory.setTypeface(face);
+        registerFragment = Fragment.instantiate(this, RegisterFragment.class.getName());
+        logInFragment = Fragment.instantiate(this, LoginFragment.class.getName());
 
-        initEditTexts();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.register_login_place, logInFragment)
+                .commit();
 
-        viewModel.getEmailValid().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                correctEmail = aBoolean;
-            }
-        });
+        float width = binding.itCollabHubText.getPaint().measureText("ITCollabHub");
 
-        viewModel.getPassNormLength().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                emptyPass = aBoolean;
-            }
-        });
+        Shader textShader1 = new LinearGradient(0, 0, width, binding.itCollabHubText.getTextSize(),
+                new int[]{Color.rgb(199, 8, 225), Color.rgb(236, 54, 75)},
+                null, Shader.TileMode.CLAMP);
 
-        binding.enterBut.setOnClickListener(new View.OnClickListener() {
+        binding.itCollabHubText.getPaint().setShader(textShader1);
+
+        float width2 = binding.itCollabHubText2.getPaint().measureText("Вместе в IT");
+
+        Shader textShader2 = new LinearGradient(0, 0, width2, binding.itCollabHubText2.getTextSize(),
+                new int[]{Color.rgb(246, 168, 253), Color.rgb(207, 177, 241)},
+                null, Shader.TileMode.CLAMP);
+
+        binding.itCollabHubText2.getPaint().setShader(textShader2);
+
+        binding.regBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(!correctEmail){
-                    Toast.makeText(LogIn.this, "Вы ввели не почту", Toast.LENGTH_SHORT).show();
-                }else if(!emptyPass){
-                    Toast.makeText(LogIn.this, "Длина пароля слишком маленькая", Toast.LENGTH_SHORT).show();
-                }else {
-                    viewModel.onLoginClick(sharedPreferences, new CallBackBoolean() {
-                        @Override
-                        public void invoke(Boolean res) {
-                            if (res) {
-                                Toast.makeText(LogIn.this, "Успешно", Toast.LENGTH_SHORT).show();
-
-                                Intent intent = new Intent(LogIn.this, Profile.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                            } else {
-                                Toast.makeText(LogIn.this, "Ошибка", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.register_login_place, registerFragment)
+                        .commit();
+                binding.regBg.setVisibility(View.VISIBLE);
+                binding.logInBg.setVisibility(View.INVISIBLE);
+            }
+        });
+        binding.logInBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.register_login_place, logInFragment)
+                        .commit();
+                binding.logInBg.setVisibility(View.VISIBLE);
+                binding.regBg.setVisibility(View.INVISIBLE);
             }
         });
 
-        binding.regBut.setOnClickListener(v -> {
-            Intent intent = new Intent(LogIn.this, Register.class);
-            startActivity(intent);
-        });
 
-        binding.forgotBut.setOnClickListener(v -> {
-            Intent intent = new Intent(LogIn.this, Forgot.class);
-            startActivity(intent);
-        });
     }
 
-    public void initEditTexts(){
-        binding.mailu.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                viewModel.setEmail(binding.mailu.getText().toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-
-        binding.passu.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                viewModel.setPass(binding.passu.getText().toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
+    public SharedPreferences getSharedPreferences(){
+        return sharedPreferences;
     }
 }

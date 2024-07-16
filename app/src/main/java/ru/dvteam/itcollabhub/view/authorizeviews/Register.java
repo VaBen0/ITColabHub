@@ -5,11 +5,16 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
@@ -25,7 +30,9 @@ public class Register extends AppCompatActivity {
 
     private Boolean correctlyEmail = false,
             correctlyPass = false,
-            correctlyPassAgain = false;
+            correctlyPassAgain = false,
+            shown = false,
+            shown2 = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,46 +42,102 @@ public class Register extends AppCompatActivity {
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
-
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         registerViewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
 
         initEditTexts();
 
-        Typeface face=Typeface.createFromAsset(getAssets(),"font/ArchitectsDaughter-Regular.ttf");
-        binding.it.setTypeface(face);
-        binding.hub.setTypeface(face);
-        binding.collaborotory.setTypeface(face);
+        float width = binding.itCollabHubText.getPaint().measureText("ITCollabHub");
+
+        Shader textShader1 = new LinearGradient(0, 0, width, binding.itCollabHubText.getTextSize(),
+                new int[]{Color.rgb(199, 8, 225), Color.rgb(236, 54, 75)},
+                null, Shader.TileMode.CLAMP);
+
+        binding.itCollabHubText.getPaint().setShader(textShader1);
+
+        float width2 = binding.itCollabHubText2.getPaint().measureText("Вместе в IT");
+
+        Shader textShader2 = new LinearGradient(0, 0, width2, binding.itCollabHubText2.getTextSize(),
+                new int[]{Color.rgb(246, 168, 253), Color.rgb(207, 177, 241)},
+                null, Shader.TileMode.CLAMP);
+
+        binding.itCollabHubText2.getPaint().setShader(textShader2);
+
+        float width3 = binding.version.getPaint().measureText("1.0.0");
+
+        Shader textShader3 = new LinearGradient(0, 0, width3, binding.version.getTextSize(),
+                new int[]{Color.rgb(119, 96, 212), Color.rgb(37, 201, 159)},
+                null, Shader.TileMode.CLAMP);
+
+        binding.version.getPaint().setShader(textShader3);
+
+        float width4 = binding.stadium.getPaint().measureText("Beta");
+
+        Shader textShader4 = new LinearGradient(0, 0, width4, binding.stadium.getTextSize(),
+                new int[]{Color.rgb(119, 96, 212), Color.rgb(37, 201, 159)},
+                null, Shader.TileMode.CLAMP);
+
+        binding.stadium.getPaint().setShader(textShader4);
 
         registerViewModel.getCorrectlyEmailAddress().observe(this, aBoolean -> {
-            if(aBoolean){
-                binding.rightEmail.setText("");
-                correctlyEmail = true;
-            }else{
-                binding.rightEmail.setText("Вы ввели не почту");
-                binding.rightEmail.setTextColor(getResources().getColor(R.color.red));
-                correctlyEmail = false;
+            if(!binding.passu.getText().toString().isEmpty()) {
+                if (aBoolean) {
+                    binding.mailuBg.setBackgroundColor(getResources().getColor(R.color.green));
+                    correctlyEmail = true;
+                } else {
+                    binding.mailuBg.setBackgroundColor(getResources().getColor(R.color.dark_theme));
+                    correctlyEmail = false;
+                }
             }
         });
 
         registerViewModel.getCorrectlyPassword().observe(this, aBoolean -> {
             if(aBoolean){
-                binding.rightPass.setText("");
+                binding.passuBg.setBackgroundColor(getResources().getColor(R.color.green));
                 correctlyPass = true;
             }else{
-                binding.rightPass.setText("Слишком короткий пароль");
-                binding.rightPass.setTextColor(getResources().getColor(R.color.red));
+                binding.passuBg.setBackgroundColor(getResources().getColor(R.color.dark_theme));
                 correctlyPass = false;
             }
         });
 
         registerViewModel.getCorrectlyPasswordAgain().observe(this, aBoolean -> {
             if(aBoolean){
-                binding.rightPassAgain.setText("");
+                binding.rightPassuBg.setBackgroundColor(getResources().getColor(R.color.green));
                 correctlyPassAgain = true;
             }else{
-                binding.rightPassAgain.setText("Пароли не совпадают");
-                binding.rightPassAgain.setTextColor(getResources().getColor(R.color.red));
+                binding.rightPassuBg.setBackgroundColor(getResources().getColor(R.color.dark_theme));
                 correctlyPassAgain = false;
+            }
+        });
+
+        binding.hideShowPass2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!shown){
+                    shown = true;
+                    binding.passuAgain.setInputType(InputType.TYPE_CLASS_TEXT);
+                    binding.hideShowPass2.setImageResource(R.drawable.hide);
+                }else{
+                    shown = false;
+                    binding.passuAgain.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    binding.hideShowPass2.setImageResource(R.drawable.view);
+                }
+            }
+        });
+
+        binding.hideShowPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!shown2){
+                    shown2 = true;
+                    binding.passu.setInputType(InputType.TYPE_CLASS_TEXT);
+                    binding.hideShowPass.setImageResource(R.drawable.hide);
+                }else{
+                    shown2 = false;
+                    binding.passu.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    binding.hideShowPass.setImageResource(R.drawable.view);
+                }
             }
         });
 
@@ -135,7 +198,7 @@ public class Register extends AppCompatActivity {
             }
         });
 
-        binding.passuagain.addTextChangedListener(new TextWatcher() {
+        binding.passuAgain.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 

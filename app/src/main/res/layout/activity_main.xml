@@ -6,131 +6,333 @@
     android:layout_height="match_parent"
     tools:context=".view.MainActivity">
 
-    <TextView
-        android:id="@+id/hello"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/shapeableImageView3"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_marginTop="12dp"
-        android:autoSizeMaxTextSize="50sp"
-        android:autoSizeMinTextSize="12sp"
-        android:autoSizeStepGranularity="2sp"
-        android:autoSizeTextType="uniform"
-        android:paddingStart="20dp"
-        android:text="Доброго времени суток!"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/lets_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20sp"
-        android:text="Давайте начнём!"
-        android:textSize="22sp"
-        app:layout_constraintTop_toBottomOf="@+id/hello"
-        app:layout_constraintLeft_toLeftOf="parent"/>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/log"
-        android:layout_width="285dp"
-        android:layout_height="285dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        app:cardCornerRadius="300dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lets_start">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="?logo_type"/>
-    </androidx.cardview.widget.CardView>
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="409dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="1dp"
-        android:gravity="center"
-        android:orientation="horizontal"
+        android:layout_height="match_parent"
+        android:src="@drawable/main_ativity_gradient"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/log">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/it"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="700dp"
+        android:layout_height="700dp"
+        android:layout_marginStart="-65dp"
+        android:layout_marginTop="-380dp"
+        android:rotation="10"
+        android:src="@drawable/circle_main_activity1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/shapeableImageView3" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="650dp"
+        android:layout_height="650dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="-50dp"
+        android:rotation="90"
+        android:src="@drawable/circle_main_activity2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/shapeableImageView3" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="650dp"
+        android:layout_height="650dp"
+        android:layout_marginStart="-300dp"
+        android:layout_marginBottom="-410dp"
+        android:rotation="20"
+        android:src="@drawable/circle_main_activity3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/shapeableImageView4"
+        android:layout_width="170dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="50dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/CornerCut1" />
+
+    <TextView
+        android:id="@+id/textView79"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="ITCollabHub"
+        android:textColor="@color/black"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView4"
+        app:layout_constraintEnd_toEndOf="@+id/shapeableImageView4"
+        app:layout_constraintStart_toStartOf="@+id/shapeableImageView4"
+        app:layout_constraintTop_toTopOf="@+id/shapeableImageView4" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-55dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/shapeableImageView5"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:background="@drawable/first_place_main_gradient"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="@style/MainActivityPlacesForText" />
+
+            <TextView
+                android:id="@+id/textView80"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="start|center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="Создавай"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView5"
+                app:layout_constraintEnd_toEndOf="@+id/shapeableImageView5"
+                app:layout_constraintStart_toStartOf="@+id/shapeableImageView5"
+                app:layout_constraintTop_toTopOf="@+id/shapeableImageView5" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="IT"
-            android:textSize="33sp" />
+            android:layout_marginTop="10dp">
 
-        <TextView
-            android:id="@+id/collaborotory"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/shapeableImageView6"
+                android:layout_width="205dp"
+                android:layout_height="50dp"
+                android:background="@drawable/second_place_main_gradient"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="@style/MainActivityPlacesForText" />
+
+            <TextView
+                android:id="@+id/textView81"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="start|center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="Сотрудничай"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView6"
+                app:layout_constraintEnd_toEndOf="@+id/shapeableImageView6"
+                app:layout_constraintStart_toStartOf="@+id/shapeableImageView6"
+                app:layout_constraintTop_toTopOf="@+id/shapeableImageView6" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Collab"
-            android:textColor="@color/main_green"
-            android:textSize="33sp" />
+            android:layout_marginTop="10dp">
 
-        <TextView
-            android:id="@+id/hub"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hub"
-            android:textSize="33sp" />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/shapeableImageView7"
+                android:layout_width="275dp"
+                android:layout_height="50dp"
+                android:background="@drawable/third_place_main_gradient"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="@style/MainActivityPlacesForText" />
+
+            <TextView
+                android:id="@+id/textView82"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="start|center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="Совершенствуйся"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView7"
+                app:layout_constraintEnd_toEndOf="@+id/shapeableImageView7"
+                app:layout_constraintStart_toStartOf="@+id/shapeableImageView7"
+                app:layout_constraintTop_toTopOf="@+id/shapeableImageView7" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
     <TextView
-        android:id="@+id/slova"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:text="Создавай. Сотрудничай. Совершенствуйся. Вместе в IT."
-        android:gravity="center"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <TextView
-        android:id="@+id/sill"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/textView83"
+        android:layout_width="350dp"
+        android:layout_height="45dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:text="• О приложении\n• Условие использования\n• Политика конфиденциальности\n• Другое"
-        android:textSize="15sp"
-        android:textColor="#1f57db"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/slova"
-        tools:ignore="TextSizeCheck" />
-
-    <Button
-        android:id="@+id/nextBut"
-        android:layout_width="285dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="25dp"
-        android:backgroundTint="@color/main_green"
-        android:text="Продолжить"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/ofont_blazma"
+        android:autoSizeMaxTextSize="37sp"
+        android:autoSizeMinTextSize="34sp"
+        android:autoSizeTextType="uniform"
+        android:gravity="bottom"
+        android:text="Добро пожаловать"
         android:textColor="@color/white"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sill" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout14" />
 
     <TextView
-        android:id="@+id/ver"
+        android:id="@+id/textView84"
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="-5dp"
+        android:text="в"
+        android:fontFamily="@font/ofont_blazma"
+        android:textColor="@color/white"
+        android:autoSizeMaxTextSize="37sp"
+        android:autoSizeMinTextSize="34sp"
+        android:autoSizeTextType="uniform"
+        app:layout_constraintStart_toStartOf="@+id/textView83"
+        app:layout_constraintTop_toBottomOf="@+id/textView83" />
+
+    <TextView
+        android:id="@+id/ITCollabHub"
+        android:layout_width="250dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="-5dp"
+        android:text="ITCollabHub!"
+        android:textColor="@color/white"
+        android:autoSizeMaxTextSize="37sp"
+        android:autoSizeMinTextSize="34sp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/ofont_blazma"
+        app:layout_constraintStart_toEndOf="@+id/textView84"
+        app:layout_constraintTop_toBottomOf="@+id/textView83" />
+
+    <TextView
+        android:id="@+id/togetherText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="12dp"
-        android:text="1.0.0"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nextBut" />
+        android:text="Вместе в IT"
+        android:textColor="@color/pink_gold"
+        android:textSize="28sp"
+        android:fontFamily="@font/ofont_blazma"
+        app:layout_constraintStart_toStartOf="@+id/textView84"
+        app:layout_constraintTop_toBottomOf="@+id/ITCollabHub" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/nextBut"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/shapeableImageView10"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:src="@drawable/button_main_gradient"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearance="@style/CornerCut1" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/shapeableImageView11"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/arrow_next_page"
+            app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/shapeableImageView10" />
+
+        <TextView
+            android:id="@+id/textView88"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="5dp"
+            android:gravity="start|center"
+            android:text="Далее"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/ofont_blazma"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/shapeableImageView11"
+            app:layout_constraintStart_toStartOf="@+id/shapeableImageView10"
+            app:layout_constraintTop_toTopOf="@+id/shapeableImageView10" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        app:layout_constraintBottom_toBottomOf="@+id/nextBut"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/nextBut">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/shapeableImageView12"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:rotation="20"
+            android:src="@drawable/circle_main_activity3_2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView12"
+            app:layout_constraintStart_toEndOf="@+id/shapeableImageView12"
+            app:layout_constraintTop_toTopOf="@+id/shapeableImageView12">
+
+            <TextView
+                android:id="@+id/version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ofont_blazma"
+                android:text="1.0.0"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/stadium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ofont_blazma"
+                android:text="Beta"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

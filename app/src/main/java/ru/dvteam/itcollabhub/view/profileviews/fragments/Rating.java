@@ -19,7 +19,6 @@ import ru.dvteam.itcollabhub.viewmodel.profileviewmodels.ProfileViewModel;
 
 public class Rating extends Fragment {
     private int max, min;
-    private int selectedColor, num;
 
     FragmentRatingBinding binding;
     ProfileViewModel profileViewModel;
@@ -69,7 +68,6 @@ public class Rating extends Fragment {
                 status = "Пользователь розового золота";
             }
             else if(score < 7000){
-                selectedColor = Color.parseColor("#FF0000");
                 binding.nextstatus.setText("Следующая цель: Гранд-пользователь I");
                 max = 7000;
                 min = 2500;

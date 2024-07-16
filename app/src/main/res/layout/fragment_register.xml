@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".RegisterFragment">
+
+    <TextView
+        android:id="@+id/textView94"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="26dp"
+        android:fontFamily="@font/ofont_blazma"
+        android:text="Адрес электронной почты"
+        android:textColor="@color/white"
+        android:textSize="21sp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/mailuBg"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/dark_theme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView94"
+        app:shapeAppearance="@style/CornerCutLittle2" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/mailu"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/progress_panels_log_in_background2"
+        android:fontFamily="@font/ofont_blazma"
+        android:hint="Ваш EMAIL"
+        android:paddingStart="11dp"
+        android:paddingEnd="11dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="21sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/mailuBg"
+        app:layout_constraintEnd_toEndOf="@+id/mailuBg"
+        app:layout_constraintStart_toStartOf="@+id/mailuBg"
+        app:layout_constraintTop_toTopOf="@+id/mailuBg" />
+
+    <TextView
+        android:id="@+id/textView100"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="19dp"
+        android:fontFamily="@font/ofont_blazma"
+        android:text="Пароль"
+        android:textColor="@color/white"
+        android:textSize="21sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mailuBg" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/passuBg"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/dark_theme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView100"
+        app:shapeAppearance="@style/CornerCutLittle2" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/passu"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/progress_panels_log_in_background"
+        android:fontFamily="@font/ofont_blazma"
+        android:hint="Введите пароль"
+        android:inputType="textPassword"
+        android:paddingStart="11dp"
+        android:paddingEnd="11dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="21sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/passuBg"
+        app:layout_constraintEnd_toEndOf="@+id/passuBg"
+        app:layout_constraintStart_toStartOf="@+id/passuBg"
+        app:layout_constraintTop_toTopOf="@+id/passuBg" />
+
+    <ImageView
+        android:id="@+id/hideShowPass"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/passuBg"
+        app:layout_constraintEnd_toEndOf="@+id/passuBg"
+        app:layout_constraintTop_toTopOf="@+id/passuBg"
+        android:src="@drawable/view" />
+
+    <TextView
+        android:id="@+id/textView101"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="19dp"
+        android:fontFamily="@font/ofont_blazma"
+        android:text="Повторите пароль"
+        android:textColor="@color/white"
+        android:textSize="21sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passuBg" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/rightPassuBg"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/dark_theme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView101"
+        app:shapeAppearance="@style/CornerCutLittle2" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/passuAgain"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/progress_panels_log_in_background"
+        android:fontFamily="@font/ofont_blazma"
+        android:hint="Повторите пароль"
+        android:inputType="textPassword"
+        android:paddingStart="11dp"
+        android:paddingEnd="11dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="21sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/rightPassuBg"
+        app:layout_constraintEnd_toEndOf="@+id/rightPassuBg"
+        app:layout_constraintStart_toStartOf="@+id/rightPassuBg"
+        app:layout_constraintTop_toTopOf="@+id/rightPassuBg" />
+
+    <ImageView
+        android:id="@+id/hideShowPass2"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rightPassuBg"
+        app:layout_constraintEnd_toEndOf="@+id/rightPassuBg"
+        app:layout_constraintTop_toTopOf="@+id/rightPassuBg"
+        android:src="@drawable/view" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/shapeableImageView12"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:rotation="20"
+            android:src="@drawable/circle_main_activity3_2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView12"
+            app:layout_constraintStart_toEndOf="@+id/shapeableImageView12"
+            app:layout_constraintTop_toTopOf="@+id/shapeableImageView12">
+
+            <TextView
+                android:id="@+id/version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ofont_blazma"
+                android:text="1.0.0"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/stadium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ofont_blazma"
+                android:text="Beta"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/Reg"
+            android:layout_width="330dp"
+            android:layout_height="54dp"
+            android:background="@drawable/main_gradient4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearance="@style/CornerCut1" />
+
+        <TextView
+            android:id="@+id/textView96"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Продолжить"
+            android:textColor="@color/white"
+            android:fontFamily="@font/ofont_blazma"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="@+id/Reg"
+            app:layout_constraintEnd_toEndOf="@+id/Reg"
+            app:layout_constraintStart_toStartOf="@+id/Reg"
+            app:layout_constraintTop_toTopOf="@+id/Reg" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

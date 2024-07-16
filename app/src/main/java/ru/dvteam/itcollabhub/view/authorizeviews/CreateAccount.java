@@ -16,12 +16,16 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 import ru.dvteam.itcollabhub.callbackclasses.CallBackBoolean;
 import ru.dvteam.itcollabhub.databinding.ActivityCreateAccountBinding;
@@ -35,7 +39,6 @@ public class CreateAccount extends AppCompatActivity {
     ActivityCreateAccountBinding binding;
     CreateAccountViewModel createAccountViewModel;
     private static final int PICK_IMAGES_CODE = 0;
-    private String mediaPath;
     private Boolean access = false, accessName = false;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     ActivityResultLauncher<Intent> resultLauncher;
@@ -48,15 +51,48 @@ public class CreateAccount extends AppCompatActivity {
         binding = ActivityCreateAccountBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         createAccountViewModel = new ViewModelProvider(this).get(CreateAccountViewModel.class);
         registerResult();
         initEditText();
 
+        float width = binding.itCollabHubText.getPaint().measureText("ITCollabHub");
+
+        Shader textShader1 = new LinearGradient(0, 0, width, binding.itCollabHubText.getTextSize(),
+                new int[]{Color.rgb(199, 8, 225), Color.rgb(236, 54, 75)},
+                null, Shader.TileMode.CLAMP);
+
+        binding.itCollabHubText.getPaint().setShader(textShader1);
+
+        float width2 = binding.itCollabHubText2.getPaint().measureText("Вместе в IT");
+
+        Shader textShader2 = new LinearGradient(0, 0, width2, binding.itCollabHubText2.getTextSize(),
+                new int[]{Color.rgb(246, 168, 253), Color.rgb(207, 177, 241)},
+                null, Shader.TileMode.CLAMP);
+
+        binding.itCollabHubText2.getPaint().setShader(textShader2);
+
+        float width3 = binding.version.getPaint().measureText("1.0.0");
+
+        Shader textShader3 = new LinearGradient(0, 0, width3, binding.version.getTextSize(),
+                new int[]{Color.rgb(119, 96, 212), Color.rgb(37, 201, 159)},
+                null, Shader.TileMode.CLAMP);
+
+        binding.version.getPaint().setShader(textShader3);
+
+        float width4 = binding.stadium.getPaint().measureText("Beta");
+
+        Shader textShader4 = new LinearGradient(0, 0, width4, binding.stadium.getTextSize(),
+                new int[]{Color.rgb(119, 96, 212), Color.rgb(37, 201, 159)},
+                null, Shader.TileMode.CLAMP);
+
+        binding.stadium.getPaint().setShader(textShader4);
+
         if(android.os.Build.VERSION.SDK_INT >= 33) {
-            binding.loadImg.setOnClickListener(view -> pickImage());
+            binding.log.setOnClickListener(view -> pickImage());
         }
         else{
-            binding.loadImg.setOnClickListener(new View.OnClickListener() {
+            binding.log.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (ContextCompat.checkSelfPermission(CreateAccount.this, Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -80,11 +116,10 @@ public class CreateAccount extends AppCompatActivity {
 
         createAccountViewModel.getCorrectlyName().observe(this, aBoolean -> {
             if(aBoolean){
-                binding.checkName.setText("");
+                binding.nameuBg.setBackgroundColor(getResources().getColor(R.color.dark_theme));
                 accessName = true;
             }else{
-                binding.checkName.setText("Имя не соответствующей длины");
-                binding.checkName.setTextColor(getResources().getColor(R.color.red));
+                binding.nameuBg.setBackgroundColor(getResources().getColor(R.color.red));
                 accessName = false;
             }
         });
@@ -147,7 +182,7 @@ public class CreateAccount extends AppCompatActivity {
 
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                 createAccountViewModel.setImage(cursor.getString(columnIndex));
-                binding.loadImg.setImageURI(imageUri);
+                binding.log.setImageURI(imageUri);
                 cursor.close();
             }
 
@@ -170,7 +205,7 @@ public class CreateAccount extends AppCompatActivity {
 
                             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                             createAccountViewModel.setImage(cursor.getString(columnIndex));
-                            binding.loadImg.setImageURI(imageUri);
+                            binding.log.setImageURI(imageUri);
                             cursor.close();
 
                         }catch (Exception e){

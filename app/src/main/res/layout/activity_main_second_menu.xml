@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".MainActivitySecondMenu">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/shapeableImageView3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/main_ativity_gradient"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="50"
+        android:src="@drawable/welcome_screen_2"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="700dp"
+        android:layout_height="700dp"
+        android:layout_marginStart="-485dp"
+        android:layout_marginTop="-380dp"
+        android:rotation="10"
+        android:src="@drawable/circle_main_activity1_transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/shapeableImageView3" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="650dp"
+        android:layout_height="650dp"
+        android:layout_marginStart="-260dp"
+        android:layout_marginTop="-50dp"
+        android:rotation="90"
+        android:src="@drawable/circle_main_activity2_transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/shapeableImageView3" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="650dp"
+        android:layout_height="650dp"
+        android:layout_marginStart="165dp"
+        android:layout_marginTop="-459dp"
+        android:rotation="0"
+        android:src="@drawable/circle_main_activity4_transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/shapeableImageView3" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/shapeableImageView13"
+        android:layout_width="750dp"
+        android:layout_height="750dp"
+        android:layout_marginStart="145dp"
+        android:layout_marginBottom="-340dp"
+        android:rotation="20"
+        android:src="@drawable/circle_main_activity3_transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView29"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/shapeableImageView3"
+        app:srcCompat="@drawable/new_app_logo" />
+
+    <TextView
+        android:id="@+id/itCollabHubText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/ofont_blazma"
+        android:text="ITCollabHub"
+        android:textColor="@color/white"
+        android:textSize="54sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView29" />
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="-15dp"
+        android:src="@drawable/violete_star"
+        app:layout_constraintBottom_toTopOf="@+id/itCollabHubText"
+        app:layout_constraintStart_toEndOf="@+id/itCollabHubText" />
+
+    <TextView
+        android:id="@+id/itCollabHubText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-7dp"
+        android:fontFamily="@font/ofont_blazma"
+        android:text="Вместе в IT"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toEndOf="@+id/shapeableImageView3"
+        app:layout_constraintStart_toStartOf="@+id/shapeableImageView3"
+        app:layout_constraintTop_toBottomOf="@+id/itCollabHubText" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/nextMail"
+        android:layout_width="330dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/button_main_gradient"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itCollabHubText2"
+        app:shapeAppearance="@style/CornerCut1" />
+
+    <TextView
+        android:id="@+id/textView87"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ofont_blazma"
+        android:text="Продолжить с email"
+        android:textColor="@color/white"
+        android:textSize="27sp"
+        app:layout_constraintBottom_toBottomOf="@+id/nextMail"
+        app:layout_constraintEnd_toEndOf="@+id/nextMail"
+        app:layout_constraintStart_toStartOf="@+id/nextMail"
+        app:layout_constraintTop_toTopOf="@+id/nextMail" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/shapeableImageView11"
+        android:layout_width="330dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="24dp"
+        android:src="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nextMail"
+        app:shapeAppearance="@style/CornerCut1" />
+
+    <TextView
+        android:id="@+id/textView88"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/ofont_blazma"
+        android:text="Продолжить с Google"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView31"
+        app:layout_constraintEnd_toEndOf="@+id/shapeableImageView11"
+        app:layout_constraintStart_toEndOf="@+id/imageView31"
+        app:layout_constraintTop_toTopOf="@+id/imageView31"
+        app:layout_constraintVertical_bias="0.428" />
+
+    <ImageView
+        android:id="@+id/imageView31"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView11"
+        app:layout_constraintStart_toStartOf="@+id/shapeableImageView11"
+        app:layout_constraintTop_toTopOf="@+id/shapeableImageView11"
+        app:srcCompat="@drawable/gogologo" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/shapeableImageView12"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:rotation="20"
+            android:src="@drawable/circle_main_activity3_2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView12"
+            app:layout_constraintStart_toEndOf="@+id/shapeableImageView12"
+            app:layout_constraintTop_toTopOf="@+id/shapeableImageView12">
+
+            <TextView
+                android:id="@+id/version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ofont_blazma"
+                android:text="1.0.0"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/stadium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ofont_blazma"
+                android:text="Beta"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
